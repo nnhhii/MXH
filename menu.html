@@ -1,209 +1,380 @@
-
 <style>
-    .layout_menu_tren{
+    body{
+        margin:0;
+    }
+    .menu_tren{
         width:100%;
-        height:70px;
-        background:blue;
+        height:60px;
         position:fixed;
+        background-color:rgb(195, 165, 137);
         z-index:1;
         top:0
     }
-    .logo{
-        width:50px;
-        height:50px;
+    .menu_tren > .logo{
+        width:45px;
+        height:45px;
         background-image: url('https://yeuchaybo.com/wp-content/uploads/2014/07/nike.jpg');
         background-size: cover;
-        background-position: center;
         border-radius: 50%;
-        margin:10px;
+        margin:7px 0 5px 10px;
         float: left
-}
-    .ten_logo{
-        width:10%;
-        background:gray;
-        color:white;
-        float:left;
-        padding:15px;
-        margin:10px
     }
-    .tim_kiem{
+    .menu_tren > .ten_logo{
+        width:10%;
+        color:#4a3420;
+        float:left;
+        padding:5px;
+        margin:8px;
+        font-family: "Sofia", sans-serif;
+        font-size: 20px;
+    }
+    .menu_tren > .layout_tim_kiem{
         width:40%;
-        height: 50px;
-        background:pink;
         float:left;
         margin: 10px 0 0 12%;
+        position: relative;
+    }
+    .menu_tren > .layout_tim_kiem > input{
+        width:100%;
+        height: 40px;
+        background:#fff3e8;
+        padding-left: 45px;
         border-radius: 20px;
+        border: none;
     }
-    .kinh_lup{
-        width:40px;
-        height:40px;
-        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmYKm4sQ4XJnqE5NQ1T3JVDJT5ySfcbCTohQFTuxrcHg&s') ;
+    .menu_tren > .layout_tim_kiem > .kinh_lup{
+        color: #715133;
+        margin: 2% 0 0 1%;
+        position: absolute;
+        left:10px
+    }
+    .menu_tren > a >.mess{
+        scale: 1.5;
+        color: #3a1d00;
+        position: absolute;
+        right:135px;
+        top:10px;
+        padding:12px;
+        cursor: pointer;
+    }
+    .menu_tren > .thong_bao{
+        scale: 1.5;
+        color: #3a1d00;
+        position: absolute;
+        right:85px;
+        top:10px;
+        padding:12px;
+        cursor: pointer;
+    }
+    .menu_tren > .trang_ca_nhan{
+        width:35px;
+        height:35px;
+        background-image: url('https://th.bing.com/th/id/OIP.R_VSj3S9jJBIz31hmPBQDAAAAA?w=256&h=256&rs=1&pid=ImgDetMain');
         background-size: cover;
-        background-position: center;
         border-radius: 50%;
-        margin: 1% 0 0 1%;
-        float: left
+        position: absolute;
+        top:12px;
+        right:30px;
     }
-    .mess{
-        width:50px;
-        height:50px;
-        background-image: url('https://cdn.tgdd.vn/hoi-dap/929605/cach-tat-tu-dong-luu-anh-tren-messenger-100.jpg') ;
-        background-size: cover;
-        background-position: center;
-        border-radius: 50%;
-        margin:10px 0 0 16%;
-        float: left
-    }
-    .thong_bao{
-        width:50px;
-        height:50px;
-        background-image: url('https://png.pngtree.com/png-vector/20191110/ourlarge/pngtree-bell-alarm-line-icon-vector-png-image_1978368.jpg') ;
-        background-size: cover;
-        background-position: center;
-        border-radius: 50%;
-        margin:10px 0 0 1%;
-        float: left
-    }
-    .trang_ca_nhan{
-        width:50px;
-        height:50px;
-        background-image: url('https://png.pngtree.com/png-vector/20191110/ourlarge/pngtree-bell-alarm-line-icon-vector-png-image_1978368.jpg') ;
-        background-size: cover;
-        background-position: center;
-        border-radius: 50%;
-        margin:10px 0 0 3%;
-        float: left
-    }
-    
     .menu_trai{
-        width:20%;
+        width:303px;
         height:700px;
-        background:red;
         position:fixed;
         top:70px;
+        border-right: rgb(191, 190, 190) solid 1px;
+    }
+    .menu_trai > .layout_logo1, .layout_logo1{
+        height:65px;
+        position: relative;
+        cursor: pointer;
+        color: #4a3420;
+    }
+    .menu_trai >.layout_logo1:hover{
+        background-color:#fbf0e4;
+        border-radius: 5px;
+        transform: scale(1.005);
+        transition: 0.3s;
+        color:#291500
+    }
+    .menu_trai > .layout_logo1 > .logo1, .logo1{
+        width: 28px;
+        height: 28px;
+        margin: 5.5% 0 0 7.5%;
+        float: left;
+    }
+    .menu_trai > .layout_logo1 > .ten_logo1, .ten_logo1{
+        width:auto;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        float:left;
+        padding:15px;
+        margin:1%
     }
     .menu_giua{
-        width:55%;
-        height:700px;
-        background:rgb(0, 255, 81);
+        width:67%;
+        height:700px;  
         position:absolute;
-        top:70px;
-        left:20.2%
-
+        
+    }
+    .layout_menu_giua{
+        position: absolute;
+        right:100px;
+        top:3%;
+        width: 470px;
+        height:900px
+    }
+    .story1{
+        width:130px;
+        height: 220px;
+        background:#805b38;
+        float:left;
+        margin-left: 6.5%;
+        border-radius: 10px
+    }
+    .story2{
+        width:130px;
+        height: 220px;
+        background:#805b38;
+        float:left;
+        margin-left: 2%;
+        border-radius: 10px
+    }
+    .story3{
+        width:130px;
+        height: 220px;
+        background:#805b38;
+        float:left;
+        margin-left: 2%;
+        border-radius: 10px
     }
     .menu_phai{
-        width: 25.5%;
+        width: 378.5px;
         height:700px;
-        background:rgb(200, 255, 0);
-        position:fixed;
+        position:absolute;
         top:70px;
         right:0
     }
-    .layout_logo1{
-        height:65px;
-        background:rgb(140, 97, 97);
+    .menu_phai > .de_xuat{
+        margin: 50px 0 0 5%;
         padding:10px;
+        font-size: 15px;
+        font-weight: 600;
+        color: gray;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
     }
-    .logo1{
-        width:60px;
-        height:60px;
-        background:rgb(214, 219, 195);
-        border-radius: 60%;
-        float: left;
+    #de_xuat1{
+        background-image: url('https://img2.thuthuatphanmem.vn/uploads/2019/01/04/anh-gai-dep-nhat_025059644.jpg');
     }
-    .ten_logo1{
-        width:50%;
-        background:gray;
-        color:white;
-        float:left;
-        padding:15px;
-        margin:2.5%
+    #de_xuat2{
+        background-image: url('https://th.bing.com/th/id/R.d6a1cd03662f7854642a9afed8af4d88?rik=PwLxMT16lkOf8w&pid=ImgRaw&r=0');
     }
-    .story1{
-        width:20%;
-        height: 300px;
-        background:pink;
-        float:left;
-        margin: 0 0 0 1%;
-        border-radius: 20px
+    .menu_phai > .layout_logo1{
+        padding: 0;
+        margin-left: 7%;
     }
-    .story2{
-        width:20%;
-        height: 300px;
-        background:pink;
-        float:left;
-        margin: 3% 0 0 1%;
-        border-radius: 20px
+    .menu_phai > .layout_logo1 > .logo1{
+        border-radius: 50%;
+        background-size: cover;
     }
-    .story3{
-        width:20%;
-        height: 300px;
-        background:pink;
-        float:left;
-        margin: 3% 0 0 1%;
-        border-radius: 20px
+    .menu_phai > div > button{
+        border: none;
+        background-color: transparent;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 15.8px;
+        padding: 10px;
+        cursor: pointer;
+        position: absolute;
+        right:15%;
+        top:10px;
     }
-    .story4{
-        width:20%;
-        height: 300px;
-        background:pink;
-        float:left;
-        margin: 3% 0 0 1%;
-        border-radius: 20px
+    .menu_phai > div > button:hover{
+        color:#805b38;
     }
-    .next_left{
-        width:55px;
-        height:55px;
-        background:rgb(219, 195, 214);
-        border-radius: 55%;
-        
-        
+    .gop_2_menu{
+        width: 80%;
+        height: 700px;
+        position: absolute;
+        top:60px;
+        right: 0
     }
-    .next_right{
-        width:55px;
-        height:55px;
-        background:rgb(219, 195, 214);
-        border-radius: 55%;
-        margin:16% 1% 0 1%;
-        float: right
+    @media (max-width: 1310px) {
+        .menu_trai {
+            width: 70px;
+        }
+        .menu_trai > .layout_logo1 >.logo1{
+            width: 40%;
+            height: 28px;
+            padding: 10px;
+            margin: 10% 18%;
+        }
+        .menu_trai > .layout_logo1 > .logo1:hover{
+            border-radius: 10px;
+            background-color: #fbf0e4;
+            transform: scale(1.1);
+            transition: 0.3s;
+        }
+        .menu_trai > .layout_logo1:hover{
+            background-color: rgb(255, 255, 255);
+        }
+        .menu_trai > .layout_logo1 > .ten_logo1 {
+            display: none;
+        }
+        .gop_2_menu{
+            width: 94%;
+            left: 70px;
+        }
+        .menu_giua{
+            left: 5%;
+        }
+        .menu_phai{
+            width: 300px;
+        }
     }
-    .logo2{
-        margin:5% 4% 3% 4%;
-        height:50px;
-        background:orange;
+    @media (max-width: 1120px) {
+        .menu_phai{
+            display: none;
+        }
+        .menu_giua{
+            left: 17%;
+        }
     }
+    @media (max-width: 1100px) {
+        .menu_giua{
+            left: 17%;
+        }
+    }
+    @media (max-width: 1050px) {
+        .menu_giua{
+            left: 19%;
+        }
+    }
+    @media (max-width: 1000px) {
+        .menu_giua{
+            left: 21%;
+        }
+    }
+    @media (max-width: 950px) {
+        .menu_giua{
+            left: 24%;
+        }
+    }
+    @media (max-width: 900px) {
+        .menu_giua{
+            left: 25%;
+        }
+        .menu_trai{
+            display: none;
+        }
+        .gop_2_menu{
+            width: 100%;
+            left: 0;
+            right: 0;
+        }
+    }
+    @media (max-width: 800px) {
+        .menu_giua{
+            left: 28%;
+        }
+    }
+    @media (max-width: 700px) {
+        .menu_giua{
+            left: 33%;
+        }
+    }
+    @media (max-width: 650px) {
+        .menu_giua{
+            left: 37%;
+        }
+    }
+    @media (max-width: 600px) {
+        .menu_giua{
+            left: 43%;
+        }
+    }
+    @media (max-width: 550px) {
+        .menu_giua{
+            left: 46%;
+        }
+    }
+    @media (max-width: 520px) {
+        .menu_giua{
+            left: 50.5%;
+        }
+    }
+
 </style>
-<div class="layout_menu_tren">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+
+<body>
+<div class="menu_tren">
     <div class="logo"></div>
-    <div class="ten_logo">jdjqhdub</div>
-    <div class="tim_kiem">
-        <div class="kinh_lup"></div>
+    <div class="ten_logo">Tên Logo</div>
+    <div class="layout_tim_kiem">
+        <input class="tim_kiem">
+        <i class="fa-solid fa-magnifying-glass kinh_lup"></i>
     </div>
-    <div class="mess"></div>
-    <div class= "thong_bao"></div>
+    <a href="message.php"><div class="mess"><i class="fa-brands fa-facebook-messenger"></i></div></a>
+    <div class= "thong_bao"><i class="fa-solid fa-bell"></i></div>
     <div class="trang_ca_nhan"></div>
 </div>
 
-    <div class="menu_trai">
-        <div class="layout_logo1">
-            <div class="logo1"></div>
-            <div class="ten_logo1">fgfg</div>
-        </div>
+<div class="menu_trai">
+    <div class="layout_logo1" style="margin-top:25px;">
+        <img class="logo1" src="https://img.icons8.com/?size=256&id=gE0woMnZGtua&format=png">
+        <div class="ten_logo1">Trang chủ</div>
+    </div>
+    <div class="layout_logo1">
+        <img class="logo1" src="https://img.icons8.com/?size=256&id=61161&format=png">
+        <!-- <img class="logo1" src="https://img.icons8.com/?size=256&id=60779&format=png"> -->
+        <div class="ten_logo1">Bạn bè</div>
+    </div>
+    <div class="layout_logo1">
+        <img class="logo1" src="https://img.icons8.com/?size=256&id=43571&format=png">
+        <!-- <img class="logo1" src="https://img.icons8.com/?size=256&id=83134&format=png"> -->
+        <div class="ten_logo1">Đã lưu</div>
+    </div>
+    <div class="layout_logo1">
+        <img class="logo1" src="https://img.icons8.com/?size=256&id=88004&format=png">
+        <div class="ten_logo1">Khám phá</div>
+    </div>
+    <div class="layout_logo1">
+        <img class="logo1" src="https://img.icons8.com/?size=256&id=ZI2N2LpZcXuZ&format=png">
+        <div class="ten_logo1">Reels</div>
+    </div>
+    <div class="layout_logo1">
+        <img class="logo1" src="https://img.icons8.com/?size=256&id=14092&format=png">
+        <div class="ten_logo1">Tạo bài đăng</div>
+    </div>  
+</div>
 
-        
-    </div>
+
+<div class="gop_2_menu">
     <div class="menu_giua">
-        <div class="next_left"></div>
-        <div class="story1"></div>
-        <div class="story2"></div>
-        <div class="story3"></div>
-        <div class="story4"></div>
-        <div class="next_right"></div>
+        <div class="layout_menu_giua">
+            <div class="next_left"></div>
+            <div class="story1"></div>
+            <div class="story2"></div>
+            <div class="story3"></div>
+            <div class="next_right"></div>
+        </div>
     </div>
+
     <div class="menu_phai">
-        <div class="logo2"></div>
-        <div class="logo2"></div>
-        <div class="logo2"></div>
-        <div class="logo2"></div>
-        
+        <div class="de_xuat">Đề xuất kết bạn</div>
+        <div class="layout_logo1">
+            <div class="logo1" id="de_xuat1"></div>
+            <div class="ten_logo1">Cẩm Tú</div>
+            <button>Kết bạn</button>
+        </div>
+        <div class="layout_logo1">
+            <div class="logo1" id="de_xuat2"></div>
+            <div class="ten_logo1">Trà My</div>
+            <button>Kết bạn</button>
+        </div>
     </div>
+</div>
+</body>
+
