@@ -367,7 +367,7 @@ function filePicked() {
 }
 </script>
 
-   <a onclick="return confirm('Bạn có chắc chắn muốn xóa ảnh bìa?')" href="menu.php?pid=3">
+   <a onclick="return confirm('Bạn có chắc chắn muốn xóa ảnh bìa?')" href="xoabia.php">
    <button class="ccbia1" >Xóa</button>
    </a>
 
@@ -377,7 +377,7 @@ function filePicked() {
       <div class="anhdaidien">
 <img src="../img/<?php echo $row["ANHDAIDIEN"]; ?>" style="width:100%; height:100%; border-radius: 50%;">
 
-<form action="menu.php?pid=1" method="post" enctype="multipart/form-data" id="uploadForm">
+<form action="avartar.php" method="post" enctype="multipart/form-data" id="uploadForm">
     <i class="icon fa fa-camera" onclick="avartar()" ></i>
     <input type="file" id="avatarPicker" name="anhdaidien" style="display:none;" onchange="avatarPicked()" />
     <input type="submit" value="Lưu" style="visibility:hidden;" id="avatarSaveButton">
@@ -431,7 +431,7 @@ function cancelEdit() {
 }
 </script>
 
-     <a onclick="return confirm('Bạn có chắc chắn muốn xóa tiểu sử?')" href="menu.php?pid=2">
+     <a onclick="return confirm('Bạn có chắc chắn muốn xóa tiểu sử?')" href="xoatieusu.php">
       <button class="congcu1">Xóa</button>
      </a>
     </div>
