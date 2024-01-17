@@ -1,5 +1,5 @@
 
-<script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>
+            <script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>
             <title>Thêm bài viết</title>
             <link rel="stylesheet" href="style.css" />
 
@@ -32,7 +32,7 @@
             margin-bottom: 20px;
         border-radius:20px;
             border-bottom: 1px solid #ccc;
-        background-color:
+        
 
         
         }

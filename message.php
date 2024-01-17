@@ -50,8 +50,7 @@ body{
 .col_left > .mess1{
     width: 100%;
     height: 80px;
-    position: absolute;
-    top:80px
+    float: left;
 }
 .col_left > .mess1:hover{
     background-color: rgb(237, 235, 235);
@@ -63,8 +62,7 @@ body{
     background-position: center;
     background-size: cover;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    padding:30px;
     margin: 10px 0 0 10px;
     float: left;
     cursor: pointer;
@@ -75,6 +73,7 @@ body{
     margin: 18px 0 0 10px;
     font-family:'Segoe UI', Tahoma,Verdana, sans-serif;
     cursor: pointer;
+    font-weight: 500;
 }
 .mini_content{
     float: left;
@@ -87,56 +86,56 @@ body{
     position: absolute;
     right:0;
     left:455px;
-    height: 100%;
 }
 .col_right > .ten{
     height: 80px;
     border-bottom: lightgray solid 1px;
 }
 .col_right > .ten > div > .nghe_goi{
-    padding: 17.5px;
-    float: right;
-    margin: 10px;
+    padding: 15.25px;
+    position: absolute;
+    margin-top: 10px;
     cursor: pointer;
     background-size: cover;
 }
 #call{
+    right: 85px;
     background-image: url('https://img.icons8.com/?size=256&id=Iw5aeMT37fzK&format=png');
 }
 #call:hover{
     background-image: url('https://img.icons8.com/?size=256&id=fnQivuIylSo3&format=png');
 }
 #call_video{
+    right:45px;
     background-image: url('https://img.icons8.com/?size=256&id=OomoDjxpvJzW&format=png');
 }
 #call_video:hover{
     background-image: url('https://img.icons8.com/?size=256&id=jHA3O0dbvOj1&format=png');
 }
 #more_info{ 
+    right:0;
     background-image: url('https://img.icons8.com/?size=256&id=24865&format=png');
 }
 #more_info:hover{ 
     background-image: url('https://img.icons8.com/?size=256&id=102729&format=png');
 }
 .col_right > .content{
-    height: 570px;
+    height: 580px;
     overflow-y:scroll ;
-    
 }
 .col_right > .chat_box{
     position: relative;
     padding: 10px;
-    width:98%;
 }
 .col_right > .chat_box > form > textarea{
-    height: 50px;
+    height: 40px;
     line-height: 2.5;
     border: lightgray solid 1px;
     border-radius: 30px;
     padding-left: 55px;
     padding-right: 130px;
     max-height: 100px;
-    overflow: auto;
+    overflow: hidden;
     overflow-wrap: break-word;
     font-size: 17px;
     font-family:'Segoe UI', Tahoma, Verdana, sans-serif; 
@@ -146,10 +145,10 @@ body{
     resize: none;
 }
 .col_right > .chat_box > form > .icon, .icon{
-    width: 30px;
-    height: 30px;
+    width: 29px;
+    height: 29px;
     position: absolute;
-    top:12px;
+    top:8px;
     padding: 10px;
     cursor: pointer;
 }
@@ -168,6 +167,86 @@ body{
 #button_icon:hover{
     scale: 1.1;
     transition: 0.3s;
+}
+@media (max-width:900px){
+    .col_left{
+        width: 80px;
+    }
+    .col_left > .mess{
+        display: none;
+    }
+    .col_left > img{
+        right: 25px;
+    }
+    .col_left > div>.username, .mini_content{
+        display: none;
+    }
+    .col_right{
+        left: 152px;
+    }
+}
+@media(max-width:600px){
+    .col_menu{
+        display: none;
+    }
+    .col_left{
+        height: 670px;
+    }
+    .col_right{
+        top:0;
+        left:82px;
+    }
+    .col_right >.content{
+        height:525px;
+    }
+    .col_right > .ten >.ava{
+        margin-top: 15px;
+        padding:25px
+    }
+    .col_left > .mess1 >.ava{
+        padding:25px;
+        margin: 15px;
+    }
+    .username{
+        margin: 30px 0 0 15px;
+        font-size: 17px;
+    }
+    .col_menu_duoi{
+        height: 55px;
+        width: 100%;
+        border-top: lightgray 1px solid;
+        position: absolute;
+        bottom: 0;
+    }
+    .icon_menu{
+        float: left;
+        margin: 3% 5%;
+        padding:14px;
+        background-size: cover;
+        cursor: pointer;
+    }
+    .icon_menu:hover{
+        transform: scale(1.05);
+        transition: 0.1s;
+    }
+    #home{
+        background-image: url('https://img.icons8.com/?size=256&id=Gc9qmZNN9yFN&format=png');
+    }
+    #explore{
+        background-image: url('https://img.icons8.com/?size=256&id=88004&format=png');
+    }
+    #add{
+        background-image: url('https://img.icons8.com/?size=256&id=14092&format=png');
+    }
+    #mess{
+        background-image: url('https://img.icons8.com/?size=256&id=dJOh7yntdHD9&format=png');
+    }
+    #infor{
+        background-image: url('https://img.icons8.com/?size=256&id=eMfeVHKyTnkc&format=png');
+    }
+    #profile{
+        background-image: url('https://th.bing.com/th/id/OIP.R_VSj3S9jJBIz31hmPBQDAAAAA?w=256&h=256&rs=1&pid=ImgDetMain');
+    }
 }
 </style>
 <head>
@@ -196,16 +275,28 @@ body{
     <div class="col_left">
         <img src="https://img.icons8.com/?size=256&id=Wyndx3rk1dCv&format=png">
         <div class="mess">Messages</div>
-        <div class="mess1">
+        <div class="mess1" style="margin-top:80px">
             <div class="ava"></div>
             <div class="username">Thùy Trang</div><br><br>
+            <div class="mini_content">Active 8h ago</div>
+        </div>
+        
+        <div class="mess1">
+            <div class="ava"></div>
+            <div class="username">Nhi</div><br><br>
+            <div class="mini_content">Active 8h ago</div>
+        </div>
+        
+        <div class="mess1">
+            <div class="ava"></div>
+            <div class="username">Thảo</div><br><br>
             <div class="mini_content">Active 8h ago</div>
         </div>
     </div>
     <div class="col_right">
         <div class="ten">
             <div class="ava"></div>
-            <div class="username"><b>Thùy Trang</b></div><br><br>
+            <div class="username">Thùy Trang</div><br><br>
             <div class="mini_content">Active 8h ago</div>
             <div style="position: absolute; right:20px; top:17px">
                 <div class="nghe_goi" id="more_info"></div>
@@ -255,7 +346,14 @@ body{
             </form>
 
         </div>
-        
+    </div>
+    <div class="col_menu_duoi">
+        <a href="menu.html"><div class="icon_menu" id="home" style="margin-left:7%"></div></a>
+        <div class="icon_menu" id="explore"></div>
+        <div class="icon_menu" id="add"></div>
+        <div class="icon_menu" id="mess"></div>
+        <div class="icon_menu" id="infor"></div>
+        <div class="icon_menu" id="profile" style="border-radius: 50%;"></div>
     </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php 
     $link = new mysqli("localhost", "root", "", "mxh");
-    $sql = "UPDATE USER SET TIEUSU = NULL WHERE ID_USER = 1"; 
+    $sql = "UPDATE USER SET TIEUSU = NULL WHERE user_id = 1"; 
     if ($link->query($sql) === TRUE) {
         echo "Xoá thành công!";
         header("location:./trangcanhan.php");
