@@ -14,39 +14,108 @@
 	<script src="like.js"></script>
 </head>
 <!-- sidebar -->
-<div class="post_TCN">
+<div class="header" style="height: 200px; width: 100%; background-color: brown;">
+	header
+</div>
+<div class="left" style=" width: 20%; background-color: blue; height: 80vh">
+	left
+</div>
+<div class="post_TCN" style="padding-left: 50px;">
 	<div class="central-meta" style="padding:0px; padding-top: 5px; padding-left: 5px;">
 		<ul class="photos">
-			<?php while ($row = mysqli_fetch_assoc($data)) { ?>
-				<?php if ($row['image'] != '' || $row['camera'] != '') { ?>
-					<li>
-						<?php if ($row['image'] != '') { ?>
-							<div class="container" style="padding: 3px;">
-								<!-- Button to Open the Modal -->
+			<!-- P1 -->
+			<li>
+				<div class="container" style="padding: 3px;">
+					<!-- Button to Open the Modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_1"
+						style="padding: 0px; border: 0px;width: 45vh;height: 45vh;">
+						<img src="img/Screenshot 2023-11-21 093925.png" alt="" style="width: 45vh;height: 45vh;">
+					</button>
 
-								<button type="button" class="btn btn-primary" data-toggle="modal"
-									data-target="#myModal_<?php echo $row['p_id']; ?>" style="padding: 0px; border: 0px; ">
-
-									<img src="image/<?php echo $row['image']; ?>" alt="" style="aspect-ratio: 1 / 1;">
-								</button>
-
-								<!-- The Modal -->
-								<div class="modal fade" id="myModal_<?php echo $row['p_id']; ?>">
-									<div class="modal-dialog modal-xl" style="margin-left: 150px;">
-										<div class="modal-content" style="width: 135%; height: 80%;">
-											<!-- Modal body -->
-											<div class="modal-body" style="padding: 0px;">
-												<?php include 'picture.php'; ?>
-											</div>
-										</div>
-									</div>
+					<!-- The Modal -->
+					<div class="modal fade" id="myModal_1">
+						<div class="modal-dialog modal-xl" style="margin-left: 150px;">
+							<div class="modal-content" style="width: 90%; height: 80%;">
+								<!-- Modal body -->
+								<div class="modal-body" style="padding: 0px;">
+									<?php
+									$i = 1;
+									include 'picture.php'; ?>
 								</div>
 							</div>
-						<?php } ?>
-
-					</li>
-				<?php } ?>
-			<?php } ?>
+						</div>
+					</div>
+				</div>
+			</li>
+			<!-- p2 -->
+			<li>
+				<div class="container" style="padding: 3px;">
+					<!-- Button to Open the Modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_2"
+						style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
+						<img src="img/Screenshot 2023-12-21 204909.png" alt="" style="width: 45vh;height: 45vh;">
+					</button>
+					<!-- The Modal -->
+					<div class="modal fade" id="myModal_2">
+						<div class="modal-dialog modal-xl" style="margin-left: 150px;">
+							<div class="modal-content" style="width: 90%; height: 80%;">
+								<!-- Modal body -->
+								<div class="modal-body" style="padding: 0px;">
+									<?php
+									$i = 2;
+									include 'picture.php'; ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<!-- p3 -->
+			<li>
+				<div class="container" style="padding: 3px;">
+					<!-- Button to Open the Modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_3"
+						style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
+						<img src="img/Screenshot 2024-01-06 215212.png" alt="" style="width: 45vh;height: 45vh;">
+					</button>
+					<!-- The Modal -->
+					<div class="modal fade" id="myModal_3">
+						<div class="modal-dialog modal-xl" style="margin-left: 150px;">
+							<div class="modal-content" style="width: 90%; height: 80%;">
+								<!-- Modal body -->
+								<div class="modal-body" style="padding: 0px;">
+									<?php
+									$i = 3;
+									include 'picture.php'; ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<!-- p4 -->
+			<li>
+				<div class="container" style="padding: 3px;">
+					<!-- Button to Open the Modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_4"
+						style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
+						<img src="img/Screenshot 2023-12-07 233249.png" alt="" style="width: 45vh;height: 45vh;">
+					</button>
+					<!-- The Modal -->
+					<div class="modal fade" id="myModal_4">
+						<div class="modal-dialog modal-xl" style="margin-left: 150px;">
+							<div class="modal-content" style="width: 90%; height: 80%;">
+								<!-- Modal body -->
+								<div class="modal-body" style="padding: 0px;">
+									<?php
+									$i = 4;
+									include 'picture.php'; ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
 		</ul>
 	</div><!-- photos -->
 </div><!-- centerl meta -->
