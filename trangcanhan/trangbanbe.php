@@ -1,5 +1,6 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php include ('../menu_tren.php') ?>
 </head>
 <style>
     body {
@@ -125,7 +126,6 @@
         left: 32%;
         background:none;
         transform: translate(25%, -20%);
-        background: 
     }
     .canhan1 {
       border-radius:50%;
@@ -189,13 +189,9 @@
   box-shadow: 0 0 0 0.7px dimgray;
   
 }
-
-    
-
-    }
+}
 </style>
 <body>
-<div style="height:10%; position: fixed;top: 0;width: 100%;background-color:#cecdca; width:100%;z-index:2"> </div>
 <div class="bia">
   <div class="bia1">
   <img src="https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-6/344344333_183240687944006_4719060222219809450_n.jpg?stp=dst-jpg_p600x600&_nc_cat=100&ccb=1-7&_nc_sid=783fdb&_nc_ohc=65buc9zae2QAX_mw4kV&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfB2o_svUWa6w3fjt431f4WJ32AN0i_QFqthUEVTssLWJA&oe=659D08D7" style="width:100%; height:100%;border-radius:5px">

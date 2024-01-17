@@ -2,17 +2,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <title>fake</title>
+<?php include ('../menu_tren.php') ?>
 </head>
 <?php
 $link=new mysqli("localhost","root","","mxh");
-$sql = "SELECT USERNAME, TIEUSU, ANHBIA,ANHDAIDIEN FROM USER WHERE ID_USER = 1";
+$sql = "SELECT USERNAME, TIEUSU, cover_picture,avartar FROM USER WHERE user_id = 1";
 $result=$link->query($sql);
 $row=$result->fetch_assoc();
 ?>
 <style>
     body {
     margin: 0;
-    padding: 0;
     overflow-y: scroll;
     box-sizing: border-box;
         }
@@ -25,7 +25,6 @@ $row=$result->fetch_assoc();
         width:90%; 
         border-radius:5px; 
         position: relative;
-        z-index:0;
     }
     .bia1 {
       float:right;
@@ -147,7 +146,9 @@ $row=$result->fetch_assoc();
   cursor: pointer;
 }
 
-input[type=text] {
+.bia > .bia1 > form >input[type=text],
+.congcu > div > form >input
+{
   width: 90%;
   height: 90%;
   padding: 12px 20px;
@@ -200,7 +201,8 @@ input[type=text] {
   height:3.5vw;
   margin-left: 5%;
  }
- input {
+ .bia > .bia1 > form >input,
+ .congcu > div > form >input {
   margin-left: 25%;
   border:none;
  }
@@ -236,7 +238,6 @@ input[type=text] {
         left: 32%;
         background:none;
         transform: translate(25%, -80%);
-        background: 
     }
     .canhan1 {
       border-radius:50%;
@@ -330,8 +331,8 @@ input[type=text] {
     height:10%;
     width:7%;
     background-color:darkgray;
-    font-size:1.7vw;
-    align:center;
+    font-size:1.7px;
+    text-align:center;
     border:none;
     cursor: pointer;
 }
@@ -340,11 +341,11 @@ input[type=text] {
     
 </style>
 <body>
-<div style="height:10%; position: fixed;top: 0;width: 100%;background-color:#cecdca; width:100%;z-index:2"> </div>
+
 <div class="bia">
   <div class="bia1">
    <div class="bia2">
-    <img src="../img/<?php echo $row["ANHBIA"]; ?>" style="width:100%; height:100%;border-radius:5px">
+    <img src="../img/<?php echo $row["cover_picture"]; ?>" style="width:100%; height:100%;border-radius:5px">
    </div>
 
    <button class="ccbia" onclick="showFilePicker()">Chỉnh sửa</button>
@@ -375,7 +376,7 @@ function filePicked() {
   <div class="khungcanhan">
     <div class="canhan1">
       <div class="anhdaidien">
-<img src="../img/<?php echo $row["ANHDAIDIEN"]; ?>" style="width:100%; height:100%; border-radius: 50%;">
+<img src="../img/<?php echo $row["avartar"]; ?>" style="width:100%; height:100%; border-radius: 50%;">
 
 <form action="avartar.php" method="post" enctype="multipart/form-data" id="uploadForm">
     <i class="icon fa fa-camera" onclick="avartar()" ></i>
