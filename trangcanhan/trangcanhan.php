@@ -485,7 +485,7 @@ $row = $result->fetch_assoc();
             </button>
             <!-- The Modal -->
             <div class="modal fade" id="myModal_2">
-              <div class="modal-dialog modal-xl" style="margin-left: 150px;">
+              <div class="modal-dialog modal-xl" style="margin-left:17%">
                 <div class="modal-content" style="width: 90%;">
                   <!-- Modal body -->
                   <div class="modal-body" style="padding: 0px;">

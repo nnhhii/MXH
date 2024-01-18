@@ -2,8 +2,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <div class="menu_tren">
-    <div class="logo"></div>
-    <div class="ten_logo">Tên Logo</div>
+    <a href="../menu.php">
+        <div class="logo"></div>
+        <div class="ten_logo">Tên Logo</div>
+    </a>
     <div class="ba_gach"></div>
     <div class="layout_tim_kiem">
         <input class="tim_kiem">

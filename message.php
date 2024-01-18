@@ -58,7 +58,7 @@ body{
     cursor: pointer;
 }
 .ava{
-    background-image: url('img/anh1.jpg');
+    background-image: url('img/anh2.jpeg');
     background-position: center;
     background-size: cover;
     border-radius: 50%;

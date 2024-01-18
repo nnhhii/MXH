@@ -5,11 +5,11 @@ body{
     width:100%;
     height:60px;
     position:fixed;
-    background-color:rgb(195, 165, 137);
+    background-color:rgb(144, 140, 138);
     z-index:1;
     top:0
 }
-.menu_tren > .logo{
+.menu_tren > a >.logo{
     width:45px;
     height:45px;
     background-image: url('https://yeuchaybo.com/wp-content/uploads/2014/07/nike.jpg');
@@ -18,7 +18,7 @@ body{
     margin:7px 0 5px 10px;
     float: left
 }
-.menu_tren > .ten_logo{
+.menu_tren > a >.ten_logo{
     width:fit-content;
     color:#4a3420;
     float:left;
