@@ -7,7 +7,7 @@
     if ($i == 1) {
       ?>
       <div style="width: 50%; float: left;">
-        <img src="../img/Screenshot 2024-01-18 112334 copy.png" alt="khong nhan duoc anh"
+        <img src="../img/Screenshot 2024-01-18 112403.png" alt="khong nhan duoc anh"
           style="width: 100%; height: 100%; height: 90vh;">
       </div>
     <?php } else if ($i == 2) { ?>
@@ -98,12 +98,12 @@
           150 liked
         </div>
         <!-- add comment -->
-        <div class="add comment" style="position:relative;">
+        <div class="add comment">
           <div class="comment-wrapper">
-            <img src="../img/smile.PNG" class="icon" alt="" style="height: 30px;width: 30px;position:absolute;left:-95px;top:25px">
+            <img src="../img/smile.PNG" class="icon" alt="" >
             <input type="text" class="comment-box" placeholder="Add a comment"
-              style="border: none; height: 40px; width: 70%;  margin-left: 40px;outline: none;">
-            <button class="comment-btn" style="border: none;background:none ;color: rgb(0, 162, 255);">Post</button>
+              style="border: none; height: 0%; width: 80%; background: none; padding-top: 0px; padding-bottom: 0px;">
+            <button class="comment-btn" style="border: none; background: none; color: rgb(0, 162, 255);">Post</button>
           </div>
         </div>
       </div>
