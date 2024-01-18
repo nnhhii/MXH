@@ -14,12 +14,7 @@
 	<script src="like.js"></script>
 </head>
 <!-- sidebar -->
-<div class="header" style="height: 200px; width: 100%; background-color: brown;">
-	header
-</div>
-<div class="left" style=" width: 20%; background-color: blue; height: 80vh">
-	left
-</div>
+
 <div class="post_TCN" style="padding-left: 50px;">
 	<div class="central-meta" style="padding:0px; padding-top: 5px; padding-left: 5px;">
 		<ul class="photos">
@@ -29,13 +24,13 @@
 					<!-- Button to Open the Modal -->
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_1"
 						style="padding: 0px; border: 0px;width: 45vh;height: 45vh;">
-						<img src="img/Screenshot 2023-11-21 093925.png" alt="" style="width: 45vh;height: 45vh;">
+						<img src="img/Screenshot 2024-01-18 112334.png" alt="" style="width: 45vh;height: 45vh;">
 					</button>
 
 					<!-- The Modal -->
 					<div class="modal fade" id="myModal_1">
 						<div class="modal-dialog modal-xl" style="margin-left: 150px;">
-							<div class="modal-content" style="width: 90%; height: 80%;">
+							<div class="modal-content" style="width: 100%; height: 100%;">
 								<!-- Modal body -->
 								<div class="modal-body" style="padding: 0px;">
 									<?php

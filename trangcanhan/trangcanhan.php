@@ -1,6 +1,15 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/like.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="../like.js"></script>
 <title>fake</title>
 <?php include ('../menu_tren.php') ?>
 </head>
@@ -336,8 +345,108 @@ $row=$result->fetch_assoc();
     border:none;
     cursor: pointer;
 }
- }
-
+}
+.col,
+.col-1,
+.col-10,
+.col-11,
+.col-12,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-auto,
+.col-lg,
+.col-lg-1,
+.col-lg-10,
+.col-lg-11,
+.col-lg-12,
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-7,
+.col-lg-8,
+.col-lg-9,
+.col-lg-auto,
+.col-md,
+.col-md-1,
+.col-md-10,
+.col-md-11,
+.col-md-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-auto,
+.col-sm,
+.col-sm-1,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-sm-auto,
+.col-xl,
+.col-xl-1,
+.col-xl-10,
+.col-xl-11,
+.col-xl-12,
+.col-xl-2,
+.col-xl-3,
+.col-xl-4,
+.col-xl-5,
+.col-xl-6,
+.col-xl-7,
+.col-xl-8,
+.col-xl-9,
+.col-xl-auto,
+.post_TCN {
+    position: relative;
+    width: 75%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.photos > li {
+    min-width: 33%;
+    width: 33%;
+}
+.central-meta {
+    border: none;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 25px;
+}
+.photos {
+    list-style: outside none none;
+    margin-bottom: 0;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.photos>li {
+    display: inline-block;
+    padding-bottom: 5px;
+    margin: 0 1.3px;
+    height: 33%;
+}
     
 </style>
 <body>
@@ -438,7 +547,147 @@ function cancelEdit() {
     </div>
   </div>
 </div>
-<div class="story">
+<div class="story"></div>
+<div class="post_TCN" style="margin:0 13%">
+	<div class="central-meta" style="padding:25px">
+		<ul class="photos">
+			<!-- P1 -->
+			<li>
+				<div class="container" style="padding: 3px;">
+					<!-- Button to Open the Modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_1"
+						style="padding: 0px; border: 0px;width: 45vh;height: 45vh;">
+						<img src="../img/Screenshot 2024-01-18 112334.png" alt="" style="width: 45vh;height: 45vh;">
+					</button>
 
-</div>
-</div>
+					<!-- The Modal -->
+					<div class="modal fade" id="myModal_1">
+						<div class="modal-dialog modal-xl" style="justify-content:center;width:80%">
+							<div class="modal-content" style="width: 100%; height: 90%;">
+								<!-- Modal body -->
+								<div class="modal-body" style="padding: 0px;">
+									<?php
+									$i = 1;
+									include 'picture.php'; ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<!-- p2 -->
+			<li>
+				<div class="container" style="padding: 3px;">
+					<!-- Button to Open the Modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_2"
+						style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
+						<img src="../img/Screenshot 2024-01-18 112403.png" alt="" style="width: 45vh;height: 45vh;">
+					</button>
+					<!-- The Modal -->
+					<div class="modal fade" id="myModal_2">
+						<div class="modal-dialog modal-xl" style="margin-left: 150px;">
+							<div class="modal-content" style="width: 90%; height: 80%;">
+								<!-- Modal body -->
+								<div class="modal-body" style="padding: 0px;">
+									<?php
+									$i = 2;
+									include 'picture.php'; ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<!-- p3 -->
+			<li>
+				<div class="container" style="padding: 3px;">
+					<!-- Button to Open the Modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_3"
+						style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
+						<img src="../img/Screenshot 2024-01-18 112439.png" alt="" style="width: 45vh;height: 45vh;">
+					</button>
+					<!-- The Modal -->
+					<div class="modal fade" id="myModal_3">
+						<div class="modal-dialog modal-xl" style="margin-left: 150px;">
+							<div class="modal-content" style="width: 90%; height: 80%;">
+								<!-- Modal body -->
+								<div class="modal-body" style="padding: 0px;">
+									<?php
+									$i = 3;
+									include 'picture.php'; ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<!-- p4 -->
+			<li>
+				<div class="container" style="padding: 3px;">
+					<!-- Button to Open the Modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_4"
+						style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
+						<img src="../img/Screenshot 2024-01-18 112805.png" alt="" style="width: 45vh;height: 45vh;">
+					</button>
+					<!-- The Modal -->
+					<div class="modal fade" id="myModal_4">
+						<div class="modal-dialog modal-xl" style="margin-left: 150px;">
+							<div class="modal-content" style="width: 90%; height: 80%;">
+								<!-- Modal body -->
+								<div class="modal-body" style="padding: 0px;">
+									<?php
+									$i = 4;
+									include 'picture.php'; ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+      <li>
+				<div class="container" style="padding: 3px;">
+					<!-- Button to Open the Modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_4"
+						style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
+						<img src="../img/Screenshot 2024-01-18 142143.png" alt="" style="width: 45vh;height: 45vh;">
+					</button>
+					<!-- The Modal -->
+					<div class="modal fade" id="myModal_4">
+						<div class="modal-dialog modal-xl" style="margin-left: 150px;">
+							<div class="modal-content" style="width: 90%; height: 80%;">
+								<!-- Modal body -->
+								<div class="modal-body" style="padding: 0px;">
+									<?php
+									$i = 4;
+									include 'picture.php'; ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+      <li>
+				<div class="container" style="padding: 3px;">
+					<!-- Button to Open the Modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_4"
+						style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
+						<img src="../img/Screenshot 2024-01-18 142216.png" alt="" style="width: 45vh;height: 45vh;">
+					</button>
+					<!-- The Modal -->
+					<div class="modal fade" id="myModal_4">
+						<div class="modal-dialog modal-xl" style="margin-left: 150px;">
+							<div class="modal-content" style="width: 90%; height: 80%;">
+								<!-- Modal body -->
+								<div class="modal-body" style="padding: 0px;">
+									<?php
+									$i = 4;
+									include 'picture.php'; ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div><!-- photos -->
+</div><!-- centerl meta -->
