@@ -58,7 +58,7 @@ body{
     cursor: pointer;
 }
 .ava{
-    background-image: url('img/anh1.jpg');
+    background-image: url('img/anh2.jpeg');
     background-position: center;
     background-size: cover;
     border-radius: 50%;
@@ -255,7 +255,7 @@ body{
 </head>
 <body>
     <div class="col_menu">
-        <a href="menu.html"><img src="https://img.icons8.com/?size=256&id=Gc9qmZNN9yFN&format=png" style="margin-top: 100px;"></a>
+        <a href="menu.php"><img src="https://img.icons8.com/?size=256&id=Gc9qmZNN9yFN&format=png" style="margin-top: 100px;"></a>
         <a><img class="logo1" src="https://img.icons8.com/?size=256&id=61161&format=png"></a>
         <a><img class="logo1" src="https://img.icons8.com/?size=256&id=43571&format=png"></a>
         <a><img src="https://img.icons8.com/?size=256&id=88004&format=png"></a>
@@ -348,7 +348,7 @@ body{
         </div>
     </div>
     <div class="col_menu_duoi">
-        <a href="menu.html"><div class="icon_menu" id="home" style="margin-left:7%"></div></a>
+        <a href="menu.php"><div class="icon_menu" id="home" style="margin-left:7%"></div></a>
         <div class="icon_menu" id="explore"></div>
         <div class="icon_menu" id="add"></div>
         <div class="icon_menu" id="mess"></div>

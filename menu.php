@@ -7,8 +7,10 @@
 
 <body>
 <div class="menu_tren">
-    <div class="logo"></div>
-    <div class="ten_logo">Tên Logo</div>
+<a href="">
+        <div class="logo"></div>
+        <div class="ten_logo">Tên Logo</div>
+    </a>
     <div class="ba_gach"></div>
     <div class="layout_tim_kiem">
         <input class="tim_kiem">
