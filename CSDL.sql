@@ -1,14 +1,14 @@
 CREATE TABLE user(
-    user_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    username varchar(100), 
-    password varchar(100), 
-    email varchar(100), 
-    gender varchar(10),
-    date_of_birth date, 
-    avartar varchar(500),
-    cover_picture varchar(500),
-    TIEUSU varchar(200),
-    TINNOIBAT varchar(100)
+  user_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username varchar(100), 
+  password varchar(100), 
+  email varchar(100), 
+  gender varchar(10),
+  date_of_birth date, 
+  avartar varchar(500),
+  cover_picture varchar(500),
+  TIEUSU varchar(200),
+  TINNOIBAT varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO user(username, password, email, gender, date_of_birth, avartar, cover_picture,TIEUSU,TINNOIBAT) VALUES
@@ -20,12 +20,13 @@ INSERT INTO user(username, password, email, gender, date_of_birth, avartar, cove
 
 
 CREATE TABLE user_info(
-    user_id int,
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
-    is_active varchar(200),
-    study_at varchar(200),
-    working_at varchar(200),
-    relationship varchar(100)
+  user_info_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id int,
+  FOREIGN KEY (user_id) REFERENCES user(user_id),
+  is_active varchar(200),
+  study_at varchar(200),
+  working_at varchar(200),
+  relationship varchar(100)
 );
 INSERT INTO user_info(user_id, is_active, study_at, working_at, relationship) VALUES
 (1,null,'Học viện hàng không',null,'Độc thân'),
@@ -38,7 +39,8 @@ CREATE TABLE message(
   message_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   message_by int,
   message_to int, 
-  content varchar(4294967295)
+  content varchar(4294967295),
+  timestamp varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 INSERT INTO message(message_by,message_to,content) VALUES 
 (1,2,'hello'),
@@ -49,9 +51,13 @@ INSERT INTO message(message_by,message_to,content) VALUES
 
 CREATE TABLE posts (
   post_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id int,
+  FOREIGN KEY (user_id) REFERENCES user(user_id),
   content text,
   image varchar(500),
-  like_count int
+  like_count int,
+  comment_count int,
+  post_time varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO posts (content, image, like_count) VALUES
@@ -105,47 +111,22 @@ INSERT INTO comment(user_id, post_id,cmt_content ,comment_time) VALUES
 
 
 
-CREATE TABLE notification_like (
-  noti_like_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE notification (
+  notification_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   user_id int,
   FOREIGN KEY (user_id) REFERENCES user(user_id),
-  content varchar(200)
+  content varchar(200),
+  post_id int,
+  FOREIGN KEY (post_id) REFERENCES posts(post_id),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO notification_like(user_id,content) VALUES 
+INSERT INTO notification(user_id,content) VALUES 
   (1, 'đã thích bài viết của bạn'),
-  (3, 'đã thích bài viết của bạn'),
+  (3, 'đã bình luận vào bài viết của bạn'),
   (2, 'đã thích bài viết của bạn'),
-  (1, 'đã thích bài viết của bạn'),
+  (1, 'đã gửi một lời mời kết bạn'),
   (5, 'đã thích bài viết của bạn');
 
-CREATE TABLE notification_cmt (
-  noti_cmt_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  user_id int,
-  FOREIGN KEY (user_id) REFERENCES user(user_id),
-  content varchar(200)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
-INSERT INTO notification_cmt(user_id,content) VALUES 
-(2,'đã bình luận vào bài viết của bạn.'),
-(3,'đã bình luận vào bài viết của bạn.'),
-(4,'đã bình luận vào bài viết của bạn.'),
-(5,'đã bình luận vào bài viết của bạn.'),
-(1,'đã bình luận vào bài viết của bạn.');
-
-CREATE TABLE notification_request (
-  noti_request_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  user_id int,
-  FOREIGN KEY (user_id) REFERENCES user(user_id),
-  content varchar(200)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
-INSERT INTO notification_request(user_id,content) VALUES 
-(2,'đã gửi cho bạn một lời kết bạn.'),
-(1,'đã gửi cho bạn một lời kết bạn.'),
-(5,'đã gửi cho bạn một lời kết bạn.'),
-(3,'đã gửi cho bạn một lời kết bạn.'),
-(4,'đã gửi cho bạn một lời kết bạn.');
 
 
 CREATE TABLE friend (
