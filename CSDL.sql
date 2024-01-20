@@ -118,6 +118,7 @@ CREATE TABLE notification (
   content varchar(200),
   post_id int,
   FOREIGN KEY (post_id) REFERENCES posts(post_id),
+  timestamp varchar(200)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO notification(user_id,content) VALUES 
