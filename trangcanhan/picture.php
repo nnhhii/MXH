@@ -90,13 +90,12 @@
           150 liked
         </div>
         <!-- add comment -->
-        <div class="add comment" style="float:left; width:100%;position: relative; padding:15px; bottom:0; background:red">
-          
-            <img src="img/smile.PNG" class="icon" alt="" style="width: 25px; height: 25px; left:-20px; position:absolute" >
-            <input type="text" placeholder="Add a comment"
-              style="border: none; height: 30px; width: 90%; background: blue; padding-left:30px; outline:none">
-            <button class="comment-btn" style="border: none; background: none; color: rgb(0, 162, 255);position:absolute;right:0">Post</button>
-          </div>
+        <div class="add comment" style="float:left; width:100%;height:50px;position: relative; padding:15px">
+          <img src="img/smile.PNG" style="width: 25px; height: 25px; left:0px; position:absolute; z-index: 1;" >
+          <input type="text" placeholder="Add a comment"
+            style="border: none;height: 50px; padding-left:40px; outline:none;position:absolute;left:0;bottom: -17px;">
+          <button class="comment-btn" style="border: none; background: none; color: rgb(0, 162, 255);position:absolute;right:0;top:10px">Post</button>
+        </div>
         
       </div>
     </div>
@@ -105,4 +104,4 @@
 </body>
 
 </html>
-<script src="like.js"></script>
+<script src="css/like.js"></script>

@@ -2,7 +2,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/like.css">
   <link rel="stylesheet" href="css/main.min.css">
@@ -10,6 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="like.js"></script>
   <title>fake</title>
   <?php include('menu_tren.php') ?>
@@ -478,7 +478,7 @@ $row = $result->fetch_assoc();
           <div class="container" style="padding: 3px;">
             <!-- Button to Open the Modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_1"
-              style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
+              style="padding: 0px; border: 0px; width: 45vh;height: 45vh;" >
               <div style="background-image:url('img/Screenshot 2024-01-18 112334 copy.png');background-size:cover; background-position:center;width: 45vh;height: 45vh;">
             </button>
             <!-- The Modal -->
@@ -613,3 +613,4 @@ $row = $result->fetch_assoc();
       </ul>
     </div><!-- photos -->
   </div><!-- centerl meta -->
+  
