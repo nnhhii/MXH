@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/like.css">
-  <link rel="stylesheet" href="../css/main.min.css">
+  <link rel="stylesheet" href="css/like.css">
+  <link rel="stylesheet" href="css/main.min.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="../like.js"></script>
+  <script src="like.js"></script>
   <title>fake</title>
-  <?php include('../menu_tren.php') ?>
+  <?php include('menu_tren.php') ?>
 </head>
 <?php
 $link = new mysqli("localhost", "root", "", "mxh");
-$sql = "SELECT USERNAME, TIEUSU, cover_picture,avartar FROM USER WHERE user_id = 1";
+$sql = "SELECT username, bio, cover_picture,avartar FROM USER WHERE user_id = 1";
 $result = $link->query($sql);
 $row = $result->fetch_assoc();
 ?>
@@ -156,17 +156,21 @@ $row = $result->fetch_assoc();
     cursor: pointer;
   }
 
-  .bia>.bia1>form>input[type=text],
-  .congcu>div>form>input {
+  input[type=text]
+  {
     width: 90%;
     height: 90%;
     padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
+    margin: -35px 0 15px 0;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    border: none;
+    outline:none
   }
-
+  input[type=submit], button{
+    border:none;
+    padding:5px 10px
+  }
   .bia2 {
     position: relative;
   }
@@ -213,12 +217,6 @@ $row = $result->fetch_assoc();
     margin-top: -5%;
     height: 3.5vw;
     margin-left: 5%;
-  }
-
-  .bia>.bia1>form>input,
-  .congcu>div>form>input {
-    margin-left: 25%;
-    border: none;
   }
 
   .icon {
@@ -374,11 +372,11 @@ $row = $result->fetch_assoc();
   <div class="bia">
     <div class="bia1">
       <div class="bia2">
-        <img src="../img/<?php echo $row["cover_picture"]; ?>" style="width:100%; height:100%;border-radius:5px">
+        <img src="img/<?php echo $row["cover_picture"]; ?>" style="width:100%; height:100%;border-radius:5px">
       </div>
 
       <button class="ccbia" onclick="showFilePicker()">Chỉnh sửa</button>
-      <form action="suabia.php" method="post" enctype="multipart/form-data">
+      <form action="trangcanhan/suabia.php" method="post" enctype="multipart/form-data">
         <input type="file" id="filePicker" name="anhbia" style="display:none;" onchange="filePicked()" />
         <input type="submit" value="Lưu" style="visibility:hidden;" id="saveButton">
       </form>
@@ -405,9 +403,9 @@ $row = $result->fetch_assoc();
     <div class="khungcanhan">
       <div class="canhan1">
         <div class="anhdaidien">
-          <img src="../img/<?php echo $row["avartar"]; ?>" style="width:100%; height:100%; border-radius: 50%;">
+          <img src="img/<?php echo $row["avartar"]; ?>" style="width:100%; height:100%; border-radius: 50%;">
 
-          <form action="avartar.php" method="post" enctype="multipart/form-data" id="uploadForm">
+          <form action="trangcanhan/avartar.php" method="post" enctype="multipart/form-data" id="uploadForm">
             <i class="icon fa fa-camera" onclick="avartar()"></i>
             <input type="file" id="avatarPicker" name="anhdaidien" style="display:none;" onchange="avatarPicked()" />
             <input type="submit" value="Lưu" style="visibility:hidden;" id="avatarSaveButton">
@@ -431,19 +429,19 @@ $row = $result->fetch_assoc();
       </div>
       <div class="name">
         <div><strong>
-            <?php echo $row["USERNAME"] ?>
+            <?php echo $row["username"] ?>
           </strong></div>
         <div class="banbe"><br>2939 bạn bè </div>
         <div class="tieusu"><br>
-          <?php echo $row["TIEUSU"] ?>
+          <?php echo $row["bio"] ?>
         </div>
       </div>
       <div class="congcu">
         <button class="congcu1" id="editButton" onclick="FormTIEUSU()">Chỉnh sửa</button>
 
         <div id="inputForm" class="hidden">
-          <form action="suatieusu.php" method="post">
-            <input type="text" value="<?php echo $row['TIEUSU'] ?>" name="tieusu" placeholder="Nhập tiểu sử của bạn">
+          <form action="trangcanhan/suatieusu.php" method="post">
+            <input type="text" value="<?php echo $row['bio'] ?>" name="tieusu" placeholder="Nhập tiểu sử của bạn">
             <input type="submit" value="Lưu">
             <button style="border:none;" type="button" onclick="cancelEdit()">Hủy</button>
           </form>
@@ -465,7 +463,7 @@ $row = $result->fetch_assoc();
           }
         </script>
 
-        <a onclick="return confirm('Bạn có chắc chắn muốn xóa tiểu sử?')" href="xoatieusu.php">
+        <a onclick="return confirm('Bạn có chắc chắn muốn xóa tiểu sử?')" href="trangcanhan/xoatieusu.php">
           <button class="congcu1">Xóa</button>
         </a>
       </div>
@@ -479,19 +477,19 @@ $row = $result->fetch_assoc();
         <li>
           <div class="container" style="padding: 3px;">
             <!-- Button to Open the Modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_2"
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_1"
               style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
-              <img src="../img/Screenshot 2024-01-18 112334 copy.png" alt="" style="width: 45vh;height: 45vh;">
+              <div style="background-image:url('img/Screenshot 2024-01-18 112334 copy.png');background-size:cover; background-position:center;width: 45vh;height: 45vh;">
             </button>
             <!-- The Modal -->
-            <div class="modal fade" id="myModal_2">
+            <div class="modal fade" id="myModal_1">
               <div class="modal-dialog modal-xl" style="margin-left:17%">
-                <div class="modal-content" style="width: 90%;">
+                <div class="modal-content" style="width: 90%">
                   <!-- Modal body -->
-                  <div class="modal-body" style="padding: 0px;">
+                  <div class="modal-body" style="padding: 0px">
                     <?php
                     $i = 1;
-                    include 'picture.php'; ?>
+                    include 'trangcanhan/picture.php'; ?>
                   </div>
                 </div>
               </div>
@@ -505,17 +503,17 @@ $row = $result->fetch_assoc();
             <!-- Button to Open the Modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_2"
               style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
-              <img src="../img/Screenshot 2024-01-18 112403.png" alt="" style="width: 45vh;height: 45vh;">
+              <img src="img/Screenshot 2024-01-18 112403.png" alt="" style="width: 45vh;height: 45vh;">
             </button>
             <!-- The Modal -->
             <div class="modal fade" id="myModal_2">
               <div class="modal-dialog modal-xl" style="margin-left: 150px;">
-                <div class="modal-content" style="width: 90%; height: 80%;">
+                <div class="modal-content" style="width: 90%; height: 90%;">
                   <!-- Modal body -->
                   <div class="modal-body" style="padding: 0px;">
                     <?php
                     $i = 2;
-                    include 'picture.php'; ?>
+                    include 'trangcanhan/picture.php'; ?>
                   </div>
                 </div>
               </div>
@@ -528,17 +526,17 @@ $row = $result->fetch_assoc();
             <!-- Button to Open the Modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_3"
               style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
-              <img src="../img/Screenshot 2024-01-18 112439.png" alt="" style="width: 45vh;height: 45vh;">
+              <img src="img/Screenshot 2024-01-18 112439.png" alt="" style="width: 45vh;height: 45vh;">
             </button>
             <!-- The Modal -->
             <div class="modal fade" id="myModal_3">
               <div class="modal-dialog modal-xl" style="margin-left: 150px;">
-                <div class="modal-content" style="width: 90%; height: 80%;">
+                <div class="modal-content" style="width: 90%; height: 90%;">
                   <!-- Modal body -->
                   <div class="modal-body" style="padding: 0px;">
                     <?php
                     $i = 3;
-                    include 'picture.php'; ?>
+                    include 'trangcanhan/picture.php'; ?>
                   </div>
                 </div>
               </div>
@@ -551,7 +549,7 @@ $row = $result->fetch_assoc();
             <!-- Button to Open the Modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_4"
               style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
-              <img src="../img/Screenshot 2024-01-18 112805.png" alt="" style="width: 45vh;height: 45vh;">
+              <img src="img/Screenshot 2024-01-18 112805.png" alt="" style="width: 45vh;height: 45vh;">
             </button>
             <!-- The Modal -->
             <div class="modal fade" id="myModal_4">
@@ -561,7 +559,7 @@ $row = $result->fetch_assoc();
                   <div class="modal-body" style="padding: 0px;">
                     <?php
                     $i = 4;
-                    include 'picture.php'; ?>
+                    include 'trangcanhan/picture.php'; ?>
                   </div>
                 </div>
               </div>
@@ -573,7 +571,7 @@ $row = $result->fetch_assoc();
             <!-- Button to Open the Modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_4"
               style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
-              <img src="../img/Screenshot 2024-01-18 142143.png" alt="" style="width: 45vh;height: 45vh;">
+              <img src="img/Screenshot 2024-01-18 142143.png" alt="" style="width: 45vh;height: 45vh;">
             </button>
             <!-- The Modal -->
             <div class="modal fade" id="myModal_4">
@@ -583,7 +581,7 @@ $row = $result->fetch_assoc();
                   <div class="modal-body" style="padding: 0px;">
                     <?php
                     $i = 4;
-                    include 'picture.php'; ?>
+                    include 'trangcanhan/picture.php'; ?>
                   </div>
                 </div>
               </div>
@@ -595,7 +593,7 @@ $row = $result->fetch_assoc();
             <!-- Button to Open the Modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_4"
               style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
-              <img src="../img/Screenshot 2024-01-18 142216.png" alt="" style="width: 45vh;height: 45vh;">
+              <img src="img/Screenshot 2024-01-18 142216.png" alt="" style="width: 45vh;height: 45vh;">
             </button>
             <!-- The Modal -->
             <div class="modal fade" id="myModal_4">
@@ -605,7 +603,7 @@ $row = $result->fetch_assoc();
                   <div class="modal-body" style="padding: 0px;">
                     <?php
                     $i = 4;
-                    include 'picture.php'; ?>
+                    include 'trangcanhan/picture.php'; ?>
                   </div>
                 </div>
               </div>

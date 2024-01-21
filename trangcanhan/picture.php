@@ -1,23 +1,21 @@
 <body>
-  <!-- p1 -->
   <div>
-    <!-- left -->
     <?php
     // Lấy giá trị của tham số từ URL
     if ($i == 1) {
       ?>
       <div style="width: 50%; float: left;">
-        <img src="../img/Screenshot 2024-01-18 112334 copy.png" alt="khong nhan duoc anh"
+        <img src="img/Screenshot 2024-01-18 112334 copy.png" alt="khong nhan duoc anh"
           style="width: 100%; height: 100%; height: 90vh;">
       </div>
     <?php } else if ($i == 2) { ?>
         <div style="width: 50%; float: left;">
-          <img src="../img/Screenshot 2024-01-18 112403.png" alt="khong nhan duoc anh"
+          <img src="img/Screenshot 2024-01-18 112403.png" alt="khong nhan duoc anh"
             style="width: 100%; height: 100%; height: 90vh;">
         </div>
     <?php } else if ($i == 3) { ?>
           <div style="width: 50%; float: left;">
-            <img src="img/Screenshot 2024-01-06 215212.png" alt="khong nhan duoc anh"
+            <img src="img/Screenshot 2024-01-18 112439.png" alt="khong nhan duoc anh"
               style="width: 100%; height: 100%; height: 90vh;">
           </div>
     <?php } else if ($i == 4) { ?>
@@ -29,24 +27,18 @@
 
 
     <!-- right -->
-    <div style="width: 45%;height: 100%; float: right; ">
+    <div style="width:50%;height:90vh; float: left; padding: 0 15px; position:relative">
       <!--HEAD -->
-      <div style="height: 10%; width: 100%; padding-top: 10px; border-bottom: rgb(191, 190, 190) solid 1px;">
-        <div class="friend-info">
-          <figure>
-            <!-- <img src="img/<?php echo $user['profile_pic']; ?>" alt=""> -->
-          </figure>
-          <div class="friend-name">
-            <ins>User_name
-            </ins>
-            <span>
-              3:47
-            </span>
-          </div>
+      <div style="height: 60px; border-bottom: rgb(191, 190, 190) solid 1px; padding: 14px 0;">
+        <a href="index.php?pid=1" style="color:black;text-decoration:none">
+          <div style="background-image:url('img/Screenshot 2024-01-18 112439.png'); float:left; background-size: cover; width: 35px; border-radius:50%; height:35px;">
+          <!-- <img src="img/<?php echo $user['avartar']; ?>" alt=""> -->
+          <div style="margin:10px 50px">User_name</div>
+        </a>
         </div>
       </div>
       <!-- view comment -->
-      <div style="height: 60vh; width: 100%;overflow-y: scroll;">
+      <div style="height: 60vh;overflow-y: scroll;">
         <div class="coment-area">
           <ul class="we-comet">
             <!-- No Comment Yet -->
@@ -60,52 +52,52 @@
         </div>
       </div>
       <!--footer  -->
-      <div class="footer" style="padding-top: 20px; border-top: rgb(191, 190, 190) solid 1px;">
+      <div class="footer" style="width:100%;padding:10px 0; float:left; border-top: rgb(191, 190, 190) solid 1px;">
         <!-- like -->
-        <div style="height: 5vh; width: 80%; justify-content: space-between; display:flex; align-items: center;">
+        <div style="height: 5vh; justify-content: space-between; display:flex; align-items: center">
           <div style="display: flex;">
-            <div class="cd__main" style="padding: 0px; width: 30px;height: 30px;">
-              <div class='middle-wrapper' style="height: 30px;width: 30px;">
+            
+              <div class='middle-wrapper' style="height: 25px;width: 25px;margin:5px">
                 <div class='like-wrapper'>
                   <a class='like-button' style="border: none;">
-                    <span class='like-icon' style="height: 30px;width: 30px;">
+                    <span class='like-icon' style="height: 25px;width: 25px;">
                       <div class='heart-animation-1'></div>
                       <div class='heart-animation-2'></div>
                     </span>
                   </a>
                 </div>
               </div>
-            </div>
+            
             <div class="chat">
               <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#message_modal">
-                <img src="../img/bubble-chat.png" style="width: 30px; height: 30px;margin-right: 10px;">
+                <img src="img/bubble-chat.png" style="width: 25px; height: 25px;margin:5px">
               </button>
             </div>
             <div class="send">
               <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#send_message_modal">
-                <img src="../img/send.png" style="width: 30px; height: 30px;margin-right: 10px;">
+                <img src="img/send.png" style="width: 20px; height: 20px;margin: 8px 10px;">
               </button>
             </div>
           </div>
           <div class="save not_saved">
             <!-- <img class="hide saved" src="image/save_black.png" style="width: 40px; height: 40px;"> -->
-            <img class="not_saved" src="../img/save-instagram.png" style="width: 30px; height: 30px;">
+            <img class="not_saved" src="https://img.icons8.com/?size=256&id=43571&format=png" style="width: 30px; height: 30px;">
           </div>
         </div>
         <!-- Liked -->
-        <div style="height: 5vh; font-weight: 600; position: relative;">
+        <div style="height: 5vh; font-weight: 600;float:left">
           <!-- <a class="bold" href="#">${post_data[i][4]} likes</a> -->
           150 liked
         </div>
         <!-- add comment -->
-        <div class="add comment">
-          <div class="comment-wrapper">
-            <img src="../img/smile.PNG" class="icon" alt="" style="" >
-            <input type="text" class="comment-box" placeholder="Add a comment"
-              style="border: none; height: 0%; width: 80%; background: none; padding-top: 0px; padding-bottom: 0px;">
-            <button class="comment-btn" style="border: none; background: none; color: rgb(0, 162, 255);">Post</button>
+        <div class="add comment" style="float:left; width:100%;position: relative; padding:15px; bottom:0; background:red">
+          
+            <img src="img/smile.PNG" class="icon" alt="" style="width: 25px; height: 25px; left:-20px; position:absolute" >
+            <input type="text" placeholder="Add a comment"
+              style="border: none; height: 30px; width: 90%; background: blue; padding-left:30px; outline:none">
+            <button class="comment-btn" style="border: none; background: none; color: rgb(0, 162, 255);position:absolute;right:0">Post</button>
           </div>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -113,4 +105,4 @@
 </body>
 
 </html>
-<script src="../like.js"></script>
+<script src="like.js"></script>

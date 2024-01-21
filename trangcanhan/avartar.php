@@ -8,7 +8,7 @@
     $sql="UPDATE user SET avartar='$anhdaidien' WHERE user_id=1";
     
     if ($link->query($sql) === TRUE) {
-        header("location:trangcanhan.php");
+        header("location:../index.php?pid=1");
     } else {
         echo "Cập nhật thất bại! " . $link->error;
     }

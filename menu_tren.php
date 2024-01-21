@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="../css/menu.css">
+<link rel="stylesheet" href="css/menu.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <div class="menu_tren">
-    <a href="../menu.php">
+    <a href="index.php">
         <div class="logo"></div>
         <div class="ten_logo">Tên Logo</div>
     </a>
@@ -11,7 +11,7 @@
         <input class="tim_kiem">
         <i class="fa-solid fa-magnifying-glass kinh_lup"></i>
     </div>
-    <a href="../message.php"><div class="mess"><i class="fa-brands fa-facebook-messenger"></i></div></a>
+    <a href="index.php?pid=0"><div class="mess"><i class="fa-brands fa-facebook-messenger"></i></div></a>
     <div class= "thong_bao"><i class="fa-solid fa-bell"></i></div>
-    <div class="trang_ca_nhan"></div>
+    <a href="index.php?pid=1"><div class="trang_ca_nhan"></div></a>
 </div>

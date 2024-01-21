@@ -12,7 +12,7 @@ if (isset($_POST['update_posts'])) {
     // Kiểm tra xem người dùng đã chọn ảnh mới hay chưa
     if ($_FILES['image']['size'] > 0) {
         // Nếu có ảnh mới, xử lý tải lên và lưu đường dẫn mới vào cơ sở dữ liệu
-        $target = "photo/"; // Đường dẫn thư mục lưu trữ ảnh
+        $target = "img/"; // Đường dẫn thư mục lưu trữ ảnh
         $image = $_FILES['image']['name'];
         $target_file = $target. basename($image);
 

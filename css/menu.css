@@ -65,7 +65,7 @@ body{
     padding:12px;
     cursor: pointer;
 }
-.menu_tren > .trang_ca_nhan{
+.menu_tren > a >.trang_ca_nhan{
     width:30px;
     height:30px;
     background-image: url('https://th.bing.com/th/id/OIP.R_VSj3S9jJBIz31hmPBQDAAAAA?w=256&h=256&rs=1&pid=ImgDetMain');
@@ -344,4 +344,50 @@ body{
     .menu_giua{
         left: 54%;
     }
+}
+.vien {
+    border-radius: 10px;
+    box-shadow: 2px 2px #f2f2f2;
+    width: 500px;
+    height: 130px;
+    margin: 5% auto;
+    padding:10px;
+    position: relative;
+    float: left;
+}
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:20px;
+    background-image: url('../img/65a8d102a1c4b-Screenshot 2024-01-18 112403.png');
+    background-size: cover;
+}
+.thanhdangbaiviet {
+    height: 35px;
+    border-radius: 20px;
+    background-color: #EEEEEE;
+    color: #808080;
+    border: none;
+    position: absolute;
+    right:15px;
+    top:12px;
+    left: 60px
+}
+.menunho {
+    padding:5px;
+}
+.button-menu {
+    background-color: #fff; 
+    color: #808080;
+    border:none;
+    padding: 10px 70px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+.button-menu:hover {
+    background-color: #f2f2f2; 
+}  
+textarea:focus{
+    outline: none;
 }

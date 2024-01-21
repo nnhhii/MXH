@@ -7,11 +7,11 @@ CREATE TABLE user(
   date_of_birth date, 
   avartar varchar(500),
   cover_picture varchar(500),
-  TIEUSU varchar(200),
-  TINNOIBAT varchar(100)
+  bio varchar(200),
+  highlight varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO user(username, password, email, gender, date_of_birth, avartar, cover_picture,TIEUSU,TINNOIBAT) VALUES
+INSERT INTO user(username, password, email, gender, date_of_birth, avartar, cover_picture,bio,highlight) VALUES
 ('Phat Le','12345','phatle@gmail.com','nam','1999-02-18', 'anh2.jpg','anh3.jpg','hehe','tin noi bat'),
 ('Thu Thao', '12345', 'thuthao@gmail.com','nữ','2000-07-08', 'user.png',null,'hehe toi la con ga',null),
 ('Nhi','12345','nhinhi@gmail.com','nữ','2005-03-14','anh2.jpeg',null,null,null),
@@ -38,7 +38,9 @@ INSERT INTO user_info(user_id, is_active, study_at, working_at, relationship) VA
 CREATE TABLE message(
   message_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   message_by int,
-  message_to int, 
+  FOREIGN KEY (message_by) REFERENCES user(user_id),
+  message_to int,
+  FOREIGN KEY (message_to) REFERENCES user(user_id), 
   content varchar(4294967295),
   timestamp varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -51,12 +53,13 @@ INSERT INTO message(message_by,message_to,content) VALUES
 
 CREATE TABLE posts (
   post_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  user_id int,
-  FOREIGN KEY (user_id) REFERENCES user(user_id),
+  post_by int,
+  FOREIGN KEY (post_by) REFERENCES user(user_id),
   content text,
   image varchar(500),
-  like_count int,
+  like_count int NOT NULL DEFAULT 0,
   comment_count int,
+  share_count int,
   post_time varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -70,8 +73,8 @@ CREATE TABLE share (
   share_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   post_id int,
   FOREIGN KEY (post_id) REFERENCES posts(post_id),
-  user_id int,
-  FOREIGN KEY (user_id) REFERENCES user(user_id),
+  share_by int,
+  FOREIGN KEY (share_by) REFERENCES user(user_id),
   share_time varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -86,9 +89,7 @@ CREATE TABLE story (
   music varchar(500),
   story_time varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-INSERT INTO story
-(user_id, content, img, video, music, story_time)
-VALUES
+INSERT INTO story(user_id, content, img, video, music, story_time) VALUES
 (1, 'Hello', '364665658_683973887098991_2631665589373559337_n.jpg', '', '', '2024-01-17'),
 (2, 'hello2', '378822784_709013834594996_904116546503893544_n.jpg', '', '', '2024-01-17'),
 (3, 'hi', '379341766_874136574429252_8738656710738503635_n.jpg', '', '', '2024-01-17'),
@@ -97,14 +98,14 @@ VALUES
 
 CREATE TABLE comment(
   comment_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  user_id int,
-  FOREIGN KEY (user_id) REFERENCES user(user_id),
+  comment_by int,
+  FOREIGN KEY (comment_by) REFERENCES user(user_id),
   post_id int,
   FOREIGN KEY (post_id) REFERENCES posts(post_id),
   cmt_content varchar(4294967295),
   comment_time varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-INSERT INTO comment(user_id, post_id,cmt_content ,comment_time) VALUES
+INSERT INTO comment(comment_by, post_id,cmt_content ,comment_time) VALUES
 (2,1,'em dep lam!',null),
 (2,3,'em tuyet voi lam!',null),
 (1,3,'hôc joi kg chau',null);
@@ -113,15 +114,13 @@ INSERT INTO comment(user_id, post_id,cmt_content ,comment_time) VALUES
 
 CREATE TABLE notification (
   notification_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  user_id int,
-  FOREIGN KEY (user_id) REFERENCES user(user_id),
+  noti_by int,
+  FOREIGN KEY (noti_by) REFERENCES user(user_id),
   content varchar(200),
-  post_id int,
-  FOREIGN KEY (post_id) REFERENCES posts(post_id),
-  timestamp varchar(200)
+  noti_time varchar(200)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO notification(user_id,content) VALUES 
+INSERT INTO notification(noti_by,content) VALUES 
   (1, 'đã thích bài viết của bạn'),
   (3, 'đã bình luận vào bài viết của bạn'),
   (2, 'đã thích bài viết của bạn'),
@@ -133,7 +132,9 @@ INSERT INTO notification(user_id,content) VALUES
 CREATE TABLE friend (
   friend_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   user_id1 int,
-  user_id2 int
+  FOREIGN KEY (user_id1) REFERENCES user(user_id),
+  user_id2 int,
+  FOREIGN KEY (user_id2) REFERENCES user(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO friend (user_id1, user_id2) VALUES
@@ -145,23 +146,13 @@ INSERT INTO friend (user_id1, user_id2) VALUES
   (3, 5),
   (4, 5);
 
-CREATE TABLE newfeed(
-  newfeed_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  post_id int,
-  FOREIGN KEY (post_id) REFERENCES posts(post_id),
-  story_id int,
-  FOREIGN KEY (story_id) REFERENCES story(story_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
-INSERT INTO newfeed(post_id,story_id) VALUES 
-  (1, 1),
-  (2, 2),
-  (3, 3);
 
 CREATE TABLE friendrequest(
   request_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   sender_id int,
+  FOREIGN KEY (sender_id) REFERENCES user(user_id),
   receiver_id int,
+  FOREIGN KEY (receiver_id) REFERENCES user(user_id),
   status varchar(300)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 INSERT INTO friendrequest(sender_id,receiver_id,status) VALUES 
@@ -173,18 +164,14 @@ INSERT INTO friendrequest(sender_id,receiver_id,status) VALUES
 
 CREATE TABLE likes(
   like_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  user_id int,
-  FOREIGN KEY (user_id) REFERENCES user(user_id),
+  like_by int,
+  FOREIGN KEY (like_by) REFERENCES user(user_id),
   post_id int,
-  FOREIGN KEY (post_id) REFERENCES posts(post_id),
-  comment_id int,
-  FOREIGN KEY (comment_id) REFERENCES comment(comment_id),
-  story_id int,
-  FOREIGN KEY (story_id) REFERENCES story(story_id)
+  FOREIGN KEY (post_id) REFERENCES posts(post_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO likes(user_id, post_id, comment_id, story_id) VALUES
-(2,1,2,3),
-(3,2,3,1),
-(3,2,null,null);
+INSERT INTO likes(like_by, post_id) VALUES
+(2,1),
+(3,2),
+(3,2);
 

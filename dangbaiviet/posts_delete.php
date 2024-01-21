@@ -2,7 +2,7 @@
 include 'posts_connect.php';
 if(isset($_REQUEST['id']) and $_REQUEST['id']!=""){
 $id=$_GET['id'];
-$sql = "DELETE FROM posts WHERE id='$id'";
+$sql = "DELETE FROM posts WHERE post_id='$id'";
 if ($conn->query($sql) === TRUE) {
 echo "Xoá thành công!";
 } else {

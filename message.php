@@ -255,7 +255,7 @@ body{
 </head>
 <body>
     <div class="col_menu">
-        <a href="menu.php"><img src="https://img.icons8.com/?size=256&id=Gc9qmZNN9yFN&format=png" style="margin-top: 100px;"></a>
+        <a href="index.php"><img src="https://img.icons8.com/?size=256&id=Gc9qmZNN9yFN&format=png" style="margin-top: 100px;"></a>
         <a><img class="logo1" src="https://img.icons8.com/?size=256&id=61161&format=png"></a>
         <a><img class="logo1" src="https://img.icons8.com/?size=256&id=43571&format=png"></a>
         <a><img src="https://img.icons8.com/?size=256&id=88004&format=png"></a>
