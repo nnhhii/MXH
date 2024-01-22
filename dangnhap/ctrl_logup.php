@@ -3,7 +3,7 @@ $username=$_POST["username"];
 $email=$_POST["email"];
 $pass=$_POST["pass"];
 $link=new mysqli("localhost","root","","mxh");
-$sql_check = "SELECT * FROM user WHERE username = '$username'";
+$sql_check = "SELECT * FROM user WHERE email = '$email'";
 
 if ($link->query($sql_check)->num_rows > 0) {
     echo "

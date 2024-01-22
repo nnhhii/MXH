@@ -1,4 +1,25 @@
-<!DOCTYPE html>
+<?php 
+if (isset($_SESSION['login']))
+{
+	$user_id = $_SESSION['user'];
+    $ketnoi= new mysqli('localhost','root','','MXH');
+    $friend = "select * from friend inner join user on friend.user1 = $user_id and friend.user2 = user.id";
+    $result_fr = $ketnoi->query($friend);
+    $row_fr = $result_fr->fetch_assoc();
+    if (isset($_GET['m_id'])){
+        $m_id = $_GET['m_id'];
+    }else{
+        $friend = "select * from friend inner join user on friend.user1 = $user_id and friend.user2 = user.id";
+        $result_fr = $ketnoi->query($friend);
+        $m_id = $row['id'];
+    }
+
+    
+
+    $sql_m = "select * from message";
+    $result = $ketnoi->query($sql_m);
+?>
+
 <style>
 body{
     height: 100%;
@@ -296,7 +317,7 @@ body{
     <div class="col_right">
         <div class="ten">
             <div class="ava"></div>
-            <div class="username">Thùy Trang</div><br><br>
+            <div class="username"><?php echo $row_fr["username"]?></div><br><br>
             <div class="mini_content">Active 8h ago</div>
             <div style="position: absolute; right:20px; top:17px">
                 <div class="nghe_goi" id="more_info"></div>
@@ -306,10 +327,7 @@ body{
         </div>
         <div class="content">
             <?php 
-            $ketnoi= new mysqli('localhost','root','','MXH');
-            $sql_m = "SELECT * FROM message";
-            $result = $ketnoi->query($sql_m);
-
+            
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $content = $row['content'];
@@ -334,8 +352,6 @@ body{
                 <input type= "hidden" name="message_to" value="<?php echo $msg_to_id?>">
                 <input type="hidden" name="message_by" value="<?php echo $user_id?>">
                 <textarea type="text" name="content" placeholder="Message..."></textarea>
-                
-    
                 <img class="icon" id="smile_icon" src="https://img.icons8.com/?size=256&id=59802&format=png">
                 <img class="icon" id="microphone_icon" src="https://img.icons8.com/?size=256&id=ZNyAxEX9vDxS&format=png">
                 <input type="file" name="file" id="fileInput" style="display: none;">
@@ -344,7 +360,6 @@ body{
                 </label>
                 <img class="icon" name="content" id="button_icon" src="https://img.icons8.com/?size=256&id=86&format=png">
             </form>
-
         </div>
     </div>
     <div class="col_menu_duoi">
@@ -356,8 +371,12 @@ body{
         <div class="icon_menu" id="profile" style="border-radius: 50%;"></div>
     </div>
 </body>
-</html>
 
+<?php 
+}else{
+    header("location:dangnhap/login.php");
+}
+?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
