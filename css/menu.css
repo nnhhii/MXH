@@ -203,15 +203,15 @@ body{
         width: 70px;
     }
     .menu_trai > .layout_logo1 >.logo1{
-        width: 40%;
-        height: 28px;
+        width: 48px;
+        height: 48px;
         padding: 10px;
-        margin: 10% 18%;
+        margin: 10% 15%;
     }
     .menu_trai > .layout_logo1 > .logo1:hover{
         border-radius: 10px;
         background-color: #fbf0e4;
-        transform: scale(1.1);
+        transform: scale(1.02);
         transition: 0.3s;
     }
     .menu_trai > .layout_logo1:hover{

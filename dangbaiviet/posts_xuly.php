@@ -1,5 +1,6 @@
 <script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link >
 <title>Thêm bài viết</title>
 <style>
 .container {
@@ -150,8 +151,9 @@ while ($row = mysqli_fetch_array($result)) {
     echo '  <div class="interaction-icons">';
     echo '      <div class="like-btn" onclick="toggleLike(' . $row['post_id'] . ')">
                     <div id="heart_' . $row['post_id'] . '" class="heart-icon">
-                        <i style="margin-left:0"class="fa-regular fa-heart"></i></div>
-                    </div>';
+                        <i style="margin-left:0"class="fa-regular fa-heart"></i>
+                    </div>
+                </div>';
     echo '          <i class="fa-regular fa-comment"></i>';
     echo '          <i class="fa-regular fa-paper-plane"></i>';
     echo '          <br><div class="like_count">1,548 likes</div>';
@@ -217,7 +219,7 @@ while ($row = mysqli_fetch_array($result)) {
         // Send an AJAX request or use PHP to update like_count in the database
         $.ajax({
         type: 'POST',
-        url: 'update_like_count.php',
+        url: 'dangbaiviet/update_like_count.php',
         data: { postId: postId, increment: increment },
         success: function(response) {
         // Handle the response if needed

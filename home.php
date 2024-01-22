@@ -1,6 +1,7 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/like.js">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>
@@ -37,6 +38,7 @@
         <img class="logo1" src="https://img.icons8.com/?size=256&id=14092&format=png">
         <div class="ten_logo1">Tạo bài đăng</div>
     </div>  
+    <a href="dangnhap/ctrl_logout.php"><button>Đăng xuất</button></a>
 </div>
 
 
@@ -105,6 +107,7 @@
   </div>
 </form>
 <?php require 'dangbaiviet/posts_xuly.php';?>
+
 <div id="fb-root"></div>
     </div>
   </div>
