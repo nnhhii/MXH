@@ -45,70 +45,69 @@
 <div class="gop_2_menu">
   <div class="menu_giua">
     <div class="layout_menu_giua">
-        <div class="next_left"></div>
-        <div class="story1"></div>
-        <div class="story2"></div>
-        <div class="story3"></div>
-        <div class="next_right"></div>
-        <form action="home.php" enctype="multipart/form-data" method="post" class="form">
-  <div class="vien" style="margin-left:-2%">
-    <div class="avatar"></div>
-    <button type="button" class="thanhdangbaiviet" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Đăng bài viết </button>
-    <hr>
-    <div class="menunho">
-      <button class="button-menu"> 
-        <i class="fa-regular fa-image" style="color: #2ecc71;" ></i> Hình ảnh
-      </button>  
-      <button class="button-menu" style="float:right; padding: 10px 90px"> 
-        <i class="fa-solid fa-video" style="color: #ff0000" ></i>   Video
-      </button>
-    </div>
-  </div>
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left:170px">Bài đăng mới</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="next_left"></div>
+      <div class="story1"></div>
+      <div class="story2"></div>
+      <div class="story3"></div>
+      <div class="next_right"></div>
+      <form action="home.php" enctype="multipart/form-data" method="post" class="form">
+        <div class="vien" style="margin-left:-2%">
+          <div class="avatar"></div>
+          <button type="button" class="thanhdangbaiviet" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Đăng bài viết </button>
+          <hr>
+          <div class="menunho">
+            <button class="button-menu"> 
+              <i class="fa-regular fa-image" style="color: #2ecc71;" ></i> Hình ảnh
+            </button>  
+            <button class="button-menu" style="float:right; padding: 10px 90px"> 
+              <i class="fa-solid fa-video" style="color: #ff0000" ></i>   Video
+            </button>
+          </div>
         </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <div style="padding:10px;height:60px">
-                <div style="background-image:url('img/65a8d102a1c4b-Screenshot 2024-01-18 112403.png'); background-size:cover;width:35px; height:35px; border-radius: 50%;float:left"></div>
-                <label style="float:left; margin:1% 2%">Tên</label>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left:170px">Bài đăng mới</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <textarea type="text" style="border:none; height:5em;" class="form-control" name="content" id="content" placeholder="Đây là nội dung..." rows="10" cols="80">
-              </textarea>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-3">
+                    <div style="padding:10px;height:60px">
+                      <div style="background-image:url('img/65a8d102a1c4b-Screenshot 2024-01-18 112403.png'); background-size:cover;width:35px; height:35px; border-radius: 50%;float:left"></div>
+                      <label style="float:left; margin:1% 2%">Tên</label>
+                    </div>
+                    <textarea type="text" style="border:none; height:5em;" class="form-control" name="content" id="content" placeholder="Đây là nội dung..." rows="10" cols="80">
+                    </textarea>
+                  </div>
+                  <div style="position:relative;border-radius:10px; border:#EEEEEE 2px solid; padding: 15px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                    <label for="message-text">Thêm ảnh</label>
+                    <td>
+                      <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
+                      <input type="file" id="fileInput"name="image" class="hinhanh" style="display:none" multiple>
+                      <label for="fileInput"><i class="fa-regular fa-image" style="color: #2ecc71; cursor:pointer; position:absolute; right:25px;top:20px; scale:1.5" ></i></label>
+                    </td>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <td>
+                  <input type="submit" name="btn_submit" value="Đăng" 
+                  style="background-color: #0099FF; 
+                  color: white; padding: 10px 40px; 
+                  border:none;
+                  width:400px; 
+                  border-radius: 10px; 
+                  margin: 0 auto">
+                </td>
+              </div>
             </div>
-            <div style="position:relative;border-radius:10px; border:#EEEEEE 2px solid; padding: 15px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
-              <label for="message-text">Thêm ảnh</label>
-              <td>
-                <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
-                <input type="file" id="fileInput"name="image" class="hinhanh" style="display:none" multiple>
-                <label for="fileInput"><i class="fa-regular fa-image" style="color: #2ecc71; cursor:pointer; position:absolute; right:25px;top:20px; scale:1.5" ></i></label>
-              </td>
-            </div>
-          </form>
+          </div>
         </div>
-        <div class="modal-footer">
-          <td>
-            <input type="submit" name="btn_submit" value="Đăng" 
-            style="background-color: #0099FF; 
-            color: white; padding: 10px 40px; 
-            border:none;
-            width:400px; 
-            border-radius: 10px; 
-            margin: 0 auto">
-          </td>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
-<?php require 'dangbaiviet/posts_xuly.php';?>
-
-<div id="fb-root"></div>
+      </form>
+      <?php require 'dangbaiviet/posts_xuly.php';?>
+      <div id="fb-root"></div>
     </div>
   </div>
 

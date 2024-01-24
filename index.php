@@ -10,6 +10,8 @@ if(isset($_SESSION['user']))
                 break;
             case 1:
                 include("trangcanhan/trangcanhan.php");
+            case 2:
+                include("trangcanhan/trangbanbe.php");
         }
     }else {include("home.php");}
 

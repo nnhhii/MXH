@@ -1,23 +1,12 @@
 <?php 
-if (isset($_SESSION['login']))
+if (isset($_SESSION['user']))
 {
 	$user_id = $_SESSION['user'];
-    $ketnoi= new mysqli('localhost','root','','MXH');
-    $friend = "select * from friend inner join user on friend.user1 = $user_id and friend.user2 = user.id";
-    $result_fr = $ketnoi->query($friend);
-    $row_fr = $result_fr->fetch_assoc();
-    if (isset($_GET['m_id'])){
-        $m_id = $_GET['m_id'];
-    }else{
-        $friend = "select * from friend inner join user on friend.user1 = $user_id and friend.user2 = user.id";
-        $result_fr = $ketnoi->query($friend);
-        $m_id = $row['id'];
-    }
-
-    
-
-    $sql_m = "select * from message";
-    $result = $ketnoi->query($sql_m);
+    $ketnoi= new mysqli('localhost','root','','MXH');     
+    $friend = "SELECT * FROM user 
+    LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = user.user_id) OR (friend.user_id1 = user.user_id AND friend.user_id2 = $user_id)
+    WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL";
+    $result_fr = $ketnoi->query($friend);  
 ?>
 
 <style>
@@ -51,11 +40,11 @@ body{
     float: left;
     height: 720px;
     position: relative;
+    overflow-y:scroll ;
 }
 .col_left > .mess {
-    position: absolute; 
-    left: 20px; 
-    top:30px; 
+    margin: 30px 20px;
+    float:left;
     font-size: 20px; 
     font-weight: bold; 
     font-family:'Segoe UI', Tahoma,Verdana, sans-serif;
@@ -63,24 +52,24 @@ body{
 .col_left > img {
     width: 30px; 
     height: 30px; 
-    position: absolute; 
-    right: 30px; 
-    top:30px;
+    margin:30px 25px 15px 0;
+    float:right;
     cursor: pointer;
 }
-.col_left > .mess1{
+.mess1{
     width: 100%;
     height: 80px;
     float: left;
-}
-.col_left > .mess1:hover{
-    background-color: rgb(237, 235, 235);
+    color: black;
     transition: 0.2s;
-    cursor: pointer;
+}
+.mess1:hover{
+    background-color: rgb(247, 247, 247);
+}
+.col_left > a >.mess1.active {
+    background-color: rgb(229, 228, 228)
 }
 .ava{
-    background-image: url('img/anh2.jpeg');
-    background-position: center;
     background-size: cover;
     border-radius: 50%;
     padding:30px;
@@ -106,7 +95,7 @@ body{
 .col_right{
     position: absolute;
     right:0;
-    left:455px;
+    left:455px
 }
 .col_right > .ten{
     height: 80px;
@@ -141,15 +130,15 @@ body{
     background-image: url('https://img.icons8.com/?size=256&id=102729&format=png');
 }
 .col_right > .content{
-    height: 580px;
+    height: 590px;
     overflow-y:scroll ;
 }
 .col_right > .chat_box{
     position: relative;
-    padding: 10px;
+    padding: 10px
 }
 .col_right > .chat_box > form > textarea{
-    height: 40px;
+    height: 45px;
     line-height: 2.5;
     border: lightgray solid 1px;
     border-radius: 30px;
@@ -164,6 +153,7 @@ body{
     right: 60px;
     left: 20px;
     resize: none;
+    outline:none
 }
 .col_right > .chat_box > form > .icon, .icon{
     width: 29px;
@@ -191,7 +181,7 @@ body{
 }
 @media (max-width:900px){
     .col_left{
-        width: 80px;
+        width: 100px;
     }
     .col_left > .mess{
         display: none;
@@ -199,11 +189,11 @@ body{
     .col_left > img{
         right: 25px;
     }
-    .col_left > div>.username, .mini_content{
+    .col_left > a >div>.username, .mini_content{
         display: none;
     }
     .col_right{
-        left: 152px;
+        left: 172px;
     }
 }
 @media(max-width:600px){
@@ -269,6 +259,44 @@ body{
         background-image: url('https://th.bing.com/th/id/OIP.R_VSj3S9jJBIz31hmPBQDAAAAA?w=256&h=256&rs=1&pid=ImgDetMain');
     }
 }
+#info{
+    display:none;
+    width:20%;
+    position:absolute;
+    right:0;
+    border-left:  1px solid lightgray;
+}
+.layout_info{
+    min-width:200px;
+    height:100px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding:20px;
+    border-bottom: 1px solid lightgray;
+}
+.info_1{
+    font-size: 25px;
+    margin-bottom: 35px;
+}
+.button_mute{
+    border-radius: 50%;
+    border: none;
+    padding:9px 10px;
+    position:absolute;
+    right: 20px;
+    scale: 1.25;
+}
+.button_mute:hover{
+    background-color:lightgray;
+    transition: 0.3s;
+}
+.info_2{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    padding:22px;
+    color: #ED4956;
+    cursor: pointer;
+}
+
 </style>
 <head>
     <meta charset="utf-8">
@@ -296,50 +324,68 @@ body{
     <div class="col_left">
         <img src="https://img.icons8.com/?size=256&id=Wyndx3rk1dCv&format=png">
         <div class="mess">Messages</div>
-        <div class="mess1" style="margin-top:80px">
-            <div class="ava"></div>
-            <div class="username">Thùy Trang</div><br><br>
-            <div class="mini_content">Active 8h ago</div>
-        </div>
-        
-        <div class="mess1">
-            <div class="ava"></div>
-            <div class="username">Nhi</div><br><br>
-            <div class="mini_content">Active 8h ago</div>
-        </div>
-        
-        <div class="mess1">
-            <div class="ava"></div>
-            <div class="username">Thảo</div><br><br>
-            <div class="mini_content">Active 8h ago</div>
-        </div>
+        <?php 
+        if ($result_fr !== null && $result_fr->num_rows > 0) {
+            if (isset($_GET['m_id'])){
+                $m_id = $_GET['m_id'];
+            }else{
+                $friend_default = "select * from friend inner join user on friend.user_id1 = $user_id and friend.user_id2 = user.user_id or friend.user_id1 =user.user_id and friend.user_id2 = $user_id";
+                $result_default = $ketnoi->query($friend_default);
+                $row_default = $result_default -> fetch_assoc();
+                $m_id = $row_default['user_id'];
+            }
+            $friend_details = "select * from user where user_id = $m_id";
+            $result_dt = $ketnoi->query($friend_details);
+            $row_dt = $result_dt ->fetch_assoc();
+            while ($row_fr = $result_fr->fetch_assoc()) 
+            {
+        ?>
+            <a href="index.php?pid=0&&m_id=<?php echo $row_fr['user_id']?>">
+                <div class="mess1 <?php echo ($row_fr['user_id'] == $m_id) ? 'active' : ''; ?>">
+                    <div class="ava" style="background-image: url('img/<?php echo $row_fr["avartar"]?>');"></div>
+                    <div class="username"><?php echo $row_fr["username"]?></div><br><br>
+                    <div class="mini_content">Active 8h ago</div>
+                </div> 
+            </a>
+        <?php
+        }
+        ?>
     </div>
     <div class="col_right">
         <div class="ten">
-            <div class="ava"></div>
-            <div class="username"><?php echo $row_fr["username"]?></div><br><br>
+            <div class="ava"style="background-image: url('img/<?php echo $row_dt["avartar"]?>');padding:27px"></div>
+            <div class="username"><?php echo $row_dt["username"]?></div><br><br>
             <div class="mini_content">Active 8h ago</div>
             <div style="position: absolute; right:20px; top:17px">
-                <div class="nghe_goi" id="more_info"></div>
+                <div class="nghe_goi" id="more_info" onclick="myFunction()"></div>
                 <div class="nghe_goi" id="call_video"></div>
                 <div class="nghe_goi" id="call"></div>
             </div>
         </div>
         <div class="content">
             <?php 
-            
+            $sql_m = "select * from message where message_by=$user_id and message_to=$m_id or message_by=$m_id and message_to=$user_id";
+            $result = $ketnoi->query($sql_m);
             if ($result->num_rows > 0) {
+                
                 while ($row = $result->fetch_assoc()) {
                     $content = $row['content'];
                     $isImage = filter_var($content, FILTER_VALIDATE_URL) && pathinfo(parse_url($content, PHP_URL_PATH), PATHINFO_EXTENSION) != 'php';
                     echo '<div style="width:100%;float:left">';
-
-                    if ($isImage) {
-                        echo '<img src="' . $content . '" style="width:40px;height:40px;float:right; margin:2px 2%;">';
-                    } else {
-                        echo '<div style="max-width:60%;overflow-wrap:break-word;padding:10px;border-radius:18px;background: lightgray;float:right;margin:2px 2%;font-size:17px">' . $content . '</div>';
+                    if ($row['message_by']==$user_id) {
+                        if ($isImage) {
+                            echo '<img src="' . $content . '" style="width:300px;height:300px;float:right; margin:2px 2%;">';
+                        } else {
+                            echo '<div style="max-width:60%;overflow-wrap:break-word;padding:10px;border-radius:18px;background: lightgray;float:right;margin:2px 2%;font-size:16.5px">' . $content . '</div>';
+                        }
+                    }else{
+                        echo '<div style="background-image: url(\'img/'.$row_dt['avartar'].'\');background-size:cover;margin: 7px 5px;border-radius:50%;padding:13px; float:left"></div>' ;
+                        if ($isImage) {
+                            echo '<img src="' . $content . '" style="width:40px;height:40px;float:left; margin:2px 8px;">';
+                        } else {
+                            echo '<div style="max-width:60%;overflow-wrap:break-word;padding:10px;border-radius:18px;background: lightgray;float:left;margin:2px 5px;font-size:16.5px">' . $content . '</div>';
+                        }
                     }
-        
                     echo '</div>';
                 }
             } else {
@@ -349,7 +395,7 @@ body{
         </div>
         <div class="chat_box">
             <form id="messageForm" action="" method="post" enctype="multipart/form-data">
-                <input type= "hidden" name="message_to" value="<?php echo $msg_to_id?>">
+                <input type= "hidden" name="message_to" value="<?php echo $m_id?>">
                 <input type="hidden" name="message_by" value="<?php echo $user_id?>">
                 <textarea type="text" name="content" placeholder="Message..."></textarea>
                 <img class="icon" id="smile_icon" src="https://img.icons8.com/?size=256&id=59802&format=png">
@@ -370,15 +416,59 @@ body{
         <div class="icon_menu" id="infor"></div>
         <div class="icon_menu" id="profile" style="border-radius: 50%;"></div>
     </div>
+    <div id=info>
+        <div class="layout_info">
+            <div class="info_1">Chi tiết</div>
+            <div class="mute_mess">Tắt thông báo 
+                <button type="button" class="button_mute"><i class="fa-solid fa-bell"></i></button>
+            </div>
+        </div>
+        <div style="height:450px;border-bottom: 1px solid lightgray;">
+            <a href="index.php?pid=2&&m_id=<?php echo $row_dt["user_id"]?>">
+                <div class="mess1">
+                    <div class="ava" style="background-image: url('img/<?php echo $row_dt["avartar"]?>')"></div>
+                    <div class="username"><?php echo $row_dt["email"]?></div><br><br>
+                    <div class="mini_content"><?php echo $row_dt["username"]?></div>
+                </div>
+            </a>
+        </div>
+        <div style="height:150px">
+            <div class="info_2">Chặn</div>
+            <div class="info_2">Xóa cuộc trò chuyện</div>
+        </div>
+    </div>
 </body>
 
 <?php 
-}else{
+}else {
+    echo "<div style='width:150px;height:50px;margin:100px 100px;text-align:center; color:gray'>Không có bạn bè. <br> Hãy kết bạn thôi nào!</div>";
+}}else{
     header("location:dangnhap/login.php");
 }
+
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+    var mess1Elements = document.querySelectorAll('.mess1');
+    mess1Elements.forEach(function (element) {
+        element.addEventListener('click', function () {
+            element.classList.toggle('active');
+        });
+    });
+});
+function myFunction() {
+    var colRight = document.querySelector(".col_right");
+    var info = document.getElementById("info");
+
+    if (colRight.style.right === "20%") {
+        colRight.style.right = "0";
+        info.style.display = "none";
+    } else {
+        colRight.style.right = "20%";
+        info.style.display = "block";
+    }
+}
 $(document).ready(function(){
     $("#button_icon").attr("src", "https://img.icons8.com/?size=256&id=86&format=png");
 
@@ -451,9 +541,11 @@ $(document).ready(function(){
 
 
 
-    $("#fileInput").change(function() {
+$(document).ready(function () {
+    $("#fileInput").change(function () {
         sendFile(); // Function to handle file submission
     });
+
     function sendFile() {
         var formData = new FormData($("#messageForm")[0]);
         $.ajax({
@@ -462,18 +554,19 @@ $(document).ready(function(){
             data: formData,
             processData: false,
             contentType: false,
-            success: function(response){
+            success: function (response) {
                 console.log(response);
                 $(".content .no").remove();
                 var data = JSON.parse(response);
 
                 // Append a link to the uploaded file in the div content
-                $(".content").append('<div style="width:100%;float:left"><a href="' + data.url + '" target="_blank">' + data.filename + '</a></div>');
+                $(".content").append('<div style="width:100%;float:left"><div style="max-width:60%;overflow-wrap:break-word;padding:10px;border-radius:18px;background: lightgray;float:right;margin:2px 2%;font-size:16.5px">' + data.url + '</div></div>');
 
                 $(".content").scrollTop($(".content")[0].scrollHeight);
-            }
+                }
         });
     }
+});
 
 
 
@@ -484,6 +577,7 @@ $(document).ready(function(){
             url: 'send_message.php', 
             type: 'POST', 
             data: {
+                message_by :  $('input[name="message_by"]').val(),
                 message_to : $('input[name="message_to"]').val(),
                 content : $('textarea[name="content"]').val(),
                 ajax : 1

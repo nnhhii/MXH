@@ -5,18 +5,18 @@ CREATE TABLE user(
   email varchar(100), 
   gender varchar(10),
   date_of_birth date, 
-  avartar varchar(500),
-  cover_picture varchar(500),
+  avartar varchar(500) DEFAULT 'user.jpeg',
+  cover_picture varchar(500) DEFAULT 'anhbia.jpg',
   bio varchar(200),
   highlight varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 INSERT INTO user(username, password, email, gender, date_of_birth, avartar, cover_picture,bio,highlight) VALUES
 ('Phat Le','12345','phatle@gmail.com','nam','1999-02-18', 'anh2.jpg','anh3.jpg','hehe','tin noi bat'),
-('Thu Thao', '12345', 'thuthao@gmail.com','nữ','2000-07-08', 'user.png',null,'hehe toi la con ga',null),
-('Nhi','12345','nhinhi@gmail.com','nữ','2005-03-14','anh2.jpeg',null,null,null),
-('Nam Phương','12345','nam@gmail.com','nam','2004-07-02','user.png',null,null,null),
-('Kiet','12345','kietanh@gmail.com','nam','2002-07-15','user.png',null,'toi la Kiet',null);
+('Thu Thao', '12345', 'thuthao@gmail.com','nữ','2000-07-08', 'user.jpeg','anhbia.jpg','hehe toi la con ga',null),
+('Nhi','12345','nhinhi@gmail.com','nữ','2005-03-14','anh2.jpeg','anhbia.jpg',null,null),
+('Nam Phương','12345','nam@gmail.com','nam','2004-07-02','user.jpeg','anhbia.jpg',null,null),
+('Kiet','12345','kietanh@gmail.com','nam','2002-07-15','user.jpeg','anhbia.jpg','toi la Kiet',null);
 
 
 CREATE TABLE user_info(

@@ -1,211 +1,175 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<?php include ('../menu_tren.php') ?>
+<?php 
+$ketnoi= new mysqli('localhost','root','','MXH');     
+if (isset($_GET['m_id'])){
+  $m_id = $_GET['m_id'];
+$friend_details = "select * from user where user_id = $m_id";
+$result_dt = $ketnoi->query($friend_details);
+$row_dt = $result_dt ->fetch_assoc();}
+include ('menu_tren.php') 
+?>
 </head>
 <style>
-    body {
-    margin: 0;
-    padding: 0;
-    overflow-y: scroll;
-    box-sizing: border-box;
-        }
-    .bia {
-        margin: 5.5% 5% 0 5%;
-        height:65%;
-        width:90%; 
-        border-radius:5px; 
-        position: relative;
-        z-index:0;
-    }
-    .bia1 {
-      float:right;
-      width:78%;
-    }
-    .khungcanhan {
-      background-color:white;
-      float:left;
-      height:100%; 
-      width:22%;
-      border-radius:5px;
-      position: absolute;
-      background: linear-gradient(to bottom, gray, white);
-
-    }
-    .canhan1 {
-      height:40%;
-      position: relative;
-      border-radius:5px 5px 0 0;
-    }
-    .name {
-      height:45% ;
-      text-align:center;
-      font-family:Helvetica, Arial,sans-serif;
-      font-size: 2vw;
-    }
-    
-    .banbe {
-      height:25%;
-      top:0%;
-      font-size:1vw;
-      color:dimgray;
-      margin-top:-5%;
-    }
-    .anhdaidien {
-        height: 60%;
-        width: 40%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        border:3px solid white;
-    }
-    .tieusu {
-      height:50%;
-      font-size:1.3vw
-    }
-    .congcu {
-  display: flex;
-  justify-content: space-around; 
+.bia {
+    margin: 11vh 5% 0 5%;
+    height:34vw;
+    width:90%; 
+    border-radius:5px;
 }
-
-.congcu1 {
-  font-size: 1.5vw;
-  padding: 10px 20px;
+.bia1 {
+  float:right;
+  width:78%;
+  background-size: cover;
+  border-radius: 0 5px 5px 0;
+  height:34vw
+}
+.khungcanhan {
+  background: linear-gradient(to bottom, gray, white);
+  float:left;
+  height:34vw;
+  width:22%;
+  border-radius:5px 0 0 5px ;
+  position: relative;
+}
+.canhan1 {
+  height:15vh;
+  position: relative;
+  padding:9vh 0 2vh 0
+}
+.anhdaidien{
+  background-size: cover;
+  background-position: center;
+  width: 15vh;
+  height:15vh;
+  border-radius: 50%;
+  margin:auto;
+  border: 3px solid white;
+}
+.name{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.8vw;
+  text-align: center
+}
+.banbe{
+  font-size: 1vw;
+  color: dimgray;
+}
+.tieusu{
+  font-size: 1.2vw
+}
+.congcu{
+  right:0;
+  left:0;
+  padding: 5vw 0.9vw 0 0.9vw;
+  position: absolute;
+  white-space: nowrap;
+}
+.congcu1{
+  margin:  0.5vw;
+  font-size: 1.1vw;
+  padding: 1vw 2vw;
   border: none;
   border-radius: 5px;
   background-color: #cecdca;
-  color: #343a40;
-  cursor: pointer;
 }
-
 .congcu1:hover {
   background-color: #343a40;
   color: #f8f9fa;
 }
-
-    .story {
-      height: 8.8vw; 
-      margin-top:1%;
-      background-color:#cecdca;
-    }
-    .circle {
-  height: 7vw;
-  width: 7vw;
-  background-color:none;
-  border-radius: 50%;
-  display: inline-block;
-  margin-top:0.8%;
-  margin-left:6%;
-  border:2px solid white;
-  box-shadow: 0 0 0 0.7px dimgray;
-}
-
-    @media (max-width: 660px) {
-    .bia {
-        height:38%;
-        width:100%; 
-        margin:0;
-        position: relative;
-    }
-    .bia1  {
-        width: 100%;
-        margin-top:8%;
-        border-radius:0;
-    }
-    .anhdaidien {
-        position: static;
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        background-color:none;
-      }
-    .khungcanhan {
-        position: sticky; 
-        top: 540px; 
-        left: 32%;
-        background:none;
-        transform: translate(25%, -20%);
-    }
-    .canhan1 {
-      border-radius:50%;
-    }
-    .congcu {
-  display: flex;
-  justify-content: space-around;
-}
-
-.congcu1 {
-  font-size: 3vw;
-  padding: 1vw 17vw;
-  border-radius: 5px;
+.story {
+  width: 100%;
+  height: 15vh;
+  margin-top: 1%;
   background-color: #cecdca;
-  cursor: pointer;
-  height:8vw;
-  margin-left:5vw;
-  margin-top:3vw;
-  white-space: nowrap;
+  float: left;
 }
-
-.congcu1:hover {
-  background-color: #343a40;
-  color: #f8f9fa;
-}
-
-    .name {
-      height:45% ;
-      text-align:center;
-      font-family:Helvetica, Arial,sans-serif;
-      font-size: 5.2vw;
-      margin-top:10%
-    }
-    .tieusu {
-      height:50%;
-      font-size:3.5vw;
-      width: 200%;
-      margin-left:-50%;
-    }
-    .banbe {
-      height:25%;
-      top:0%;
-      font-size:3vw;
-      color:dimgray;
-      margin-top:-10%;
-    }
-    .story {
-      height: 16vw; 
-      margin-top:55%;
-      background-color:#cecdca;
-    }
-    .circle {
-  height: 12vw;
-  width: 12vw;
-  background-color:none;
+.circle {
+  height: 12vh;
+  width: 12vh;
+  background-color: none;
   border-radius: 50%;
-  display: inline-block;
-  margin-top:1.9%;
-  margin-left:0.5vw;
-  border:1.5px solid white;
+  float: left;
+  margin-top: 0.8%;
+  margin-left: 6%;
+  border: 2px solid white;
   box-shadow: 0 0 0 0.7px dimgray;
-  
 }
+@media(max-width:980px){
+  .khungcanhan{
+    width: 40%;
+    top:-10vh;
+    left:28vw;
+    height: 50vh;
+    background: transparent;
+    float: left;
+  }
+  .canhan1{
+    padding:2vw;
+  }
+  .anhdaidien{
+    width: 15vh;
+    height:15vh;
+  }
+  .name{
+    font-size: 3.5vh;
+  }
+  .banbe{
+    font-size: 2vh;
+  }
+  .tieusu{
+    font-size: 2vh
+  }
+  .bia{
+    width: 100%;
+    margin: 6.5vh 0 0 0;
+  }
+  .bia1{
+    width: 100%;
+    height: 40vh;
+  }
+  .congcu{
+    padding: 2vw;
+    white-space: nowrap;
+  }
+  .congcu1{
+    margin-left:  1.4vw;
+    font-size: 2.5vh;
+    padding: 1.8vw 4vw;
+  }
+  .story{
+    margin-top: -10vh;
+  }
 }
+@media(max-width:630px){
+  .khungcanhan{
+    width: 70%;
+    top:-9vh;
+    left:15vw
+  }
+  .congcu{
+    padding: 2vw;
+    white-space: nowrap;
+  }
+  .congcu1{
+    margin-left: 5vw;
+    font-size: 2.5vh;
+    padding: 2.5vw 6vw;
+  }
+}
+    
 </style>
 <body>
 <div class="bia">
-  <div class="bia1">
-  <img src="https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-6/344344333_183240687944006_4719060222219809450_n.jpg?stp=dst-jpg_p600x600&_nc_cat=100&ccb=1-7&_nc_sid=783fdb&_nc_ohc=65buc9zae2QAX_mw4kV&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfB2o_svUWa6w3fjt431f4WJ32AN0i_QFqthUEVTssLWJA&oe=659D08D7" style="width:100%; height:100%;border-radius:5px">
-  </div>
+  <div class="bia1" style="background-image: url('img/<?php echo $row_dt["cover_picture"]?>')"></div>
   <div class="khungcanhan">
     <div class="canhan1">
-      <div class="anhdaidien">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2GI8ap-iuztWSsPmzlfnbcG4AHTEodf0wVkoGorRjQoW5pIT3" style="width:100%; height:100%; border-radius: 50%;">
-      </div>
+      <div class="anhdaidien" style="background-image: url('img/<?php echo $row_dt["avartar"]?>')"></div>
     </div>
     <div class="name">
-      <div><strong>M-TP</strong></div>
+      <div><strong><?php echo $row_dt["username"]?></strong></div>
       <div class="banbe"><br>2939 bạn bè </div>
-      <div class="tieusu"><br> tiểu sử nek rh bebebe he hihi heieiw heu rudud </div>
+      <div class="tieusu"><br><?php echo $row_dt["bio"]?></div>
     </div>
     <div class="congcu">
       <button  class="congcu1">Nhắn tin</button>
@@ -215,7 +179,6 @@
   </div>
 </div>
 <div class="story">
-  <div class="circle"></div>
   <div class="circle"></div>
   <div class="circle"></div>
   <div class="circle"></div>
