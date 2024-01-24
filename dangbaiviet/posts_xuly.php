@@ -64,7 +64,7 @@ color: #000000; /* Đặt màu chữ là đen khi di chuột vào */
 .fa-solid {
 display: inline-block;
 font-weight: 900;
-font-size: 14px;
+font-size: 16px;
 color: #000000; /* Đặt màu chữ là đen */
 }
 
@@ -102,6 +102,12 @@ color: #212529;
 .dropdown-item:hover,
 .dropdown-item:focus {
 background-color: #f8f9fa;
+}
+.chinhsuaa{
+    padding-left:300px;
+}
+.luu{
+    padding-left:450px;
 }
 </style>
 
@@ -143,6 +149,16 @@ while ($row = mysqli_fetch_array($result)) {
             <div class="user-info">
                 <div class ="avtbai"></div>
                 <div style="font-size:15px; margin:7px">Nam Trinh</div>
+                <div class="chinhsuaa">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:white;border:none;">
+                   <i class="fa-solid fa-ellipsis-vertical" style=""></i>
+                        </button>
+                <ul class="dropdown-menu">
+                         <button class="dropdown-item edit"><a href="posts_edit.php?id='.$row['post_id'].'">Edit</a></button>
+             
+                   <button class="dropdown-item delete"><a href="posts_delete.php?id='.$row['post_id'].'"><i class="fa-solid fa-trash"  style="color: red;"></i> </a></button>
+                </ul>
+            </div>
             </div>';
     echo '  <div class="content">';
     echo "      <p>" . $row['content'] . "</p>";
@@ -151,22 +167,17 @@ while ($row = mysqli_fetch_array($result)) {
     echo '  <div class="interaction-icons">';
     echo '      <div class="like-btn" onclick="toggleLike(' . $row['post_id'] . ')">
                     <div id="heart_' . $row['post_id'] . '" class="heart-icon">
-                        <i style="margin-left:0"class="fa-regular fa-heart"></i>
+                         <i style="margin-left:0"class="fa-regular fa-heart"></i>
                     </div>
                 </div>';
     echo '          <i class="fa-regular fa-comment"></i>';
     echo '          <i class="fa-regular fa-paper-plane"></i>';
-    echo '          <br><div class="like_count">1,548 likes</div>';
-//     echo '<div class="chinhsua">
-//     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-//         <i class="fa-solid fa-ellipsis-vertical"></i>
-//     </button>
-//     <ul class="dropdown-menu">
-//         <button class="dropdown-item edit"><a href="posts_edit.php?id='.$row['post_id'].'">Edit</a></button>
-    
-//         <button class="dropdown-item delete"><a href="posts_delete.php?id='.$row['post_id'].'"><i class="fa-solid fa-trash"  style="color: red;"></i> </a></button>
-//     </ul>
-// </div>';
+
+    echo '          <div class="luu"> <i class="fa-regular fa-bookmark"></i></div>';
+    echo '          <br><div class="like_count">';
+    echo            "<p>" . $row['like_count'] ."</p>";
+    echo '</div>';
+     
     echo '</div>';
     echo '</div>';
 }
