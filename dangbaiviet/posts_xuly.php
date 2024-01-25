@@ -158,7 +158,7 @@ while ($row = mysqli_fetch_array($result)) {
              
                    <button class="dropdown-item delete"><a href="posts_delete.php?id='.$row['post_id'].'"><i class="fa-solid fa-trash"  style="color: red;"></i> </a></button>
                 </ul>
-            </div>
+            </div>a
             </div>';
     echo '  <div class="content">';
     echo "      <p>" . $row['content'] . "</p>";
