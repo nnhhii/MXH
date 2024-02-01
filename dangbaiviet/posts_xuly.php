@@ -170,7 +170,7 @@ while ($row = mysqli_fetch_array($result)) {
                          <i style="margin-left:0"class="fa-regular fa-heart"></i>
                     </div>
                 </div>';
-    echo '          <i class="fa-regular fa-comment"></i>';
+                echo '        <a href="dangbaiviet/add_comment.php" onclick="showCommentForm()"><i id="commentIcon" class="fa-regular fa-comment"></i></a>';
     echo '          <i class="fa-regular fa-paper-plane"></i>';
 
     echo '          <div class="luu"> <i class="fa-regular fa-bookmark"></i></div>';
