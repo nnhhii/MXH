@@ -25,7 +25,7 @@
             </div>
     <?php } ?>
 
-
+<div style="float:left"> 
     <!-- right -->
     <div style="width:50%;height:90vh; float: left; padding: 0 15px; position:relative">
       <!--HEAD -->
@@ -100,8 +100,5 @@
       </div>
     </div>
   </div>
-
-</body>
-
-</html>
+    </div>
 <script src="css/like.js"></script>

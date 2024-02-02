@@ -3,32 +3,32 @@
 require_once 'posts_connect.php';
 
 $id = $_GET['id'];
-$query = mysqli_query($conn, "SELECT * FROM `posts` WHERE id='$id'");
+$query = mysqli_query($conn, "SELECT * FROM `posts` WHERE post_id='$id'");
 $row = mysqli_fetch_assoc($query);
 
 if (isset($_POST['update_posts'])) {
     $content = $_POST['content'];
 
     // Kiểm tra xem người dùng đã chọn ảnh mới hay chưa
-    if ($_FILES['image']['size'] > 0) {
+    if ($_FILES['image']['size'] > 0) { 
         // Nếu có ảnh mới, xử lý tải lên và lưu đường dẫn mới vào cơ sở dữ liệu
-        $target = "img/"; // Đường dẫn thư mục lưu trữ ảnh
+        $target = "../img/"; // Đường dẫn thư mục lưu trữ ảnh
         $image = $_FILES['image']['name'];
         $target_file = $target. basename($image);
 
         if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
             // Cập nhật cả nội dung và ảnh mới
-            $sql = "UPDATE `posts` SET content='$content', image='$image' WHERE id='$id'";
+            $sql = "UPDATE `posts` SET content='$content', image='$image' WHERE post_id='$id'";
         } else {
             echo "Upload ảnh mới thất bại.";
         }
     } else {
         // Nếu không có ảnh mới, chỉ cập nhật nội dung
-        $sql = "UPDATE `posts` SET content='$content' WHERE id='$id'";
+        $sql = "UPDATE `posts` SET content='$content' WHERE post_id='$id'";
     }
     if ($conn->query($sql) === TRUE) {
         echo '<script language="javascript">alert("Chỉnh sửa bài viết thành công !");
-            window.location.href = "posts_add.php";
+            window.location.href = "../home.php";
             exit();
         </script>';
     } else {
