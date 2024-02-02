@@ -479,7 +479,7 @@ $row = $result->fetch_assoc();
             <!-- Button to Open the Modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_1"
               style="padding: 0px; border: 0px; width: 45vh;height: 45vh;" >
-              <div style="background-image:url('img/Screenshot 2024-01-18 112334 copy.png');background-size:cover; background-position:center;width: 45vh;height: 45vh;">
+              <div style="background-image:url('img/Screenshot 2024-01-18 112334.png');background-size:cover; background-position:center;width: 45vh;height: 45vh;">
             </button>
             <!-- The Modal -->
             <div class="modal fade" id="myModal_1">

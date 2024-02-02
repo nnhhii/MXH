@@ -5,7 +5,7 @@
     if ($i == 1) {
       ?>
       <div style="width: 50%; float: left;">
-        <img src="img/Screenshot 2024-01-18 112334 copy.png" alt="khong nhan duoc anh"
+        <img src="img/Screenshot 2024-01-18 112334.png" alt="khong nhan duoc anh"
           style="width: 100%; height: 100%; height: 90vh;">
       </div>
     <?php } else if ($i == 2) { ?>
