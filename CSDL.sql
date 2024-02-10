@@ -58,15 +58,15 @@ CREATE TABLE posts (
   content text,
   image varchar(500),
   like_count int NOT NULL DEFAULT 0,
-  comment_count int,
-  share_count int,
+  comment_count int NOT NULL DEFAULT 0,
+  share_count int NOT NULL DEFAULT 0,
   post_time varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO posts (content, image, like_count) VALUES
-( 'cc', '489699.png', 0),
-( 'hí nhô ', 'cute-robot-waving-hand-cartoon-260nw-1917055787 (1).webp', 0),
-( 'trăng ơi từ đâu đến ', '1111.jpg', 1);
+INSERT INTO posts (post_by,content, image, like_count) VALUES
+(2, 'cc', 'hoboi.jpg', 0),
+(1, 'hí nhô ', 'anh3.jpg', 0),
+(5, 'trăng ơi từ đâu đến ', 'anhbia.jpg', 1);
 
 
 CREATE TABLE share (
@@ -90,11 +90,11 @@ CREATE TABLE story (
   story_time varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 INSERT INTO story(user_id, content, img, video, music, story_time) VALUES
-(1, 'Hello', '364665658_683973887098991_2631665589373559337_n.jpg', '', '', '2024-01-17'),
-(2, 'hello2', '378822784_709013834594996_904116546503893544_n.jpg', '', '', '2024-01-17'),
-(3, 'hi', '379341766_874136574429252_8738656710738503635_n.jpg', '', '', '2024-01-17'),
-(4, 'hi2', '401852579_745803197582726_4061090452551986722_n.jpg', '', '', '2024-01-17'),
-(5, 'hihi', '403751451_745805710915808_88638681196570658_n.jpg', '', '', '2024-01-17');
+(1, 'Hello', 'story1.png', '', '', '2024-01-17'),
+(2, 'hello2', 'story2.png', '', '', '2024-01-17'),
+(3, 'hi', 'story3.png', '', '', '2024-01-17'),
+(4, 'hi2', 'story4.png', '', '', '2024-01-17'),
+(5, 'hihi', 'story5.png', '', '', '2024-01-17');
 
 CREATE TABLE comment(
   comment_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,

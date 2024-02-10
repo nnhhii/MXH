@@ -11,8 +11,7 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="like.js"></script>
-  <title>fake</title>
-  <?php include('menu_tren.php') ?>
+  
 </head>
 <?php
 $link = new mysqli("localhost", "root", "", "mxh");

@@ -5,8 +5,7 @@ body{
     width:100%;
     height:8vh;
     position:fixed;
-    background-color:rgb(144, 140, 138);
-    z-index:1;
+    z-index:2;
     top:0
 }
 .menu_tren > a >.logo{
@@ -20,12 +19,12 @@ body{
 }
 .menu_tren > a >.ten_logo{
     width:fit-content;
-    color:#4a3420;
+    color:black;
     float:left;
     padding:5px;
     margin:8px;
     font-family: "Sofia", sans-serif;
-    font-size: 20px;
+    font-size: 27px;
 }
 .menu_tren > .layout_tim_kiem{
     width:40%;
@@ -33,23 +32,23 @@ body{
     margin: 10px 0 0 20%;
     position: relative;
 }
-.menu_tren > .layout_tim_kiem > input{
+.menu_tren > .layout_tim_kiem >form > input{
     width:100%;
     height: 40px;
-    background:#fff3e8;
+    outline: none;
     padding-left: 45px;
     border-radius: 20px;
+    background-color: #EEEEEE;
     border: none;
 }
-.menu_tren > .layout_tim_kiem > .kinh_lup{
-    color: #715133;
+.menu_tren > .layout_tim_kiem >form> .kinh_lup{
     top:12px;
     position: absolute;
     left:13px
 }
 .menu_tren > a >.mess{
     scale: 1.5;
-    color: #3a1d00;
+    color: black;
     position: absolute;
     right:135px;
     top:10px;
@@ -58,7 +57,6 @@ body{
 }
 .menu_tren > .thong_bao{
     scale: 1.5;
-    color: #3a1d00;
     position: absolute;
     right:85px;
     top:10px;
@@ -98,33 +96,32 @@ body{
     height:700px;
     position:fixed;
     top:70px;
-    border-right: rgb(191, 190, 190) solid 1px;
+    border-right: rgb(191, 190, 190) solid 1px
 }
-.menu_trai > .layout_logo1, .layout_logo1{
+.menu_trai > a >.layout_logo1, .layout_logo1{
     height:65px;
     position: relative;
-    cursor: pointer;
-    color: #4a3420;
+    color: black;
 }
-.menu_trai >.layout_logo1:hover{
-    background-color:#fbf0e4;
+.menu_trai > a >.layout_logo1:hover{
+    background-color:#f5f5f5ee;
     border-radius: 5px;
     transform: scale(1.005);
     transition: 0.3s;
-    color:#291500
+    
 }
-.menu_trai > .layout_logo1 > .logo1, .logo1{
+.menu_trai > a > .layout_logo1 > .logo1, .logo1{
     width: 28px;
     height: 28px;
     margin: 5.5% 0 0 7.5%;
     float: left;
 }
-.menu_trai > .layout_logo1 > .ten_logo1, .ten_logo1{
+.menu_trai > a > .layout_logo1 > .ten_logo1, .ten_logo1{
     width:auto;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     float:left;
     padding:15px;
-    margin:1%
+    margin:1%;
 }
 .menu_giua{
     width:67%;
@@ -139,36 +136,83 @@ body{
     width: 470px;
     height:900px
 }
-.story1{
-    width:130px;
-    height: 220px;
-    background:#805b38;
-    float:left;
-    margin-left: 6.5%;
-    border-radius: 10px
+.layout_story{
+    width:100%; 
+    height:220px;
+    overflow:hidden; 
+    position: relative;
+    display: flex;
 }
-.story2{
-    width:130px;
-    height: 220px;
-    background:#805b38;
-    float:left;
-    margin-left: 2%;
-    border-radius: 10px
+.stories-container {
+    display: flex;
+    transition: 0.5s;
 }
-.story3{
-    width:130px;
+.next_left,.next_right{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top:42%;
+    z-index: 1;
+    background-position: center;
+    background-size: cover;
+    cursor: pointer;
+}
+.next_right{
+    right:0;
+    background-image: url('https://www.svgrepo.com/show/432428/chevron-right-circle.svg');
+}
+.next_left{
+    width: 32px;
+    height: 32px;
+    left:0;
+    background-image: url('https://www.svgrepo.com/show/376823/chevron-left-circle.svg');
+}
+.story{
+    width:145px;
     height: 220px;
-    background:#805b38;
     float:left;
-    margin-left: 2%;
-    border-radius: 10px
+    background-position: center;
+    background-size: cover;
+    margin: 0 1%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.vien_ava_story{
+    background: linear-gradient(to left, #5a29b4, #9d2872);
+    border-radius: 50%;
+    width: 43px;
+    height: 43px;
+    margin: 7px;
+    float: left;
+}
+.ava_story{
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    margin: 4px;
+    background-position: center;
+    background-size: cover;
+}
+.ten_story{
+    position: absolute;
+    top:5px;
+    left:55px;
+    width: fit-content;
+    height: auto;
+    line-height: 1;
+    margin: 10px 0;
+    font-size: 12px;
+    color: white; 
 }
 .menu_phai{
     width: 378.5px;
     height:700px;
     position:absolute;
     top:70px;
-    right:0
+    right:0;
 }
 .menu_phai > .de_xuat{
     margin: 50px 0 0 5%;
@@ -220,22 +264,22 @@ body{
     .menu_trai {
         width: 70px;
     }
-    .menu_trai > .layout_logo1 >.logo1{
+    .menu_trai > a > .layout_logo1 >.logo1{
         width: 48px;
         height: 48px;
         padding: 10px;
         margin: 10% 15%;
     }
-    .menu_trai > .layout_logo1 > .logo1:hover{
+    .menu_trai > a > .layout_logo1 > .logo1:hover{
         border-radius: 10px;
-        background-color: #fbf0e4;
+        background-color: #EEEEEE;
         transform: scale(1.02);
         transition: 0.3s;
     }
-    .menu_trai > .layout_logo1:hover{
+    .menu_trai > a > .layout_logo1:hover{
         background-color: rgb(255, 255, 255);
     }
-    .menu_trai > .layout_logo1 > .ten_logo1 {
+    .menu_trai > a > .layout_logo1 > .ten_logo1 {
         display: none;
     }
     .gop_2_menu{
@@ -290,7 +334,7 @@ body{
         right: 0;
     }
     .layout_tim_kiem{
-        left: -5%;
+        left: -10%;
     }
 }
 @media (max-width: 800px) {
@@ -298,7 +342,7 @@ body{
         left: 28%;
     }
     .layout_tim_kiem{
-        left: -10%;
+        left: -15%;
     }
 }
 @media (max-width: 700px) {
@@ -306,7 +350,7 @@ body{
         left: 33%;
     }
     .layout_tim_kiem{
-        left: -15%;
+        left: -17%;
     }
 }
 @media (max-width: 650px) {
@@ -314,15 +358,15 @@ body{
         left: 37%;
     }
     .layout_tim_kiem{
-        left: -17%;
+        left: -20%;
     }
 }
 @media (max-width: 600px) {
     .menu_giua{
         left: 43%;
     }
-    .layout_tim_kiem{
-        left: -20%;
+    .menu_tren > a > .ten_logo{
+        font-size: 20px;
     }
 }
 @media (max-width: 550px) {
@@ -333,11 +377,12 @@ body{
         display: none;
     }
     .kinh_lup{
-        background-color:#fff3e8;
+        background-color:#EEEEEE;
         padding:7px;
         border-radius: 50%;
         margin-top:-7px;
         cursor: pointer;
+        float: left;
     }
     .mess{
         margin-right:-30px
@@ -350,8 +395,8 @@ body{
     }
     .ba_gach{
         background-image: url('https://img.icons8.com/?size=256&id=36389&format=png');
-        width: 30px;
-        height: 30px;
+        width: 26px;
+        height: 26px;
         float: left;
         background-size: cover;
         margin-top: 15px;
@@ -377,7 +422,6 @@ body{
     width:40px;
     height:40px;
     border-radius:20px;
-    background-image: url('../img/65a8d102a1c4b-Screenshot 2024-01-18 112403.png');
     background-size: cover;
 }
 .thanhdangbaiviet {

@@ -1,14 +1,37 @@
 <?php
 require 'posts_connect.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['postId']) && isset($_POST['increment'])) {
-    $postId = $_POST['postId'];
-    $increment = $_POST['increment'];
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["post_id"])) {
+    $post_id = $_POST["post_id"];
+    $like_by = $_POST["like_by"]; 
 
-    // Update like_count in the database
-    $sql = "UPDATE posts SET like_count = like_count + $increment WHERE post_id = $postId";
-    mysqli_query($conn, $sql);
+    // Kiểm tra xem người dùng đã thích bài viết hay chưa
+    $sql_check = "SELECT * FROM likes WHERE post_id = $post_id AND like_by = $like_by";
+    $result = mysqli_query($conn, $sql_check);
 
-    // You can add additional error handling or response if needed
-}
+    if (mysqli_num_rows($result) > 0) {
+        // Người dùng đã thích bài viết => bỏ thích
+        $deleteQuery = "DELETE FROM likes WHERE post_id = $post_id AND like_by = $like_by";
+        mysqli_query($conn, $deleteQuery);
+
+        $updateQuery = "UPDATE posts SET like_count = like_count - 1 WHERE post_id = $post_id";
+        mysqli_query($conn, $updateQuery);
+
+        $is_liked = false;
+    } else {
+        // Người dùng chưa thích bài viết => thích nó
+        $insertQuery = "INSERT INTO likes (like_by, post_id) VALUES ($like_by, $post_id)";
+        mysqli_query($conn, $insertQuery);
+
+        $updateQuery = "UPDATE posts SET like_count = like_count + 1 WHERE post_id = $post_id";
+        mysqli_query($conn, $updateQuery);
+
+        $is_liked = true;
+    }
+    $sql = "SELECT like_count FROM posts WHERE post_id = $post_id";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    
+    echo $row["like_count"];
+} 
 ?>

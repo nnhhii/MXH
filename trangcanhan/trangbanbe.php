@@ -7,7 +7,7 @@ if (isset($_GET['m_id'])){
 $friend_details = "select * from user where user_id = $m_id";
 $result_dt = $ketnoi->query($friend_details);
 $row_dt = $result_dt ->fetch_assoc();}
-include ('menu_tren.php') 
+
 ?>
 </head>
 <style>
@@ -17,14 +17,14 @@ include ('menu_tren.php')
     width:90%; 
     border-radius:5px;
 }
-.bia1 {
+.bia > .bia1 {
   float:right;
   width:78%;
   background-size: cover;
   border-radius: 0 5px 5px 0;
   height:34vw
 }
-.khungcanhan {
+.bia >.khungcanhan {
   background: linear-gradient(to bottom, gray, white);
   float:left;
   height:34vw;
@@ -32,12 +32,12 @@ include ('menu_tren.php')
   border-radius:5px 0 0 5px ;
   position: relative;
 }
-.canhan1 {
+.bia > .khungcanhan > .canhan1 {
   height:15vh;
   position: relative;
   padding:9vh 0 2vh 0
 }
-.anhdaidien{
+.bia >.khungcanhan > .canhan1 > .anhdaidien{
   background-size: cover;
   background-position: center;
   width: 15vh;
@@ -46,26 +46,26 @@ include ('menu_tren.php')
   margin:auto;
   border: 3px solid white;
 }
-.name{
+.bia >.khungcanhan > .name{
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1.8vw;
   text-align: center
 }
-.banbe{
+.bia >.khungcanhan > .name > .banbe{
   font-size: 1vw;
   color: dimgray;
 }
-.tieusu{
+.bia >.khungcanhan > .name > .tieusu{
   font-size: 1.2vw
 }
-.congcu{
+.bia >.khungcanhan > .congcu{
   right:0;
   left:0;
   padding: 5vw 0.9vw 0 0.9vw;
   position: absolute;
   white-space: nowrap;
 }
-.congcu1{
+.bia >.khungcanhan > .congcu >.congcu1{
   margin:  0.5vw;
   font-size: 1.1vw;
   padding: 1vw 2vw;
@@ -73,18 +73,18 @@ include ('menu_tren.php')
   border-radius: 5px;
   background-color: #cecdca;
 }
-.congcu1:hover {
+.bia >.khungcanhan > .congcu1:hover {
   background-color: #343a40;
   color: #f8f9fa;
 }
-.story {
+.story_banbe {
   width: 100%;
   height: 15vh;
   margin-top: 1%;
   background-color: #cecdca;
   float: left;
 }
-.circle {
+.story_banbe > .circle {
   height: 12vh;
   width: 12vh;
   background-color: none;
@@ -96,7 +96,7 @@ include ('menu_tren.php')
   box-shadow: 0 0 0 0.7px dimgray;
 }
 @media(max-width:980px){
-  .khungcanhan{
+  .bia > .khungcanhan{
     width: 40%;
     top:-10vh;
     left:28vw;
@@ -104,54 +104,54 @@ include ('menu_tren.php')
     background: transparent;
     float: left;
   }
-  .canhan1{
+  .bia > .khungcanhan >.canhan1{
     padding:2vw;
   }
-  .anhdaidien{
+  .bia > .khungcanhan >.canhan1 > .anhdaidien{
     width: 15vh;
     height:15vh;
   }
-  .name{
+  .bia >.khungcanhan > .name{
     font-size: 3.5vh;
   }
-  .banbe{
+  .bia >.khungcanhan > .name > .banbe{
     font-size: 2vh;
   }
-  .tieusu{
+  .bia >.khungcanhan > .name > .tieusu{
     font-size: 2vh
   }
   .bia{
     width: 100%;
     margin: 6.5vh 0 0 0;
   }
-  .bia1{
+  .bia > .bia1{
     width: 100%;
     height: 40vh;
   }
-  .congcu{
+  .bia >.khungcanhan>.congcu{
     padding: 2vw;
     white-space: nowrap;
   }
-  .congcu1{
+  .bia > .khungcanhan >.congcu > .congcu1{
     margin-left:  1.4vw;
     font-size: 2.5vh;
     padding: 1.8vw 4vw;
   }
-  .story{
+  .story_banbe{
     margin-top: -10vh;
   }
 }
 @media(max-width:630px){
-  .khungcanhan{
+  .bia >.khungcanhan {
     width: 70%;
     top:-9vh;
     left:15vw
   }
-  .congcu{
+  .bia >.khungcanhan>.congcu{
     padding: 2vw;
     white-space: nowrap;
   }
-  .congcu1{
+  .bia > .khungcanhan >.congcu > .congcu1{
     margin-left: 5vw;
     font-size: 2.5vh;
     padding: 2.5vw 6vw;
@@ -178,12 +178,11 @@ include ('menu_tren.php')
 
   </div>
 </div>
-<div class="story">
+<div class="story_banbe">
   <div class="circle"></div>
   <div class="circle"></div>
   <div class="circle"></div>
   <div class="circle"></div>
   <div class="circle"></div>
   <div class="circle"></div>
-</div>
 </div>
