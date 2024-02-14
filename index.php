@@ -48,6 +48,6 @@ if(isset($_SESSION['user']))
         include ('menu/menu_phai.php');
     }
 } else {
-    header("location:dangnhap/login.php");
+    header("location:dangnhap/dangnhap.php");
 }
 ?>
