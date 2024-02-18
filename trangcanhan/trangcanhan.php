@@ -5,19 +5,23 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/like.css">
   <link rel="stylesheet" href="css/main.min.css">
+  <link rel="stylesheet" href="css/cmt.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="like.js"></script>
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <?php
 $link = new mysqli("localhost", "root", "", "mxh");
-$sql = "SELECT username, bio, cover_picture,avartar FROM USER WHERE user_id = 1";
+$sql = "SELECT * FROM USER WHERE user_id = {$_SESSION['user']}";
 $result = $link->query($sql);
 $row = $result->fetch_assoc();
+
+$sql_post = "SELECT * FROM posts WHERE post_by =  {$_SESSION['user']}";
+$kq_post = $link->query($sql_post);
 ?>
 <style>
   body {
@@ -155,8 +159,7 @@ $row = $result->fetch_assoc();
     cursor: pointer;
   }
 
-  input[type=text]
-  {
+  input[type=text] {
     width: 90%;
     height: 90%;
     padding: 12px 20px;
@@ -164,12 +167,15 @@ $row = $result->fetch_assoc();
     border: 1px solid #ccc;
     box-sizing: border-box;
     border: none;
-    outline:none
+    outline: none
   }
-  input[type=submit], button{
-    border:none;
-    padding:5px 10px
+
+  input[type=submit],
+  button {
+    border: none;
+    padding: 5px 10px
   }
+
   .bia2 {
     position: relative;
   }
@@ -363,7 +369,6 @@ $row = $result->fetch_assoc();
       cursor: pointer;
     }
   }
-
 </style>
 
 <body>
@@ -472,144 +477,47 @@ $row = $result->fetch_assoc();
   <div class="post_TCN" style="margin:0 13%">
     <div class="central-meta" style="padding:25px">
       <ul class="photos">
-        <!-- P1 -->
-        <li>
-          <div class="container" style="padding: 3px;">
-            <!-- Button to Open the Modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_1"
-              style="padding: 0px; border: 0px; width: 45vh;height: 45vh;" >
-              <div style="background-image:url('img/Screenshot 2024-01-18 112334.png');background-size:cover; background-position:center;width: 45vh;height: 45vh;">
-            </button>
-            <!-- The Modal -->
-            <div class="modal fade" id="myModal_1">
-              <div class="modal-dialog modal-xl" style="margin-left:17%">
-                <div class="modal-content" style="width: 90%">
-                  <!-- Modal body -->
-                  <div class="modal-body" style="padding: 0px">
-                    <?php
-                    $i = 1;
-                    include 'trangcanhan/picture.php'; ?>
+        <?php
+        $sql_p = "SELECT * FROM posts 
+        LEFT JOIN user ON posts.post_by = user.user_id
+        LEFT JOIN friend ON (friend.user_id1 = {$row["user_id"]} AND friend.user_id2 = posts.post_by) OR (friend.user_id1 = posts.post_by AND friend.user_id2 = {$row["user_id"]})
+        WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL OR posts.post_by={$row["user_id"]} ORDER BY post_id DESC";
+        $result_p = mysqli_query($link, $sql_p);
+        while ($row_post = mysqli_fetch_assoc($result_p)) {
+          // Kiểm tra xem người dùng đã thích bài viết hay chưa
+          $sql_check = "SELECT * FROM likes WHERE post_id = " . $row_post["post_id"] . " AND like_by = {$row["user_id"]}";
+          $result_post = mysqli_query($link, $sql_check);
+          $liked_class = "";
+          if (mysqli_num_rows($result_post) > 0) {
+            // Người dùng đã thích bài viết => thêm class 'liked' vào nút like
+            $liked_class = " liked";
+          }
+          ?>
+          <!-- P1 -->
+          <li>
+            <div class="container" style="padding: 3px;">
+              <!-- Button to Open the Modal -->
+              <button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#myModal_<?php echo $row_post['post_id']; ?>"
+                style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
+                <div
+                  style="background-image:url('img/<?php echo $row_post['image']; ?>');background-size:cover; background-position:center;width: 45vh;height: 45vh;">
+              </button>
+              <!-- The Modal -->
+              <div class="modal fade" id="myModal_<?php echo $row_post['post_id']; ?>">
+                <div class="modal-dialog modal-xl" style="margin-left:17%">
+                  <div class="modal-content" style="width: 90%">
+                    <!-- Modal body -->
+                    <div class="modal-body" style="padding: 0px">
+                      <?php
+                      include 'trangcanhan/picture.php'; ?>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </li>
-        
-        <!-- p2 -->
-        <li>
-          <div class="container" style="padding: 3px;">
-            <!-- Button to Open the Modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_2"
-              style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
-              <img src="img/Screenshot 2024-01-18 112403.png" alt="" style="width: 45vh;height: 45vh;">
-            </button>
-            <!-- The Modal -->
-            <div class="modal fade" id="myModal_2">
-              <div class="modal-dialog modal-xl" style="margin-left: 150px;">
-                <div class="modal-content" style="width: 90%; height: 90%;">
-                  <!-- Modal body -->
-                  <div class="modal-body" style="padding: 0px;">
-                    <?php
-                    $i = 2;
-                    include 'trangcanhan/picture.php'; ?>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <!-- p3 -->
-        <li>
-          <div class="container" style="padding: 3px;">
-            <!-- Button to Open the Modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_3"
-              style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
-              <img src="img/Screenshot 2024-01-18 112439.png" alt="" style="width: 45vh;height: 45vh;">
-            </button>
-            <!-- The Modal -->
-            <div class="modal fade" id="myModal_3">
-              <div class="modal-dialog modal-xl" style="margin-left: 150px;">
-                <div class="modal-content" style="width: 90%; height: 90%;">
-                  <!-- Modal body -->
-                  <div class="modal-body" style="padding: 0px;">
-                    <?php
-                    $i = 3;
-                    include 'trangcanhan/picture.php'; ?>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <!-- p4 -->
-        <li>
-          <div class="container" style="padding: 3px;">
-            <!-- Button to Open the Modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_4"
-              style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
-              <img src="img/Screenshot 2024-01-18 112805.png" alt="" style="width: 45vh;height: 45vh;">
-            </button>
-            <!-- The Modal -->
-            <div class="modal fade" id="myModal_4">
-              <div class="modal-dialog modal-xl" style="margin-left: 150px;">
-                <div class="modal-content" style="width: 90%; height: 80%;">
-                  <!-- Modal body -->
-                  <div class="modal-body" style="padding: 0px;">
-                    <?php
-                    $i = 4;
-                    include 'trangcanhan/picture.php'; ?>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="container" style="padding: 3px;">
-            <!-- Button to Open the Modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_4"
-              style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
-              <img src="img/Screenshot 2024-01-18 142143.png" alt="" style="width: 45vh;height: 45vh;">
-            </button>
-            <!-- The Modal -->
-            <div class="modal fade" id="myModal_4">
-              <div class="modal-dialog modal-xl" style="margin-left: 150px;">
-                <div class="modal-content" style="width: 90%; height: 80%;">
-                  <!-- Modal body -->
-                  <div class="modal-body" style="padding: 0px;">
-                    <?php
-                    $i = 4;
-                    include 'trangcanhan/picture.php'; ?>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="container" style="padding: 3px;">
-            <!-- Button to Open the Modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_4"
-              style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
-              <img src="img/Screenshot 2024-01-18 142216.png" alt="" style="width: 45vh;height: 45vh;">
-            </button>
-            <!-- The Modal -->
-            <div class="modal fade" id="myModal_4">
-              <div class="modal-dialog modal-xl" style="margin-left: 150px;">
-                <div class="modal-content" style="width: 90%; height: 80%;">
-                  <!-- Modal body -->
-                  <div class="modal-body" style="padding: 0px;">
-                    <?php
-                    $i = 4;
-                    include 'trangcanhan/picture.php'; ?>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
+          </li>
+        <?php } ?>
       </ul>
     </div><!-- photos -->
   </div><!-- centerl meta -->
-  

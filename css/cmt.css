@@ -1,0 +1,61 @@
+.layout_phai {
+  width: 50%;
+  float: left;
+  position: relative;
+}
+
+.layout_user_post {
+  height: 60px;
+  border-bottom: lightgray solid 1px;
+  padding: 12px;
+}
+
+.ava_user_post {
+  float: left;
+  background-size: cover;
+  background-position: center;
+  width: 35px;
+  border-radius: 50%;
+  height: 35px;
+}
+
+.name_user_post {
+  margin: 5px 50px;
+  width: 100px;
+  text-align: left;
+  font-weight: 380px;
+}
+
+.layout_cmt {
+  padding: 10px;
+  height: 80px
+}
+
+.ava_user_cmt {
+  margin: 5px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  float: left;
+}
+
+.name_user_cmt {
+  font-weight: 400px;
+  font-size: 13px;
+  float: left;
+  margin: 0 5px
+}
+
+.cmt_content {
+  font-size: 13px;
+  float: left
+}
+
+.cmt_time {
+  font-size: 10px;
+  color: gray;
+  margin: 5px;
+  float: left
+}
