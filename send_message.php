@@ -1,25 +1,38 @@
 <?php
+$ketnoi = new mysqli('localhost', 'root', '', 'MXH');
 $message_by = $_POST['message_by'];
 $message_to = $_POST['message_to'];
+$message_time = date("d/m/y H:i:s ");
 
 if (isset($_FILES['file'])) {
-    $upload = 'send_files/';
-    $filename = $_FILES['file']['name'];
-    $uploadFile = $upload . basename($filename);
+    $thu_muc="img/";
+    $ten_files=$thu_muc . $_FILES["file"]["name"];
+    move_uploaded_file($_FILES["file"]["tmp_name"], $ten_files);
+    $hinhanh=$_FILES["file"]["name"];
+    $sql = "INSERT INTO message (message_to, message_by, content,timestamp) VALUES ('$message_to', '$message_by', '$hinhanh','$message_time')";
 
-    if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadFile)) {
-        $fileUrl = 'http://' . $_SERVER['HTTP_HOST'] . '/Social_Media1/' . $uploadFile;
-        $ketnoi = new mysqli('localhost', 'root', '', 'MXH');
-        $sql = "INSERT INTO message (message_to, message_by, content) VALUES ('$message_to', '$message_by', '$fileUrl')";
-
-        if ($ketnoi->query($sql) === TRUE) {
-            echo json_encode(['url' => $fileUrl, 'filename' => $filename]);
-        } 
+    if ($ketnoi->query($sql) === TRUE) {
+        echo'
+            <div style="width:100%;float:left">
+                <img src="img/'.$hinhanh.'" style="width:400px;height:auto;float:right; margin:2px 2%">
+                <div style="float:right;color:gray;font-size:12px">'.$message_time.'</div>
+            </div> ';
     }
-}else {
+}
+elseif (isset($_POST['icon_url'])) {
+    $icon =$_POST['icon_url'];
+    $sql = "INSERT INTO message (message_to, message_by, content, timestamp) VALUES ('$message_to', '$message_by', '$icon', '$message_time')";
+    if ($ketnoi->query($sql) === TRUE) {
+        echo '
+            <div style="width:100%;float:left">
+                <img src="'.$icon.'" style="width:40px;height:40px;float:right; margin:2px 2%">
+                <div style="float:right;color:gray;font-size:12px">'.$message_time.'</div>
+            </div>';
+    }
+}
+else {
         $content = $_POST['content'];
-        $ketnoi = new mysqli('localhost', 'root', '', 'MXH');
-        $sql = "INSERT INTO message (message_by, message_to, content) VALUES ('$message_by', '$message_to', '$content')";
+        $sql = "INSERT INTO message (message_by, message_to, content,timestamp) VALUES ('$message_by', '$message_to', '$content','$message_time')";
 
         if ($ketnoi->query($sql) === TRUE) {
             echo "
@@ -30,10 +43,11 @@ if (isset($_FILES['file'])) {
                     padding:10px;
                     border-radius:18px;
                     background: lightgray;
-                    float:right;
+                    float:right;    
                     margin:2px 2%;
-                    font-size:17px'>" .$content .
-                "</div>
+                    font-size:17px'>" .$content ."
+                    </div>
+                <div style='float:right;color:gray; margin-top:15px;font-size:12px'>".$message_time."</div>
             </div>";
         }
     }

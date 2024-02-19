@@ -96,8 +96,14 @@ background-color: #f8f9fa;
   scale:1.5;
   right:0px
 }
-.anh_post, .layout_phai{
-  width:50%;
+.anh_post{
+  width:75vh;
+  height:95vh; 
+  float: left; 
+  position:relative;
+}
+.layout_phai{
+  width:69vh;
   height:95vh; 
   float: left; 
   position:relative;
@@ -160,24 +166,20 @@ if (isset($_POST['btn_submit'])) {
     $content = $_POST['content'];
     // Upload ảnh 
     $image = $_FILES['image']['name'];
-    $errors = array();
-    $file_name = $_FILES['image']['name'];
     $file_size = $_FILES['image']['size'];
     $file_tmp = $_FILES['image']['tmp_name'];
-    $file_type = $_FILES['image']['type'];
-    $file_name_parts = explode('.', $_FILES['image']['name']);
-    $file_ext = strtolower(end($file_name_parts));
+    $target = "img/" . basename($image);
+    $sql = "INSERT INTO posts(post_by,content,image ) VALUES ($post_by,  '$content', '$image' )";
 
-    if (!isset($_FILES['image']) || $_FILES['image']['error'] == UPLOAD_ERR_NO_FILE) {
+    if (!isset($_FILES['image'])) {
         echo '<script language="javascript">
                 alert("Vui lòng chọn ít nhất một hình ảnh!");
                 window.location.href = "index.php";
             </script>';
         exit();
     }
-    $target = "img/" . basename($image);
-    $sql = "INSERT INTO posts(post_by,content,image ) VALUES ($post_by,  '$content', '$image' )";
-    if (mysqli_query($conn, $sql) && move_uploaded_file($_FILES['image']['tmp_name'], $target) && empty($errors) == true) {
+    
+    if (mysqli_query($conn, $sql) && move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
         echo '<script language="javascript">alert("Đăng bài viết thành công!");
                 window.location.href = "index.php";
                 exit();
@@ -215,7 +217,7 @@ while ($row = mysqli_fetch_array($result_p)) {
                 </div>
             </div>
             <div class="content"><?php echo $row['content'] ?></div>
-            <div style="background-image:url('img/<?php echo $row['image']?>'); width:470px; margin:10px 0;height:600px; border-radius:3px; background-position: center; background-size:;"></div>
+            <div style="background-image:url('img/<?php echo $row['image']?>'); width:470px; margin:10px 0;height:600px; border-radius:3px; background-position: center; background-size:cover;"></div>
             <div class="interaction-icons">
             
             <!-- Like Icon -->
@@ -242,11 +244,11 @@ while ($row = mysqli_fetch_array($result_p)) {
                 <!-- The Modal -->
                 <div class="modal fade" id="myModal_<?php echo $row['post_id'] ?>">
                   <div class="modal-dialog modal-xl">
-                    <div class="modal-content" style="width: 90%;margin:-0.5% auto;height: 94vh">
+                    <div class="modal-content" style="width: 145vh;margin:-1vh auto;height: 94vh">
                       <div class="modal-body" style="padding:0">
                         <!-- left -->
                         <div class="anh_post">
-                          <img src="img/<?php echo $row['image'] ?>" style="width:100%">
+                          <div style="background-image:url('img/<?php echo $row['image']?>');width:75vh;height:93.8vh;border-radius:7px 0 0 7px ; background-position: center; background-size:cover;"></div>
                         </div>
                         <!-- right -->
                         <div class="layout_phai">

@@ -1,7 +1,3 @@
-<link rel="stylesheet" href="css/menu.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
 <div class="menu_tren">
     <a href="index.php">
         <div class="logo"></div>
@@ -33,7 +29,7 @@ $('input[name="timkiem"]').keydown(function(e) {
 });
 
 
-    function showSelect() {
+function showSelect() {
     document.getElementById("mySelect").style.display = "block";
 }
 document.addEventListener('click', function(event) {

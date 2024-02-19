@@ -21,8 +21,8 @@ body{
 }
 .col_menu > a >img{
     float: left;
-    width: 40%;
-    height: 28px;
+    width: 48px;
+    height: 48px;
     padding: 10px;
     margin: 10% 17%;
 }
@@ -88,14 +88,14 @@ body{
 .mini_content{
     float: left;
     font-size: 12px; 
-    margin: 5px 0 0 10px;
+    margin: -5px 0 0 10px;
     font-family:'Segoe UI', Tahoma,Verdana, sans-serif;
     color: gray;
 }
 .col_right{
     position: absolute;
     right:0;
-    left:455px
+    left:445px
 }
 .col_right > .ten{
     height: 80px;
@@ -155,9 +155,9 @@ body{
     resize: none;
     outline:none
 }
-.col_right > .chat_box > form > .icon, .icon{
-    width: 29px;
-    height: 29px;
+.col_right > .chat_box > form > .icon{
+    width: 50px;
+    height: 50px;
     position: absolute;
     top:8px;
     padding: 10px;
@@ -171,13 +171,34 @@ body{
 }
 #attachment_icon{
     right: 72px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top:8px;
+    padding: 10px;
+    cursor: pointer;
 }
-#button_icon{
+#button_heart{
     right: 10px;
 }
-#button_icon:hover{
+#button_heart:hover{
     scale: 1.1;
     transition: 0.3s;
+}
+.col_right >.chat_box >form > div > label > .nho{
+    width:40px;
+    height:40px; 
+    margin:5px
+}
+.col_right >.chat_box >form > #myIcon{
+    width:270px;
+    height:110px; 
+    box-shadow:1px 2px 5px lightgray;
+    display: none;
+    position:absolute;
+    bottom:30px;
+    left:50px;
+    border-radius:10px
 }
 @media (max-width:900px){
     .col_left{
@@ -205,7 +226,7 @@ body{
     }
     .col_right{
         top:0;
-        left:82px;
+        left:100px;
     }
     .col_right >.content{
         height:525px;
@@ -268,14 +289,14 @@ body{
 }
 .layout_info{
     min-width:200px;
-    height:100px;
+    height:120px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding:20px;
     border-bottom: 1px solid lightgray;
 }
 .info_1{
     font-size: 25px;
-    margin-bottom: 35px;
+    margin-bottom: 15px;
 }
 .button_mute{
     border-radius: 50%;
@@ -296,7 +317,39 @@ body{
     color: #ED4956;
     cursor: pointer;
 }
-
+.red_heart{
+    width:55px;
+    height:60px;
+    margin:2px 2%;
+    float:right
+}
+.other-image{
+    width:350px;
+    margin:2px 2%;
+    float:right;
+    border-radius: 20px 20px 2px 20px;
+}
+.text{
+    max-width:60%;
+    overflow-wrap:break-word;
+    padding:10px;
+    border-radius:18px 18px 2px 18px;
+    background: lightgray;
+    float:right;
+    margin:2px 2%;
+    font-size:16.5px
+}
+.message_time{
+    float:right;
+    color:gray; 
+    margin-top:15px;
+    font-size:12px
+}
+.url_img{
+    width:40px;
+    float:right; 
+    margin:2px 2%
+}
 </style>
 <head>
     <meta charset="utf-8">
@@ -308,18 +361,11 @@ body{
         <a><img class="logo1" src="https://img.icons8.com/?size=256&id=61161&format=png"></a>
         <a><img class="logo1" src="https://img.icons8.com/?size=256&id=43571&format=png"></a>
         <a><img src="https://img.icons8.com/?size=256&id=88004&format=png"></a>
-        <!-- <img src="https://img.icons8.com/?size=256&id=9733&format=png"> -->
         <a><img src="https://img.icons8.com/?size=256&id=ZI2N2LpZcXuZ&format=png"></a>
-        <!-- <img src="https://img.icons8.com/?size=256&id=alybng0KUhxp&format=png"> -->
         <a><img src="https://img.icons8.com/?size=256&id=7695&format=png"></a>
-        <!-- <img src="https://img.icons8.com/?size=256&id=84430&format=png"> -->
-        
-        <!-- <a><img src="https://img.icons8.com/?size=256&id=TfBuMnTzwL0v&format=png"></a> -->
         <a><img src="https://img.icons8.com/?size=256&id=dJOh7yntdHD9&format=png"></a>
         <a><img src="https://img.icons8.com/?size=256&id=eMfeVHKyTnkc&format=png"></a>
-        <!-- <img src="https://img.icons8.com/?size=256&id=62atSgaif9UE&format=png"> -->
-        <a><img src="https://img.icons8.com/?size=256&id=14092&format=png"></a> 
-        <!-- <img src="https://img.icons8.com/?size=256&id=db3aaXZdalCP&format=png"> -->
+        <a><img src="https://img.icons8.com/?size=256&id=14092&format=png"></a>
     </div>
     <div class="col_left">
         <img src="https://img.icons8.com/?size=256&id=Wyndx3rk1dCv&format=png">
@@ -370,20 +416,35 @@ body{
                 
                 while ($row = $result->fetch_assoc()) {
                     $content = $row['content'];
-                    $isImage = filter_var($content, FILTER_VALIDATE_URL) && pathinfo(parse_url($content, PHP_URL_PATH), PATHINFO_EXTENSION) != 'php';
+                    $message_time = $row['timestamp'];
+                    // Kiểm tra 
+                    $cssClass = ($content == 'red_heart.png') ? 'red_heart' : 'other-image';
                     echo '<div style="width:100%;float:left">';
-                    if ($row['message_by']==$user_id) {
-                        if ($isImage) {
-                            echo '<img src="' . $content . '" style="width:300px;height:300px;float:right; margin:2px 2%;">';
-                        } else {
-                            echo '<div style="max-width:60%;overflow-wrap:break-word;padding:10px;border-radius:18px;background: lightgray;float:right;margin:2px 2%;font-size:16.5px">' . $content . '</div>';
+                    if ($row['message_by'] == $user_id) {
+                        if (strpos($content, '.png') !== false || strpos($content, '.jpg') !== false || strpos($content, '.jpeg') !== false) {
+                            // Nếu là ảnh
+                            echo '<img src="img/' . $content . '" class="' . $cssClass . '"/>
+                                    <div class="message_time">'.$message_time.'</div>';
+                        }else if (filter_var($content, FILTER_VALIDATE_URL)) {
+                            // If it's a URL
+                            echo '<img src="'. $content .'" class="url_img">
+                                    <div class="message_time">'.$message_time.'</div>';
+                        }else {
+                            //Nếu là text
+                            echo '<span class="text">' . $content . '</span>
+                                    <div class="message_time">'.$message_time.'</div>';
                         }
                     }else{
-                        echo '<div style="background-image: url(\'img/'.$row_dt['avartar'].'\');background-size:cover;margin: 7px 5px;border-radius:50%;padding:13px; float:left"></div>' ;
-                        if ($isImage) {
-                            echo '<img src="' . $content . '" style="width:40px;height:40px;float:left; margin:2px 8px;">';
-                        } else {
-                            echo '<div style="max-width:60%;overflow-wrap:break-word;padding:10px;border-radius:18px;background: lightgray;float:left;margin:2px 5px;font-size:16.5px">' . $content . '</div>';
+                        if (strpos($content, '.png') !== false || strpos($content, '.jpg') !== false || strpos($content, '.jpeg') !== false) {
+                            echo '<img src="img/' . $content . '" class="' . $cssClass . '" style="float:left;border-radius: 20px 20px 20px 2px;">
+                                    <div class="message_time" style="float:left">'.$message_time.'</div>';
+                        }else if (filter_var($content, FILTER_VALIDATE_URL)) {
+                            // If it's a URL
+                            echo '<img src="'. $content .'" class="url_img" style="float:left">
+                                    <div class="message_time" style="float:left">'.$message_time.'</div>';
+                        }else {
+                            echo '<span class="text" style="float:left;border-radius:18px 18px 18px 2px;">' . $content . '</span>
+                                    <div class="message_time" style="float:left">'.$message_time.'</div>';
                         }
                     }
                     echo '</div>';
@@ -394,17 +455,58 @@ body{
             }?>
         </div>
         <div class="chat_box">
-            <form id="messageForm" action="" method="post" enctype="multipart/form-data">
+            <form id="messageForm" action="send_message.php" method="post" enctype="multipart/form-data">
                 <input type= "hidden" name="message_to" value="<?php echo $m_id?>">
                 <input type="hidden" name="message_by" value="<?php echo $user_id?>">
                 <textarea type="text" name="content" placeholder="Message..."></textarea>
-                <img class="icon" id="smile_icon" src="https://img.icons8.com/?size=256&id=59802&format=png">
-                <img class="icon" id="microphone_icon" src="https://img.icons8.com/?size=256&id=ZNyAxEX9vDxS&format=png">
+                <img class="icon" id="smile_icon" onclick="showIcon()" src="https://img.icons8.com/?size=512&id=y6j3NCqRGOcj&format=png">
+                    <div id="myIcon">
+                        <input type="hidden" id="icon_cuoi">
+                        <label for="icon_cuoi">
+                            <img class="nho" src="https://img.icons8.com/?size=512&id=63230&format=png">
+                        </label>
+                        <input type="hidden" id="icon_sad">
+                        <label for="icon_sad">
+                            <img class="nho"src="https://img.icons8.com/?size=512&id=63238&format=png">
+                        </label>
+                        <input type="hidden" id="icon_khoc">
+                        <label for="icon_khoc">
+                            <img class="nho" src="https://img.icons8.com/?size=512&id=63232&format=png">
+                        </label>
+                        <input type="hidden" id="icon_mattraitim">
+                        <label for="icon_mattraitim">
+                            <img class="nho" src="https://cdn4.iconfinder.com/data/icons/emoji-66/64/30-in_love-256.png">
+                        </label>
+                        <input type="hidden" id="icon_thienthan">
+                        <label for="icon_thienthan">
+                            <img class="nho" src="https://th.bing.com/th/id/R.1911e9b534bf190d00bc9d416c122452?rik=aPKFPw1wzxhqZA&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2fangel-emoji-transparent%2fangel-emoji-transparent-21.png&ehk=2gb0N%2fHb9PtemQtGJhwH6ioQTbTIbnFPejBDb%2bdXsck%3d&risl=&pid=ImgRaw&r=0">
+                        </label>
+                        <input type="hidden" id="icon_sunglasses">
+                        <label for="icon_sunglasses">
+                            <img class="nho" src="https://img.icons8.com/?size=512&id=63222&format=png">
+                        </label>
+                        <input type="hidden" id="icon_delicious">
+                        <label for="icon_delicious">
+                            <img class="nho" src="https://img.icons8.com/?size=512&id=zGC9oDE4cozu&format=png">
+                        </label>
+                        <input type="hidden" id="icon_angry">
+                        <label for="icon_angry">
+                            <img class="nho" src="https://img.icons8.com/?size=512&id=63225&format=png">
+                        </label>
+                        <input type="hidden"id="icon_bth" >
+                        <label for="icon_bth">
+                            <img class="nho" src="https://img.icons8.com/?size=512&id=63224&format=png">
+                        </label>
+                        <input type="hidden"id="icon_nerd" >
+                        <label for="icon_nerd">
+                            <img class="nho"src="https://img.icons8.com/?size=512&id=63228&format=png">
+                        </label>
+                    </div>
                 <input type="file" name="file" id="fileInput" style="display: none;">
                 <label for="fileInput">
-                    <img class="icon" id="attachment_icon" src="https://img.icons8.com/?size=256&id=11322&format=png">
+                    <img class="icon" id="attachment_icon" src="https://img.icons8.com/?size=512&id=114320&format=png">
                 </label>
-                <img class="icon" name="content" id="button_icon" src="https://img.icons8.com/?size=256&id=86&format=png">
+                <img class="icon" id="button_heart" src="img/heart.png">
             </form>
         </div>
     </div>
@@ -469,32 +571,51 @@ function myFunction() {
         info.style.display = "block";
     }
 }
-$(document).ready(function(){
-    $("#button_icon").attr("src", "https://img.icons8.com/?size=256&id=86&format=png");
+function showIcon() {
+    document.getElementById("myIcon").style.display = "block";
+}
 
-    $('textarea[name="content"]').focus(function() {
-        // khi focus và có text thì đổi src thành icon gửi
-        if ($(this).val() !== "") {
-            $("#button_icon").attr("src", "https://img.icons8.com/?size=256&id=RHtRRB1E4DKI&format=png");
+document.addEventListener('click', function(event) {
+    var isClickInside = document.getElementById("smile_icon").contains(event.target);
+    if (!isClickInside) {
+        document.getElementById("myIcon").style.display = "none"; 
+    }
+});
+
+$('.nho').click(function() {
+    var iconURL = $(this).attr('src'); // Get the URL of the clicked icon
+    sendIcon(iconURL); // Call the function to send the icon URL to the server
+});
+
+function sendIcon(iconURL) {
+    $("#messageForm").append('<input type="hidden" name="icon_url" value="' + iconURL + '">');
+
+    $.ajax({
+        url: 'send_message.php',
+        type: 'POST',
+        data: $("#messageForm").serialize(),
+        success: function(response) {
+            console.log(response);
+            $(".content").append(response);
+            $(".content .no").remove();
+            $(".content").scrollTop($(".content")[0].scrollHeight);
         }
     });
-    $('textarea[name="content"]').blur(function() {
-        // khi bấm ra và input rỗng thì src icon trái tim
-        if ($(this).val() === "") {
-            $("#button_icon").attr("src", "https://img.icons8.com/?size=256&id=86&format=png");
-        }
-    });
+}
+
+
+
+$(document).ready(function(){
+    $("#button_heart").attr("src", "img/heart.png");
+
     $('textarea[name="content"]').keyup(function() {
         // tự động hiển thị icon gửi khi focus và có text
         if ($(this).val() !== "") {
-            $("#button_icon").attr("src", "https://img.icons8.com/?size=256&id=RHtRRB1E4DKI&format=png");
+            $("#button_heart").attr("src", "img/send.png");
         } else {
-        // tự động hiển thị icon trái tim khi ko focus và ko có text
-            $("#button_icon").attr("src", "https://img.icons8.com/?size=256&id=86&format=png");
+            $("#button_heart").attr("src", "img/heart.png");
         }
     });
-
-
 
 
 
@@ -504,32 +625,31 @@ $(document).ready(function(){
             $("#messageForm").submit();
         }
     });
-    $("#button_icon").click(function() {
-        if ($("#button_icon").attr("src") == "https://img.icons8.com/?size=256&id=RHtRRB1E4DKI&format=png") {
+    $("#button_heart").click(function() {
+        if ($("#button_heart").attr("src") == "img/send.png") {
             // Nếu là icon gửi, thì gửi form 
             $("#messageForm").submit();
         } else {
-            //thêm icon heart zo div content
-            $(".content").append('<div style="width:100%;float:left"><img src="https://img.icons8.com/?size=256&id=tSeDcCGva4Wj&format=png" style="width:40px;height:40px;float:right; margin:2px 2%;"></div>'); 
-
             // Set the value of the 'content' textarea to the heart icon URL
-            $('textarea[name="content"]').val("https://img.icons8.com/?size=256&id=tSeDcCGva4Wj&format=png");
-
-            sendImgIcon();
+            $('textarea[name="content"]').val("red_heart.png");
+            sendHeartIcon();
+            
             //clear the textarea
             $('textarea[name="content"]').val('');
+            
         }
     });
-    function sendImgIcon() {
+
+    function sendHeartIcon() {
         // Use AJAX to send the form data to the server
         $.ajax({
             url: 'send_message.php',
             type: 'POST',
             data: $("#messageForm").serialize(),
             success: function(response){
-                // Handle the response if needed
                 console.log(response);
-                $("#button_icon").attr("src", "https://img.icons8.com/?size=256&id=86&format=png");
+                $(".content").append('<div style="width:100%;float:left"><img src="img/red_heart.png" style="width:50px;height:50px;float:right; margin:2px 2%;"></div>'); 
+                
                 $(".content .no").remove();
                 $(".content").scrollTop($(".content")[0].scrollHeight);
             }
@@ -539,34 +659,33 @@ $(document).ready(function(){
 
 
 
+    
 
 
-$(document).ready(function () {
+
+
+
     $("#fileInput").change(function () {
-        sendFile(); // Function to handle file submission
+        sendFile(); 
     });
-
     function sendFile() {
         var formData = new FormData($("#messageForm")[0]);
         $.ajax({
             url: 'send_message.php',
             type: 'POST',
             data: formData,
-            processData: false,
-            contentType: false,
+            processData: false,// Không xử lý dữ liệu trước khi gửi
+            contentType: false,// Không set header 'Content-Type' (sẽ được tự động set khi sử dụng FormData)
             success: function (response) {
                 console.log(response);
+                $(".content").append(response);
                 $(".content .no").remove();
-                var data = JSON.parse(response);
-
-                // Append a link to the uploaded file in the div content
-                $(".content").append('<div style="width:100%;float:left"><div style="max-width:60%;overflow-wrap:break-word;padding:10px;border-radius:18px;background: lightgray;float:right;margin:2px 2%;font-size:16.5px">' + data.url + '</div></div>');
-
                 $(".content").scrollTop($(".content")[0].scrollHeight);
-                }
+            }
         });
     }
-});
+
+
 
 
 
@@ -586,13 +705,10 @@ $(document).ready(function () {
                 $(".content").append(response);
                 // clear the textarea
                 $('textarea[name="content"]').val('');
-                // chuyển lại icon trái tim mặc định
-                $("#button_icon").attr("src", "https://img.icons8.com/?size=256&id=86&format=png");
                 $(".content .no").remove();
                 $(".content").scrollTop($(".content")[0].scrollHeight);
             }
         });
-    });
+    });$(".content").scrollTop($(".content")[0].scrollHeight);
 });
-$(".content").scrollTop($(".content")[0].scrollHeight);
 </script>
