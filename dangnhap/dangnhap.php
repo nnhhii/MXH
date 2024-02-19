@@ -61,7 +61,7 @@ a {
     <input type="text" placeholder="Email" class="formInput" name="email"/>
     <input type="password" placeholder="Mật khẩu" class="formInput" name="pass"/>
     <button>Đăng nhập</button>
-    <p style="margin: 15px 0 0;color: #b3b3b3;font-size: 12px;"><a href="#"">Quên mật khẩu?</a></p>
+    <p style="margin: 15px 0 0;color: #b3b3b3;font-size: 12px;"><a href="#">Quên mật khẩu?</a></p>
     <hr  width="100%"  />
     <button style="margin-top:5%; width:12vw"><a href="dangky.php" style="color:white">Tạo tài khoản mới</a></button>
   </form>

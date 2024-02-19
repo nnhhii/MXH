@@ -338,10 +338,6 @@ while ($row = mysqli_fetch_array($result_p)) {
 ?>    
 
 
-
-
-
-<!-- <script src="css/like.js"></script> -->
 <script>
   $(document).ready(function(){
   $('.like-button').on('click', function(e) {

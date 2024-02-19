@@ -1,11 +1,20 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/like.css">
+  <link rel="stylesheet" href="css/main.min.css">
+  <link rel="stylesheet" href="css/cmt.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <?php 
-$ketnoi= new mysqli('localhost','root','','MXH');     
+$link= new mysqli('localhost','root','','MXH');     
 if (isset($_GET['m_id'])){
   $m_id = $_GET['m_id'];
 $friend_details = "select * from user where user_id = $m_id";
-$result_dt = $ketnoi->query($friend_details);
+$result_dt = $link->query($friend_details);
 $row_dt = $result_dt ->fetch_assoc();}
 
 ?>
@@ -49,7 +58,8 @@ $row_dt = $result_dt ->fetch_assoc();}
 .bia >.khungcanhan > .name{
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1.8vw;
-  text-align: center
+  text-align: center;
+  margin-top: 10vh;
 }
 .bia >.khungcanhan > .name > .banbe{
   font-size: 1vw;
@@ -61,7 +71,7 @@ $row_dt = $result_dt ->fetch_assoc();}
 .bia >.khungcanhan > .congcu{
   right:0;
   left:0;
-  padding: 5vw 0.9vw 0 0.9vw;
+  padding: 2vw 0.9vw 0 0.9vw;
   position: absolute;
   white-space: nowrap;
 }
@@ -113,6 +123,7 @@ $row_dt = $result_dt ->fetch_assoc();}
   }
   .bia >.khungcanhan > .name{
     font-size: 3.5vh;
+    margin-top: 3vh;
   }
   .bia >.khungcanhan > .name > .banbe{
     font-size: 2vh;
@@ -186,3 +197,47 @@ $row_dt = $result_dt ->fetch_assoc();}
   <div class="circle"></div>
   <div class="circle"></div>
 </div>
+<div class="post_TCN" style="margin:0 13%">
+    <div class="central-meta" style="padding:25px">
+      <ul class="photos">
+        <?php
+        $sql="SELECT * FROM posts inner join user on posts.post_by=user.user_id where user_id=$m_id ORDER BY post_id DESC" ;
+        $result = $link->query($sql);
+        
+        while ($row = mysqli_fetch_assoc($result)) {
+          // Kiểm tra xem người dùng đã thích bài viết hay chưa
+          $sql_check = "SELECT * FROM likes WHERE post_id = " . $row["post_id"] . " AND like_by = $m_id";
+          $result_post = mysqli_query($link, $sql_check);
+          $liked_class = "";
+          if (mysqli_num_rows($result_post) > 0) {
+            // Người dùng đã thích bài viết => thêm class 'liked' vào nút like
+            $liked_class = " liked";
+          }
+          ?>
+          <!-- P1 -->
+          <li>
+            <div class="container" style="padding: 3px;">
+              <!-- Button to Open the Modal -->
+              <button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#myModal_<?php echo $row['post_id']; ?>"
+                style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
+                <div
+                  style="background-image:url('img/<?php echo $row['image']; ?>');background-size:cover; background-position:center;width: 45vh;height: 45vh;">
+              </button>
+              <!-- The Modal -->
+              <div class="modal fade" id="myModal_<?php echo $row['post_id'] ?>">
+                  <div class="modal-dialog modal-xl">
+                    <div class="modal-content" style="width: 145vh;margin:-1vh auto;height: 94vh">
+                      <div class="modal-body" style="padding:0">
+                      <?php
+                      include 'trangcanhan/picture.php'; ?>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        <?php } ?>
+      </ul>
+    </div><!-- photos -->
+  </div><!-- centerl meta -->

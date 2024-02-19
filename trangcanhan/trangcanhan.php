@@ -11,481 +11,312 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="like.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <?php
 $link = new mysqli("localhost", "root", "", "mxh");
-$sql = "SELECT * FROM USER WHERE user_id = {$_SESSION['user']}";
-$result = $link->query($sql);
-$row = $result->fetch_assoc();
-
-$sql_post = "SELECT * FROM posts WHERE post_by =  {$_SESSION['user']}";
-$kq_post = $link->query($sql_post);
+$user_id = $_SESSION['user'];
+$sql_user="SELECT * FROM user where user_id=$user_id";
+$result_user=$link->query($sql_user);
+$row_user=$result_user->fetch_assoc();
 ?>
 <style>
-  body {
-    margin: 0;
-    overflow-y: scroll;
-    box-sizing: border-box;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  .bia {
-    margin: 5.5% 5% 0 5%;
-    height: 65%;
-    width: 90%;
-    border-radius: 5px;
-    position: relative;
-  }
-
-  .bia1 {
-    float: right;
-    width: 78%;
-  }
-
-  .khungcanhan {
-    background-color: white;
-    float: left;
-    height: 100%;
-    width: 22%;
-    border-radius: 5px;
-    position: absolute;
-    background: linear-gradient(to bottom, gray, white);
-
-  }
-
-  .canhan1 {
-    height: 40%;
-    position: relative;
-    border-radius: 5px 5px 0 0;
-  }
-
-  .name {
-    height: 45%;
-    text-align: center;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 2vw;
-  }
-
-  .banbe {
-    height: 25%;
-    top: 0%;
-    font-size: 1vw;
-    color: dimgray;
-    margin-top: -5%;
-  }
-
-  .anhdaidien {
-    height: 60%;
+.hidden{
+  display: none;
+}
+.bia {
+  margin: 11vh 5% 0 5%;
+  height:34vw;
+  width:90%; 
+  border-radius:5px;
+}
+.bia > .bia1 {
+  float:right;
+  width:78%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0 5px 5px 0;
+  height:34vw;
+  position: relative;
+}
+.bia >.khungcanhan {
+  background: linear-gradient(to bottom, gray, white);
+  float:left;
+  height:34vw;
+  width:22%;
+  border-radius:5px 0 0 5px ;
+  position: relative;
+}
+.bia > .khungcanhan > .canhan1 {
+  height:15vh;
+  position: relative;
+  padding:9vh 0 2vh 0
+}
+.bia >.khungcanhan > .canhan1 > .anhdaidien{
+  background-size: cover;
+  background-position: center;
+  width: 15vh;
+  height:15vh;
+  border-radius: 50%;
+  margin:auto;
+  border: 3px solid white;
+  position: relative;
+}
+.bia >.khungcanhan > .name{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.8vw;
+  text-align: center;
+  margin-top: 10vh;
+}
+.bia >.khungcanhan > .name > .banbe{
+  font-size: 1vw;
+  color: dimgray;
+}
+.bia >.khungcanhan > .name > .tieusu{
+  font-size: 1.2vw
+}
+.bia >.khungcanhan > .congcu{
+  right:0;
+  left:0;
+  padding: 2vw 0.9vw 0 0.9vw;
+  position: absolute;
+  white-space: nowrap;
+  display:flex
+}
+.congcu1{
+  margin: 1vw;
+  font-size: 1.1vw;
+  padding: 1vw 1.5vw;
+  border: none;
+  border-radius: 5px;
+  background-color: #cecdca;
+}
+.congcu1:hover{
+  background-color: #343a40;
+  color: #f8f9fa;
+}
+.story_banbe {
+  width: 100%;
+  height: 15vh;
+  margin-top: 1%;
+  background-color: #cecdca;
+  float: left;
+}
+.story_banbe > .circle {
+  height: 12vh;
+  width: 12vh;
+  background-color: none;
+  border-radius: 50%;
+  float: left;
+  margin-top: 0.8%;
+  margin-left: 6%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 0.7px dimgray;
+}
+.ccbia,.ccbia1 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #EEE;
+}
+.ccbia1 {
+  right: 10%
+}
+.anhdaidien>img {
+  position:absolute;
+  right:5px;
+  bottom: 0;
+  width: 3.5vh;
+  cursor: pointer;
+}
+.bia > .khungcanhan >.congcu > div> form > input[type=text] {
+  width: 12vw;
+  height: 2vw;
+  padding: 12px 20px;
+  margin:  0 0 1vw 0 ;
+  border: 1px solid #ccc;
+  outline: none
+}
+@media(max-width:980px){
+  .bia > .khungcanhan{
     width: 40%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    border: 3px solid white;
+    left:28vw;
+    height: 40vh;
+    background: transparent;
+    float: left;
   }
-
-  .tieusu {
-    height: 50%;
-    font-size: 1.3vw
+  .bia > .khungcanhan >.canhan1{
+    padding:2vw;
+    height: 5vw;
   }
-
-  .congcu {
-    display: flex;
-    justify-content: space-around;
+  .bia > .khungcanhan >.canhan1 > .anhdaidien{
+    width: 15vh;
+    height:15vh;
+    top:-10vh
   }
-
-  .congcu1 {
-    font-size: 1.5vw;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #cecdca;
-    color: #343a40;
-    cursor: pointer;
+  .bia >.khungcanhan > .name{
+    font-size: 3.5vh;
+    margin-top: 3vh
   }
-
-  .congcu1:hover {
-    background-color: #343a40;
-    color: #f8f9fa;
+  .bia >.khungcanhan > .name > .banbe{
+    font-size: 2vh;
   }
-
-  .story {
-    height: 8.8vw;
-    margin-top: 1%;
-    background-color: #cecdca;
+  .bia >.khungcanhan > .name > .tieusu{
+    font-size: 2vh
   }
-
-  .circle {
-    height: 7vw;
-    width: 7vw;
-    background-color: none;
-    border-radius: 50%;
-    display: inline-block;
-    margin-top: 0.8%;
-    margin-left: 6%;
-    border: 2px solid white;
-    box-shadow: 0 0 0 0.7px dimgray;
+  .bia{
+    width: 100%;
+    margin: 9vh 0 0 0;
   }
-
-  .suatieusu {
-    width: 50vw;
-    height: 30vw;
-    margin-top: 10vw;
-    margin-left: 30vw;
-    padding: 20px;
-    background-color: gray;
-    text-align: center;
+  .bia > .bia1{
+    width: 100%;
+    height: 40vh;
   }
-
-
-
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+  .bia >.khungcanhan>.congcu{
+    padding: 2vw;
+    white-space: nowrap;
   }
-
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+  .congcu1{
+    margin-left:  1.4vw;
+    font-size: 2.5vh;
+    padding: 1.8vw 4vw;
   }
-
-  input[type=text] {
-    width: 90%;
-    height: 90%;
-    padding: 12px 20px;
-    margin: -35px 0 15px 0;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    border: none;
-    outline: none
+  .ccbia1, .ccbia{
+    right:13.5vh;
+    font-size: 2vh;
+    padding:2vh 3vh
   }
-
-  input[type=submit],
-  button {
-    border: none;
-    padding: 5px 10px
+  .ccbia{
+    right:0
   }
-
-  .bia2 {
-    position: relative;
+  
+}
+@media(max-width:630px){
+  .bia >.khungcanhan {
+    width: 70%;
+    left:15vw
   }
-
-  .ccbia {
-    position: absolute;
-    bottom: 3%;
-    right: 1%;
-    padding: 10px;
-    height: 10%;
-    width: 10%;
-    background-color: darkgray;
-    font-size: 1.2vw;
-    border-radius: 5px;
-    cursor: pointer;
-    border: none;
+  .bia >.khungcanhan>.congcu{
+    padding: 2vw;
+    white-space: nowrap;
   }
-
-  .ccbia1 {
-    position: absolute;
-    bottom: 3%;
-    right: 10%;
-    padding: 10px;
-    height: 10%;
-    width: 5%;
-    background-color: darkgray;
-    font-size: 1.2vw;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
+  .congcu1{
+    margin-left: 6vw;
+    font-size: 2.5vh;
+    padding: 2vw 5vw;
   }
-
-  .ccbia:hover {
-    background-color: #343a40;
-    color: #f8f9fa;
+  .ccbia1, .ccbia{
+    right:13.5vh;
+    font-size: 2vh;
+    padding:2vh 3vh
   }
-
-  .ccbia1:hover {
-    background-color: #343a40;
-    color: #f8f9fa;
+  .ccbia{
+    right:0
   }
-
-  form {
-    margin-top: -5%;
-    height: 3.5vw;
-    margin-left: 5%;
-  }
-
-  .icon {
-    font-size: 1.5vw;
-    transform: translate(310%, -70%);
-    color: white;
-    cursor: pointer;
-  }
-
-  @media (max-width: 660px) {
-
-    .bia {
-      height: 38%;
-      width: 100%;
-      margin: 0;
-      position: relative;
-    }
-
-    .bia1 {
-      width: 100%;
-      margin-top: 8%;
-      border-radius: 0;
-    }
-
-    .anhdaidien {
-      position: static;
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      background-color: none;
-    }
-
-    .khungcanhan {
-      position: sticky;
-      top: 540px;
-      left: 32%;
-      background: none;
-      transform: translate(25%, -80%);
-    }
-
-    .canhan1 {
-      border-radius: 50%;
-    }
-
-    .congcu {
-      display: flex;
-      justify-content: space-around;
-    }
-
-    .congcu1 {
-      font-size: 3vw;
-      padding: 1vw 17vw;
-      border-radius: 5px;
-      background-color: #cecdca;
-      cursor: pointer;
-      height: 8vw;
-      margin-left: 5vw;
-      margin-top: 8vw;
-      white-space: nowrap;
-    }
-
-    .congcu1:hover {
-      background-color: #343a40;
-      color: #f8f9fa;
-    }
-
-    .name {
-      height: 45%;
-      text-align: center;
-      font-family: Helvetica, Arial, sans-serif;
-      font-size: 5.2vw;
-      margin-top: 10%;
-    }
-
-    .tieusu {
-      height: 50%;
-      font-size: 3.5vw;
-      width: 200%;
-      margin-left: -50%;
-    }
-
-    .banbe {
-      height: 25%;
-      top: 0%;
-      font-size: 3vw;
-      color: dimgray;
-      margin-top: -10%;
-    }
-
-    .story {
-      height: 15vw;
-      margin-top: 60%;
-      background-color: #cecdca;
-    }
-
-    .circle {
-      height: 12vw;
-      width: 12vw;
-      background-color: none;
-      border-radius: 50%;
-      display: inline-block;
-      margin-top: 1.9%;
-      margin-left: 0.4vw;
-      border: 1.5px solid white;
-      box-shadow: 0 0 0 0.7px dimgray;
-
-    }
-
-    .icon {
-      font-size: 4.5vw;
-      transform: translate(250%, -160%);
-      color: white;
-      cursor: pointer;
-
-    }
-
-    form {
-      width: 45vw;
-      margin-top: 13%;
-      height: 9vw;
-      margin-left: 10%;
-    }
-
-    .ccbia {
-      position: absolute;
-      bottom: -15%;
-      height: 10%;
-      width: 12%;
-      background-color: darkgray;
-      font-size: 1.7vw;
-      cursor: pointer;
-      border: none;
-    }
-
-    .ccbia1 {
-      position: absolute;
-      bottom: -15%;
-      right: 12%;
-      height: 10%;
-      width: 7%;
-      background-color: darkgray;
-      font-size: 1.7px;
-      text-align: center;
-      border: none;
-      cursor: pointer;
-    }
-  }
+}
 </style>
 
-<body>
-
-  <div class="bia">
-    <div class="bia1">
-      <div class="bia2">
-        <img src="img/<?php echo $row["cover_picture"]; ?>" style="width:100%; height:100%;border-radius:5px">
+<div class="bia">
+  <div class="bia1" style="background-image: url('img/<?php echo $row_user["cover_picture"]?>')">
+  <button class="ccbia congcu1" onclick="showFilePicker()">Chỉnh sửa</button>
+  <form action="trangcanhan/suabia.php" method="post" enctype="multipart/form-data">
+    <input type="file" id="filePicker" name="anhbia" style="display:none;" onchange="filePicked()" />
+    <input type="submit" style="display:none" id="saveButton">
+  </form>
+  <script>
+    function showFilePicker() {
+      document.getElementById('filePicker').click();
+    }
+    function filePicked() {
+      var input = document.getElementById('filePicker');
+      if (input.files && input.files[0]) {
+        console.log('Tệp đã chọn:', input.files[0].name);
+      }
+      document.getElementById('saveButton').click();
+    }
+  </script>
+  <a onclick="return confirm('Bạn có chắc chắn muốn xóa ảnh bìa?')" href="xoabia.php">
+    <button class="ccbia1 congcu1">Xóa</button>
+  </a>
+  </div>
+  <div class="khungcanhan">
+    <div class="canhan1">
+      <div class="anhdaidien" style="background-image: url('img/<?php echo $row_user["avartar"]?>')">
+        <img src="https://cdn-icons-png.flaticon.com/512/3624/3624186.png"onclick="avartar()"></i>
       </div>
-
-      <button class="ccbia" onclick="showFilePicker()">Chỉnh sửa</button>
-      <form action="trangcanhan/suabia.php" method="post" enctype="multipart/form-data">
-        <input type="file" id="filePicker" name="anhbia" style="display:none;" onchange="filePicked()" />
-        <input type="submit" value="Lưu" style="visibility:hidden;" id="saveButton">
+      <form action="trangcanhan/avartar.php" method="post" enctype="multipart/form-data" id="uploadForm">
+        <input type="file" id="avatarPicker" name="anhdaidien" style="display:none;" onchange="avatarPicked()" />
+        <input type="submit" style="display:none;" id="avatarSaveButton">
       </form>
-
       <script>
-        function showFilePicker() {
-          document.getElementById('filePicker').click();
+        function avartar() {
+          document.getElementById('avatarPicker').click();
         }
-
-        function filePicked() {
-          var input = document.getElementById('filePicker');
+        function avatarPicked() {
+          var input = document.getElementById('avatarPicker');
           if (input.files && input.files[0]) {
             console.log('Tệp đã chọn:', input.files[0].name);
+            document.getElementById('avatarSaveButton').click();
           }
-          document.getElementById('saveButton').click();
+        }
+      </script>
+    </div>
+    <div class="name">
+      <div><strong><?php echo $row_user["username"]?></strong></div>
+      <div class="banbe"><br>2939 bạn bè </div>
+      <div class="tieusu"><br><?php echo $row_user["bio"]?></div>
+    </div>
+    <div class="congcu">
+      <button class="congcu1" id="editButton" onclick="FormTIEUSU()">Chỉnh sửa</button>
+      <div id="inputForm" class="hidden">
+        <form action="trangcanhan/suatieusu.php" method="post">
+          <input type="text" value="<?php echo $row_user['bio'] ?>" name="tieusu" placeholder="Nhập tiểu sử của bạn"><br>
+          <input type="submit" value="Lưu" style="border:none;padding:2px 10px">
+          <button style="border:none;padding:2px 10px" type="button" onclick="cancelEdit()">Hủy</button>
+        </form>
+      </div>
+
+      <script>
+        function FormTIEUSU() {
+          var form = document.getElementById("inputForm");
+          var button = document.getElementById("editButton");
+          form.style.display = "block";
+          button.style.display = "none";
+        }
+        function cancelEdit() {
+          var form = document.getElementById("inputForm");
+          var button = document.getElementById("editButton");
+          form.style.display = "none";
+          button.style.display = "block";
         }
       </script>
 
-      <a onclick="return confirm('Bạn có chắc chắn muốn xóa ảnh bìa?')" href="xoabia.php">
-        <button class="ccbia1">Xóa</button>
+      <a onclick="return confirm('Bạn có chắc chắn muốn xóa tiểu sử?')" href="trangcanhan/xoatieusu.php">
+        <button class="congcu1">Xóa</button>
       </a>
-
-    </div>
-    <div class="khungcanhan">
-      <div class="canhan1">
-        <div class="anhdaidien">
-          <img src="img/<?php echo $row["avartar"]; ?>" style="width:100%; height:100%; border-radius: 50%;">
-
-          <form action="trangcanhan/avartar.php" method="post" enctype="multipart/form-data" id="uploadForm">
-            <i class="icon fa fa-camera" onclick="avartar()"></i>
-            <input type="file" id="avatarPicker" name="anhdaidien" style="display:none;" onchange="avatarPicked()" />
-            <input type="submit" value="Lưu" style="visibility:hidden;" id="avatarSaveButton">
-          </form>
-
-          <script>
-
-            function avartar() {
-              document.getElementById('avatarPicker').click();
-            }
-            function avatarPicked() {
-              var input = document.getElementById('avatarPicker');
-              if (input.files && input.files[0]) {
-                console.log('Tệp đã chọn:', input.files[0].name);
-                document.getElementById('avatarSaveButton').click();
-              }
-            }
-          </script>
-
-        </div>
-      </div>
-      <div class="name">
-        <div><strong>
-            <?php echo $row["username"] ?>
-          </strong></div>
-        <div class="banbe"><br>2939 bạn bè </div>
-        <div class="tieusu"><br>
-          <?php echo $row["bio"] ?>
-        </div>
-      </div>
-      <div class="congcu">
-        <button class="congcu1" id="editButton" onclick="FormTIEUSU()">Chỉnh sửa</button>
-
-        <div id="inputForm" class="hidden">
-          <form action="trangcanhan/suatieusu.php" method="post">
-            <input type="text" value="<?php echo $row['bio'] ?>" name="tieusu" placeholder="Nhập tiểu sử của bạn">
-            <input type="submit" value="Lưu">
-            <button style="border:none;" type="button" onclick="cancelEdit()">Hủy</button>
-          </form>
-        </div>
-
-        <script>
-          function FormTIEUSU() {
-            var form = document.getElementById("inputForm");
-            var button = document.getElementById("editButton");
-            form.style.display = "block";
-            button.style.display = "none";
-          }
-
-          function cancelEdit() {
-            var form = document.getElementById("inputForm");
-            var button = document.getElementById("editButton");
-            form.style.display = "none";
-            button.style.display = "block";
-          }
-        </script>
-
-        <a onclick="return confirm('Bạn có chắc chắn muốn xóa tiểu sử?')" href="trangcanhan/xoatieusu.php">
-          <button class="congcu1">Xóa</button>
-        </a>
-      </div>
     </div>
   </div>
-  <div class="story"></div>
+</div>
+
+<div class="story_banbe">
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+</div>
+
   <div class="post_TCN" style="margin:0 13%">
     <div class="central-meta" style="padding:25px">
       <ul class="photos">
         <?php
-        $sql_p = "SELECT * FROM posts 
-        LEFT JOIN user ON posts.post_by = user.user_id
-        LEFT JOIN friend ON (friend.user_id1 = {$row["user_id"]} AND friend.user_id2 = posts.post_by) OR (friend.user_id1 = posts.post_by AND friend.user_id2 = {$row["user_id"]})
-        WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL OR posts.post_by={$row["user_id"]} ORDER BY post_id DESC";
-        $result_p = mysqli_query($link, $sql_p);
-        while ($row_post = mysqli_fetch_assoc($result_p)) {
+        $sql="SELECT * FROM posts inner join user on posts.post_by=user.user_id where user_id=$user_id ORDER BY post_id DESC" ;
+        $result = $link->query($sql);
+        
+        while ($row = mysqli_fetch_assoc($result)) {
           // Kiểm tra xem người dùng đã thích bài viết hay chưa
-          $sql_check = "SELECT * FROM likes WHERE post_id = " . $row_post["post_id"] . " AND like_by = {$row["user_id"]}";
+          $sql_check = "SELECT * FROM likes WHERE post_id = " . $row["post_id"] . " AND like_by = $user_id";
           $result_post = mysqli_query($link, $sql_check);
           $liked_class = "";
           if (mysqli_num_rows($result_post) > 0) {
@@ -498,17 +329,16 @@ $kq_post = $link->query($sql_post);
             <div class="container" style="padding: 3px;">
               <!-- Button to Open the Modal -->
               <button type="button" class="btn btn-primary" data-toggle="modal"
-                data-target="#myModal_<?php echo $row_post['post_id']; ?>"
+                data-target="#myModal_<?php echo $row['post_id']; ?>"
                 style="padding: 0px; border: 0px; width: 45vh;height: 45vh;">
                 <div
-                  style="background-image:url('img/<?php echo $row_post['image']; ?>');background-size:cover; background-position:center;width: 45vh;height: 45vh;">
+                  style="background-image:url('img/<?php echo $row['image']; ?>');background-size:cover; background-position:center;width: 45vh;height: 45vh;">
               </button>
               <!-- The Modal -->
-              <div class="modal fade" id="myModal_<?php echo $row_post['post_id']; ?>">
-                <div class="modal-dialog modal-xl" style="margin-left:17%">
-                  <div class="modal-content" style="width: 90%">
-                    <!-- Modal body -->
-                    <div class="modal-body" style="padding: 0px">
+              <div class="modal fade" id="myModal_<?php echo $row['post_id'] ?>">
+                  <div class="modal-dialog modal-xl">
+                    <div class="modal-content" style="width: 145vh;margin:-1vh auto;height: 94vh">
+                      <div class="modal-body" style="padding:0">
                       <?php
                       include 'trangcanhan/picture.php'; ?>
                     </div>
