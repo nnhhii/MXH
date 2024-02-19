@@ -11,7 +11,7 @@ if(isset($_SESSION['user'])){
     echo "<script>
         alert('ĐĂNG XUẤT THÀNH CÔNG!');
         setTimeout(function(){
-            window.location.href = 'login.php';
+            window.location.href = 'dangnhap.php';
         }, 50);
     </script>";
     

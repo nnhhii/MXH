@@ -14,7 +14,7 @@ if ($result->num_rows==1)
         echo "<script>
         alert('SAI MẬT KHẨU HOẶC TÊN ĐĂNG NHẬP');
         setTimeout(function(){
-            window.location.href = 'login.php';
+            window.location.href = 'dangnhap.php';
         }, 50);
     </script>";
     }
