@@ -77,25 +77,31 @@
   </div>
   <!-- add comment -->
   <div class="add comment" style="float:left; width:100%;height:50px;position: relative; padding:7px;">
-    <form id="commentForm" method="post">
+    <form class="commentForm" method="post">
       <img src="img/smile.PNG" style="width: 25px; height: 25px; left:0px;top:13px;position:absolute; z-index: 1;">
-      <input type="hidden" id="p_id" name="post_id" value="<?php echo $row['post_id'] ?>">
-      <input type="hidden" id="cmt_by" name="comment_by" value="<?php echo $user_id ?>">
-      <textarea name="cmt_content" id="cmt_content" placeholder="Thêm bình luận"
-        style="border: none;width:90%;height:7vh;padding:5px 0 0 40px; position:absolute; left:0"></textarea>
-      <button type="submit" class="comment-btn" id="submit_cmt"
+      <textarea name="cmt_content" class="cmt_content" placeholder="Thêm bình luận"
+        style="border: none; width:90%; height:7vh; padding:5px 0 0 40px; position:absolute; left:0"></textarea>
+      <button type="submit" class="comment-btn submit_cmt" data-postid="<?php echo $row["post_id"]; ?>"
+        data-cmtby="<?php echo $user_id;?>" data-cmtcontent=""
         style="border: none; background: none; color: rgb(0, 162, 255); position:absolute; right:0; top:10px;">Post</button>
     </form>
   </div>
 </div>
 
+<!-- COMMENT -->
+
 <script>
-  $('.comment-btn').off('click').on('click', function (event) {
+  $('.cmt_content').on('input', function () {
+    var cmt_content = $(this).val();
+    $('.submit_cmt').data('cmtcontent', cmt_content);
+  });
+  $('.submit_cmt').off('click').on('click', function (event) {
     event.preventDefault(); // Ngăn chặn sự kiện mặc định của form
 
-    var post_id = $('#p_id').val();
-    var comment_by = $('#cmt_by').val();
-    var cmt_content = $('#cmt_content').val();
+    var form = $(this).closest('form');
+    var post_id = $(this).data('postid');
+    var comment_by = $(this).data('cmtby');
+    var cmt_content = $(this).data('cmtcontent');
 
     $.ajax({
       type: "POST",
@@ -108,7 +114,7 @@
       success: function (data) {
         console.log("AJAX success");
         alert("Đăng bình luận thành công!");
-        $('#commentForm')[0].reset();
+        form[0].reset();
         // Thực hiện các thao tác khác nếu cần
       },
       error: function () {
@@ -118,6 +124,7 @@
   });
 </script>
 
+<!-- LIKE -->
 
 <script>
   $(document).ready(function () {
