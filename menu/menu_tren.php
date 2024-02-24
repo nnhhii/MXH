@@ -22,10 +22,11 @@
                 while ($row_tb = $result_tb->fetch_assoc()) 
                     {
             ?>
-            <a href="index.php?pid=10&&post_id=<?php echo $row_tb['post_id']?>"">
+            <a href="index.php?pid=10&&post_id=<?php echo $row_tb['post_id']?>" style="position:relative">
                 <div class="ava_thong_bao"style="background-image: url('img/<?php echo $row_tb["avartar"]?>')"></div>
                 <div style="font-weight:500"><?php echo $row_tb["username"]?></div>
                 <div style="font-size:15px"><?php echo $row_tb["noti_content"]?></div>
+                <div style="background-image: url('img/<?php echo $row_tb["image"]?>');background-size:cover;background-position:center;width:40px;height:50px;float:left;position:absolute;top:10px;right:10px"></div>
             </a>
             <?php }
         }else echo "ko có thông báo"?>

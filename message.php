@@ -286,12 +286,12 @@ body{
 .red_heart{
     width:55px;
     height:60px;
-    margin:2px 2%;
+    margin:2px 2% 2px 50px;
     float:right
 }
 .other-image{
     width:350px;
-    margin:2px 2%;
+    margin:2px 2% 2px 50px;
     float:right;
     border-radius: 20px 20px 2px 20px;
 }
