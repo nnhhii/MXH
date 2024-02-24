@@ -14,7 +14,7 @@ if (isset($_FILES['file'])) {
     if ($ketnoi->query($sql) === TRUE) {
         echo'
             <div style="width:100%;float:left">
-                <img src="img/'.$hinhanh.'" style="width:400px;height:auto;float:right; margin:2px 2%">
+                <img src="img/' . $hinhanh . '" class="other-image"/>
                 <div style="float:right;color:gray;font-size:12px">'.$message_time.'</div>
             </div> ';
     }
@@ -26,17 +26,9 @@ else {
         if ($ketnoi->query($sql) === TRUE) {
             echo "
             <div style='width:100%;float:left'>
-                <div style='
-                    max-width:60%;
-                    overflow-wrap:break-word;
-                    padding:10px;
-                    border-radius:18px;
-                    background: lightgray;
-                    float:right;    
-                    margin:2px 2%;
-                    font-size:17px'>" .$content ."
+                <div class='text'>" .$content ."
                     </div>
-                <div style='float:right;color:gray; margin-top:15px;font-size:12px'>".$message_time."</div>
+                <div class='message_time'>".$message_time."</div>
             </div>";
         }
     }

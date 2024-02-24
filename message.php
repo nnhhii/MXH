@@ -465,7 +465,7 @@ body{
             }?>
         </div>
         <div class="chat_box">
-            <form id="messageForm" action="send_message.php" method="post" enctype="multipart/form-data">
+            <form id="messageForm" method="post" enctype="multipart/form-data">
                 <input type= "hidden" name="message_to" value="<?php echo $m_id?>">
                 <input type="hidden" name="message_by" value="<?php echo $user_id?>">
                 <textarea type="text" name="content" placeholder="Message..."></textarea>
@@ -612,7 +612,6 @@ $(document).ready(function(){
             type: 'POST',
             data: $("#messageForm").serialize(),
             success: function(response){
-                console.log(response);
                 $(".content").append('<div style="width:100%;float:left"><img src="img/red_heart.png" style="width:50px;height:50px;float:right; margin:2px 2%;"></div>'); 
                 
                 $(".content .no").remove();
@@ -646,7 +645,6 @@ $(document).ready(function(){
             processData: false,// Không xử lý dữ liệu trước khi gửi
             contentType: false,// Không set header 'Content-Type' (sẽ được tự động set khi sử dụng FormData)
             success: function (response) {
-                console.log(response);
                 $(".content").append(response);
                 $(".content .no").remove();
                 $(".content").scrollTop($(".content")[0].scrollHeight);

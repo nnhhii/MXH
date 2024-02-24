@@ -1,3 +1,4 @@
+<html>
 <head>
   <script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -24,163 +25,184 @@
   <script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>
   <title>Thêm bài viết</title>
 </head>
-<style>
-.bai {
-    text-align: center;
-    width: 470px;
-    border-bottom: 1px solid #ccc;
-    margin: 10px -10px;
-    float: left;
-}
-.user-info {
-    display: flex;
-    margin: 15px;
-    position: relative;
-}
-.avtbai{
-    width:40px;
-    height:40px;
-    border-radius: 50%;
-    background-size: cover;
-}
-hr {
-    border-top: 1px solid #ccc; 
-    margin: 10px 0
-}
-.like_count {
-    font-size: 14px;
-    font-weight: 600;
-    float: left;
-    text-align: left;
-    width: 100%;
-}
-.content{
-  padding-left:10px;
-    text-align:left;
-    color:#555555;
-}
-.fa-paper-plane{
-  float:left; 
-  margin:10px;
-  scale: 1.3;
-  cursor: pointer;
-  padding:2px
-}
-.chinhsuaa{
-  position: absolute;
-  scale: 1;
-  right:-20px
-}
-.chinhsuaa >button>i{
-  color: black;
-}
-.dropdown-menu {
-position: absolute;
-display: none;
-min-width: 120px;
-padding: 5px;
-background-color: #ffffff;
-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-border-radius: 5px;
-text-align: left;
-}
-.dropdown-menu.open {
-display: block;
-background-color: #EEEEEE;
-}
-.dropdown-item a {
-display: block;
-padding: 5px 0;
-text-decoration: none;
-color: #212529;
-}
 
-.dropdown-item:hover,
-.dropdown-item:focus {
-background-color: #f8f9fa;
-}
+<body>
+  <style>
+    .bai {
+      text-align: center;
+      width: 470px;
+      border-bottom: 1px solid #ccc;
+      margin: 10px -10px;
+      float: left;
+    }
 
-.luu{
-  position: absolute;
-  scale:1.5;
-  right:0px
-}
+    .user-info {
+      display: flex;
+      margin: 15px;
+      position: relative;
+    }
 
-.anh_post{
-  width:75vh;
-  height:95vh; 
-  float: left; 
-  position:relative;
-}
-.layout_phai{
-  width:69vh;
-  height:95vh; 
-  float: left; 
-  position:relative;
-}
-.layout_user_post{
-  height: 60px; 
-  border-bottom: lightgray solid 1px; 
-  padding: 12px;
-}
-.ava_user_post{
-  float:left;
-  background-size:cover;
-  background-position:center; 
-  width: 35px; 
-  border-radius:50%; 
-  height:35px;
-}
-.name_user_post{
-  margin:5px 50px; 
-  width:100px;
-  text-align:left;
-  font-weight:380px;
-}
-.layout_cmt{
-  padding:10px;
-  height:80px
-}
-.ava_user_cmt{
-  margin:5px;
-  width:35px;
-  height:35px;
-  border-radius:50%;
-  background-size:cover;
-  background-position: center;
-  float:left;
-}
-.name_user_cmt{
-  font-weight:400px;
-  font-size:13px;
-  float:left; 
-  margin:0 5px
-}
-.cmt_content{
-  font-size:13px;
-  float:left
-}
-.cmt_time{
-  font-size:10px;
-  color:gray;
-  margin:5px; 
-  float:left
-}
-.mess1{
+    .avtbai {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-image: url('img/65a8d102a1c4b-Screenshot 2024-01-18 112403.png');
+      background-size: cover;
+    }
+
+    hr {
+      border-top: 1px solid #ccc;
+      margin: 10px 0
+    }
+
+    .like_count {
+      font-size: 14px;
+      font-weight: 600;
+      float: left;
+      text-align: left;
+      width: 100%;
+    }
+
+    .content {
+      padding-left: 10px;
+      text-align: left;
+      color: #555555;
+    }
+
+    .fa-paper-plane {
+      float: left;
+      margin: 10px;
+      scale: 1.3;
+      cursor: pointer;
+      padding: 2px
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      display: none;
+      min-width: 120px;
+      padding: 5px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      text-align: left;
+    }
+
+    .dropdown-menu.open {
+      display: block;
+      background-color: #EEEEEE;
+    }
+
+    .dropdown-item a {
+      display: block;
+      padding: 5px 0;
+      text-decoration: none;
+      color: #212529;
+    }
+
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+      background-color: #f8f9fa;
+    }
+
+    .chinhsuaa {
+      position: absolute;
+      right: -20px
+    }
+
+    .luu {
+      position: absolute;
+      scale: 1.5;
+      right: 0px
+    }
+
+    .anh_post {
+      width: 75vh;
+      height: 95vh;
+      float: left;
+      position: relative;
+    }
+
+    .layout_phai {
+      width: 69vh;
+      height: 95vh;
+      float: left;
+      position: relative;
+    }
+
+    .layout_user_post {
+      height: 60px;
+      border-bottom: lightgray solid 1px;
+      padding: 12px;
+    }
+
+    .ava_user_post {
+      float: left;
+      background-size: cover;
+      background-position: center;
+      width: 35px;
+      border-radius: 50%;
+      height: 35px;
+    }
+
+    .name_user_post {
+      margin: 5px 50px;
+      width: 100px;
+      text-align: left;
+      font-weight: 380px;
+    }
+
+    .layout_cmt {
+      padding: 10px;
+      height: 80px
+    }
+
+    .ava_user_cmt {
+      margin: 5px;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      float: left;
+    }
+
+    .name_user_cmt {
+      font-weight: 400px;
+      font-size: 13px;
+      float: left;
+      margin: 0 5px
+    }
+
+    .cmt_content {
+      font-size: 13px;
+      float: left
+    }
+
+    .cmt_time {
+      font-size: 10px;
+      color: gray;
+      margin: 5px;
+      float: left
+    }
+    .mess1{
     width: 100%;
     height: 80px;
     float: left;
     color: black;
-    cursor: pointer;
+    transition: 0.2s;
 }
 .mess1:hover{
     background-color: rgb(247, 247, 247);
 }
+.col_left > a >.mess1.active {
+    background-color: rgb(229, 228, 228)
+}
 .ava{
     background-size: cover;
     border-radius: 50%;
-    padding:25px;
-    margin: 15px 0 0 10px;
+    padding:30px;
+    margin: 10px 0 0 10px;
     float: left;
     cursor: pointer;
 }
@@ -199,22 +221,23 @@ background-color: #f8f9fa;
     font-family:'Segoe UI', Tahoma,Verdana, sans-serif;
     color: gray;
 }
-</style>
+  </style>
 
-<div class="container">
-<?php
-require 'posts_connect.php';
-if (isset($_POST['btn_submit'])) {
-    $post_by = $_POST['post_by'];
-    $content = $_POST['content'];
-    // Upload ảnh 
-    $image = $_FILES['image']['name'];
-    $file_tmp = $_FILES['image']['tmp_name'];
-    $target = "img/" . basename($image);
-    $sql = "INSERT INTO posts(post_by,content,image ) VALUES ($post_by,  '$content', '$image' )";
+  <div class="container">
+    <?php
+    require 'posts_connect.php';
+    if (isset($_POST['btn_submit'])) {
+      $post_by = $_POST['post_by'];
+      $content = $_POST['content'];
+      // Upload ảnh 
+      $image = $_FILES['image']['name'];
+      $file_size = $_FILES['image']['size'];
+      $file_tmp = $_FILES['image']['tmp_name'];
+      $target = "img/" . basename($image);
+      $sql = "INSERT INTO posts(post_by,content,image ) VALUES ($post_by,  '$content', '$image' )";
 
-    if (!isset($_FILES['image'])|| $_FILES['image']['error'] == UPLOAD_ERR_NO_FILE) {
-        echo '<script>
+      if (!isset($_FILES['image'])) {
+        echo '<script language="javascript">
                 alert("Vui lòng chọn ít nhất một hình ảnh!");
                 window.location.href = "index.php";
             </script>';
@@ -226,10 +249,10 @@ if (isset($_POST['btn_submit'])) {
                 window.location.href = "index.php";
                 exit();
             </script>';
+      }
     }
-}
 
-$sql_p = "SELECT * FROM posts 
+    $sql_p = "SELECT * FROM posts 
   LEFT JOIN user ON posts.post_by = user.user_id
   LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = posts.post_by) OR (friend.user_id1 = posts.post_by AND friend.user_id2 = $user_id)
   WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL OR posts.post_by=$user_id ORDER BY post_id DESC";
@@ -302,7 +325,7 @@ while ($row = mysqli_fetch_array($result_p)) {
                         
 
                           <!-- view comment -->
-                          <div style="height: 60vh;overflow-y: scroll; width:65vh">
+                          <div class="view_cmt" data-postid="<?php echo $row["post_id"]; ?>"style="height: 60vh;overflow-y: scroll; width:65vh">
                           <?php 
                           $ketnoi=new mysqli("localhost","root","","mxh");
                           $post_id=$row["post_id"];
@@ -319,7 +342,7 @@ while ($row = mysqli_fetch_array($result_p)) {
                             <?php 
                             }
                           }else{?>
-                            <div style="margin: 35% auto">
+                            <div class="chuacobinhluan"style="margin: 35% auto">
                               <div style="font-size: 20px;font-weight: bold;">Chưa có bình luận nào.</div>
                               <div style="font-size: 14px;text-align:center">Hãy bắt đầu bình luận!</div>
                             </div> 
@@ -355,13 +378,15 @@ while ($row = mysqli_fetch_array($result_p)) {
                             </div>
                             <!-- add comment -->
                             <div class="add comment" style="float:left; width:100%;height:50px;position: relative; padding:7px;">
-                              <form id="commentForm" action="dangbaiviet/get_comments.php" method="post">
-                                <img src="img/smile.PNG" style="width: 25px; height: 25px; left:0px;top:13px;position:absolute; z-index: 1;">
-                                <input type="hidden"  name="post_id"  value="<?php echo $row['post_id'] ?>">
-                                <input type="hidden"  name="comment_by"  value="<?php echo $user_id ?>">
-                                <textarea name="cmt_content" placeholder="Add a comment" style="border: none;width:90%;height:7vh;padding:5px 0 0 40px; position:absolute; left:0"></textarea>
-                                <button type ="submit" class="comment-btn" style="border: none; background: none; color: rgb(0, 162, 255); position:absolute; right:0; top:10px;">Post</button>
-                              </form>
+                            <form class="commentForm" method="post" enctype="multipart/form-data">
+                              <img src="img/smile.PNG"
+                                style="width: 25px; height: 25px; left:0px;top:13px;position:absolute; z-index: 1;">
+                              <textarea name="cmt_content" class="cmt_content" placeholder="Thêm bình luận"
+                                style="border: none; width:90%; height:7vh; padding:5px 0 0 40px; position:absolute; left:0"></textarea>
+                              <button type="button" class="comment-btn submit_cmt"
+                                data-postid="<?php echo $row["post_id"]; ?>" data-cmtby="<?php echo $user_id;?>" data-cmtcontent=""
+                                 style="border: none; background: none; color: rgb(0, 162, 255); position:absolute; right:0; top:10px;">Post</button>
+                            </form>
                             </div>
                           </div>
                         </div>
@@ -369,59 +394,57 @@ while ($row = mysqli_fetch_array($result_p)) {
                     </div>
                   </div>
                 </div>
-            
-                
           </div>
-          <!-- Share icon -->
-          <a data-toggle="modal" href='#modal-id-share_<?php echo $row["post_id"]?>'style="color:black"><i class="fa-regular fa-paper-plane"></i></a>
-          <div class="modal fade" id="modal-id-share_<?php echo $row["post_id"]?>">
-            <div class="modal-dialog">
-              <form action="" enctype="multipart/form-data" method="post">
-                <div class="modal-content" style="width:480px;height:420px; border-radius:15px;margin-top:20vh">
-                  <div class="modal-header"style="border-bottom: 1px solid #DBDBDB">
-                    <h5 class="modal-title" style="position:absolute;left:42%;padding:10px;text-align:center;">Chia sẻ</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  </div>
-                  <div class="modal-body" style="padding:0;overflow:auto">
-                    <!-- Search -->
-                    <form action="" enctype="multipart/form-data" method="post">
-                      <i style="top:12px;position: absolute;left:13px" class="fa-solid fa-magnifying-glass"></i>
-                      <input class="timkiem1"name="timkiem1" data-userid="<?php echo $user_id?>"data-postid="<?php echo $row["post_id"]?>"style="width:100%;height: 40px;outline: none;padding-left: 45px;border: none;border-bottom: 1px solid #DBDBDB;">
-                    </form>
-                    <div class="ketquatimkiem"></div>
-                    <?php
-                    if(empty($_POST["timkiem1"])) {
-                      $ketnoi= new mysqli('localhost','root','','mxh');
-                      $friend = "SELECT * FROM user 
-                      LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = user.user_id) OR (friend.user_id1 = user.user_id AND friend.user_id2 = $user_id)
-                      WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL";
-                      $result_fr = $ketnoi->query($friend);  
-                      while($row_fr = $result_fr->fetch_assoc()) {
-                    ?>
-                        <label for="mess<?php echo $row["post_id"]?>_<?php echo $row_fr["user_id"] ?>" class="mess1">
-                          <div class="ava" style="background-image: url('img/<?php echo $row_fr["avartar"]?>')"></div>
-                          <div class="username"><?php echo $row_fr["username"]?></div><br><br>
-                          <div class="mini_content"><?php echo $row_fr["email"]?></div>
-                          <input type="hidden" name="share_by" value="<?php echo $user_id?>">
-                          <input type="hidden" name="post_id" value="<?php echo $row["post_id"]?>">
-                          <input type="checkbox"name="share_to" value="<?php echo $row_fr["user_id"]?>" id="mess<?php echo $row["post_id"]?>_<?php echo $row_fr["user_id"] ?>" style="float:right;margin:-20px 20px">
-                        </label>
-                    <?php
+            <!-- Share icon -->
+            <a data-toggle="modal" href='#modal-id-share_<?php echo $row["post_id"]?>'style="color:black"><i class="fa-regular fa-paper-plane"></i></a>
+            <div class="modal fade" id="modal-id-share_<?php echo $row["post_id"]?>">
+              <div class="modal-dialog">
+                <form action="" enctype="multipart/form-data" method="post">
+                  <div class="modal-content" style="width:480px;height:420px; border-radius:15px;margin-top:20vh">
+                    <div class="modal-header"style="border-bottom: 1px solid #DBDBDB">
+                      <h5 class="modal-title" style="position:absolute;left:42%;padding:10px;text-align:center;">Chia sẻ</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body" style="padding:0;overflow:auto">
+                      <!-- Search -->
+                      <form action="" enctype="multipart/form-data" method="post">
+                        <i style="top:12px;position: absolute;left:13px" class="fa-solid fa-magnifying-glass"></i>
+                        <input class="timkiem1"name="timkiem1" data-userid="<?php echo $user_id?>"data-postid="<?php echo $row["post_id"]?>"style="width:100%;height: 40px;outline: none;padding-left: 45px;border: none;border-bottom: 1px solid #DBDBDB;">
+                      </form>
+                      <div class="ketquatimkiem"></div>
+                      <?php
+                      if(empty($_POST["timkiem1"])) {
+                        $ketnoi= new mysqli('localhost','root','','mxh');
+                        $friend = "SELECT * FROM user 
+                        LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = user.user_id) OR (friend.user_id1 = user.user_id AND friend.user_id2 = $user_id)
+                        WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL";
+                        $result_fr = $ketnoi->query($friend);  
+                        while($row_fr = $result_fr->fetch_assoc()) {
+                      ?>
+                          <label for="mess<?php echo $row["post_id"]?>_<?php echo $row_fr["user_id"] ?>" class="mess1">
+                            <div class="ava" style="background-image: url('img/<?php echo $row_fr["avartar"]?>')"></div>
+                            <div class="username"><?php echo $row_fr["username"]?></div><br><br>
+                            <div class="mini_content"><?php echo $row_fr["email"]?></div>
+                            <input type="hidden" name="share_by" value="<?php echo $user_id?>">
+                            <input type="hidden" name="post_id" value="<?php echo $row["post_id"]?>">
+                            <input type="checkbox"name="share_to" value="<?php echo $row_fr["user_id"]?>" id="mess<?php echo $row["post_id"]?>_<?php echo $row_fr["user_id"] ?>" style="float:right;margin:-20px 20px">
+                          </label>
+                      <?php
+                        }
                       }
-                    }
-                    ?>
-                    
+                      ?>
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary send_post_btn" data-postid="<?php echo $row["post_id"]?>">Gửi</button>
+                    </div>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary send_post_btn" data-postid="<?php echo $row["post_id"]?>">Gửi</button>
-                  </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
-          </div>
-          
-          <div class="luu"> <i class="fa-regular fa-bookmark"></i></div><br>
-      </div>       
+            
+            <div class="luu"> <i class="fa-regular fa-bookmark"></i></div><br>
+          </div>       
 <?php
   }
 ?>    
@@ -457,8 +480,33 @@ $(document).ready(function(){
     });
   });
 
-
-
+  
+  $('.cmt_content').on('input', function () {
+      var cmt_content = $(this).val();
+      $('.submit_cmt').data('cmtcontent', cmt_content);
+    });
+    $('.submit_cmt').on('click', function (event) {
+      event.preventDefault(); 
+      var post_id = $(this).data('postid');
+      var comment_by = $(this).data('cmtby');
+      var cmt_content = $(this).data('cmtcontent');
+      $.ajax({
+        type: "POST",
+        url: "dangbaiviet/get_comments.php",
+        data: {
+          post_id: post_id,
+          comment_by: comment_by,
+          cmt_content: cmt_content
+        },
+        success: function (response) {
+          var view_cmt = $('.view_cmt[data-postid="' + post_id + '"]');
+          view_cmt.append(response);
+          $('textarea[name="cmt_content"]').val('');
+          view_cmt.find(".chuacobinhluan").remove();
+          view_cmt.scrollTop(view_cmt[0].scrollHeight);
+        }
+      });
+    });
     
 
   $('.send_post_btn').on('click', function(e) {
