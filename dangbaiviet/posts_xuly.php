@@ -377,16 +377,16 @@ while ($row = mysqli_fetch_array($result_p)) {
                             <i class="fa-regular fa-bookmark"style="scale:1.5;margin: 10px"></i>
                             </div>
                             <!-- add comment -->
-                            <div class="add comment" style="float:left; width:100%;height:50px;position: relative; padding:7px;">
-                            <form class="commentForm" method="post" enctype="multipart/form-data">
-                              <img src="img/smile.PNG"
-                                style="width: 25px; height: 25px; left:0px;top:13px;position:absolute; z-index: 1;">
-                              <textarea name="cmt_content" class="cmt_content" placeholder="Thêm bình luận"
-                                style="border: none; width:90%; height:7vh; padding:5px 0 0 40px; position:absolute; left:0"></textarea>
-                              <button type="button" class="comment-btn submit_cmt"
-                                data-postid="<?php echo $row["post_id"]; ?>" data-cmtby="<?php echo $user_id;?>" data-cmtcontent=""
-                                 style="border: none; background: none; color: rgb(0, 162, 255); position:absolute; right:0; top:10px;">Post</button>
-                            </form>
+                            <div style="float:left; width:100%;height:50px;position: relative; padding:7px;">
+                              <form class="commentForm" method="post" enctype="multipart/form-data">
+                                <img src="img/smile.PNG"
+                                  style="width: 25px; height: 25px; left:0px;top:13px;position:absolute; z-index: 1;">
+                                <textarea name="cmt_content_<?php echo $row["post_id"]; ?>"placeholder="Thêm bình luận"
+                                  style="border: none; width:90%; height:7vh; padding:5px 0 0 40px; position:absolute; left:0"></textarea>
+                                <button type="button" class="comment-btn submit_cmt"
+                                  data-postid="<?php echo $row["post_id"]; ?>" data-cmtby="<?php echo $user_id;?>"
+                                  style="border: none; background: none; color: rgb(0, 162, 255); position:absolute; right:0; top:10px;">Post</button>
+                              </form>
                             </div>
                           </div>
                         </div>
@@ -481,15 +481,12 @@ $(document).ready(function(){
   });
 
   
-  $('.cmt_content').on('input', function () {
-      var cmt_content = $(this).val();
-      $('.submit_cmt').data('cmtcontent', cmt_content);
-    });
+  
     $('.submit_cmt').on('click', function (event) {
       event.preventDefault(); 
       var post_id = $(this).data('postid');
       var comment_by = $(this).data('cmtby');
-      var cmt_content = $(this).data('cmtcontent');
+      var cmt_content = $('textarea[name="cmt_content_' + post_id + '"]').val()
       $.ajax({
         type: "POST",
         url: "dangbaiviet/get_comments.php",
@@ -501,7 +498,7 @@ $(document).ready(function(){
         success: function (response) {
           var view_cmt = $('.view_cmt[data-postid="' + post_id + '"]');
           view_cmt.append(response);
-          $('textarea[name="cmt_content"]').val('');
+          $('textarea[name="cmt_content_' + post_id + '"]').val('');
           view_cmt.find(".chuacobinhluan").remove();
           view_cmt.scrollTop(view_cmt[0].scrollHeight);
         }
@@ -518,7 +515,7 @@ $(document).ready(function(){
           selectedValues.push($(this).val());
       });
       $.ajax({
-          url: 'share_post.php', 
+          url: 'dangbaiviet/posts_share.php', 
           type: 'post', 
           data: {
               share_by: $('input[name="share_by"]').val(),
