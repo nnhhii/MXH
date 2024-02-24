@@ -19,17 +19,6 @@ if (isset($_FILES['file'])) {
             </div> ';
     }
 }
-elseif (isset($_POST['icon_url'])) {
-    $icon =$_POST['icon_url'];
-    $sql = "INSERT INTO message (message_to, message_by, content, timestamp) VALUES ('$message_to', '$message_by', '$icon', '$message_time')";
-    if ($ketnoi->query($sql) === TRUE) {
-        echo '
-            <div style="width:100%;float:left">
-                <img src="'.$icon.'" style="width:40px;height:40px;float:right; margin:2px 2%">
-                <div style="float:right;color:gray;font-size:12px">'.$message_time.'</div>
-            </div>';
-    }
-}
 else {
         $content = $_POST['content'];
         $sql = "INSERT INTO message (message_by, message_to, content,timestamp) VALUES ('$message_by', '$message_to', '$content','$message_time')";

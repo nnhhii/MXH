@@ -2,9 +2,16 @@
 session_start();
 if(isset($_SESSION['user']))
 {
+    $user_id = $_SESSION['user'];
+    $ketnoi= new mysqli('localhost','root','','MXH');     
+    $sql= "SELECT * FROM user WHERE user_id=$user_id";
+    $result= $ketnoi->query($sql);
+    $row_id= $result->fetch_assoc();
+
     $showMenuTren = true;
     $showMenuTrai = true;
     $showMenuPhai = true;
+    $showMenuDuoi = true;
     if (isset($_GET["pid"])){
         $id=$_GET["pid"];
         switch ($id){
@@ -52,6 +59,10 @@ if(isset($_SESSION['user']))
                 $showMenuPhai = false;
                 include("menu/taobaidang.php");
                 break;
+            case 10:
+                $showMenuPhai = false;
+                include("dangbaiviet/posts_url.php");
+                break;
 
         }
     }else {include("home.php");}
@@ -65,6 +76,9 @@ if(isset($_SESSION['user']))
     if($showMenuPhai) {
         include ('menu/menu_phai.php');
     }
+    if($showMenuDuoi) {
+        include ('menu/menu_duoi.php');
+    }
 } else {
     header("location:dangnhap/dangnhap.php");
 }
@@ -72,6 +86,9 @@ if(isset($_SESSION['user']))
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/like.css">
+  <link rel="stylesheet" href="css/main.min.css">
+  <link rel="stylesheet" href="css/cmt.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>

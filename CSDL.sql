@@ -116,11 +116,13 @@ CREATE TABLE notification (
   notification_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   noti_by int,
   FOREIGN KEY (noti_by) REFERENCES user(user_id),
-  content varchar(200),
+  noti_content varchar(200),
+  post_id int,
+  FOREIGN KEY (post_id) REFERENCES posts(post_id),
   noti_time varchar(200)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO notification(noti_by,content) VALUES 
+INSERT INTO notification(noti_by,noti_content) VALUES 
   (1, 'đã thích bài viết của bạn'),
   (3, 'đã bình luận vào bài viết của bạn'),
   (2, 'đã thích bài viết của bạn'),

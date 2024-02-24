@@ -13,13 +13,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
-<?php
-$link = new mysqli("localhost", "root", "", "mxh");
-$user_id = $_SESSION['user'];
-$sql_user="SELECT * FROM user where user_id=$user_id";
-$result_user=$link->query($sql_user);
-$row_user=$result_user->fetch_assoc();
-?>
 <style>
 .hidden{
   display: none;
@@ -217,7 +210,7 @@ $row_user=$result_user->fetch_assoc();
 </style>
 
 <div class="bia">
-  <div class="bia1" style="background-image: url('img/<?php echo $row_user["cover_picture"]?>')">
+  <div class="bia1" style="background-image: url('img/<?php echo $row_id["cover_picture"]?>')">
   <button class="ccbia congcu1" onclick="showFilePicker()">Chỉnh sửa</button>
   <form action="trangcanhan/suabia.php" method="post" enctype="multipart/form-data">
     <input type="file" id="filePicker" name="anhbia" style="display:none;" onchange="filePicked()" />
@@ -241,7 +234,7 @@ $row_user=$result_user->fetch_assoc();
   </div>
   <div class="khungcanhan">
     <div class="canhan1">
-      <div class="anhdaidien" style="background-image: url('img/<?php echo $row_user["avartar"]?>')">
+      <div class="anhdaidien" style="background-image: url('img/<?php echo $row_id["avartar"]?>')">
         <img src="https://cdn-icons-png.flaticon.com/512/3624/3624186.png"onclick="avartar()"></i>
       </div>
       <form action="trangcanhan/avartar.php" method="post" enctype="multipart/form-data" id="uploadForm">
@@ -262,15 +255,15 @@ $row_user=$result_user->fetch_assoc();
       </script>
     </div>
     <div class="name">
-      <div><strong><?php echo $row_user["username"]?></strong></div>
+      <div><strong><?php echo $row_id["username"]?></strong></div>
       <div class="banbe"><br>2939 bạn bè </div>
-      <div class="tieusu"><br><?php echo $row_user["bio"]?></div>
+      <div class="tieusu"><br><?php echo $row_id["bio"]?></div>
     </div>
     <div class="congcu">
       <button class="congcu1" id="editButton" onclick="FormTIEUSU()">Chỉnh sửa</button>
       <div id="inputForm" class="hidden">
         <form action="trangcanhan/suatieusu.php" method="post">
-          <input type="text" value="<?php echo $row_user['bio'] ?>" name="tieusu" placeholder="Nhập tiểu sử của bạn"><br>
+          <input type="text" value="<?php echo $row_id['bio'] ?>" name="tieusu" placeholder="Nhập tiểu sử của bạn"><br>
           <input type="submit" value="Lưu" style="border:none;padding:2px 10px">
           <button style="border:none;padding:2px 10px" type="button" onclick="cancelEdit()">Hủy</button>
         </form>
@@ -312,12 +305,12 @@ $row_user=$result_user->fetch_assoc();
       <ul class="photos">
         <?php
         $sql="SELECT * FROM posts inner join user on posts.post_by=user.user_id where user_id=$user_id ORDER BY post_id DESC" ;
-        $result = $link->query($sql);
+        $result = $ketnoi->query($sql);
         
         while ($row = mysqli_fetch_assoc($result)) {
           // Kiểm tra xem người dùng đã thích bài viết hay chưa
           $sql_check = "SELECT * FROM likes WHERE post_id = " . $row["post_id"] . " AND like_by = $user_id";
-          $result_post = mysqli_query($link, $sql_check);
+          $result_post = mysqli_query($ketnoi, $sql_check);
           $liked_class = "";
           if (mysqli_num_rows($result_post) > 0) {
             // Người dùng đã thích bài viết => thêm class 'liked' vào nút like

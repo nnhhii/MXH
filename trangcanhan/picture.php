@@ -17,7 +17,7 @@
 <?php 
 $post_id=$row["post_id"];
 $sql_cmt="select * from comment inner join user on comment.comment_by=user.user_id where post_id='$post_id'";
-$result_cmt=$link->query($sql_cmt);
+$result_cmt=$ketnoi->query($sql_cmt);
 if ($result_cmt->num_rows > 0) {
   while($row_cmt=$result_cmt->fetch_assoc()){?>
   <div class="layout_cmt">

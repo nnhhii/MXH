@@ -191,14 +191,16 @@ body{
     margin:5px
 }
 .col_right >.chat_box >form > #myIcon{
-    width:270px;
-    height:110px; 
+    width:300px;
+    height:200px; 
     box-shadow:1px 2px 5px lightgray;
     display: none;
     position:absolute;
     bottom:30px;
     left:50px;
-    border-radius:10px
+    border-radius:10px;
+    overflow: auto;
+    padding: 15px 5px;
 }
 @media (max-width:900px){
     .col_left{
@@ -217,7 +219,7 @@ body{
         left: 172px;
     }
 }
-@media(max-width:600px){
+@media(max-width:800px){
     .col_menu{
         display: none;
     }
@@ -242,42 +244,6 @@ body{
     .username{
         margin: 30px 0 0 15px;
         font-size: 17px;
-    }
-    .col_menu_duoi{
-        height: 55px;
-        width: 100%;
-        border-top: lightgray 1px solid;
-        position: absolute;
-        bottom: 0;
-    }
-    .icon_menu{
-        float: left;
-        margin: 3% 5%;
-        padding:14px;
-        background-size: cover;
-        cursor: pointer;
-    }
-    .icon_menu:hover{
-        transform: scale(1.05);
-        transition: 0.1s;
-    }
-    #home{
-        background-image: url('https://img.icons8.com/?size=256&id=Gc9qmZNN9yFN&format=png');
-    }
-    #explore{
-        background-image: url('https://img.icons8.com/?size=256&id=88004&format=png');
-    }
-    #add{
-        background-image: url('https://img.icons8.com/?size=256&id=14092&format=png');
-    }
-    #mess{
-        background-image: url('https://img.icons8.com/?size=256&id=dJOh7yntdHD9&format=png');
-    }
-    #infor{
-        background-image: url('https://img.icons8.com/?size=256&id=eMfeVHKyTnkc&format=png');
-    }
-    #profile{
-        background-image: url('https://th.bing.com/th/id/OIP.R_VSj3S9jJBIz31hmPBQDAAAAA?w=256&h=256&rs=1&pid=ImgDetMain');
     }
 }
 #info{
@@ -336,7 +302,7 @@ body{
     border-radius:18px 18px 2px 18px;
     background: lightgray;
     float:right;
-    margin:2px 2%;
+    margin:2px 2% 2px 50px;
     font-size:16.5px
 }
 .message_time{
@@ -345,10 +311,29 @@ body{
     margin-top:15px;
     font-size:12px
 }
-.url_img{
-    width:40px;
-    float:right; 
-    margin:2px 2%
+#myIcon > button{
+    width:50px;
+    background: none;
+    font-size: 28px;
+    border:none
+}
+.layout_url{
+    width:310px; float:right; background:lightgray;border-radius:20px 20px 2px 20px;margin: 10px 2% 10px 50px
+}
+.avt_url{
+    width:32px;
+    height:32px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    float: left;
+    margin:10px;
+}
+.user_url{
+    font-size:15px; margin:17px 7px 15px 0;color:black;font-weight:500;float:left
+}
+.content_url{
+    float:left;margin:20px 7px;font-size:12px;color:black
 }
 </style>
 <head>
@@ -358,13 +343,11 @@ body{
 <body>
     <div class="col_menu">
         <a href="index.php"><img src="https://img.icons8.com/?size=256&id=Gc9qmZNN9yFN&format=png" style="margin-top: 100px;"></a>
-        <a><img class="logo1" src="https://img.icons8.com/?size=256&id=61161&format=png"></a>
-        <a><img class="logo1" src="https://img.icons8.com/?size=256&id=43571&format=png"></a>
-        <a><img src="https://img.icons8.com/?size=256&id=88004&format=png"></a>
-        <a><img src="https://img.icons8.com/?size=256&id=ZI2N2LpZcXuZ&format=png"></a>
-        <a><img src="https://img.icons8.com/?size=256&id=7695&format=png"></a>
+        <a href="index.php?pid=4"><img src="https://img.icons8.com/?size=256&id=61161&format=png"></a>
+        <a href="index.php?pid=5"><img src="https://img.icons8.com/?size=256&id=43571&format=png"></a>
+        <a href="index.php?pid=6"><img src="https://img.icons8.com/?size=256&id=88004&format=png"></a>
+        <a href="index.php?pid=7"><img src="https://img.icons8.com/?size=256&id=ZI2N2LpZcXuZ&format=png"></a>
         <a><img src="https://img.icons8.com/?size=256&id=dJOh7yntdHD9&format=png"></a>
-        <a><img src="https://img.icons8.com/?size=256&id=eMfeVHKyTnkc&format=png"></a>
         <a><img src="https://img.icons8.com/?size=256&id=14092&format=png"></a>
     </div>
     <div class="col_left">
@@ -417,30 +400,57 @@ body{
                 while ($row = $result->fetch_assoc()) {
                     $content = $row['content'];
                     $message_time = $row['timestamp'];
-                    // Kiểm tra 
                     $cssClass = ($content == 'red_heart.png') ? 'red_heart' : 'other-image';
-                    echo '<div style="width:100%;float:left">';
+                    echo '<div style="width:100%;float:left;position:relative">';
                     if ($row['message_by'] == $user_id) {
                         if (strpos($content, '.png') !== false || strpos($content, '.jpg') !== false || strpos($content, '.jpeg') !== false) {
-                            // Nếu là ảnh
+                            // Nếu là ảnh hoặc red_heart
                             echo '<img src="img/' . $content . '" class="' . $cssClass . '"/>
                                     <div class="message_time">'.$message_time.'</div>';
                         }else if (filter_var($content, FILTER_VALIDATE_URL)) {
-                            // If it's a URL
-                            echo '<img src="'. $content .'" class="url_img">
+                            $urlParts = parse_url($content);      // Phân tích URL
+                            parse_str($urlParts['query'], $queryParts);     // Phân tích chuỗi truy vấn
+                            $p_id = $queryParts['post_id'];           // Lấy giá trị của post_id
+                            $sql_url="select * from posts inner join user where posts.post_by=user.user_id and post_id=$p_id";
+                            $result_url = $ketnoi->query($sql_url);
+                            $row=$result_url->fetch_assoc();
+                            
+                            echo '<a href="'.$content.'">
+                                    <div class="layout_url">
+                                        <img src="img/'.$row["image"].'" style="width:310px;border-radius:20px 20px 0 0">
+                                        <div class="avt_url" style="background-image:url(img/'.$row["avartar"].')"></div>
+                                        <div class="user_url">'.$row["username"].'</div>
+                                        <div class="content_url">'.$row["content"].'</div>
+                                    </div>
+                                </a>
                                     <div class="message_time">'.$message_time.'</div>';
+                                    
                         }else {
                             //Nếu là text
                             echo '<span class="text">' . $content . '</span>
                                     <div class="message_time">'.$message_time.'</div>';
                         }
                     }else{
+                        echo'<div class="avt_url" style="background-image:url(img/'.$row_dt["avartar"].');position:absolute;bottom:-7px"></div>';
                         if (strpos($content, '.png') !== false || strpos($content, '.jpg') !== false || strpos($content, '.jpeg') !== false) {
                             echo '<img src="img/' . $content . '" class="' . $cssClass . '" style="float:left;border-radius: 20px 20px 20px 2px;">
                                     <div class="message_time" style="float:left">'.$message_time.'</div>';
                         }else if (filter_var($content, FILTER_VALIDATE_URL)) {
-                            // If it's a URL
-                            echo '<img src="'. $content .'" class="url_img" style="float:left">
+                            $urlParts = parse_url($content);      
+                            parse_str($urlParts['query'], $queryParts);     
+                            $p_id = $queryParts['post_id'];           
+                            $sql_url="select * from posts inner join user where posts.post_by=user.user_id and post_id=$p_id";
+                            $result_url = $ketnoi->query($sql_url);
+                            $row=$result_url->fetch_assoc();
+                            
+                            echo '<a href="'.$content.'">
+                                    <div class="layout_url" style="float:left;border-radius:20px 20px 20px 2px;">
+                                        <img src="img/'.$row["image"].'" style="width:310px;border-radius:20px 20px 0 0">
+                                        <div class="avt_url" style="background-image:url(img/'.$row["avartar"].')"></div>
+                                        <div class="user_url">'.$row["username"].'</div>
+                                        <div class="content_url">'.$row["content"].'</div>
+                                    </div>
+                                </a>
                                     <div class="message_time" style="float:left">'.$message_time.'</div>';
                         }else {
                             echo '<span class="text" style="float:left;border-radius:18px 18px 18px 2px;">' . $content . '</span>
@@ -461,46 +471,31 @@ body{
                 <textarea type="text" name="content" placeholder="Message..."></textarea>
                 <img class="icon" id="smile_icon" onclick="showIcon()" src="https://img.icons8.com/?size=512&id=y6j3NCqRGOcj&format=png">
                     <div id="myIcon">
-                        <input type="hidden" id="icon_cuoi">
-                        <label for="icon_cuoi">
-                            <img class="nho" src="https://img.icons8.com/?size=512&id=63230&format=png">
-                        </label>
-                        <input type="hidden" id="icon_sad">
-                        <label for="icon_sad">
-                            <img class="nho"src="https://img.icons8.com/?size=512&id=63238&format=png">
-                        </label>
-                        <input type="hidden" id="icon_khoc">
-                        <label for="icon_khoc">
-                            <img class="nho" src="https://img.icons8.com/?size=512&id=63232&format=png">
-                        </label>
-                        <input type="hidden" id="icon_mattraitim">
-                        <label for="icon_mattraitim">
-                            <img class="nho" src="https://cdn4.iconfinder.com/data/icons/emoji-66/64/30-in_love-256.png">
-                        </label>
-                        <input type="hidden" id="icon_thienthan">
-                        <label for="icon_thienthan">
-                            <img class="nho" src="https://th.bing.com/th/id/R.1911e9b534bf190d00bc9d416c122452?rik=aPKFPw1wzxhqZA&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2fangel-emoji-transparent%2fangel-emoji-transparent-21.png&ehk=2gb0N%2fHb9PtemQtGJhwH6ioQTbTIbnFPejBDb%2bdXsck%3d&risl=&pid=ImgRaw&r=0">
-                        </label>
-                        <input type="hidden" id="icon_sunglasses">
-                        <label for="icon_sunglasses">
-                            <img class="nho" src="https://img.icons8.com/?size=512&id=63222&format=png">
-                        </label>
-                        <input type="hidden" id="icon_delicious">
-                        <label for="icon_delicious">
-                            <img class="nho" src="https://img.icons8.com/?size=512&id=zGC9oDE4cozu&format=png">
-                        </label>
-                        <input type="hidden" id="icon_angry">
-                        <label for="icon_angry">
-                            <img class="nho" src="https://img.icons8.com/?size=512&id=63225&format=png">
-                        </label>
-                        <input type="hidden"id="icon_bth" >
-                        <label for="icon_bth">
-                            <img class="nho" src="https://img.icons8.com/?size=512&id=63224&format=png">
-                        </label>
-                        <input type="hidden"id="icon_nerd" >
-                        <label for="icon_nerd">
-                            <img class="nho"src="https://img.icons8.com/?size=512&id=63228&format=png">
-                        </label>
+                        <button type="button" class="icon_cuoi">&#128512;</button>
+                        <button type="button" class="icon_cuoi">&#128513;</button>
+                        <button type="button" class="icon_cuoi">&#128514;</button>
+                        <button type="button" class="icon_cuoi">&#129392;</button>
+                        <button type="button" class="icon_cuoi">&#129325;</button>
+                        <button type="button" class="icon_cuoi">&#128517;</button>
+                        <button type="button" class="icon_cuoi">&#128518;</button>
+                        <button type="button" class="icon_cuoi">&#128519;</button>
+                        <button type="button" class="icon_cuoi">&#128520;</button>
+                        <button type="button" class="icon_cuoi">&#128521;</button>
+                        <button type="button" class="icon_cuoi">&#128522;</button>
+                        <button type="button" class="icon_cuoi">&#128523;</button>
+                        <button type="button" class="icon_cuoi">&#128524;</button>
+                        <button type="button" class="icon_cuoi">&#128525;</button>
+                        <button type="button" class="icon_cuoi">&#128526;</button>
+                        <button type="button" class="icon_cuoi">&#128527;</button>
+                        <button type="button" class="icon_cuoi">&#128528;</button>
+                        <button type="button" class="icon_cuoi">&#128529;</button>
+                        <button type="button" class="icon_cuoi">&#128530;</button>
+                        <button type="button" class="icon_cuoi">&#128531;</button>
+                        <button type="button" class="icon_cuoi">&#128532;</button>
+                        <button type="button" class="icon_cuoi">&#128533;</button>
+                        <button type="button" class="icon_cuoi">&#129297;</button>
+                        <button type="button" class="icon_cuoi">&#129322;</button>
+                        <button type="button" class="icon_cuoi">&#129398;</button>
                     </div>
                 <input type="file" name="file" id="fileInput" style="display: none;">
                 <label for="fileInput">
@@ -510,14 +505,7 @@ body{
             </form>
         </div>
     </div>
-    <div class="col_menu_duoi">
-        <a href="menu.php"><div class="icon_menu" id="home" style="margin-left:7%"></div></a>
-        <div class="icon_menu" id="explore"></div>
-        <div class="icon_menu" id="add"></div>
-        <div class="icon_menu" id="mess"></div>
-        <div class="icon_menu" id="infor"></div>
-        <div class="icon_menu" id="profile" style="border-radius: 50%;"></div>
-    </div>
+    
     <div id=info>
         <div class="layout_info">
             <div class="info_1">Chi tiết</div>
@@ -582,29 +570,6 @@ document.addEventListener('click', function(event) {
     }
 });
 
-$('.nho').click(function() {
-    var iconURL = $(this).attr('src'); // Get the URL of the clicked icon
-    sendIcon(iconURL); // Call the function to send the icon URL to the server
-});
-
-function sendIcon(iconURL) {
-    $("#messageForm").append('<input type="hidden" name="icon_url" value="' + iconURL + '">');
-
-    $.ajax({
-        url: 'send_message.php',
-        type: 'POST',
-        data: $("#messageForm").serialize(),
-        success: function(response) {
-            console.log(response);
-            $(".content").append(response);
-            $(".content .no").remove();
-            $(".content").scrollTop($(".content")[0].scrollHeight);
-        }
-    });
-}
-
-
-
 $(document).ready(function(){
     $("#button_heart").attr("src", "img/heart.png");
 
@@ -657,7 +622,11 @@ $(document).ready(function(){
     }
 
 
-
+    $(".icon_cuoi").click(function() {
+        var icon = $(this).text(); 
+        var current = $('textarea[name="content"]').val(); 
+        $('textarea[name="content"]').val(current + icon); 
+    });
 
     
 

@@ -1,22 +1,12 @@
 <?php 
-if (isset($_SESSION['user']))
-{
-	$user_id = $_SESSION['user'];
-  $ketnoi= new mysqli('localhost','root','','MXH');     
-  $sql= "SELECT * FROM user WHERE user_id=$user_id";
-  $result= $ketnoi->query($sql);
-  $row_id= $result->fetch_assoc();
-
-  $sql_story = "SELECT * FROM story 
-  LEFT JOIN user ON story.user_id = user.user_id
-  LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = story.user_id) OR (friend.user_id1 = story.user_id AND friend.user_id2 = $user_id)
-  WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL OR story.user_id=$user_id ORDER BY story_id DESC";
-  $result_story= $ketnoi->query($sql_story);
-  
+$sql_story = "SELECT * FROM story 
+LEFT JOIN user ON story.user_id = user.user_id
+LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = story.user_id) OR (friend.user_id1 = story.user_id AND friend.user_id2 = $user_id)
+WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL OR story.user_id=$user_id ORDER BY story_id DESC";
+$result_story= $ketnoi->query($sql_story);
 ?>
-<head>
-  <link rel="stylesheet" href="css/menu.css">
-</head>
+<link rel="stylesheet" href="css/menu.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <body>
 <div class="gop_2_menu">
   <div class="menu_giua">
@@ -36,15 +26,15 @@ if (isset($_SESSION['user']))
         <div class="next_right"></div>
       </div>
       <form action="" enctype="multipart/form-data" method="post" class="form">
-        <div class="vien" style="margin-left:-2%">
+        <div class="vien">
           <div class="avatar" style="background-image:url('img/<?php echo $row_id["avartar"]?>')"></div>
           <button type="button" class="thanhdangbaiviet" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Đăng bài viết </button>
           <hr>
           <div class="menunho">
-            <button class="button-menu"> 
+            <button> 
               <i class="fa-regular fa-image" style="color: #2ecc71;" ></i> Hình ảnh
             </button>  
-            <button class="button-menu" style="float:right; padding: 10px 90px"> 
+            <button id="button-menu1"> 
               <i class="fa-solid fa-video" style="color: #ff0000" ></i>   Video
             </button>
           </div>
@@ -85,15 +75,12 @@ if (isset($_SESSION['user']))
         </div>
       </form>
       <?php require 'dangbaiviet/posts_xuly.php';?>
-      <div id="fb-root"></div>
+      
     </div>
   </div>
-</div>
-</div>
+</div>  
 </body>
-<?php
-}
-?>
+
 <script>
 $(document).ready(function () {
     var currentIndex = 0;

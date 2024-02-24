@@ -69,10 +69,11 @@ if (isset ($_POST["timkiem"])){
             </div>
           </div>
         </a>
-      <?php }?>
+      <?php }}else echo"ko tìm thấy kết quả";?>
     </div>
   </div>
 </div>
 </body>
 
-<?php }}?>
+<?php 
+}?>

@@ -6,7 +6,8 @@ body{
     height:8vh;
     position:fixed;
     z-index:2;
-    top:0
+    top:0;
+    left: 0;
 }
 .menu_tren > a >.logo{
     width:45px;
@@ -56,10 +57,12 @@ body{
     cursor: pointer;
 }
 .menu_tren > .thong_bao{
-    scale: 1.5;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/1827/1827347.png');
+    background-position: center;
+    background-size: cover;
     position: absolute;
-    right:85px;
-    top:10px;
+    right:88px;
+    top:18px;
     padding:12px;
     cursor: pointer;
 }
@@ -73,31 +76,72 @@ body{
     right:35px;
     cursor: pointer;
 }
-#mySelect{
+#mySelect,#mySelect1,#myThongBao{
     width: 160px;
     background-color: rgb(252, 252, 252);
     position: absolute;
     top: 40px;
     right: -25px;
-    box-shadow: 1px 2px 10px gray;
+    box-shadow: 1px 2px 10px #EEEEEE;
     border-radius: 10px;
 }
-#mySelect > a{
+#myThongBao{
+    width: 360px;
+    max-height:300px;
+    overflow:auto;
+    right: 0;
+    padding:15px 0;
+}
+.ava_thong_bao{
+    width:35px;
+    height:35px;
+    float:left;
+    border-radius:50%;
+    background-size:cover;
+    background-position: center;
+    margin:7px 10px 0 0
+}
+#mySelect1{
+    bottom: 0;
+    right:0;
+}
+#mySelect > a,#mySelect1>a,#myThongBao>a{
     padding: 12px 16px;
     display: block;
     text-decoration: none;
     color: black;
 }
-#mySelect > a:hover{
-    background-color:lightgray;
+#mySelect > a:hover,#mySelect1>a:hover,#myThongBao>a:hover{
+    background-color:#EEEEEE;
+}
+.gop_2_menu{
+    width: 80%;
+    height: 700px;
+    position: absolute;
+    top:60px;
+    right: 0
 }
 .menu_trai{
     width:303px;
     height:700px;
     position:fixed;
+    left:0;
     top:70px;
     border-right: rgb(191, 190, 190) solid 1px
 }
+.menu_giua{
+    width:67%;
+    height:700px;  
+    position:relative;
+}
+.menu_phai{
+    width: 378.5px;
+    height:700px;
+    position:absolute;
+    top:70px;
+    right:0;
+}
+
 .menu_trai > a >.layout_logo1, .layout_logo1{
     height:65px;
     position: relative;
@@ -123,12 +167,6 @@ body{
     float:left;
     padding:15px;
     margin:1%;
-}
-.menu_giua{
-    width:67%;
-    height:700px;  
-    position:absolute;
-    
 }
 .layout_menu_giua{
     position: absolute;
@@ -208,13 +246,6 @@ body{
     font-size: 12px;
     color: white; 
 }
-.menu_phai{
-    width: 378.5px;
-    height:700px;
-    position:absolute;
-    top:70px;
-    right:0;
-}
 .menu_phai > .de_xuat{
     margin: 50px 0 0 5%;
     padding:10px;
@@ -251,12 +282,55 @@ body{
 .menu_phai > div > button:hover{
     color:#805b38;
 }
-.gop_2_menu{
-    width: 80%;
-    height: 700px;
+.vien {
+    border-radius: 10px;
+    box-shadow: 2px 2px #f2f2f2;
+    width: 500px;
+    height: 140px;
+    margin: 5% auto;
+    padding:10px;
+    position: relative;
+    float: left;
+    margin-left:-2%
+}
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:20px;
+    background-size: cover;
+}
+.thanhdangbaiviet {
+    height: 35px;
+    border-radius: 20px;
+    background-color: #EEEEEE;
+    color: #808080;
+    border: none;
     position: absolute;
-    top:60px;
-    right: 0
+    right:15px;
+    top:12px;
+    left: 60px
+}
+.menunho {
+    padding:5px;
+}
+.menunho>button {
+    background-color: #fff; 
+    color: #808080;
+    border:none;
+    padding: 10px 70px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+.menunho>button:hover {
+    background-color: #f2f2f2; 
+}  
+#button-menu1{
+    float:right; 
+    padding: 10px 90px
+}
+textarea:focus{
+    outline: none;
 }
 @media (max-width: 1310px) {
     .layout_tim_kiem{
@@ -326,9 +400,7 @@ body{
     .menu_giua{
         left: 25%;
     }
-    .menu_trai{
-        display: none;
-    }
+    
     .gop_2_menu{
         width: 100%;
         left: 0;
@@ -345,54 +417,12 @@ body{
     .layout_tim_kiem{
         left: -15%;
     }
-}
-@media (max-width: 700px) {
-    .menu_giua{
-        left: 33%;
-    }
-    .layout_tim_kiem{
-        left: -17%;
-    }
-}
-@media (max-width: 650px) {
-    .menu_giua{
-        left: 37%;
-    }
-    .layout_tim_kiem{
-        left: -20%;
-    }
-}
-@media (max-width: 600px) {
-    .menu_giua{
-        left: 43%;
-    }
-    .menu_tren > a > .ten_logo{
-        font-size: 20px;
-    }
-}
-@media (max-width: 550px) {
-    .menu_giua{
-        left: 46%;
-    }
-    .menu_tren > .layout_tim_kiem > input{
+    .menu_trai,.mess,.trang_ca_nhan{
         display: none;
     }
-    .kinh_lup{
-        background-color:#EEEEEE;
-        padding:7px;
-        border-radius: 50%;
-        margin-top:-7px;
-        cursor: pointer;
-        float: left;
-    }
-    .mess{
-        margin-right:-30px
-    }
-    .thong_bao{
-        margin-right:-25px
-    }
-    .trang_ca_nhan{
-        margin-right:-20px
+    .menu_tren > .thong_bao{
+        right:3%;
+        background-image: url('https://cdn-icons-png.flaticon.com/512/1827/1827312.png');
     }
     .ba_gach{
         background-image: url('https://img.icons8.com/?size=256&id=36389&format=png');
@@ -403,54 +433,81 @@ body{
         margin-top: 15px;
         cursor: pointer;
     }
+    .col_menu_duoi{
+        height: 50px;
+        width: 100%;
+        border-top: lightgray 1px solid;
+        position: fixed;
+        bottom: 0;
+        background-color: white;
+    }
+    .icon_menu{
+        float: left;
+        margin-top: 13px;
+        width: 28px;
+        height:28px;
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        cursor: pointer;
+    }
+    .icon_menu:hover{
+        transform: scale(1.05);
+        transition: 0.1s;
+    }
+    #home{
+        background-image: url('https://img.icons8.com/?size=256&id=Gc9qmZNN9yFN&format=png');
+    }
+    #explore{
+        background-image: url('https://img.icons8.com/?size=256&id=88004&format=png');
+        left:24%
+    }
+    #reels{
+        background-image: url('https://img.icons8.com/?size=256&id=ZI2N2LpZcXuZ&format=png');
+        left:41%
+    }
+    #add{
+        background-image: url('https://img.icons8.com/?size=256&id=14092&format=png');
+        left:58%
+    }
+    #mess{
+        background-image: url('https://img.icons8.com/?size=512&id=TfBuMnTzwL0v&format=png');
+        left:75%
+    }
+    #profile{
+        border-radius: 50%;
+        right:5%
+    }
+}
+@media (max-width: 700px) {
+    .layout_menu_giua{
+        right: 0;
+    }
+    .menu_giua{
+        left: 20%;
+    }
+}
+@media (max-width: 600px) {
+    .menu_giua{
+        left:25%
+    }
+    .menu_tren > a > .ten_logo{
+        font-size: 20px;
+    }
 }
 @media (max-width: 520px) {
     .menu_giua{
-        left: 54%;
+        width: 470px;
+        left:0
     }
-}
-.vien {
-    border-radius: 10px;
-    box-shadow: 2px 2px #f2f2f2;
-    width: 500px;
-    height: 140px;
-    margin: 5% auto;
-    padding:10px;
-    position: relative;
-    float: left;
-}
-.avatar{
-    width:40px;
-    height:40px;
-    border-radius:20px;
-    background-size: cover;
-}
-.thanhdangbaiviet {
-    height: 35px;
-    border-radius: 20px;
-    background-color: #EEEEEE;
-    color: #808080;
-    border: none;
-    position: absolute;
-    right:15px;
-    top:12px;
-    left: 60px
-}
-.menunho {
-    padding:5px;
-}
-.button-menu {
-    background-color: #fff; 
-    color: #808080;
-    border:none;
-    padding: 10px 70px;
-    cursor: pointer;
-    transition: 0.3s;
-    border-radius: 10px;
-}
-.button-menu:hover {
-    background-color: #f2f2f2; 
-}  
-textarea:focus{
-    outline: none;
+    .vien{
+        width: 470px;
+        margin-left:0
+    }
+    .menunho >button{
+        padding:10px 60px
+    }
+    #button-menu1{
+        padding:10px 80px
+    }
 }
