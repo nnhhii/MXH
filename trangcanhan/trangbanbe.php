@@ -198,7 +198,7 @@ function toggleFriendship(button) {
 
 function sendFriendRequest(button, userId) {
   $.ajax({
-    url: 'menu/yeucau_kb.php',
+    url: 'menu/banbe/ctrl_yeucau.php',
     type: 'POST',
     data: { user_id: userId },
     success: function(response) {
@@ -212,7 +212,7 @@ function sendFriendRequest(button, userId) {
 
 function cancelFriendRequest(button, userId) {
   $.ajax({
-    url: 'menu/huy_yeucau_kb.php',
+    url: 'menu/banbe/ctrl_huy.php',
     type: 'POST',
     data: { user_id: userId },
     success: function(response) {

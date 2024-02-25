@@ -37,7 +37,7 @@ if(isset($_SESSION['user']))
                 break;
             case 4:
                 $showMenuPhai = false;
-                include("menu/banbe.php");
+                include("menu/banbe/banbe.php");
                 break;
             case 5:
                 $showMenuPhai = false;

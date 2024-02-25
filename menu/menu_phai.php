@@ -45,7 +45,7 @@ $result_id = $stmt->get_result();
 
   function sendFriendRequest(userId) {
     $.ajax({
-      url: 'menu/yeucau_kb.php',
+      url: 'menu/banbe/ctrl_yeucau.php',
       type: 'POST',
       data: { user_id: userId },
       success: function(response) {
@@ -57,7 +57,7 @@ $result_id = $stmt->get_result();
 
   function cancelFriendRequest(userId) {
     $.ajax({
-      url: 'menu/huy_yeucau_kb.php',
+      url: 'menu/banbe/ctrl_huy.php',
       type: 'POST',
       data: { user_id: userId },
       success: function(response) {
