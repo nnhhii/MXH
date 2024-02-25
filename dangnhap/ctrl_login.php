@@ -8,8 +8,8 @@ $result=$link ->query($sql);
 $row = $result ->fetch_assoc();
 if ($result->num_rows==1)
     {
-        header("location:../index.php");
         $_SESSION['user']=$row["user_id"];
+        header("location:../index.php");
     } else {
         echo "<script>
         alert('SAI MẬT KHẨU HOẶC TÊN ĐĂNG NHẬP');

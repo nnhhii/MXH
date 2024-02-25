@@ -1,12 +1,19 @@
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
 <?php 
 $link= new mysqli('localhost','root','','MXH');     
-if (isset($_GET['m_id'])){
-  $m_id = $_GET['m_id'];
-  $friend_details = "select * from user where user_id = $m_id";
-  $result_dt = $link->query($friend_details);
-  $row_dt = $result_dt ->fetch_assoc();
+if (isset($_GET['user_id'])){
+  $user_id = $_GET['user_id'];
+  $stmt = $link->prepare("SELECT user.*, friendrequest.status AS friend_status FROM user LEFT JOIN friendrequest ON user.user_id = friendrequest.receiver_id AND friendrequest.sender_id = ? WHERE user.user_id = ?");
+  $stmt->bind_param("ii", $_SESSION['user'], $user_id);
+  $stmt->execute();
+  $result_id = $stmt->get_result();
+  $row_id = $result_id->fetch_assoc();
 }
 ?>
+
 <style>
 .bia {
     margin: 11vh 5% 0 5%;
@@ -65,8 +72,8 @@ if (isset($_GET['m_id'])){
 }
 .bia >.khungcanhan > .congcu >.congcu1{
   margin:  0.5vw;
-  font-size: 1.1vw;
-  padding: 1vw 2vw;
+  font-size: 1vw;
+  padding: 1vw 1.8vw;
   border: none;
   border-radius: 5px;
   background-color: #cecdca;
@@ -158,25 +165,74 @@ if (isset($_GET['m_id'])){
 }
     
 </style>
-
 <div class="bia">
-  <div class="bia1" style="background-image: url('img/<?php echo $row_dt["cover_picture"]?>')"></div>
+  <div class="bia1" style="background-image: url('img/<?php echo $row_id["cover_picture"]?>')"></div>
   <div class="khungcanhan">
     <div class="canhan1">
-      <div class="anhdaidien" style="background-image: url('img/<?php echo $row_dt["avartar"]?>')"></div>
+      <div class="anhdaidien" style="background-image: url('img/<?php echo $row_id["avartar"]?>')"></div>
     </div>
     <div class="name">
-      <div><strong><?php echo $row_dt["username"]?></strong></div>
+      <div><strong><?php echo $row_id["username"]?></strong></div>
       <div class="banbe"><br>2939 bạn bè </div>
-      <div class="tieusu"><br><?php echo $row_dt["bio"]?></div>
+      <div class="tieusu"><br><?php echo $row_id["bio"]?></div>
     </div>
     <div class="congcu">
-      <button  class="congcu1">Nhắn tin</button>
-      <button  class="congcu1">Kết bạn</button>
-    </div>
+      <button class="congcu1" id="messageButton" onclick="window.location.href='index.php?pid=0'">Nhắn tin</button>
+   
+<button class="congcu1" id="friendButton" data-user-id="<?php echo $row_id['user_id']; ?>" onclick="toggleFriendship(this)">
+  <?php 
+  if (isset($row_id['friend_status']) && $row_id['friend_status'] === 'đã gửi') {
+    echo 'Hủy kết bạn';
+  } else {
+    echo 'Kết bạn';
+  }
+  ?>
+</button>
 
+</div>
+<script>
+function toggleFriendship(button) {
+  var userId = button.getAttribute('data-user-id');
+  if (button.textContent === 'Kết bạn') {
+    sendFriendRequest(button, userId);
+  } else {
+    cancelFriendRequest(button, userId);
+  }
+}
+
+function sendFriendRequest(button, userId) {
+  $.ajax({
+    url: 'menu/yeucau_kb.php',
+    type: 'POST',
+    data: { user_id: userId },
+    success: function(response) {
+      console.log("Yêu cầu kết bạn đã được gửi, phản hồi từ máy chủ: " + response);
+      if (response.trim() === "Yêu cầu kết bạn đã được gửi!") {
+        button.textContent = 'Hủy kết bạn';
+      }
+    }
+  });
+}
+
+function cancelFriendRequest(button, userId) {
+  $.ajax({
+    url: 'menu/huy_yeucau_kb.php',
+    type: 'POST',
+    data: { user_id: userId },
+    success: function(response) {
+      console.log("Yêu cầu kết bạn đã được hủy, phản hồi từ máy chủ: " + response);
+      if (response.trim() === "Đã hủy yêu cầu kết bạn!") {
+        button.textContent = 'Kết bạn';
+      }
+    }
+  });
+}
+</script>
+
+    </div>
   </div>
 </div>
+
 <div class="story_banbe">
   <div class="circle"></div>
   <div class="circle"></div>
@@ -189,12 +245,12 @@ if (isset($_GET['m_id'])){
     <div class="central-meta" style="padding:25px">
       <ul class="photos">
         <?php
-        $sql="SELECT * FROM posts inner join user on posts.post_by=user.user_id where user_id=$m_id ORDER BY post_id DESC" ;
+        $sql="SELECT * FROM posts inner join user on posts.post_by=user.user_id where user_id=$user_id ORDER BY post_id DESC" ;
         $result = $link->query($sql);
         
         while ($row = mysqli_fetch_assoc($result)) {
           // Kiểm tra xem người dùng đã thích bài viết hay chưa
-          $sql_check = "SELECT * FROM likes WHERE post_id = " . $row["post_id"] . " AND like_by = $m_id";
+          $sql_check = "SELECT * FROM likes WHERE post_id = " . $row["post_id"] . " AND like_by = $user_id";
           $result_post = mysqli_query($link, $sql_check);
           $liked_class = "";
           if (mysqli_num_rows($result_post) > 0) {
