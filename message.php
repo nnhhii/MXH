@@ -414,10 +414,15 @@ body{
                             $sql_url="select * from posts inner join user where posts.post_by=user.user_id and post_id=$p_id";
                             $result_url = $ketnoi->query($sql_url);
                             $row=$result_url->fetch_assoc();
+                            // Tách thành một mảng
+                            $images = explode(",", $row['image']);
+                            $num_images = count($images);
+                            // Lấy giá trị đầu tiên trong mảng
+                            $first_image = reset($images);
                             
                             echo '<a href="'.$content.'">
                                     <div class="layout_url">
-                                        <img src="img/'.$row["image"].'" style="width:310px;border-radius:20px 20px 0 0">
+                                        <img src="img/'.$first_image.'" style="width:310px;border-radius:20px 20px 0 0">
                                         <div class="avt_url" style="background-image:url(img/'.$row["avartar"].')"></div>
                                         <div class="user_url">'.$row["username"].'</div>
                                         <div class="content_url">'.$row["content"].'</div>
@@ -442,10 +447,15 @@ body{
                             $sql_url="select * from posts inner join user where posts.post_by=user.user_id and post_id=$p_id";
                             $result_url = $ketnoi->query($sql_url);
                             $row=$result_url->fetch_assoc();
+                            // Tách thành một mảng
+                            $images = explode(",", $row['image']);
+                            $num_images = count($images);
+                            // Lấy giá trị đầu tiên trong mảng
+                            $first_image = reset($images);
                             
                             echo '<a href="'.$content.'">
                                     <div class="layout_url" style="float:left;border-radius:20px 20px 20px 2px;">
-                                        <img src="img/'.$row["image"].'" style="width:310px;border-radius:20px 20px 0 0">
+                                        <img src="img/'.$first_image.'" style="width:310px;border-radius:20px 20px 0 0">
                                         <div class="avt_url" style="background-image:url(img/'.$row["avartar"].')"></div>
                                         <div class="user_url">'.$row["username"].'</div>
                                         <div class="content_url">'.$row["content"].'</div>
@@ -514,7 +524,7 @@ body{
             </div>
         </div>
         <div style="height:450px;border-bottom: 1px solid lightgray;">
-            <a href="index.php?pid=2&&m_id=<?php echo $row_dt["user_id"]?>">
+            <a href="index.php?pid=2&&user_id=<?php echo $row_dt["user_id"]?>">
                 <div class="mess1">
                     <div class="ava" style="background-image: url('img/<?php echo $row_dt["avartar"]?>')"></div>
                     <div class="username"><?php echo $row_dt["email"]?></div><br><br>

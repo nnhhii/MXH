@@ -202,7 +202,7 @@ if (isset($_GET['user_id'])) {
       </div>
     </div>
     <div class="congcu">
-      <button class="congcu1" id="messageButton" onclick="window.location.href='index.php?pid=0'">Nhắn tin</button>
+      <button class="congcu1" id="messageButton" onclick="window.location.href='index.php?pid=0&&m_id=<?php echo $row_id['user_id'] ?>'">Nhắn tin</button>
 
       <button class="congcu1" id="friendButton" data-user-id="<?php echo $row_id['user_id']; ?>"
         onclick="toggleFriendship(this)">

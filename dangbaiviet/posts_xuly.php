@@ -3,19 +3,6 @@
 <head>
   <script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <meta charset="utf-8">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/like.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
@@ -26,6 +13,7 @@
   <script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>
   <title>Thêm bài viết</title>
   <link rel="stylesheet" href="css/luot_anh.css">
+  <link rel="stylesheet" href="css/cmt.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -156,41 +144,6 @@
       text-align: left;
       font-weight: 380px;
     }
-
-    .layout_cmt {
-      padding: 10px;
-      height: 80px
-    }
-
-    .ava_user_cmt {
-      margin: 5px;
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-      float: left;
-    }
-
-    .name_user_cmt {
-      font-weight: 400px;
-      font-size: 13px;
-      float: left;
-      margin: 0 5px
-    }
-
-    .cmt_content {
-      font-size: 13px;
-      float: left
-    }
-
-    .cmt_time {
-      font-size: 10px;
-      color: gray;
-      margin: 5px;
-      float: left
-    }
-
     .mess1 {
       width: 100%;
       height: 80px;

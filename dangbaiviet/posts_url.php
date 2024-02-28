@@ -23,7 +23,14 @@ if (mysqli_num_rows($result) > 0) {
                       <div class="modal-body" style="padding:0">
                         <!-- left -->
                         <div class="anh_post" style="width:65vh">
-                          <div style="background-image:url('img/<?php echo $row['image']?>');width:65vh;height:80vh;border-radius:7px 0 0 7px ; background-position: center; background-size:cover;"></div>
+                        <?php
+              // Tách thành một mảng
+              $images = explode(",", $row['image']);
+              $num_images = count($images);
+              // Lấy giá trị đầu tiên trong mảng
+              $first_image = reset($images);
+              ?>
+                          <div style="background-image:url('img/<?php echo $first_image?>');width:65vh;height:80vh;border-radius:7px 0 0 7px ; background-position: center; background-size:cover;"></div>
                         </div>
                         <!-- right -->
                         <div class="layout_phai" style="width:59.5vh">
