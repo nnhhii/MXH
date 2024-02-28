@@ -12,9 +12,9 @@ body{
 .menu_tren > a >.logo{
     width:45px;
     height:45px;
-    background-image: url('https://yeuchaybo.com/wp-content/uploads/2014/07/nike.jpg');
+    background-image: url('../img/logo.png');
     background-size: cover;
-    border-radius: 50%;
+    background-position: center;
     margin:7px 0 5px 10px;
     float: left
 }

@@ -1,7 +1,7 @@
 <div class="menu_tren">
     <a href="index.php">
         <div class="logo"></div>
-        <div class="ten_logo">Tên Logo</div>
+        <div class="ten_logo font-effect-shadow-multiple">Firefly</div>
     </a>
     <div class="ba_gach"></div>
     <div class="layout_tim_kiem">

@@ -89,7 +89,7 @@ if(isset($_SESSION['user']))
     <link rel="stylesheet" href="css/like.css">
     <link rel="stylesheet" href="css/main.min.css">
     <link rel="stylesheet" href="css/cmt.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
