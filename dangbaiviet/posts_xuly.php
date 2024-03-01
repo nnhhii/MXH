@@ -144,6 +144,7 @@
       text-align: left;
       font-weight: 380px;
     }
+
     .mess1 {
       width: 100%;
       height: 80px;
@@ -287,7 +288,7 @@
               <div class="btn-right btnsl"><i class='bx'></i></div>
             </div>
             <div class="index-images">
-              <?php for ($i = 0; $i < $num_images; $i++): ?>
+              <?php for ($i = 0; $i < $num_images - 1; $i++): ?>
                 <div class="index-item index-item-<?php echo $i; ?><?php echo ($i === 0) ? ' active' : ''; ?>"></div>
               <?php endfor; ?>
             </div>
@@ -344,7 +345,7 @@
                       <div class="btn-right btnsl"><i class='bx'></i></div>
                     </div>
                     <div class="index-images">
-                      <?php for ($i = 0; $i < $num_images; $i++): ?>
+                      <?php for ($i = 0; $i < $num_images - 1; $i++): ?>
                         <div class="index-item index-item-<?php echo $i; ?><?php echo ($i === 0) ? ' active' : ''; ?>">
                         </div>
                       <?php endfor; ?>
@@ -630,7 +631,7 @@
       const imgs = slider.querySelectorAll('.list-images img');
       const btnLeft = slider.querySelector('.btn-left');
       const btnRight = slider.querySelector('.btn-right');
-      const length = imgs.length;
+      const length = (imgs.length) - 1;
       let current = 0;
 
       const updateButtonVisibility = () => {
