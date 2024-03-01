@@ -524,7 +524,7 @@ body{
             </div>
         </div>
         <div style="height:450px;border-bottom: 1px solid lightgray;">
-            <a href="index.php?pid=2&&user_id=<?php echo $row_dt["user_id"]?>">
+            <a href="index.php?pid=2&&m_id=<?php echo $row_dt["user_id"]?>">
                 <div class="mess1">
                     <div class="ava" style="background-image: url('img/<?php echo $row_dt["avartar"]?>')"></div>
                     <div class="username"><?php echo $row_dt["email"]?></div><br><br>

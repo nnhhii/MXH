@@ -159,7 +159,6 @@ body{
     height: 28px;
     margin: 5.5% 0 0 7.5%;
     float: left;
-    background-image: url('');
 }
 .menu_trai > a > .layout_logo1 > .ten_logo1, .ten_logo1{
     width:auto;
@@ -260,15 +259,16 @@ body{
 #de_xuat2{
     background-image: url('https://th.bing.com/th/id/R.d6a1cd03662f7854642a9afed8af4d88?rik=PwLxMT16lkOf8w&pid=ImgRaw&r=0');
 }
-.menu_phai > .layout_logo1{
+.menu_phai >.layout_logo1{
     padding: 0;
     margin-left: 7%;
+    float:none
 }
 .menu_phai > .layout_logo1 > .logo1{
     border-radius: 50%;
     background-size: cover;
 }
-.menu_phai > div > button{
+.menu_phai >.layout_logo1 > button{
     border: none;
     background-color: transparent;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -279,7 +279,7 @@ body{
     right:15%;
     top:10px;
 }
-.menu_phai > div > button:hover{
+.menu_phai > .layout_logo1 > button:hover{
     color:#805b38;
 }
 .vien {

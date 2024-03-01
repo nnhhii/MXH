@@ -101,7 +101,7 @@
     }
   } else { ?>
     <div class="chuacobinhluan" style="margin: 35% auto">
-      <div style="font-size: 20px;font-weight: bold;">Chưa có bình luận nào.</div>
+      <div style="font-size: 20px;font-weight: bold;text-align:center">Chưa có bình luận nào.</div>
       <div style="font-size: 14px;text-align:center">Hãy bắt đầu bình luận!</div>
     </div>
     <?php

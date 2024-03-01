@@ -15,8 +15,9 @@
         <div id="myThongBao" style="display: none">  
             <?php
             $thongBao = "SELECT * FROM user 
-            inner JOIN notification ON notification.noti_by = user.user_id and notification.noti_by != $user_id
-            inner JOIN posts ON posts.post_by = $user_id and notification.post_id = posts.post_id ORDER BY notification_id DESC";
+            inner JOIN notification ON notification.noti_by = user.user_id and notification.noti_by != $user_id and notification.noti_to = $user_id 
+            left JOIN posts ON posts.post_by = $user_id and notification.post_id = posts.post_id
+            ORDER BY notification_id DESC";
             $result_tb = $ketnoi->query($thongBao);  
             if ($result_tb !== null && $result_tb->num_rows > 0) {
                 while ($row_tb = $result_tb->fetch_assoc()) 
@@ -26,6 +27,8 @@
                         $num_images = count($images);
                         // Lấy giá trị đầu tiên trong mảng
                         $first_image = reset($images);
+
+            if($row_tb["post_id"] !== null){
             ?>
             <a href="index.php?pid=10&&post_id=<?php echo $row_tb['post_id']?>" style="position:relative">
                 <div class="ava_thong_bao"style="background-image: url('img/<?php echo $row_tb["avartar"]?>')"></div>
@@ -33,7 +36,13 @@
                 <div style="font-size:15px"><?php echo $row_tb["noti_content"]?></div>
                 <div style="background-image: url('img/<?php echo $first_image?>');background-size:cover;background-position:center;width:40px;height:50px;float:left;position:absolute;top:10px;right:10px"></div>
             </a>
-            <?php }
+            <?php } else{?>
+            <a href="index.php?pid=4" style="position:relative">
+                <div class="ava_thong_bao"style="background-image: url('img/<?php echo $row_tb["avartar"]?>')"></div>
+                <div style="font-weight:500"><?php echo $row_tb["username"]?></div>
+                <div style="font-size:15px"><?php echo $row_tb["noti_content"]?></div>
+            </a>
+            <?php }}
         }else echo "ko có thông báo"?>
         </div>
     </div>

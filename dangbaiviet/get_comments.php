@@ -2,6 +2,7 @@
 require 'posts_connect.php';
 
 $post_id = $_POST['post_id']; 
+$post_by = $_POST['post_by']; 
 $user_id = $_POST['comment_by'];
 $cmt_content = $_POST['cmt_content'];
 $time = date("Y-m-d H:i:s");
@@ -9,7 +10,7 @@ $noti_content = "đã bình luận vào bài viết của bạn.";
 
 $sql_comment = "INSERT INTO comment (comment_by,post_id, cmt_content, comment_time) VALUES ($user_id, $post_id, '$cmt_content', '$time')";
 $result_cmt = mysqli_query($conn, $sql_comment);
-$sql_thong_bao = "INSERT INTO notification (noti_by,noti_content,post_id, noti_time) VALUES ($user_id, '$noti_content',$post_id, '$time')";
+$sql_thong_bao = "INSERT INTO notification (noti_by,noti_content,post_id, noti_to, noti_time) VALUES ($user_id, '$noti_content',$post_id, $post_by,'$time')";
 $result_tb = mysqli_query($conn, $sql_thong_bao);
 
 

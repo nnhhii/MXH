@@ -1,18 +1,12 @@
 <?php
 session_start();
 $link = new mysqli('localhost', 'root', '', 'MXH');
+$user_id = $_SESSION['user'];
+$m_id=$_POST["user_id"];
+$time = date("Y-m-d H:i:s");
 
-if (isset($_POST['user_id']) && isset($_SESSION['user'])) {
-    $user_id = $_POST['user_id'];
-    $stmt = $link->prepare("INSERT INTO friendrequest (sender_id, receiver_id, status) VALUES (?, ?, 'đã gửi')");
-    $stmt->bind_param("ii", $_SESSION['user'], $user_id);
+$sql="INSERT INTO friendrequest (sender_id, receiver_id, status) VALUES ($user_id, $m_id, 'đã gửi')";
+$result=$link ->query($sql);
 
-    if ($stmt->execute()) {
-        echo "Yêu cầu kết bạn đã được gửi!";
-    } else {
-        echo "Lỗi: " . $stmt->error;
-    }
-} else {
-    echo "Không thể gửi yêu cầu kết bạn!";
-}
-?>
+$sql_tb="INSERT INTO notification(noti_by, noti_content,noti_to,noti_time) VALUES ($user_id, 'đã gửi lời mời kết bạn.',$m_id,'$time')";
+$result_tb=$link ->query($sql_tb);

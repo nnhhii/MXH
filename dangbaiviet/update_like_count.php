@@ -3,6 +3,7 @@ require 'posts_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["post_id"])) {
     $post_id = $_POST["post_id"];
+    $post_by = $_POST["post_by"];
     $like_by = $_POST["like_by"]; 
     $time = date("Y-m-d H:i:s");
 
@@ -24,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["post_id"])) {
         $insertQuery = "INSERT INTO likes (like_by, post_id) VALUES ($like_by, $post_id)";
         mysqli_query($conn, $insertQuery);
 
-        $insertThongBao = "INSERT INTO notification (noti_by, noti_content,post_id,noti_time) VALUES ($like_by, 'đã thích bài viết của bạn.', $post_id,'$time')";
+        $insertThongBao = "INSERT INTO notification (noti_by, noti_content,post_id,noti_to,noti_time) VALUES ($like_by, 'đã thích bài viết của bạn.', $post_id,$post_by,'$time')";
         mysqli_query($conn, $insertThongBao);
 
         $updateQuery = "UPDATE posts SET like_count = like_count + 1 WHERE post_id = $post_id";

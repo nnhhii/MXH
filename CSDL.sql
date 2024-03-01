@@ -119,6 +119,8 @@ CREATE TABLE notification (
   noti_content varchar(200),
   post_id int,
   FOREIGN KEY (post_id) REFERENCES posts(post_id),
+  noti_to int,
+  FOREIGN KEY (noti_to) REFERENCES user(user_id),
   noti_time varchar(200)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 

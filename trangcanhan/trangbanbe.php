@@ -1,13 +1,13 @@
 <?php
 $link = new mysqli('localhost', 'root', '', 'MXH');
-if (isset($_GET['user_id'])) {
-  $user_id = $_GET['user_id'];
-  $stmt = $link->prepare("SELECT user.*, friendrequest.status AS friend_status FROM user LEFT JOIN friendrequest ON user.user_id = friendrequest.receiver_id AND friendrequest.sender_id = ? WHERE user.user_id = ?");
-  $stmt->bind_param("ii", $_SESSION['user'], $user_id);
-  $stmt->execute();
-  $result_id = $stmt->get_result();
-  $row_id = $result_id->fetch_assoc();
-}
+$m_id = $_GET['m_id'];
+$sql_bb="SELECT * FROM user 
+LEFT JOIN friendrequest ON (friendrequest.receiver_id =$m_id AND friendrequest.sender_id = $user_id) OR (friendrequest.sender_id = $m_id and friendrequest.receiver_id = $user_id)
+WHERE user_id= $m_id";
+
+$result_bb=$link -> query($sql_bb);
+$row_bb = $result_bb->fetch_assoc();
+
 ?>
 
 <style>
@@ -187,27 +187,27 @@ if (isset($_GET['user_id'])) {
   }
 </style>
 <div class="bia">
-  <div class="bia1" style="background-image: url('img/<?php echo $row_id["cover_picture"] ?>')"></div>
+  <div class="bia1" style="background-image: url('img/<?php echo $row_bb["cover_picture"] ?>')"></div>
   <div class="khungcanhan">
     <div class="canhan1">
-      <div class="anhdaidien" style="background-image: url('img/<?php echo $row_id["avartar"] ?>')"></div>
+      <div class="anhdaidien" style="background-image: url('img/<?php echo $row_bb["avartar"] ?>')"></div>
     </div>
     <div class="name">
       <div><strong>
-          <?php echo $row_id["username"] ?>
+          <?php echo $row_bb["username"] ?>
         </strong></div>
       <div class="banbe"><br>2939 bạn bè </div>
       <div class="tieusu"><br>
-        <?php echo $row_id["bio"] ?>
+        <?php echo $row_bb["bio"] ?>
       </div>
     </div>
     <div class="congcu">
-      <button class="congcu1" id="messageButton" onclick="window.location.href='index.php?pid=0&&m_id=<?php echo $row_id['user_id'] ?>'">Nhắn tin</button>
+      <button class="congcu1" id="messageButton" onclick="window.location.href='index.php?pid=0&&m_id=<?php echo $row_bb['user_id'] ?>'">Nhắn tin</button>
 
-      <button class="congcu1" id="friendButton" data-user-id="<?php echo $row_id['user_id']; ?>"
+      <button class="congcu1" id="friendButton" data-user-id="<?php echo $row_bb['user_id']; ?>"
         onclick="toggleFriendship(this)">
         <?php
-        if (isset($row_id['friend_status']) && $row_id['friend_status'] === 'đã gửi') {
+        if ($row_bb['status'] === 'đã gửi') {
           echo 'Hủy kết bạn';
         } else {
           echo 'Kết bạn';
@@ -271,15 +271,15 @@ if (isset($_GET['user_id'])) {
   <div class="central-meta" style="padding:25px">
     <ul class="photos">
       <?php
-      $sql = "SELECT * FROM posts inner join user on posts.post_by=user.user_id where user_id=$user_id ORDER BY post_id DESC";
-      $result = $link->query($sql);
+      $sql_post = "SELECT * FROM posts inner join user on posts.post_by=user.user_id where user_id=$m_id ORDER BY post_id DESC";
+      $result_post = $link->query($sql_post);
 
-      while ($row = mysqli_fetch_assoc($result)) {
+      while ($row = mysqli_fetch_assoc($result_post)) {
         // Kiểm tra xem người dùng đã thích bài viết hay chưa
-        $sql_check = "SELECT * FROM likes WHERE post_id = " . $row["post_id"] . " AND like_by = $user_id";
-        $result_post = mysqli_query($link, $sql_check);
+        $sql_check = "SELECT * FROM likes WHERE post_id = " . $row["post_id"] . " AND like_by = $m_id";
+        $result_check = mysqli_query($link, $sql_check);
         $liked_class = "";
-        if (mysqli_num_rows($result_post) > 0) {
+        if (mysqli_num_rows($result_check) > 0) {
           // Người dùng đã thích bài viết => thêm class 'liked' vào nút like
           $liked_class = " liked";
         }
