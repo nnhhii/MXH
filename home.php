@@ -165,11 +165,13 @@ $result_story = $ketnoi->query($sql_story);
         <div class="layout_story">
           <div class="next_left"></div>
           <div class="stories-container">
+
             <?php $first_story = false; ?>
             <?php while ($row_story = $result_story->fetch_assoc()) { 
             if (!$first_story) {
             // Hiển thị nội dung của story đầu tiên
                $first_story = true; ?>
+
                 <div class="story" style="background-image: url('img/<?php echo $row_story["avartar"] ?>');">
                   <button id="openModalBtn"><i class="fa-solid fa-circle-plus" style="object-fit: cover;height:100%;"></i>   </button>
                     <div id="myModal" class="modal">
@@ -199,7 +201,9 @@ $result_story = $ketnoi->query($sql_story);
                       </div>
                     </div>
                 </div>
+
             <?php } else { ?>
+              
                   <div class="story">
                     <?php  $video_url = "uploads/" . $row_story["video"]; //Thêm 'uploads/' vào đường dẫn
                           $music_url = "uploads/" . $row_story["music"]; //Thêm 'uploads/' vào đường dẫn
