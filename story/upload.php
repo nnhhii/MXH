@@ -62,7 +62,7 @@ if(isset($_POST["submit"])) {
                 } else {
                     echo "Sorry, there was an error uploading your image.";
                 }
-            }
+            } 
         
             
             $story_time = $_POST["story_time"];
