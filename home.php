@@ -13,9 +13,9 @@ $result_story = $ketnoi->query($sql_story);
 <style>
               .layout_story button#openModalBtn {
     position: absolute; 
-    top:90%; 
+   
     left: 50%;
-    transform: translate(-50%, -50%); /* Dịch chuyển đến giữa theo cả chiều ngang và dọc */
+    transform: translate(-50%, 70%); /* Dịch chuyển đến giữa theo cả chiều ngang và dọc */
     width:145px;
     height: 220px;
     background: rgba(255, 255, 255, 0.5); /* Màu nền với độ trong suốt */
@@ -165,59 +165,62 @@ $result_story = $ketnoi->query($sql_story);
         <div class="layout_story">
           <div class="next_left"></div>
           <div class="stories-container">
-          <div class="story" style="background-image: url('img/<?php echo $row["avartar"] ?>');">
-            
-            <button id="openModalBtn"><i class="fa-solid fa-circle-plus" style="object-fit: cover;height:100%;"></i>   </button>
-              <div id="myModal" class="modal">
-                <div class="modal-contentt">
-                  <span id="closeModalBtn" class="close">&times;</span>
-                  <div class="form-container">
-                    <form action="story/upload.php" method="post" enctype="multipart/form-data">
-                      
-                      <label for="user_id">User ID:</label>
-                      <input type="text" id="user_id" name="user_id" required><br><br>
-                      
-                      <label for="content">Content:</label><br>
-                      <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
-                      
-                      <label for="video">Select Video:</label>
-                      <input type="file" id="video,img" name="video" accept="video/mp4,video/x-m4v,video/*,image/png,image/jpg,image/*" required><br><br>
-                      
-                      <label for="music">Select Music:</label>
-                      <input type="file" id="music" name="music" accept="audio/mp3,audio/*,audio/m4a"><br><br>
-
-                      <label for="story_time">Story Date and Time:</label>
-                      <input type="text" id="story_time" name="story_time" required><br><br>
-
-                      <input type="submit" value="Submit" name="submit">
-                    </form>
-                  </div>
-                </div>
-              </div>                    
-          </div>
-
-            <?php while ($row_story = $result_story->fetch_assoc()) { ?>
-              <div class="story">
-                <?php  $video_url = "uploads/" . $row_story["video"]; //Thêm 'uploads/' vào đường dẫn
-                       $music_url = "uploads/" . $row_story["music"]; //Thêm 'uploads/' vào đường dẫn
-                       $img_url   = "uploads/" . $row_story["img"]; // Đường dẫn hình ảnh
-                       
-                 ?>            
-                  <video id="video"  muted loop controls >
-                      <source src="<?php echo $video_url ?>" type="video/mp4">    
+            <?php $first_story = false; ?>
+            <?php while ($row_story = $result_story->fetch_assoc()) { 
+            if (!$first_story) {
+            // Hiển thị nội dung của story đầu tiên
+               $first_story = true; ?>
+                <div class="story" style="background-image: url('img/<?php echo $row_story["avartar"] ?>');">
+                  <button id="openModalBtn"><i class="fa-solid fa-circle-plus" style="object-fit: cover;height:100%;"></i>   </button>
+                    <div id="myModal" class="modal">
+                      <div class="modal-contentt">
+                        <span id="closeModalBtn" class="close">&times;</span>
+                        <div class="form-container">
+                          <form action="story/upload.php" method="post" enctype="multipart/form-data">
                             
-                  </video>
-                  <audio id="audio"  loop>
-                      <source src="<?php echo $music_url; ?>" type="audio/mpeg">                    
-                  </audio>
-                  <div class="vien_ava_story">
-                  <div class="ava_story" style="background-image: url('img/<?php echo $row_story["avartar"] ?>');"></div>
+                            <label for="user_id">User ID:</label>
+                            <input type="text" id="user_id" name="user_id" required><br><br>
+                            
+                            <label for="content">Content:</label><br>
+                            <textarea id="content" name="content" rows="4" cols="50" ></textarea><br><br>
+                            
+                            <label for="video">Select Video:</label>
+                            <input type="file" id="video,img" name="video" accept="video/mp4,video/x-m4v,video/*,image/png,image/jpg,image/*" required><br><br>
+                            
+                            <label for="music">Select Music:</label>
+                            <input type="file" id="music" name="music" accept="audio/mp3,audio/*,audio/m4a"><br><br>
+
+                            <label for="story_time">Story Date and Time:</label>
+                            <input type="text" id="story_time" name="story_time" value="hidden"><br><br>
+
+                            <input type="submit" value="Submit" name="submit">
+                          </form>
+                        </div>
+                      </div>
+                    </div>
                 </div>
-                <div class="ten_story">
-                  <?php echo $row_story["username"] ?>
-                </div>
-              </div>   
-            <?php } ?>
+            <?php } else { ?>
+                  <div class="story">
+                    <?php  $video_url = "uploads/" . $row_story["video"]; //Thêm 'uploads/' vào đường dẫn
+                          $music_url = "uploads/" . $row_story["music"]; //Thêm 'uploads/' vào đường dẫn
+                          $img_url   = "uploads/" . $row_story["img"]; // Đường dẫn hình ảnh
+                          
+                    ?>            
+                      <video id="video"  muted loop controls >
+                          <source src="<?php echo $video_url ?>" type="video/mp4">    
+                                
+                      </video>
+                      <audio id="audio"  loop>
+                          <source src="<?php echo $music_url; ?>" type="audio/mpeg">                    
+                      </audio>
+                      <div class="vien_ava_story">
+                      <div class="ava_story" style="background-image: url('img/<?php echo $row_story["avartar"] ?>');"></div>
+                    </div>
+                    <div class="ten_story">
+                      <?php echo $row_story["username"] ?>
+                    </div>
+                  </div>   
+                <?php } } ?>
           </div>
           <div class="next_right"></div>
         </div>

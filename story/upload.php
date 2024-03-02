@@ -16,21 +16,6 @@ if(isset($_POST["submit"])) {
     $uploadOk = 1;
     $videoFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
     
-    if (file_exists($target_file)) {
-        echo "Sorry, file already exists.";
-        $uploadOk = 0;
-    }
-    
-    if ($_FILES["video"]["size"] > 50000000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
-    
-    if($videoFileType != "mp4" && $videoFileType != "avi" && $videoFileType != "mov"
-    && $videoFileType != "mpeg"  && $videoFileType != "png"  && $videoFileType != "jpg") {
-        $uploadOk = 0;
-    }
-    
     if ($uploadOk == 0) {
         echo "Sorry, your file was not uploaded.";
     } else {
@@ -72,12 +57,19 @@ if(isset($_POST["submit"])) {
             VALUES ('$user_id', '$content', '$video_url', '$music_url', '$img_url', '$story_time')";
             
             if ($conn->query($sql) === TRUE) {
-                echo "New record created successfully.";
+                echo '<script language="javascript">
+                          alert(" Đăng story thành công !");
+                          window.location.href = "../index.php";
+                      </script>';
+                ;
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
         } else {
-            echo "Sorry, there was an error uploading your file.";
+            echo    '<script language="javascript">
+                        alert("Đăng story thất bại. Vui lòng kiểm tra lại !");
+                        window.location.href = "../index.php";
+                    </script>';
         }
     }
 }
