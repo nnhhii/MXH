@@ -1,3 +1,5 @@
+<title>Firefly</title>
+<link rel="icon" href="../img/logo1.png" type = "image/x-icon" >
 <style>
 body {
   font-family: "Roboto", sans-serif;     

@@ -1,7 +1,6 @@
 <html>
 <head>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <title>Thêm bài viết</title>
   <link rel="stylesheet" href="css/luot_anh.css">
   <link rel="stylesheet" href="css/cmt.css">
   <link rel="stylesheet" href="css/like.css">

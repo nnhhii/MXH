@@ -53,7 +53,9 @@
                 <div style="font-size:12px;color:gray"><?php echo $row_id["email"]?></div>
             </a>  
             <a href="index.php?pid=1"><i class="fa-solid fa-user"></i> Trang cá nhân</a>
+            <a href="index.php?pid=13"><i class="fa-solid fa-user-pen"></i> Đổi mật khẩu</a>
             <a href="dangnhap/ctrl_logout.php"style="border-radius: 0 0 10px 10px"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+            
         </div>
     </div>
 </div>

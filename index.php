@@ -1,3 +1,5 @@
+<title>Firefly</title>
+<link rel="icon" href="img/logo1.png" type = "image/x-icon" >
 <?php
 session_start();
 if(isset($_SESSION['user']))
@@ -70,6 +72,10 @@ if(isset($_SESSION['user']))
             case 12:
                 $showMenuPhai = false;
                 include("menu/banbe/banbedexuat.php");
+                break;
+            case 13:
+                $showMenuPhai = false;
+                include("dangnhap/pass.php");
                 break;
 
         }
