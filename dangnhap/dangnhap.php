@@ -1,15 +1,12 @@
 <style>
 body {
-  background: lightgray;
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;      
+  font-family: "Roboto", sans-serif;     
 }
 button {
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   outline: 0;
-      background: gray;
+      background: #6abfd0;
       width: 100%;
       border: 0;
       padding: 15px;
@@ -20,17 +17,15 @@ button {
       cursor: pointer;
 }
 button:hover,button:active,button:focus {
-  background: dimgray
+  background: #538c97
 }
 .formngoai {
   width: 360px;
-  padding: 4% 0 0;
-  margin: auto;
   position: relative;
   z-index: 1;
   background: #FFFFFF;
   max-width: 360px;
-  margin: 0 auto 100px;
+  margin: 0 auto ;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -39,7 +34,7 @@ button:hover,button:active,button:focus {
 .formInput {
   font-family: 'Roboto', sans-serif;
       outline: 0;
-      background: #f2f2f2;
+      background: #f2f8ff;
       width: 100%;
       border: 0;
       margin: 0 0 15px;
@@ -51,10 +46,16 @@ a {
   color: black;
   text-decoration: none;
 }
+
 </style>
-<div style="margin-top:5%">
-<h1 style="text-align:center;"> TEN WEB </h1>
-<h2 style="text-align:center;"> Giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống của bạn </h2>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anta&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+<div style="margin: 0 auto;text-align:center">
+<div style="color:#b8e0e8;font-family: 'Sofia', sans-serif;font-size:50px;padding:10px 0">Firefly</div>
+<img src="../img/logo.png" style="width:80px;height:auto;">
+<h1 style="padding:10px;font-family: 'Pacifico', cursive; font-weight:100; color:#99ADC3"> Giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống của bạn </h1>
 </div>
 <div class="formngoai">
   <form action="ctrl_login.php" method="post">
@@ -63,7 +64,7 @@ a {
     <button>Đăng nhập</button>
     <p style="margin: 15px 0 0;color: #b3b3b3;font-size: 12px;"><a href="#">Quên mật khẩu?</a></p>
     <hr  width="100%"  />
-    <button style="margin-top:5%; width:12vw"><a href="dangky.php" style="color:white">Tạo tài khoản mới</a></button>
+    <a href="dangky.php" style="color:white"><button type="button"style="margin-top:5%; width:12vw">Tạo tài khoản mới</button></a>
   </form>
 </div>
 <?php

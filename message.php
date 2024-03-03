@@ -282,6 +282,8 @@ body{
     padding:22px;
     color: #ED4956;
     cursor: pointer;
+    float: left;
+    width: 100%;
 }
 .red_heart{
     width:55px;
@@ -534,7 +536,29 @@ body{
         </div>
         <div style="height:150px">
             <div class="info_2">Chặn</div>
-            <div class="info_2">Xóa cuộc trò chuyện</div>
+            
+            <a class="info_2" style="text-decoration:none;float:left"data-toggle="modal" href='#modal-id'>Xóa cuộc trò chuyện</a>
+            <div class="modal fade" id="modal-id">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="border-radius:20px;margin:32vh auto;width:50vh">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="padding:5px 0 5px 30px">Xóa cuộc trò chuyện vĩnh viễn?</h5>
+                        </div>
+                        <div class="modal-body" style="padding:0">
+                        <form action="delete_chat.php" method="post" enctype="multipart/form-data">
+                            <input type= "hidden" name="message_to1" value=<?php echo $m_id?>>
+                            <input type="hidden" name="message_by1" value=<?php echo $user_id?>>
+                            <button type="submit" class="info_2" style="text-align:center;border:none;background:none;border-bottom:1px solid #EEE;padding:15px 20px">Xóa</button>
+                        </form>
+                            <div class="info_2" data-dismiss="modal" style="text-align:center;color:black;padding:20px">Hủy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+
+
         </div>
     </div>
 </body>

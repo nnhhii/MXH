@@ -63,11 +63,6 @@ CREATE TABLE posts (
   post_time varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO posts (post_by,content, image, like_count) VALUES
-(2, 'cc', 'hoboi.jpg', 0),
-(1, 'hí nhô ', 'anh3.jpg', 0),
-(5, 'trăng ơi từ đâu đến ', 'anhbia.jpg', 1);
-
 
 CREATE TABLE share (
   share_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -84,17 +79,11 @@ CREATE TABLE story (
   user_id int,
   FOREIGN KEY (user_id) REFERENCES user(user_id),
   content varchar(500),
-  img varchar(500),
-  video varchar(500),
+  file varchar(500),
   music varchar(500),
   story_time varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-INSERT INTO story(user_id, content, img, video, music, story_time) VALUES
-(1, 'Hello', 'story1.png', '', '', '2024-01-17'),
-(2, 'hello2', 'story2.png', '', '', '2024-01-17'),
-(3, 'hi', 'story3.png', '', '', '2024-01-17'),
-(4, 'hi2', 'story4.png', '', '', '2024-01-17'),
-(5, 'hihi', 'story5.png', '', '', '2024-01-17');
+
 
 CREATE TABLE comment(
   comment_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -105,11 +94,6 @@ CREATE TABLE comment(
   cmt_content varchar(4294967295),
   comment_time varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-INSERT INTO comment(comment_by, post_id,cmt_content ,comment_time) VALUES
-(2,1,'em dep lam!',null),
-(2,3,'em tuyet voi lam!',null),
-(1,3,'hôc joi kg chau',null);
-
 
 
 CREATE TABLE notification (
@@ -123,13 +107,6 @@ CREATE TABLE notification (
   FOREIGN KEY (noti_to) REFERENCES user(user_id),
   noti_time varchar(200)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
-INSERT INTO notification(noti_by,noti_content) VALUES 
-  (1, 'đã thích bài viết của bạn'),
-  (3, 'đã bình luận vào bài viết của bạn'),
-  (2, 'đã thích bài viết của bạn'),
-  (1, 'đã gửi một lời mời kết bạn'),
-  (5, 'đã thích bài viết của bạn');
 
 
 
@@ -160,11 +137,13 @@ CREATE TABLE friendrequest(
   status varchar(300)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 INSERT INTO friendrequest(sender_id,receiver_id,status) VALUES 
-(1,2,'Đã gửi'),
-(2,4,'Đã gửi'),
-(3,1,'Đã gửi'),
-(5,3,'Đã gửi'),
-(4,3,'Đã gửi');
+(1, 2, 'bạn bè'),
+(1, 3, 'bạn bè'),
+(2, 3, 'bạn bè'),
+(2, 4, 'bạn bè'),
+(3, 4, 'bạn bè'),
+(3, 5, 'bạn bè'),
+(4, 5, 'bạn bè');
 
 CREATE TABLE likes(
   like_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -174,8 +153,4 @@ CREATE TABLE likes(
   FOREIGN KEY (post_id) REFERENCES posts(post_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-INSERT INTO likes(like_by, post_id) VALUES
-(2,1),
-(3,2),
-(3,2);
 

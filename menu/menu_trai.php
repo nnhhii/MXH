@@ -76,7 +76,7 @@
             <div id="tenTaoBaiDang"class="ten_logo1">Tạo bài đăng</div>
         </div>
     </a>
-    <a href="dangnhap/ctrl_logout.php"><button>Đăng xuất</button></a>
+    
 </div>
 <script>
 var originalTrangChu = 'https://img.icons8.com/?size=512&id=Gc9qmZNN9yFN&format=png';

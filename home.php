@@ -11,19 +11,14 @@ $result_story = $ketnoi->query($sql_story);
 
 <body>
 <style>
-              .layout_story button#openModalBtn {
-    position: absolute; 
-    top:90%; 
-    left: 50%;
-    transform: translate(-50%, -50%); /* Dịch chuyển đến giữa theo cả chiều ngang và dọc */
-    width:145px;
-    height: 220px;
-    background: rgba(255, 255, 255, 0.5); /* Màu nền với độ trong suốt */
-    border: none; /* Xóa viền */
-    color:#777777;
-    font-size:40px;
-    cursor: pointer; /* Đổi con trỏ thành dấu tay khi rê chuột vào */
-
+#openModalBtn {
+  padding-top:50%;
+  width:145px;
+  background: none;
+  border: none;
+  color:#777777;
+  font-size:40px;
+  cursor: pointer
 }
     .form-container {
         max-width: 500px;
@@ -85,110 +80,80 @@ $result_story = $ketnoi->query($sql_story);
         margin: 20px;
         width: 145px;
         height: 220px;
-        overflow: hidden; /* Đảm bảo không có phần của video vượt ra khỏi khung */
+        overflow: hidden; 
     }
 
-    .story video {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* Video sẽ lấp đầy toàn bộ khung story */
-    }
-
-    .story audio {
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        z-index: 0;
-    }
-    .story video::-webkit-media-controls-panel {
-        display: none !important;
-    }
-
-    /* Ẩn dấu ba chấm */
-    .story video::-webkit-media-controls-enclosure {
+    
+    video::-webkit-media-controls-enclosure {
         display: none !important;
     }
     .vien_ava_story {
-        position: absolute; /* Đặt vị trí của vien_ava_story là tuyệt đối */
-        top: 5px; /* Đặt khoảng cách từ vien_ava_story đến phía trên của story là 10px */
-        left: 5px; /* Đặt khoảng cách từ vien_ava_story đến phía trái của story là 10px */
-        z-index: 1; /* Đặt vien_ava_story ở trên phần còn lại của story */
+        position: absolute;
+        top: 5px; 
+        left: 5px;
+        z-index: 1; 
     }
 
     .ten_story {
-        margin-top: 10px; /* Đặt khoảng cách từ ten_story đến phía trên của story là 10px */
+        margin-top: 10px
     }
-    /* Modal container */
-.modal {
-    display: none; /* Ẩn modal mặc định */
-    position: fixed; /* Vị trí tuyệt đối */
-    z-index: 1; /* Hiển thị modal trên tất cả các phần khác */
-    left: 0;
-    top: 0;
-    width: 100%; /* Chiều rộng 100% */
-    height: 500px; /* Chiều cao 100% */
-    overflow: auto; /* Hiển thị thanh cuộn khi nội dung quá dài */
-    background-color: rgba(0,0,0,0.4); /* Màu nền của modal */
+
+.modal_post_story {
+  display: none; 
+  position: fixed; 
+  z-index: 2;
+  top:0;
+  left:0;
+  width:100%;
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4);
+  border:none
 }
 
-/* Nội dung của modal */
 .modal-contentt {
-    background-color: #fefefe;
-    margin: 5% auto; /* Đặt margin để hiển thị modal giữa trang */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 60%; /* Chiều rộng của modal */
+  background-color: #fefefe;
+  margin: 5% auto; 
+  width: 500px; 
 }
 
-/* Nút đóng modal */
 .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
 }
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+.close:hover{
+  color: #000;
 }
-
+.layout_story::-webkit-scrollbar {
+  display: none; /* Safari và Chrome */
+}
 </style>
   <div class="gop_2_menu">
     <div class="menu_giua">
       <div class="layout_menu_giua">
-        <div class="layout_story">
-          <div class="next_left"></div>
+        <div class="layout_story" style="overflow:auto">
           <div class="stories-container">
-          <div class="story" style="background-image: url('img/<?php echo $row["avartar"] ?>');">
+            <div class="story">
             
-            <button id="openModalBtn"><i class="fa-solid fa-circle-plus" style="object-fit: cover;height:100%;"></i>   </button>
-              <div id="myModal" class="modal">
+            <button id="openModalBtn"><i class="fa-solid fa-circle-plus" style="object-fit: cover"></i></button>
+              <div id="myModal" class="modal_post_story">
                 <div class="modal-contentt">
                   <span id="closeModalBtn" class="close">&times;</span>
                   <div class="form-container">
                     <form action="story/upload.php" method="post" enctype="multipart/form-data">
-                      
-                      <label for="user_id">User ID:</label>
-                      <input type="text" id="user_id" name="user_id" required><br><br>
-                      
+                      <input type="hidden" name="story_by" value=<?php echo $user_id?>>
                       <label for="content">Content:</label><br>
                       <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
                       
                       <label for="video">Select Video:</label>
-                      <input type="file" id="video,img" name="video" accept="video/mp4,video/x-m4v,video/*,image/png,image/jpg,image/*" required><br><br>
+                      <input type="file" id="video,img" name="file" accept="video/mp4,video/x-m4v,video/*,image/png,image/jpg,image/*" required><br><br>
                       
                       <label for="music">Select Music:</label>
                       <input type="file" id="music" name="music" accept="audio/mp3,audio/*,audio/m4a"><br><br>
-
-                      <label for="story_time">Story Date and Time:</label>
-                      <input type="text" id="story_time" name="story_time" required><br><br>
-
+                      
                       <input type="submit" value="Submit" name="submit">
                     </form>
                   </div>
@@ -196,30 +161,56 @@ $result_story = $ketnoi->query($sql_story);
               </div>                    
           </div>
 
-            <?php while ($row_story = $result_story->fetch_assoc()) { ?>
-              <div class="story">
-                <?php  $video_url = "uploads/" . $row_story["video"]; //Thêm 'uploads/' vào đường dẫn
-                       $music_url = "uploads/" . $row_story["music"]; //Thêm 'uploads/' vào đường dẫn
-                       $img_url   = "uploads/" . $row_story["img"]; // Đường dẫn hình ảnh
-                       
-                 ?>            
-                  <video id="video"  muted loop controls >
-                      <source src="<?php echo $video_url ?>" type="video/mp4">    
-                            
-                  </video>
-                  <audio id="audio"  loop>
-                      <source src="<?php echo $music_url; ?>" type="audio/mpeg">                    
-                  </audio>
-                  <div class="vien_ava_story">
+            <?php 
+            while ($row_story = $result_story->fetch_assoc()) { 
+              $file = $row_story["file"];
+              echo'<a href="#modal_story_'.$row_story["story_id"].'" data-toggle="modal"class="story" style="border:none;padding:0;margin:0 2px">';
+                if (strpos($file, '.png')|| strpos($file, '.jpg')|| strpos($file, '.jpeg')) {
+                  echo '<div class="story" style="background-image:url(story/'.$file.')"></div>';
+                } else{ 
+                  echo '<video class="story"  muted style="z-index:0;width: 100%;height: 100%;object-fit: cover;">
+                        <source src="story/'.$file.'" type="video/mp4">    
+                      </video>';
+                }?>
+                <div class="vien_ava_story">
                   <div class="ava_story" style="background-image: url('img/<?php echo $row_story["avartar"] ?>');"></div>
                 </div>
                 <div class="ten_story">
                   <?php echo $row_story["username"] ?>
                 </div>
-              </div>   
+              </a> 
+                <!-- Modal story -->
+                <div class="modal fade" id="modal_story_<?php echo $row_story["story_id"]?>" data-toggle="modal" data-storyid="<?php echo $row_story["story_id"] ?>" onclick="muteAudio(this)">
+                  <div class="modal-dialog">
+                    <div class="modal-content" style="z-index:2;width:450px;height:650px;border-radius:20px;background:none;padding:0">
+                      <div class="modal-body" style="padding:0;position:relative;background:black;border-radius:20px;">
+                        <div class="vien_ava_story"><div class="ava_story" style="background-image: url('img/<?php echo $row_story["avartar"] ?>');"></div></div>
+                        <div class="ten_story" style="top:10px;left:60px;z-index:1"><?php echo $row_story["username"] ?></div>
+                        <?php 
+                        if (strpos($file, '.png')|| strpos($file, '.jpg')|| strpos($file, '.jpeg')) {
+                          echo '<div class="image" style="background-image:url(story/'.$file.');width:100%;height:650px;border-radius:20px;background-size:cover"></div>';
+                        } else{ 
+                          echo '<video class="video"  muted loop autoplay style="width:450px;height:650px;border-radius:20px;">
+                                <source src="story/'.$file.'" type="video/mp4">    
+                              </video>';
+                        }
+                        ?>
+                        
+                        <audio id="audio_<?php echo $row_story["story_id"]?>" loop>
+                          <source src="story/<?php echo $row_story["music"]?>" type="audio/mpeg">
+                        </audio>
+
+                        <div style="position:absolute;left:50px;bottom:20px;color:white"><?php echo $row_story["content"] ?></div>
+                        <button style="position:absolute;right:50px;bottom:20px;border:none;background:none;scale:2;color:white"><i class="fa fa-heart" aria-hidden="true"></i></button>
+
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
             <?php } ?>
           </div>
-          <div class="next_right"></div>
+          
         </div>
         <form action="" enctype="multipart/form-data" method="post" class="form">
           <div class="vien">
@@ -294,32 +285,16 @@ $result_story = $ketnoi->query($sql_story);
 </body>
 
 <script>
-  $(document).ready(function () {
-    var currentIndex = 0;
-    var itemWidth = $(".story").outerWidth() + 10; // Width of each story item (including margin)
-
-    $(".next_right").on("click", function () {
-      moveStories("next");
-    });
-
-    $(".next_left").on("click", function () {
-      moveStories("prev");
-    });
-
-    function moveStories(direction) {
-      var container = $(".stories-container");
-      var containerWidth = container.width();
-
-      if (direction === "next" && currentIndex < $(".story").length - 3) {
-        currentIndex++;
-      } else if (direction === "prev" && currentIndex > 0) {
-        currentIndex--;
-      }
-
-      var translateValue = -currentIndex * itemWidth;
-      container.css("transform", "translateX(" + translateValue + "px)");
-    }
+$(document).ready(function() {
+  $('.modal').on('shown.bs.modal', function () {
+      $(this).find('audio')[0].play();
   });
+});
+function muteAudio(modal) {
+  var audioId = modal.getAttribute("data-storyid");
+  var audio = document.getElementById("audio_" + audioId);
+  audio.muted = true; // Mute audio khi modal được đóng
+}
 
   function handleFile(input) {
     checkFileSize(input);
@@ -416,276 +391,50 @@ $result_story = $ketnoi->query($sql_story);
 </script>
 
 <script>
-
-  document.addEventListener('DOMContentLoaded', function () {
-    var currentIndex = 0;
-    var itemWidth = document.querySelector(".story").offsetWidth + 10; // Width of each story item (including margin)
-
-    document.querySelector(".next_right").addEventListener("click", function () {
-      moveStories("next");
-    });
-
-    document.querySelector(".next_left").addEventListener("click", function () {
-      moveStories("prev");
-    });
-
-    function moveStories(direction) {
-      var container = document.querySelector(".stories-container");
-      var containerWidth = container.offsetWidth;
-
-      if (direction === "next" && currentIndex < document.querySelectorAll(".story").length - 3) {
-        currentIndex++;
-      } else if (direction === "prev" && currentIndex > 0) {
-        currentIndex--;
-      }
-
-      var translateValue = -currentIndex * itemWidth;
-      container.style.transform = "translateX(" + translateValue + "px)";
-    }
-  });
-
-  function handleFile(input) {
-    checkFileSize(input);
-    previewImages(input);
-    var content1 = document.getElementById("content1");
-    var content2 = document.getElementById("content2");
-    // Ẩn vs hiện
-    content1.style.display = "none";
-    content2.style.display = "block";
-  }
-
-  function previewImages(input) {
-    var files = input.files;
-    var imagePreview = document.getElementById("imagePreview");
-    var imagePreview2 = document.getElementById("imagePreview2");
-
-    for (var i = 0; i < files.length; i++) {
-      var file = files[i];
-      if (!file.type.match('image.*')) {
-        continue;
-      }
-      var imageUrl = URL.createObjectURL(file);
-      (function (imageUrl) {
-        // Tạo largeImage và smallImage
-        var largeImage = document.createElement("div");
-        largeImage.style.width = "50vh";
-        largeImage.style.height = "73vh";
-        largeImage.style.margin = "0 auto";
-        largeImage.style.backgroundImage = "url('" + imageUrl + "')";
-        largeImage.style.backgroundSize = "cover";
-        imagePreview.appendChild(largeImage);
-
-        var smallImage = document.createElement("div");
-        smallImage.style.width = "10vh";
-        smallImage.style.height = "10vh";
-        smallImage.style.margin = "5px 0 0 5px";
-        smallImage.style.filter = "brightness(70%)";
-        smallImage.style.float = "left";
-        smallImage.style.cursor = "pointer";
-        smallImage.style.backgroundImage = "url('" + imageUrl + "')";
-        smallImage.style.backgroundSize = "cover";
-        smallImage.style.backgroundPosition = "center";
-        smallImage.style.position = "relative";
-        imagePreview2.appendChild(smallImage);
-
-        var closeButton = document.createElement("div");
-        closeButton.innerHTML = "&#10006;";
-        closeButton.style.color = "white";
-        closeButton.style.position = "absolute";
-        closeButton.style.top = "0";
-        closeButton.style.right = "0";
-        closeButton.style.cursor = "pointer";
-        closeButton.style.fontSize = "15px";
-        closeButton.addEventListener("click", function () {
-          if (imagePreview.contains(largeImage)) {
-            imagePreview.removeChild(largeImage);
-            imagePreview2.removeChild(smallImage);
-          }
-        });
-        smallImage.appendChild(closeButton);
-
-        smallImage.addEventListener("click", function () {
-          largeImage.style.backgroundImage = "url('" + imageUrl + "')";
-          largeImage.scrollIntoView({ behavior: "auto", block: "center" });
-
-          var allSmallImages = imagePreview2.querySelectorAll("div");
-          allSmallImages.forEach(function (smallImg) {
-            smallImg.style.filter = "brightness(70%)";
-          });
-          this.style.filter = "brightness(110%)";
-        });
-      })(imageUrl);
-    }
-  }
-
-
-  function checkFileSize(input) {
-    var files = input.files;
-
-    for (var i = 0; i < files.length; i++) {
-      var fileSize = files[i].size;
-      var minSize = 50 * 1024;
-
-      if (fileSize < minSize) {
-        alert('Kích thước của ảnh phải lớn hơn 50kB.');
-        input[typefile].value = '';
-        return false;
-      }
-    }
-    return true;
-  }
-
-
-</script>
-</script>
-<script>
-  // Lấy modal
 var modal = document.getElementById("myModal");
-
-// Lấy button mở modal
 var btn = document.getElementById("openModalBtn");
-
-// Lấy nút đóng modal
-var span = document.getElementById("closeModalBtn");
-
-// Khi người dùng click vào nút, mở modal
+var close = document.getElementById("closeModalBtn");
 btn.onclick = function() {
     modal.style.display = "block";
 }
-
-// Khi người dùng click vào nút đóng, đóng modal
-span.onclick = function() {
+close.onclick = function() {
     modal.style.display = "none";
 }
-
-// Khi người dùng click ra ngoài modal, đóng modal
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
 }
 
-  </script>
-<script>
-    // Lấy tham chiếu tới trường input ngày tháng năm và giờ phút
-    var storyDatetimeInput = document.getElementById("story_time");
 
-    // Hàm để lấy ngày tháng năm, giờ và phút hiện tại và cập nhật vào trường input
-    function updateStoryDatetime() {
-        // Lấy ngày tháng năm và giờ phút hiện tại
-        var currentDatetime = new Date();
-        
-        // Lấy ngày, tháng và năm
-        var day = currentDatetime.getDate();
-        var month = currentDatetime.getMonth() + 1; // Tháng bắt đầu từ 0 nên cần cộng thêm 1
-        var year = currentDatetime.getFullYear();
+// Lấy tham chiếu tới trường input ngày tháng năm và giờ phút
+var storyDatetimeInput = document.getElementById("story_time");
 
-        // Lấy giờ và phút
-        var hour = currentDatetime.getHours();
-        var minute = currentDatetime.getMinutes();
+// Hàm để lấy ngày tháng năm, giờ và phút hiện tại và cập nhật vào trường input
+function updateStoryDatetime() {
+    // Lấy ngày tháng năm và giờ phút hiện tại
+    var currentDatetime = new Date();
+    
+    // Lấy ngày, tháng và năm
+    var day = currentDatetime.getDate();
+    var month = currentDatetime.getMonth() + 1; // Tháng bắt đầu từ 0 nên cần cộng thêm 1
+    var year = currentDatetime.getFullYear();
 
-        // Format thành dạng dd/mm/yyyy hh:mm
-        var formattedDatetime = day + "/" + month + "/" + year + " " + hour + ":" + minute;
+    // Lấy giờ và phút
+    var hour = currentDatetime.getHours();
+    var minute = currentDatetime.getMinutes();
 
-        // Gán ngày tháng năm, giờ và phút đã được format vào trường input
-        storyDatetimeInput.value = formattedDatetime;
-    }
+    // Format thành dạng dd/mm/yyyy hh:mm
+    var formattedDatetime = day + "/" + month + "/" + year + " " + hour + ":" + minute;
 
-    // Gọi hàm updateStoryDatetime để cập nhật ngày tháng năm, giờ và phút ban đầu
-    updateStoryDatetime();
-
-    // Cập nhật ngày tháng năm, giờ và phút mỗi phút
-    setInterval(updateStoryDatetime, 60000);
-</script>
-<script>
-  // Lấy modal
-var modal = document.getElementById("myModal");
-
-// Lấy button mở modal
-var btn = document.getElementById("openModalBtn");
-
-// Lấy nút đóng modal
-var span = document.getElementById("closeModalBtn");
-
-// Khi người dùng click vào nút, mở modal
-btn.onclick = function() {
-    modal.style.display = "block";
+    // Gán ngày tháng năm, giờ và phút đã được format vào trường input
+    storyDatetimeInput.value = formattedDatetime;
 }
 
-// Khi người dùng click vào nút đóng, đóng modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
+// Gọi hàm updateStoryDatetime để cập nhật ngày tháng năm, giờ và phút ban đầu
+updateStoryDatetime();
 
-// Khi người dùng click ra ngoài modal, đóng modal
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
- 
-  </script>
-  <script>
-   // Lấy tham chiếu tới video và audio
-var videos = document.querySelectorAll(".story video");
-var audios = document.querySelectorAll(".story audio");
-
-var isVideoPlaying = false; // Biến cờ để kiểm tra trạng thái phát của video
-
-// Duyệt qua mỗi video
-videos.forEach(function(video, index) {
-    // Khi video được phát
-    video.onplay = function() {
-        isVideoPlaying = true; // Đặt cờ là true khi video đang phát
-        audios.forEach(function(audio) {
-            audio.pause(); // Dừng tất cả nhạc trước đó
-        });
-        // Phát nhạc của video tương ứng
-        if (isVideoPlaying && index < audios.length) {
-            audios[index].play();
-        }
-    };
-
-    // Khi video được dừng hoặc kết thúc
-    video.onpause = video.onended = function() {
-        isVideoPlaying = false; // Đặt cờ là false khi video dừng hoặc kết thúc
-        // Dừng nhạc của video tương ứng
-        if (index < audios.length) {
-            audios[index].pause();
-        }
-    };
-});
-
-</script>
-<script>
-   // Lấy tham chiếu tới video và audio
-var videos = document.querySelectorAll(".story video");
-var audios = document.querySelectorAll(".story audio");
-
-var isVideoPlaying = false; // Biến cờ để kiểm tra trạng thái phát của video
-
-// Duyệt qua mỗi video
-videos.forEach(function(video, index) {
-    // Khi video được phát
-    video.onplay = function() {
-        isVideoPlaying = true; // Đặt cờ là true khi video đang phát
-        audios.forEach(function(audio) {
-            audio.pause(); // Dừng tất cả nhạc trước đó
-        });
-        // Phát nhạc của video tương ứng
-        if (isVideoPlaying && index < audios.length) {
-            audios[index].play();
-        }
-    };
-
-    // Khi video được dừng hoặc kết thúc
-    video.onpause = video.onended = function() {
-        isVideoPlaying = false; // Đặt cờ là false khi video dừng hoặc kết thúc
-        // Dừng nhạc của video tương ứng
-        if (index < audios.length) {
-            audios[index].pause();
-        }
-    };
-});
+// Cập nhật ngày tháng năm, giờ và phút mỗi phút
+setInterval(updateStoryDatetime, 60000);
 
 </script>

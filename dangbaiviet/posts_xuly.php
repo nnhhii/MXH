@@ -1,24 +1,12 @@
 <html>
-
 <head>
-  <script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/like.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>
   <title>Thêm bài viết</title>
   <link rel="stylesheet" href="css/luot_anh.css">
   <link rel="stylesheet" href="css/cmt.css">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/like.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-
 <body>
   <style>
     .bai {
@@ -453,9 +441,9 @@
         <div class="modal-dialog">
           <form action="" enctype="multipart/form-data" method="post">
             <div class="modal-content" style="width:480px;height:420px; border-radius:15px;margin-top:20vh">
-              <div class="modal-header" style="border-bottom: 1px solid #DBDBDB">
-                <h5 class="modal-title" style="position:absolute;left:42%;padding:10px;text-align:center;">Chia sẻ</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <div class="modal-header" style="border-bottom: 1px solid #DBDBDB;height:50px">
+                <h5 class="modal-title" style="position:absolute;left:42%;text-align:center;">Chia sẻ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="border:none;padding:30px;background:none;position:absolute;right:0">&times;</button>
               </div>
               <div class="modal-body" style="padding:0;overflow:auto">
                 <!-- Search -->

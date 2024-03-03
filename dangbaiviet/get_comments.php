@@ -10,9 +10,12 @@ $noti_content = "đã bình luận vào bài viết của bạn.";
 
 $sql_comment = "INSERT INTO comment (comment_by,post_id, cmt_content, comment_time) VALUES ($user_id, $post_id, '$cmt_content', '$time')";
 $result_cmt = mysqli_query($conn, $sql_comment);
+
 $sql_thong_bao = "INSERT INTO notification (noti_by,noti_content,post_id, noti_to, noti_time) VALUES ($user_id, '$noti_content',$post_id, $post_by,'$time')";
 $result_tb = mysqli_query($conn, $sql_thong_bao);
 
+$update_cmt_count = "UPDATE posts SET comment_count = comment_count + 1 WHERE post_id = $post_id";
+mysqli_query($conn, $update_cmt_count);
 
 if ($result_cmt&&$result_tb) {
     $sql="select * from comment inner join user on comment.comment_by=user.user_id where post_id=$post_id order by comment_id desc";

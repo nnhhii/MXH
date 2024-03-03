@@ -47,9 +47,13 @@
         </div>
     </div>
     <div class="trang_ca_nhan" style="background-image: url('img/<?php echo $row_id["avartar"]?>')" onclick="showSelect()">
-        <div id="mySelect" class="ben_phai_trong" style="display: none;">    
-            <a href="index.php?pid=1" style="border-radius: 10px 10px 0 0">Trang cá nhân</a>
-            <a href="dangnhap/ctrl_logout.php"style="border-radius: 0 0 10px 10px">Đăng xuất</a>
+        <div id="mySelect" class="ben_phai_trong" style="display: none;">  
+            <a style="border-radius: 10px 10px 0 0;border-bottom:1px solid #EEE">
+                <div><?php echo $row_id["username"]?></div>
+                <div style="font-size:12px;color:gray"><?php echo $row_id["email"]?></div>
+            </a>  
+            <a href="index.php?pid=1"><i class="fa-solid fa-user"></i> Trang cá nhân</a>
+            <a href="dangnhap/ctrl_logout.php"style="border-radius: 0 0 10px 10px"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
         </div>
     </div>
 </div>
