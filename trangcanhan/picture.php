@@ -111,9 +111,8 @@
 <!--footer  -->
 <div class="footer" style="width:100%; height:6vh;padding:10px; float:left; border-top: lightgray solid 1px;">
   <form id="likeForm" method="post" action="" style="float:left; cursor:pointer; margin-left:5px;">
-    <input type="hidden" name="post_id" value="<?php echo $row["post_id"] ?>">
     <input type="hidden" name="like_by" value="<?php echo $user_id ?>">
-    <a class="like-button<?php echo $liked_class; ?>" data-postid="<?php echo $row["post_id"]; ?>">
+    <a class="like-button<?php echo $liked_class; ?>" data-postid="<?php echo $row["post_id"]; ?>" data-postby="<?php echo $row["post_by"]; ?>">
       <span class="like-icon">
         <div class="heart-animation-1"></div>
         <div class="heart-animation-2"></div>
@@ -197,7 +196,7 @@
       <textarea name="cmt_content_<?php echo $row["post_id"]; ?>" placeholder="Thêm bình luận"
         style="border: none; width:90%; height:7vh; padding:5px 0 0 40px; position:absolute; left:0"></textarea>
       <button type="button" class="comment-btn submit_cmt" data-postid="<?php echo $row["post_id"]; ?>"
-        data-cmtby="<?php echo $user_id; ?>"
+        data-cmtby="<?php echo $user_id; ?>" data-postby="<?php echo $row["post_by"]; ?>"
         style="border: none; background: none; color: rgb(0, 162, 255); position:absolute; right:0; top:10px;">Post</button>
     </form>
   </div>
@@ -213,7 +212,7 @@
       e.preventDefault();
       var post_id = $(this).data('postid');
       var like_by = $(this).closest('form').find('input[name="like_by"]').val();
-
+      var post_by = $(this).data('postby');
       // Thay đổi trạng thái của nút like ngay lập tức
       $(this).toggleClass('liked');
       var isLiked = $(this).hasClass('liked');
@@ -225,6 +224,7 @@
         type: 'POST',
         data: {
           'post_id': post_id,
+          'post_by': post_by,
           'like_by': like_by,
           'isLiked': isLiked
         },
@@ -242,6 +242,7 @@
     $('.submit_cmt').off('click').on('click', function (event) {
       event.preventDefault();
       var post_id = $(this).data('postid');
+      var post_by = $(this).data('postby');
       var comment_by = $(this).data('cmtby');
       var cmt_content = $('textarea[name="cmt_content_' + post_id + '"]').val()
       $.ajax({
@@ -249,6 +250,7 @@
         url: "dangbaiviet/get_comments.php",
         data: {
           post_id: post_id,
+          post_by: post_by,
           comment_by: comment_by,
           cmt_content: cmt_content
         },
