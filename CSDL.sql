@@ -63,6 +63,13 @@ CREATE TABLE posts (
   post_time varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+CREATE TABLE saved_posts (
+  user_id int,
+  post_id int,
+  PRIMARY KEY(user_id, post_id),
+  FOREIGN KEY(user_id) REFERENCES user(user_id),
+  FOREIGN KEY(post_id) REFERENCES posts(post_id)
+);
 
 CREATE TABLE share (
   share_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,

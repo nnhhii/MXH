@@ -91,8 +91,8 @@ if (mysqli_num_rows($result) > 0) {
                                 <i class="fa-regular fa-paper-plane"></i>
                               </button>
                             </div>
-                            <div class="save not_saved" style="float:right">
-                            <i class="fa-regular fa-bookmark"style="scale:1.5;margin: 10px"></i>
+                            <div class="save not_saved" data-postid="<?php echo $row["post_id"]; ?>" data-saveby="<?php echo $user_id;?>"" style="float:right">
+                            <i class="fa-regular fa-bookmark" style="scale:1.5;margin: 10px"></i>
                             </div>
                             <!-- add comment -->
                             <div style="float:left; width:100%;height:50px;position: relative; padding:7px;">

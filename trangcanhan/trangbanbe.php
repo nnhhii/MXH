@@ -492,8 +492,8 @@ $row_bb = $result_bb->fetch_assoc();
                         </div>
                       </div>
                     </div>
-                    <div class="save not_saved" style="float:right">
-                      <i class="fa-regular fa-bookmark" style="scale:1.5;margin: 10px"></i>
+                    <div class="save not_saved" data-postid="<?php echo $row["post_id"]; ?>" data-saveby="<?php echo $user_id;?>"" style="float:right">
+                            <i class="fa-regular fa-bookmark" style="scale:1.5;margin: 10px"></i>
                     </div>
                     <!-- add comment -->
                     <div style="float:left; width:100%;height:50px;position: relative; padding:7px;">
@@ -686,4 +686,53 @@ $row_bb = $result_bb->fetch_assoc();
 
   // Gọi hàm khởi tạo sliders khi trang được load
   document.addEventListener('DOMContentLoaded', initSliders);
+
+// luu bai viet
+$(document).ready(function() {
+    // Kiểm tra trạng thái lưu của mỗi bài viết khi tải trang
+    $('.save').each(function() {
+        var post_id = $(this).data('postid');
+        var user_id = $(this).data('saveby');
+        var icon = $(this).find('i');
+
+        $.ajax({
+            url: 'menu/trangthailuu.php',
+            type: 'POST',
+            data: {
+                post_id: post_id,
+                user_id: user_id
+            },
+            success: function(response) {
+                if (response === "saved") {
+                    icon.removeClass('fa-regular fa-bookmark').addClass('fa-solid fa-bookmark');
+                } else {
+                    icon.removeClass('fa-solid fa-bookmark').addClass('fa-regular fa-bookmark');
+                }
+            }
+        });
+    });
+
+    // Cập nhật trạng thái lưu khi người dùng nhấp vào nút lưu
+    $('.save').click(function() {
+        var post_id = $(this).data('postid');
+        var user_id = $(this).data('saveby');
+        var icon = $(this).find('i');
+
+        $.ajax({
+            url: 'menu/luubaiviet.php',
+            type: 'POST',
+            data: {
+                post_id: post_id,
+                user_id: user_id
+            },
+            success: function(response) {
+                if (response === "success") {
+                    icon.removeClass('fa-regular fa-bookmark').addClass('fa-solid fa-bookmark');
+                } else if (response === "deleted") {
+                    icon.removeClass('fa-solid fa-bookmark').addClass('fa-regular fa-bookmark');
+                }
+            }
+        });
+    });
+});
 </script>

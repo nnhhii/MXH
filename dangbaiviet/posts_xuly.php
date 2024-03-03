@@ -412,7 +412,7 @@
                         <i class="fa-regular fa-paper-plane"></i>
                       </button>
                     </div>
-                    <div class="save not_saved" style="float:right">
+                    <div class="save not_saved" data-postid="<?php echo $row["post_id"]; ?>" data-saveby="<?php echo $user_id;?>"" style="float:right">
                       <i class="fa-regular fa-bookmark" style="scale:1.5;margin: 10px"></i>
                     </div>
                     <!-- add comment -->
@@ -492,8 +492,9 @@
         </div>
       </div>
 
-      <div class="luu"> <i class="fa-regular fa-bookmark"></i></div><br>
-    </div>
+      <div class="luu" data-postid="<?php echo $row["post_id"]; ?>" data-saveby="<?php echo $user_id;?>"" style="float:right">
+       <i class="fa-regular fa-bookmark"></i></div><br>
+      </div>
     <?php
     }
     ?>
@@ -669,4 +670,56 @@
 
     // Gọi hàm khởi tạo sliders khi trang được load
     document.addEventListener('DOMContentLoaded', initSliders);
+
+     // luu bai viet
+     $(document).ready(function() {
+    // Kiểm tra trạng thái lưu của mỗi bài viết khi tải trang
+    $('.save, .luu').each(function() {
+        var post_id = $(this).data('postid');
+        var user_id = $(this).data('saveby');
+        var icon = $(this).find('i');
+
+        $.ajax({
+            url: 'menu/trangthailuu.php',
+            type: 'POST',
+            data: {
+                post_id: post_id,
+                user_id: user_id
+            },
+            success: function(response) {
+                if (response === "saved") {
+                    icon.removeClass('fa-regular fa-bookmark').addClass('fa-solid fa-bookmark');
+                } else {
+                    icon.removeClass('fa-solid fa-bookmark').addClass('fa-regular fa-bookmark');
+                }
+            }
+        });
+    });
+
+    // Cập nhật trạng thái lưu khi người dùng nhấp vào nút lưu
+    $('.save, .luu').click(function() {
+        var post_id = $(this).data('postid');
+        var user_id = $(this).data('saveby');
+        var icon = $(this).find('i');
+
+        $.ajax({
+            url: 'menu/luubaiviet.php',
+            type: 'POST',
+            data: {
+                post_id: post_id,
+                user_id: user_id
+            },
+            success: function(response) {
+                // Tìm tất cả các phần tử có cùng data-postid
+                var samePostIdElements = $('.save[data-postid="' + post_id + '"], .luu[data-postid="' + post_id + '"]');
+
+                if (response === "success") {
+                    samePostIdElements.find('i').removeClass('fa-regular fa-bookmark').addClass('fa-solid fa-bookmark');
+                } else if (response === "deleted") {
+                    samePostIdElements.find('i').removeClass('fa-solid fa-bookmark').addClass('fa-regular fa-bookmark');
+                }
+            }
+        });
+    });
+});
   </script>
