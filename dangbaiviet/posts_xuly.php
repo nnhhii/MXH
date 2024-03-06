@@ -215,8 +215,8 @@
 
     $sql_p = "SELECT * FROM posts 
   inner JOIN user ON posts.post_by = user.user_id
-  LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = posts.post_by) OR (friend.user_id1 = posts.post_by AND friend.user_id2 = $user_id)
-  WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL OR posts.post_by=$user_id ORDER BY post_id DESC";
+  LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = posts.post_by) OR (friendrequest.sender_id = posts.post_by AND friendrequest.receiver_id = $user_id)
+  WHERE friendrequest.sender_id IS NOT NULL OR friendrequest.receiver_id IS NOT NULL OR posts.post_by=$user_id ORDER BY post_id DESC";
     $result_p = mysqli_query($conn, $sql_p);
     while ($row = mysqli_fetch_array($result_p)) {
       // Kiểm tra xem người dùng đã thích bài viết hay chưa
@@ -456,10 +456,10 @@
                 <?php
                 if (empty($_POST["timkiem1"])) {
                   $ketnoi = new mysqli('localhost', 'root', '', 'mxh');
-                  $friend = "SELECT * FROM user 
-                        LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = user.user_id) OR (friend.user_id1 = user.user_id AND friend.user_id2 = $user_id)
-                        WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL";
-                  $result_fr = $ketnoi->query($friend);
+                  $friendrequest = "SELECT * FROM user 
+                        LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_id)
+                        WHERE friendrequest.sender_id IS NOT NULL OR friendrequest.receiver_id IS NOT NULL";
+                  $result_fr = $ketnoi->query($friendrequest);
                   while ($row_fr = $result_fr->fetch_assoc()) {
                     ?>
                     <label for="mess<?php echo $row["post_id"] ?>_<?php echo $row_fr["user_id"] ?>" class="mess1">
