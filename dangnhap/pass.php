@@ -21,7 +21,7 @@ button:hover,button:active,button:focus {
 }
 .formngoai {
   width: 800px;
-  height:450px;
+  height:400px;
   z-index: 1;
   background: #FFFFFF;
   max-width: 600px; 
@@ -51,7 +51,7 @@ a {
 }
 </style>
 
-<div class="formngoai">
+<div class="formngoai"><h3 style="margin:-20px 0 20px 0">Đổi mật khẩu</h3>
   <form action="dangnhap/ctrl_pass.php" method="post">
     <input type="password" placeholder="Mật khẩu cũ" class="formInput" name="old_pass"/>
     <input type="password" placeholder="Mật khẩu mới" class="formInput" name="new_pass"/>

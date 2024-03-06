@@ -213,7 +213,7 @@ $row_bb = $result_bb->fetch_assoc();
     <div class="congcu">
       <button class="congcu1" id="messageButton" onclick="window.location.href='index.php?pid=0&&m_id=<?php echo $row_bb['user_id'] ?>'">Nhắn tin</button>
 
-      <button class="congcu1" id="friendButton" data-user-id="<?php echo $row_bb['user_id']; ?>"
+      <button class="congcu1" data-user-id="<?php echo $row_bb['user_id']; ?>"
         onclick="toggleFriendship1(this,<?php echo $row_bb['user_id']; ?>)">
         <?php
         if ($row_bb['status'] === 'đã gửi' && $row_bb['sender_id'] == $user_id) {
@@ -229,12 +229,12 @@ $row_bb = $result_bb->fetch_assoc();
     </div>
     <script>
       function toggleFriendship1(button,userId) {
-        
         if (button.textContent === 'Kết bạn') {
           sendFriendRequest1(button, userId);
         } else if (button.textContent === 'Hủy kết bạn') {
           cancelFriendRequest1(button, userId);
-        }else if (button.textContent === 'Chấp nhận') {
+        }
+        else if (button.textContent === 'Chấp nhận') {
           acceptFriendRequest1(button, userId);
         }
       }
@@ -277,13 +277,60 @@ $row_bb = $result_bb->fetch_assoc();
 </div>
 </div>
 
-<div class="story_banbe">
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
+<div class="story_banbe" style="position:relative;height:auto;border-bottom:1px solid #EEE">
+<?php
+$story_tbb = "SELECT * FROM user inner JOIN story ON story.user_id = user.user_id where user.user_id=$m_id ORDER BY story_id DESC";
+$result_tbb = $ketnoi->query($story_tbb);
+  while ($row_tbb = $result_tbb->fetch_assoc()) { 
+  $file_bb = $row_tbb["file"];
+  echo'<a href="#modal_story_TBB_'.$row_tbb["story_id"].'" data-toggle="modal">';
+    if (strpos($file_bb, '.png')|| strpos($file_bb, '.jpg')|| strpos($file_bb, '.jpeg')) {
+      echo '
+      <div class="vien_ava_story" style="width:13vh; height:13.1vh;position:relative;display:flex; margin:20px 0 20px 20px">
+        <div style="border-radius:50%;background:white;width:12vh; height:12vh;position:absolute;top:0.5vh;left:0.5vh;">
+          <div class="ava_story"style="background-image:url(story/'.$file_bb.');width:10.9vh; height:10.9vh;position:absolute"></div>
+        </div>
+      </div>';
+    } else{ 
+      echo '
+      <div class="vien_ava_story" style="width:13vh; height:13.1vh;position:relative;display:flex;margin:20px 0 20px 20px">
+        <div style="border-radius:50%;background:white;width:12vh; height:12vh;position:absolute;top:0.5vh;left:0.5vh;">
+          <video muted style="z-index:0;width:10.9vh;height:10.9vh;object-fit:cover;border-radius:50%;position:absolute;top:0.58vh;left:0.56vh">
+            <source src="story/'.$file_bb.'" type="video/mp4">    
+          </video>
+        </div>
+      </div>';
+    }
+?>
+</a>
+  
+    <!-- Modal story -->
+    <div class="modal fade" id="modal_story_TBB_<?php echo $row_tbb["story_id"]?>" data-toggle="modal" data-TCNstoryid="<?php echo $row_tbb["story_id"] ?>" onclick="stopAudio1(this)">
+      <div class="modal-dialog">
+        <div class="modal-content" style="z-index:2;width:450px;height:650px;border-radius:20px;background:none;padding:0">
+          <div class="modal-body" style="padding:0;position:relative;background:black;border-radius:20px;">
+            <div class="vien_ava_story"><div class="ava_story" style="background-image: url('img/<?php echo $row_tbb["avartar"] ?>');"></div></div>
+            <div class="ten_story" style="top:10px;left:60px;z-index:1"><?php echo $row_tbb["username"] ?></div>
+            <?php 
+            if (strpos($file_bb, '.png')|| strpos($file_bb, '.jpg')|| strpos($file_bb, '.jpeg')) {
+              echo '<div class="image" style="background-image:url(story/'.$file_bb.');width:100%;height:650px;border-radius:20px;background-size:cover"></div>';
+            } else{ 
+              echo '<video class="video"  muted loop autoplay style="width:450px;height:650px;border-radius:20px;">
+                    <source src="story/'.$file_bb.'" type="video/mp4">    
+                  </video>';
+            }
+            ?>
+            <audio id="audio_TCN_<?php echo $row_tbb["story_id"]?>" loop>
+              <source src="story/<?php echo $row_tbb["music"]?>" type="audio/mpeg">
+            </audio>
+            <div style="position:absolute;left:50px;bottom:20px;color:white"><?php echo $row_tbb["content"] ?></div>
+            <button style="position:absolute;right:50px;bottom:20px;border:none;background:none;scale:2;color:white"><i class="fa fa-heart" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<?php }; ?>
 </div>
 <div class="post_TCN" style="margin:0 13%">
   <div class="central-meta" style="padding:25px">
@@ -618,7 +665,22 @@ $row_bb = $result_bb->fetch_assoc();
         });
       });
 
+$(document).ready(function() {
+  $('.modal').on('shown.bs.modal', function () {
+    $(this).find('audio')[0].play();
+  });
 
+  $('.modal').on('hidden.bs.modal', function () {
+    var audio = $(this).find('audio')[0];
+    audio.pause();
+    audio.currentTime = 0; // Reset audio về thời điểm ban đầu
+  });
+});
+function stopAudio1(modal) {
+  var audioId = modal.getAttribute("data-TCNstoryid");
+  var audio = document.getElementById("audio_TCN_" + audioId);
+  audio.stop = true; // Mute audio khi modal được đóng
+}
     });
 </script>
 

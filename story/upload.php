@@ -41,7 +41,6 @@ if($_FILES["file"]["size"] > 50000000) {
     VALUES ($user_id, '$content', '$target_file', '$music_path', '$story_time')";
     $result = $link -> query($sql);
             
-            
-        
+    header("location:../index.php");
 }
 

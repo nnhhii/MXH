@@ -77,6 +77,10 @@ if(isset($_SESSION['user']))
                 $showMenuPhai = false;
                 include("dangnhap/pass.php");
                 break;
+            case 14:
+                $showMenuPhai = false;
+                include("trangcanhan/chinhsuathongtin.php");
+                break;
 
         }
     }else {include("home.php");}

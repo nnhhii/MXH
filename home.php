@@ -1,7 +1,7 @@
 <?php
 $sql_story = "SELECT * FROM story 
-LEFT JOIN user ON story.user_id = user.user_id
-LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = story.user_id) OR (friend.user_id1 = story.user_id AND friend.user_id2 = $user_id)
+inner JOIN user ON story.user_id = user.user_id
+left JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = story.user_id) OR (friend.user_id1 = story.user_id AND friend.user_id2 = $user_id)
 WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL OR story.user_id=$user_id ORDER BY story_id DESC";
 $result_story = $ketnoi->query($sql_story);
 ?>
@@ -146,7 +146,7 @@ $result_story = $ketnoi->query($sql_story);
                     <form action="story/upload.php" method="post" enctype="multipart/form-data">
                       <input type="hidden" name="story_by" value=<?php echo $user_id?>>
                       <label for="content">Content:</label><br>
-                      <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
+                      <textarea id="content" name="content" rows="4" cols="50"></textarea><br><br>
                       
                       <label for="video">Select Video:</label>
                       <input type="file" id="video,img" name="file" accept="video/mp4,video/x-m4v,video/*,image/png,image/jpg,image/*" required><br><br>
@@ -248,7 +248,7 @@ $result_story = $ketnoi->query($sql_story);
                       <img src="https://cdn-icons-png.flaticon.com/512/13768/13768311.png" width="90px"><br> Chọn ảnh
                       hoặc video
                       <br>
-                      <input type="file" name="images[]" class="hinhanh" style="margin: 20px 30%" multiple
+                      <input type="file" name="images[]" class="hinhanh" style="margin: 20px 30%" multiple accept="image/*" required
                         onchange="handleFile(this)">
                     </div>
                   </div>
@@ -266,7 +266,7 @@ $result_story = $ketnoi->query($sql_story);
                     <div id="content2" style="width:100%;padding:20px;display:none">
                       <img src="https://cdn-icons-png.flaticon.com/512/1042/1042339.png" width="30px">Thêm ảnh hoặc
                       video<br>
-                      <input type="file" name="images[]" class="hinhanh" style="margin: 10px" multiple
+                      <input type="file" name="images[]" class="hinhanh" style="margin: 10px" multiple accept="image/*"
                         onchange="handleFile(this)">
                     </div>
                     <!-- ảnh nhỏ -->
@@ -289,12 +289,21 @@ $(document).ready(function() {
   $('.modal').on('shown.bs.modal', function () {
       $(this).find('audio')[0].play();
   });
+
+  $('.modal').on('hidden.bs.modal', function () {
+    var audio = $(this).find('audio')[0];
+    audio.pause();
+    audio.currentTime = 0; // Reset audio về thời điểm ban đầu
+  });
+
+  
 });
 function muteAudio(modal) {
   var audioId = modal.getAttribute("data-storyid");
   var audio = document.getElementById("audio_" + audioId);
-  audio.muted = true; // Mute audio khi modal được đóng
+  audio.stop = true; // Mute audio khi modal được đóng
 }
+
 
   function handleFile(input) {
     checkFileSize(input);
@@ -405,36 +414,4 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-
-
-// Lấy tham chiếu tới trường input ngày tháng năm và giờ phút
-var storyDatetimeInput = document.getElementById("story_time");
-
-// Hàm để lấy ngày tháng năm, giờ và phút hiện tại và cập nhật vào trường input
-function updateStoryDatetime() {
-    // Lấy ngày tháng năm và giờ phút hiện tại
-    var currentDatetime = new Date();
-    
-    // Lấy ngày, tháng và năm
-    var day = currentDatetime.getDate();
-    var month = currentDatetime.getMonth() + 1; // Tháng bắt đầu từ 0 nên cần cộng thêm 1
-    var year = currentDatetime.getFullYear();
-
-    // Lấy giờ và phút
-    var hour = currentDatetime.getHours();
-    var minute = currentDatetime.getMinutes();
-
-    // Format thành dạng dd/mm/yyyy hh:mm
-    var formattedDatetime = day + "/" + month + "/" + year + " " + hour + ":" + minute;
-
-    // Gán ngày tháng năm, giờ và phút đã được format vào trường input
-    storyDatetimeInput.value = formattedDatetime;
-}
-
-// Gọi hàm updateStoryDatetime để cập nhật ngày tháng năm, giờ và phút ban đầu
-updateStoryDatetime();
-
-// Cập nhật ngày tháng năm, giờ và phút mỗi phút
-setInterval(updateStoryDatetime, 60000);
-
 </script>
