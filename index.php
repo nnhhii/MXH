@@ -21,7 +21,7 @@ if(isset($_SESSION['user']))
                 $showMenuTren = false;
                 $showMenuTrai = false;
                 $showMenuPhai = false;
-                include("message.php");
+                include("nhantin/message.php");
                 break;
             case 1:
                 $showMenuTrai = false;

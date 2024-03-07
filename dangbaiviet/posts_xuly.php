@@ -187,7 +187,7 @@
       $image_name = $_FILES['images']['name'];
       $image_tmp = $_FILES['images']['tmp_name'];
       $location = "img/";
-      $image = implode(",", $image_name);
+      $image = implode(", ", $image_name);
 
       if (!empty($image_name)) {
         foreach ($image_name as $key => $val) {
@@ -258,7 +258,7 @@
 
             <?php
             // Tách thành một mảng
-            $images = explode(",", $row['image']);
+            $images = explode(", ", $row['image']);
             $num_images = count($images);
             ?>
 
