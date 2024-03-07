@@ -1,8 +1,9 @@
 <?php
+
 $sql_story = "SELECT * FROM story 
-INNER JOIN user ON story.user_id = user.user_id
-LEFT JOIN friendrequest ON (friendrequest.sender_id = '$user_id' AND friendrequest.receiver_id = story.user_id) OR (friendrequest.sender_id = story.user_id AND friendrequest.receiver_id = '$user_id')
-WHERE friendrequest.sender_id IS NOT NULL OR friendrequest.receiver_id IS NOT NULL OR story.user_id='$user_id' ORDER BY story_id DESC";
+left JOIN user ON story.user_id = user.user_id
+LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = story.user_id) OR (friendrequest.sender_id = story.user_id AND friendrequest.receiver_id = $user_id)
+WHERE friendrequest.sender_id IS NOT NULL OR friendrequest.receiver_id IS NOT NULL OR story.user_id=$user_id ORDER BY story_id DESC";
 $result_story = $ketnoi->query($sql_story);
 ?>
 <link rel="stylesheet" href="css/menu.css">

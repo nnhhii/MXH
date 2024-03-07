@@ -26,7 +26,7 @@ INSERT INTO user(username, password, email, gender, date_of_birth, avartar, cove
 CREATE TABLE posts (
   post_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   post_by int,
-  FOREIGN KEY (post_by) REFERENCES user(user_id),
+  
   content text,
   image varchar(500),
   like_by int,
