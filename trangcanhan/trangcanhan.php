@@ -89,23 +89,13 @@
   }
 
   .story_banbe {
-    width: 100%;
+    width: 90%;
     height: 15vh;
     margin-top: 1%;
-    background-color: #cecdca;
+    margin-left: 80px;
     float: left;
-  }
-
-  .story_banbe>.circle {
-    height: 12vh;
-    width: 12vh;
-    background-color: none;
-    border-radius: 50%;
-    float: left;
-    margin-top: 0.8%;
-    margin-left: 6%;
-    border: 2px solid white;
-    box-shadow: 0 0 0 0.7px dimgray;
+    display: flex;
+    overflow: auto;
   }
 
   .ccbia,
@@ -282,6 +272,9 @@
       right: 0
     }
   }
+  .story_banbe::-webkit-scrollbar {
+  display: none; /* Safari và Chrome */
+}
 </style>
 
 <div class="bia">
@@ -307,7 +300,7 @@
       <button class="ccbia1 congcu1">Xóa</button>
     </a>
   </div>
-  <div class="khungcanhan">
+  <div class="khungcanhan" style="position:relative"><div style="cursor:pointer;padding:20px"onclick="window.location.href = 'index.php?pid=14'"><i class="fa-regular fa-pen-to-square" style="scale:1.5;right:10px;top:10px;position:absolute"></i></div>
     <div class="canhan1">
       <div class="anhdaidien" style="background-image: url('img/<?php echo $row_id["avartar"] ?>')">
         <img src="https://cdn-icons-png.flaticon.com/512/3624/3624186.png" onclick="avartar()"></i>
@@ -370,13 +363,63 @@
   </div>
 </div>
 
-<div class="story_banbe">
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
-  <div class="circle"></div>
+<div class="story_banbe" style="position:relative;height:auto;border-bottom:1px solid #EEE">
+<?php
+$story_tcn = "SELECT * FROM user inner JOIN story ON story.user_id = user.user_id where user.user_id=$user_id ORDER BY story_id DESC";
+$result_tcn = $ketnoi->query($story_tcn);
+  while ($row_tcn = $result_tcn->fetch_assoc()) { 
+  $file = $row_tcn["file"];
+  echo'<a href="#modal_story_TCN_'.$row_tcn["story_id"].'" data-toggle="modal">';
+    if (strpos($file, '.png')|| strpos($file, '.jpg')|| strpos($file, '.jpeg')) {
+      echo '
+      <div class="vien_ava_story" style="width:13vh; height:13.1vh;position:relative;display:flex; margin:20px 0 20px 20px">
+        <div style="border-radius:50%;background:white;width:12vh; height:12vh;position:absolute;top:0.5vh;left:0.5vh;">
+          <div class="ava_story"style="background-image:url(story/'.$file.');width:10.9vh; height:10.9vh;position:absolute"></div>
+        </div>
+      </div>';
+    } else{ 
+      echo '
+      <div class="vien_ava_story" style="width:13vh; height:13.1vh;position:relative;display:flex;margin:20px 0 20px 20px">
+        <div style="border-radius:50%;background:white;width:12vh; height:12vh;position:absolute;top:0.5vh;left:0.5vh;">
+          <video muted style="z-index:0;width:10.9vh;height:10.9vh;object-fit:cover;border-radius:50%;position:absolute;top:0.58vh;left:0.56vh">
+            <source src="story/'.$file.'" type="video/mp4">    
+          </video>
+        </div>
+      </div>';
+    }
+?>
+</a>
+  
+                <!-- Modal story -->
+                <div class="modal fade" id="modal_story_TCN_<?php echo $row_tcn["story_id"]?>" data-toggle="modal" data-TCNstoryid="<?php echo $row_tcn["story_id"] ?>" onclick="stopAudio1(this)">
+                  <div class="modal-dialog">
+                    <div class="modal-content" style="z-index:2;width:450px;height:650px;border-radius:20px;background:none;padding:0">
+                      <div class="modal-body" style="padding:0;position:relative;background:black;border-radius:20px;">
+                        <div class="vien_ava_story"><div class="ava_story" style="background-image: url('img/<?php echo $row_tcn["avartar"] ?>');"></div></div>
+                        <div class="ten_story" style="top:10px;left:60px;z-index:1"><?php echo $row_tcn["username"] ?></div>
+                        <?php 
+                        if (strpos($file, '.png')|| strpos($file, '.jpg')|| strpos($file, '.jpeg')) {
+                          echo '<div class="image" style="background-image:url(story/'.$file.');width:100%;height:650px;border-radius:20px;background-size:cover"></div>';
+                        } else{ 
+                          echo '<video class="video"  muted loop autoplay style="width:450px;height:650px;border-radius:20px;">
+                                <source src="story/'.$file.'" type="video/mp4">    
+                              </video>';
+                        }
+                        ?>
+                        
+                        <audio id="audio_TCN_<?php echo $row_tcn["story_id"]?>" loop>
+                          <source src="story/<?php echo $row_tcn["music"]?>" type="audio/mpeg">
+                        </audio>
+
+                        <div style="position:absolute;left:50px;bottom:20px;color:white"><?php echo $row_tcn["content"] ?></div>
+                        <button style="position:absolute;right:50px;bottom:20px;border:none;background:none;scale:2;color:white"><i class="fa fa-heart" aria-hidden="true"></i></button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            <?php }; ?>
 </div>
 
 <div class="post_TCN" style="margin:0 13%">
@@ -459,7 +502,7 @@
       <div class="btn-right btnsl"><i class='bx'></i></div>
     </div>
     <div class="index-images">
-      <?php for ($i = 0; $i < $num_images - 1; $i++): ?>
+      <?php for ($i = 0; $i < $num_images; $i++): ?>
         <div class="index-item index-item-<?php echo $i; ?><?php echo ($i === 0) ? ' active' : ''; ?>">
         </div>
       <?php endfor; ?>
@@ -713,9 +756,24 @@
           }
         });
       });
-
-
     });
+
+$(document).ready(function() {
+  $('.modal').on('shown.bs.modal', function () {
+    $(this).find('audio')[0].play();
+  });
+
+  $('.modal').on('hidden.bs.modal', function () {
+    var audio = $(this).find('audio')[0];
+    audio.pause();
+    audio.currentTime = 0; // Reset audio về thời điểm ban đầu
+  });
+});
+function stopAudio1(modal) {
+  var audioId = modal.getAttribute("data-TCNstoryid");
+  var audio = document.getElementById("audio_TCN_" + audioId);
+  audio.stop = true; // Mute audio khi modal được đóng
+}
 </script>
 
 <!-- LUOT ANH -->
@@ -732,7 +790,7 @@
     const imgs = slider.querySelectorAll('.list-images img');
     const btnLeft = slider.querySelector('.btn-left');
     const btnRight = slider.querySelector('.btn-right');
-    const length = (imgs.length)-1;
+    const length = (imgs.length);
     let current = 0;
 
     const updateButtonVisibility = () => {

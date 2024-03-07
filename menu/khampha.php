@@ -1,6 +1,6 @@
 <?php 
 $link= new mysqli('localhost','root','','MXH');     
-$sql_khampha="SELECT * FROM user inner JOIN posts ON posts.post_by = user.user_id ORDER BY post_id DESC";
+$sql_khampha="SELECT * FROM user inner JOIN posts ON posts.post_by = user.user_id and user_id != $user_id ORDER BY post_id DESC";
 $result_khampha=$link -> query($sql_khampha);
 ?>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -137,7 +137,7 @@ $result_khampha=$link -> query($sql_khampha);
       <div class="btn-right btnsl"><i class='bx'></i></div>
     </div>
     <div class="index-images">
-      <?php for ($i = 0; $i < $num_images - 1; $i++): ?>
+      <?php for ($i = 0; $i < $num_images; $i++): ?>
         <div class="index-item index-item-<?php echo $i; ?><?php echo ($i === 0) ? ' active' : ''; ?>">
         </div>
       <?php endfor; ?>
@@ -409,7 +409,7 @@ $result_khampha=$link -> query($sql_khampha);
     const imgs = slider.querySelectorAll('.list-images img');
     const btnLeft = slider.querySelector('.btn-left');
     const btnRight = slider.querySelector('.btn-right');
-    const length = (imgs.length)-1;
+    const length = (imgs.length);
     let current = 0;
 
     const updateButtonVisibility = () => {

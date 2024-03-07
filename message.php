@@ -509,7 +509,7 @@ body{
                         <button type="button" class="icon_cuoi">&#129322;</button>
                         <button type="button" class="icon_cuoi">&#129398;</button>
                     </div>
-                <input type="file" name="file" id="fileInput" style="display: none;">
+                <input type="file" name="file" id="fileInput" accept="image/*" style="display: none;">
                 <label for="fileInput">
                     <img class="icon" id="attachment_icon" src="https://img.icons8.com/?size=512&id=114320&format=png">
                 </label>

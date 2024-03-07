@@ -43,8 +43,8 @@
 <?php 
 $link = new mysqli('localhost', 'root', '', 'MXH');
 $sql="SELECT * FROM user 
-LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = user.user_id) OR (friend.user_id1 = user.user_id AND friend.user_id2 = $user_id)
-WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL";
+LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_id)
+WHERE friendrequest.receiver_id IS NOT NULL OR friendrequest.sender_id IS NOT NULL";
 $result=$link -> query($sql);
 if($result -> num_rows > 0){
 ?>

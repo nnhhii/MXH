@@ -26,7 +26,8 @@
 .post-image {
     width: 20%;
     height: 80%;
-    background-size: 100% 100%;
+    background-size: cover;
+    background-position: center;
     float: left;
     margin: 1.5vw;
     border-radius: 0.8vw;
@@ -39,6 +40,7 @@
     padding: 1vw;
     font-weight: 600;
     font-size: 1.7vw;
+    color:#343a40
 }
 
 .post-text {
@@ -67,63 +69,49 @@
 </style>
 
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-$current_user_id = $_SESSION['user'] ?? null;
-
-if (!$current_user_id) {
-    die("User is not logged in.");
-}
-
-$conn = new mysqli('localhost', 'root', '', 'mxh');
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
+$link = new mysqli('localhost', 'root', '', 'mxh');
 $sql = "SELECT user.username, user.avartar, posts.post_id, posts.content, posts.image 
 FROM posts 
 JOIN saved_posts ON posts.post_id = saved_posts.post_id 
 JOIN user ON posts.post_by = user.user_id 
-WHERE saved_posts.user_id = $current_user_id";
+WHERE saved_posts.user_id = $user_id";
 
-
-
-$result = $conn->query($sql);
-
-if (!$result) {
-    die("Query failed: " . $conn->error);
-}
+$result = $link->query($sql);
 
 echo "
 <body>
 <div class='gop_2_menu'>
-<div>
+
 ";
 
 if ($result->num_rows > 0) {
     
     while($row = $result->fetch_assoc()) {
-        $image = rtrim($row['image'], ',');
+        
+        // Tách thành một mảng
+        $images = explode(",", $row['image']);
+        $num_images = count($images);
+        // Lấy giá trị đầu tiên trong mảng
+        $first_image = reset($images);
+              
         echo "
+        <a href='index.php?pid=10&&post_id=" . $row['post_id'] . "'>
         <div id='post_" . $row['post_id'] . "' class='post'>
-        <div class='post-image' style='background-image:url(img/". $image .   ");'></div>
-        <div class='post-content'>
-            <p class='post-text'>
-                " . $row['content'] . "
-            </p>
-            <p class='post-user'>
-                <span class='user-avatar' style='background-image:url(img/" . $row['avartar'] . ");'></span>
-                " . $row['username'] . "
-            </p>
-    
-           
-            <button class='congcu unsave_post' data-post-id='" . $row['post_id'] . "'>Bỏ lưu bài viết</button>
+            <div class='post-image' style='background-image:url(img/". $first_image .   ");'></div>
+            <div class='post-content'>
+                <p class='post-text'>
+                    " . $row['content'] . "
+                </p>
+                <p class='post-user'>
+                    <span class='user-avatar' style='background-image:url(img/" . $row['avartar'] . ");'></span>
+                    " . $row['username'] . "
+                </p>
+        
+            
+                <button class='congcu unsave_post' data-post-id='" . $row['post_id'] . "'>Bỏ lưu bài viết</button>
+            </div>
         </div>
-        </div>
-    
+        </a>
         ";
     }
 } else {
@@ -131,13 +119,11 @@ if ($result->num_rows > 0) {
 }
 
 echo "
-</div>
+
 </div>
 </div>
 </body>
 ";
-
-$conn->close();
 ?>
 
 <script>

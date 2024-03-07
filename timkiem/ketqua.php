@@ -51,7 +51,7 @@
 if (isset ($_POST["timkiem"])){
   $ketnoi=new mysqli("localhost","root","","mxh");
   $timkiem=$_POST["timkiem"];
-  $sql="SELECT * FROM user WHERE username LIKE '%$timkiem%' ";
+  $sql="SELECT * FROM user WHERE username LIKE '%$timkiem%' and user_id != $user_id";
   $result=$ketnoi->query($sql);
   
   if (mysqli_num_rows($result) > 0) {

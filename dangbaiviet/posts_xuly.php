@@ -215,12 +215,12 @@
 
     $sql_p = "SELECT * FROM posts 
   LEFT JOIN user ON posts.post_by = user.user_id
-  LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = posts.post_by) OR (friend.user_id1 = posts.post_by AND friend.user_id2 = $user_id)
-  WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL OR posts.post_by=$user_id ORDER BY post_id DESC";
+  LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = posts.post_by) OR (friendrequest.sender_id = posts.post_by AND friendrequest.receiver_id = $user_id)
+  WHERE friendrequest.sender_id IS NOT NULL OR friendrequest.receiver_id IS NOT NULL OR posts.post_by=$user_id ORDER BY post_id DESC";
     $result_p = mysqli_query($conn, $sql_p);
     while ($row = mysqli_fetch_array($result_p)) {
       // Kiểm tra xem người dùng đã thích bài viết hay chưa
-      $sql_check = "SELECT * FROM likes WHERE post_id = " . $row["post_id"] . " AND like_by = $user_id";
+      $sql_check = "SELECT * FROM posts WHERE post_id = " . $row["post_id"] . " AND like_by = $user_id";
       $result = mysqli_query($conn, $sql_check);
       $liked_class = "";
       if (mysqli_num_rows($result) > 0) {
@@ -236,8 +236,8 @@
           </div>
           <div class="chinhsuaa">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-              aria-expanded="false" style="width:30px;height:30px;background-color:transparent;border:none;">
-              <i class="fa-solid fa-ellipsis-vertical"></i>
+              aria-expanded="false" style="width:30px;height:30px;background-color:transparent;border:none;color:black;">
+              <i class="fa-solid fa-ellipsis-vertical" ></i>
             </button>
             <ul class="dropdown-menu">
               <button class="dropdown-item edit"><a
@@ -457,8 +457,8 @@
                 if (empty($_POST["timkiem1"])) {
                   $ketnoi = new mysqli('localhost', 'root', '', 'mxh');
                   $friend = "SELECT * FROM user 
-                        LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = user.user_id) OR (friend.user_id1 = user.user_id AND friend.user_id2 = $user_id)
-                        WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL";
+                        LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_id)
+                        WHERE friendrequest.sender_id IS NOT NULL OR friendrequest.receiver_id IS NOT NULL";
                   $result_fr = $ketnoi->query($friend);
                   while ($row_fr = $result_fr->fetch_assoc()) {
                     ?>
