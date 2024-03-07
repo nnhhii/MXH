@@ -234,7 +234,7 @@ $row_bb = $result_bb->fetch_assoc();
           sendFriendRequest1(button, userId);
         } else if (button.textContent === 'Hủy kết bạn') {
           cancelFriendRequest1(button, userId);
-        }else if (button.textContent === 'Chấp nhận') {
+        } else if (button.textContent === 'Chấp nhận') {
           acceptFriendRequest1(button, userId);
         }
       }

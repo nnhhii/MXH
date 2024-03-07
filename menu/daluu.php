@@ -155,7 +155,7 @@ $(document).ready(function() {
                 if (response === "success") {
                     location.reload();
                 } else {
-                    alert("Có lỗi xảy ra. Vui lòng thử lạ");
+                    alert("Có lỗi xảy ra. Vui lòng thử lại");
                 }
             }
         });
