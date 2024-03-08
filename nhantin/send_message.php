@@ -5,7 +5,7 @@ $message_to = $_POST['message_to'];
 $message_time = date("d/m/y H:i:s ");
 
 if (isset($_FILES['file'])) {
-    $thu_muc="img/";
+    $thu_muc="../img/";
     $ten_files=$thu_muc . $_FILES["file"]["name"];
     move_uploaded_file($_FILES["file"]["tmp_name"], $ten_files);
     $hinhanh=$_FILES["file"]["name"];

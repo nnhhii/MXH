@@ -5,7 +5,7 @@ session_start();
 if(isset($_SESSION['user']))
 {
     $user_id = $_SESSION['user'];
-    $ketnoi= new mysqli('localhost','root','','mxh');     
+    $ketnoi= new mysqli('localhost','root','','MXH');     
     $sql= "SELECT * FROM user WHERE user_id=$user_id";
     $result= $ketnoi->query($sql);
     $row_id= $result->fetch_assoc();
@@ -21,7 +21,7 @@ if(isset($_SESSION['user']))
                 $showMenuTren = false;
                 $showMenuTrai = false;
                 $showMenuPhai = false;
-                include("message.php");
+                include("nhantin/message.php");
                 break;
             case 1:
                 $showMenuTrai = false;

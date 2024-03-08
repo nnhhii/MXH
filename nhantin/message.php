@@ -1,11 +1,8 @@
 <?php 
-if (isset($_SESSION['user']))
-{
-	$user_id = $_SESSION['user'];
     $ketnoi= new mysqli('localhost','root','','MXH');     
     $friend = "SELECT * FROM user 
-    LEFT JOIN friend ON (friend.user_id1 = $user_id AND friend.user_id2 = user.user_id) OR (friend.user_id1 = user.user_id AND friend.user_id2 = $user_id)
-    WHERE friend.user_id1 IS NOT NULL OR friend.user_id2 IS NOT NULL";
+    left JOIN friendrequest ON (sender_id = $user_id and receiver_id = user_id) or (sender_id = user_id and receiver_id = $user_id)
+    WHERE status='bạn bè'";
     $result_fr = $ketnoi->query($friend);  
 ?>
 
@@ -356,11 +353,13 @@ body{
         <img src="https://img.icons8.com/?size=256&id=Wyndx3rk1dCv&format=png">
         <div class="mess">Messages</div>
         <?php 
-        if ($result_fr !== null && $result_fr->num_rows > 0) {
+        if ($result_fr!=null && $result_fr->num_rows > 0) {
             if (isset($_GET['m_id'])){
                 $m_id = $_GET['m_id'];
             }else{
-                $friend_default = "select * from friend inner join user on friend.user_id1 = $user_id and friend.user_id2 = user.user_id or friend.user_id1 =user.user_id and friend.user_id2 = $user_id";
+                $friend_default = "SELECT * FROM user 
+                left JOIN friendrequest ON (request_id = $user_id and receiver_id = user_id) or (request_id = user_id and receiver_id = $user_id)
+                WHERE status='bạn bè'";
                 $result_default = $ketnoi->query($friend_default);
                 $row_default = $result_default -> fetch_assoc();
                 $m_id = $row_default['user_id'];
@@ -545,7 +544,7 @@ body{
                             <h5 class="modal-title" style="padding:5px 0 5px 30px">Xóa cuộc trò chuyện vĩnh viễn?</h5>
                         </div>
                         <div class="modal-body" style="padding:0">
-                        <form action="delete_chat.php" method="post" enctype="multipart/form-data">
+                        <form action="nhantin/delete_chat.php" method="post" enctype="multipart/form-data">
                             <input type= "hidden" name="message_to1" value=<?php echo $m_id?>>
                             <input type="hidden" name="message_by1" value=<?php echo $user_id?>>
                             <button type="submit" class="info_2" style="text-align:center;border:none;background:none;border-bottom:1px solid #EEE;padding:15px 20px">Xóa</button>
@@ -566,8 +565,6 @@ body{
 <?php 
 }else {
     echo "<div style='width:150px;height:50px;margin:100px 100px;text-align:center; color:gray'>Không có bạn bè. <br> Hãy kết bạn thôi nào!</div>";
-}}else{
-    header("location:dangnhap/login.php");
 }
 
 ?>
@@ -642,7 +639,7 @@ $(document).ready(function(){
     function sendHeartIcon() {
         // Use AJAX to send the form data to the server
         $.ajax({
-            url: 'send_message.php',
+            url: 'nhantin/send_message.php',
             type: 'POST',
             data: $("#messageForm").serialize(),
             success: function(response){
@@ -673,7 +670,7 @@ $(document).ready(function(){
     function sendFile() {
         var formData = new FormData($("#messageForm")[0]);
         $.ajax({
-            url: 'send_message.php',
+            url: 'nhantin/send_message.php',
             type: 'POST',
             data: formData,
             processData: false,// Không xử lý dữ liệu trước khi gửi
@@ -694,7 +691,7 @@ $(document).ready(function(){
     $("#messageForm").on("submit", function(event){
         event.preventDefault();
         $.ajax({
-            url: 'send_message.php', 
+            url: 'nhantin/send_message.php', 
             type: 'POST', 
             data: {
                 message_by :  $('input[name="message_by"]').val(),
