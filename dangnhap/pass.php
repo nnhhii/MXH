@@ -53,9 +53,9 @@ a {
 
 <div class="formngoai"><h3 style="margin:-20px 0 20px 0">Đổi mật khẩu</h3>
   <form action="dangnhap/ctrl_pass.php" method="post">
-    <input type="password" placeholder="Mật khẩu cũ" class="formInput" name="old_pass"/>
-    <input type="password" placeholder="Mật khẩu mới" class="formInput" name="new_pass"/>
-    <input type="password" placeholder="Xác nhận mật khẩu mới" class="formInput" name="confirm_new_pass"/>
+    <input type="password" placeholder="Mật khẩu cũ" class="formInput" name="old_pass" required/>
+    <input type="password" placeholder="Mật khẩu mới" class="formInput" name="new_pass"/ required>
+    <input type="password" placeholder="Xác nhận mật khẩu mới" class="formInput" name="confirm_new_pass" required/>
     <button>Cập nhật mật khẩu</button>
   </form>
 </div>
