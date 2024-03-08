@@ -1,7 +1,7 @@
 <?php 
     $ketnoi= new mysqli('localhost','root','','MXH');     
     $friend = "SELECT * FROM user 
-    left JOIN friendrequest ON (request_id = $user_id and receiver_id = user_id) or (request_id = user_id and receiver_id = $user_id)
+    left JOIN friendrequest ON (sender_id = $user_id and receiver_id = user_id) or (sender_id = user_id and receiver_id = $user_id)
     WHERE status='bạn bè'";
     $result_fr = $ketnoi->query($friend);  
 ?>
@@ -544,7 +544,7 @@ body{
                             <h5 class="modal-title" style="padding:5px 0 5px 30px">Xóa cuộc trò chuyện vĩnh viễn?</h5>
                         </div>
                         <div class="modal-body" style="padding:0">
-                        <form action="delete_chat.php" method="post" enctype="multipart/form-data">
+                        <form action="nhantin/delete_chat.php" method="post" enctype="multipart/form-data">
                             <input type= "hidden" name="message_to1" value=<?php echo $m_id?>>
                             <input type="hidden" name="message_by1" value=<?php echo $user_id?>>
                             <button type="submit" class="info_2" style="text-align:center;border:none;background:none;border-bottom:1px solid #EEE;padding:15px 20px">Xóa</button>
@@ -639,7 +639,7 @@ $(document).ready(function(){
     function sendHeartIcon() {
         // Use AJAX to send the form data to the server
         $.ajax({
-            url: 'send_message.php',
+            url: 'nhantin/send_message.php',
             type: 'POST',
             data: $("#messageForm").serialize(),
             success: function(response){
@@ -670,7 +670,7 @@ $(document).ready(function(){
     function sendFile() {
         var formData = new FormData($("#messageForm")[0]);
         $.ajax({
-            url: 'send_message.php',
+            url: 'nhantin/send_message.php',
             type: 'POST',
             data: formData,
             processData: false,// Không xử lý dữ liệu trước khi gửi
@@ -691,7 +691,7 @@ $(document).ready(function(){
     $("#messageForm").on("submit", function(event){
         event.preventDefault();
         $.ajax({
-            url: 'send_message.php', 
+            url: 'nhantin/send_message.php', 
             type: 'POST', 
             data: {
                 message_by :  $('input[name="message_by"]').val(),

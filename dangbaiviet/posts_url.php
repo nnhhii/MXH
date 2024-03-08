@@ -7,8 +7,11 @@ $sql_p = "SELECT * FROM posts
 $result_p = mysqli_query($conn, $sql_p);
 $row = mysqli_fetch_array($result_p);
 
+$sql_like_count = "SELECT count(like_by) AS like_count FROM post_function WHERE post_id = " . $row["post_id"] . " " ;
+      $result_like_count = mysqli_query($conn, $sql_like_count);
+      $row_like_count = mysqli_fetch_assoc($result_like_count);
 // Kiểm tra xem người dùng đã thích bài viết hay chưa
-$sql_check = "SELECT * FROM likes WHERE post_id = " . $post_id . " AND like_by = $user_id";
+$sql_check = "SELECT * FROM post_function WHERE post_id = " . $post_id . " AND like_by = $user_id";
 $result = mysqli_query($conn, $sql_check);
 $liked_class = "";
 if (mysqli_num_rows($result) > 0) {
@@ -67,7 +70,7 @@ if (mysqli_num_rows($result) > 0) {
                           <?php 
                           $ketnoi=new mysqli("localhost","root","","mxh");
                           $post_id=$row["post_id"];
-                          $sql_cmt="select * from comment inner join user on comment.comment_by=user.user_id where post_id='$post_id'";
+                          $sql_cmt="select * from post_function inner join user on comment_by=user_id where post_id='$post_id'";
                           $result_cmt=$ketnoi->query($sql_cmt);
                           if ($result_cmt->num_rows > 0) {
                             while($row_cmt=$result_cmt->fetch_assoc()){?>
@@ -99,7 +102,7 @@ if (mysqli_num_rows($result) > 0) {
                                   <div class="heart-animation-2"></div>
                                 </span>
                               </a>
-                              <span class="like_count" style="padding-left:7px"><?php echo $row['like_count'];?></span>
+                              <span class="like_count" style="padding-left:7px"><?php echo $row_like_count['like_count'];?></span>
                             </form>
                             <div class="cmt"style="float:left"> 
                               <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#message_modal">
