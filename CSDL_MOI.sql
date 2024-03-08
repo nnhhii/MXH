@@ -26,21 +26,25 @@ INSERT INTO user(username, password, email, gender, date_of_birth, avartar, cove
 CREATE TABLE posts (
   post_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   post_by int,
-  
+  FOREIGN KEY (post_by) REFERENCES user(user_id),
   content text,
   image varchar(500),
+  post_time varchar(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE post_function (
+  post_id int,
+  FOREIGN KEY (post_id) REFERENCES posts(post_id),
   like_by int,
   FOREIGN KEY (like_by) REFERENCES user(user_id),
   share_by int,
   FOREIGN KEY (share_by) REFERENCES user(user_id),
-  share_to int,
-  FOREIGN KEY (share_to) REFERENCES user(user_id),
   comment_by int,
   FOREIGN KEY (comment_by) REFERENCES user(user_id),
   cmt_content varchar(4294967295),
+  comment_time varchar(100),
   save_by int,
-  FOREIGN KEY (save_by) REFERENCES user(user_id),
-  post_time varchar(100)
+  FOREIGN KEY (save_by) REFERENCES user(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 CREATE TABLE message(

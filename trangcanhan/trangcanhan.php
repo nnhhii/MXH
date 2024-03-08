@@ -296,7 +296,7 @@
         document.getElementById('saveButton').click();
       }
     </script>
-    <a onclick="return confirm('Bạn có chắc chắn muốn xóa ảnh bìa?')" href="xoabia.php">
+    <a onclick="return confirm('Bạn có chắc chắn muốn xóa ảnh bìa?')" href="trangcanhan/xoabia.php">
       <button class="ccbia1 congcu1">Xóa</button>
     </a>
   </div>

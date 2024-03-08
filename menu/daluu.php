@@ -72,9 +72,9 @@
 $link = new mysqli('localhost', 'root', '', 'mxh');
 $sql = "SELECT user.username, user.avartar, posts.post_id, posts.content, posts.image 
 FROM posts 
-JOIN saved_posts ON posts.post_id = saved_posts.post_id 
+JOIN post_function ON posts.post_id = post_function.post_id 
 JOIN user ON posts.post_by = user.user_id 
-WHERE saved_posts.user_id = $user_id";
+WHERE save_by = $user_id";
 
 $result = $link->query($sql);
 

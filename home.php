@@ -1,16 +1,15 @@
 <?php
-
 $sql_story = "SELECT * FROM story 
 left JOIN user ON story.user_id = user.user_id
 LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = story.user_id) OR (friendrequest.sender_id = story.user_id AND friendrequest.receiver_id = $user_id)
-WHERE friendrequest.sender_id IS NOT NULL OR friendrequest.receiver_id IS NOT NULL OR story.user_id=$user_id ORDER BY story_id DESC";
+WHERE status='bạn bè' OR story.user_id=$user_id ORDER BY story_id DESC";
 $result_story = $ketnoi->query($sql_story);
 ?>
 <link rel="stylesheet" href="css/menu.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-<body>
+
 <style>
 #openModalBtn {
   padding-top:50%;
@@ -139,7 +138,7 @@ $result_story = $ketnoi->query($sql_story);
           <div class="stories-container">
             <div class="story">
             
-            <button id="openModalBtn"><i class="fa-solid fa-circle-plus" style="object-fit: cover"></i></button>
+              <button id="openModalBtn"><i class="fa-solid fa-circle-plus" style="object-fit: cover"></i></button>
               <div id="myModal" class="modal_post_story">
                 <div class="modal-contentt">
                   <span id="closeModalBtn" class="close">&times;</span>
@@ -160,7 +159,7 @@ $result_story = $ketnoi->query($sql_story);
                   </div>
                 </div>
               </div>                    
-          </div>
+            </div>
 
             <?php 
             while ($row_story = $result_story->fetch_assoc()) { 
@@ -279,11 +278,10 @@ $result_story = $ketnoi->query($sql_story);
           </div>
         </form>
         <?php require 'dangbaiviet/posts_xuly.php'; ?>
-
       </div>
     </div>
   </div>
-</body>
+
 
 <script>
 $(document).ready(function() {
