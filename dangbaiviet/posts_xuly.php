@@ -186,46 +186,52 @@
   </style>
 
   
-<?php
-require 'posts_connect.php';
-if (isset($_POST['btn_submit'])) {
-  $post_by = $_POST['post_by'];
-  $content = $_POST['content'];
-  $p_time = date("Y-m-d H:i:s");
-  // Upload ảnh 
-  $all_files = $_FILES['images'];
-  $image_name = $_FILES['images']['name'];
-  $image_tmp = $_FILES['images']['tmp_name'];
-  $location = "img/";
-  $image = implode(",", $image_name);
+  <?php
+    require 'posts_connect.php';
+    if (isset($_POST['btn_submit'])) {
+      $post_by = $_POST['post_by'];
+      $content = $_POST['content'];
+      $statuss = $_POST['statuss'];
+      $p_time = date("Y-m-d H:i:s");
+      // Upload ảnh 
+      $all_files = $_FILES['images'];
+      $image_name = $_FILES['images']['name'];
+      $image_tmp = $_FILES['images']['tmp_name'];
+      $location = "img/";
+      $image = implode(",", $image_name);
 
-  if (!empty($image_name)) {
-    foreach ($image_name as $key => $val) {
-      $targetPath = $location . $val;
-      move_uploaded_file($_FILES['images']['tmp_name'][$key], "$targetPath");
+      if (!empty($image_name)) {
+        foreach ($image_name as $key => $val) {
+          $targetPath = $location . $val;
+          move_uploaded_file($_FILES['images']['tmp_name'][$key], "$targetPath");
+        }
+      }
+
+      $sql = "INSERT INTO posts(post_by,content,image,statuss,post_time ) VALUES ($post_by,  '$content', '$image','$statuss', '$p_time' )";
+
+      if (mysqli_query($conn, $sql)) {
+        echo '<script language="javascript">alert("Đăng bài viết thành công!");
+                   window.location.href = "index.php";
+                  exit();
+               </script>';
+      }
     }
-  }
-
-  $sql = "INSERT INTO posts(post_by,content,image,post_time ) VALUES ($post_by,  '$content', '$image', '$p_time' )";
-
-  if (mysqli_query($conn, $sql)) {
-    echo '<script language="javascript">alert("Đăng bài viết thành công!");
-                window.location.href = "index.php";
-              exit();
-            </script>';
-  }
-}
 
 $sql_p = "SELECT * FROM posts 
-  inner JOIN user ON posts.post_by = user.user_id
-  LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_id)
-  WHERE status='bạn bè' OR posts.post_by=$user_id ORDER BY post_id DESC";
-$result_p = mysqli_query($conn, $sql_p);
-while ($row = mysqli_fetch_array($result_p)) {
-  $sql_like_count = "SELECT count(like_by) AS like_count FROM post_function WHERE post_id = " . $row["post_id"] . " " ;
-  $result_like_count = mysqli_query($conn, $sql_like_count);
-  $row_like_count = mysqli_fetch_assoc($result_like_count);
-?>
+        INNER JOIN user ON posts.post_by = user.user_id
+        WHERE (statuss = 'public') 
+            OR (statuss = 'friend' AND (posts.post_by = $user_id OR EXISTS (SELECT 1 FROM friendrequest WHERE (sender_id = posts.post_by AND receiver_id = $user_id) OR (sender_id = $user_id AND receiver_id = posts.post_by))))
+            OR (statuss = 'only_me' AND posts.post_by = $user_id)
+        ORDER BY post_id DESC";
+
+    $result_p = mysqli_query($conn, $sql_p);
+    while ($row = mysqli_fetch_array($result_p)) {
+      $sql_like_count = "SELECT count(like_by) AS like_count FROM post_function WHERE post_id = " . $row["post_id"] . " " ;
+      $result_like_count = mysqli_query($conn, $sql_like_count);
+      $row_like_count = mysqli_fetch_assoc($result_like_count);
+      
+      
+      ?>
       <div class="bai">
         <div class="user-info">
         <div class="avtbai" style="background-image:url('img/<?php echo $row["avartar"]; ?>');cursor:pointer" onclick="window.location.href='<?php echo $row['user_id'] == $user_id ? "index.php?pid=1&&user_id=".$row['user_id'] : "index.php?pid=2&&m_id=".$row['user_id']; ?>'"></div>
@@ -252,7 +258,7 @@ while ($row = mysqli_fetch_array($result_p)) {
         </div>
         <!-- ----------------------- -->
         <div class="slide-show" style="width:470px; margin:10px 0;max-height:600px;border-radius:10px">
-          <div class="list-images">
+          <div class="list-images" style="width:max-content">
 
             <?php
             // Tách thành một mảng
@@ -260,9 +266,9 @@ while ($row = mysqli_fetch_array($result_p)) {
             $num_images = count($images);
             ?>
 
-            <!-- Sử dụng vòng lặp để tạo thẻ <img> cho mỗi ảnh -->
+            <!-- Sử dụng vòng lặp để tạo thẻ <div> cho mỗi ảnh -->
             <?php foreach ($images as $img): ?>
-              <img src="img/<?php echo $img; ?>" width="100%"height="600px"  border-radius="10px">
+              <div style="background-image:url('img/<?php echo $img?>');background-position: center;background-size:cover;width: 470px;height:600px;border-radius:10px"></div>
             <?php endforeach; ?>
 
           </div>
@@ -338,12 +344,9 @@ while ($row = mysqli_fetch_array($result_p)) {
         <div class="luu" data-postid="<?php echo $row["post_id"]; ?>" data-byid="<?php echo $user_id?>" style="float:right">
           <i class="fa-regular fa-bookmark"></i></div><br>
       </div>
-    <?php
-    }
-    ?>
-
-
-
+<?php
+}
+?>
 
   <script>
   $(document).ready(function () {
@@ -559,7 +562,7 @@ while ($row = mysqli_fetch_array($result_p)) {
 
     function SliderController(slider, index) {
       const listElement = slider.querySelector('.list-images');
-      const imgs = slider.querySelectorAll('.list-images img');
+      const imgs = slider.querySelectorAll('.list-images div');
       const btnLeft = slider.querySelector('.btn-left');
       const btnRight = slider.querySelector('.btn-right');
       const length = (imgs.length);

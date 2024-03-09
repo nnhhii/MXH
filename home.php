@@ -261,6 +261,11 @@ $result_story = $ketnoi->query($sql_story);
                       <label style="float:left; margin:1% 2%">
                         <?php echo $row_id["username"] ?>
                       </label>
+                      <select name="statuss">
+                        <option value="public">Công khai</option>
+                        <option value="friend">Bạn bè</option>
+                        <option value="only_me">Chỉ mình tôi</option>
+                      </select>
                     </div>
                     <textarea style="width:100%;border:none; height:5em;padding:0 20px;resize: none;" name="content"
                       placeholder="Nội dung..."></textarea>
@@ -276,9 +281,6 @@ $result_story = $ketnoi->query($sql_story);
       </div>
     </div>
   </div>
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -304,15 +306,9 @@ function muteAudio(modal) {
 function handleFile(input) {
     checkFileSize(input);
     previewImages(input);
-
-    
-
     
     var content1 = document.getElementById("content1");
-    var content2 = document.getElementById("content2");
-    // Ẩn vs hiện
     content1.style.display = "none";
-    content2.style.display = "block";   
 }
   function previewImages(input) {
     var files = input.files;
@@ -336,8 +332,6 @@ function handleFile(input) {
         largeImage.style.backgroundPosition = "center";
         imagePreview.appendChild(largeImage);
 
-
-        
         var smallImage = document.createElement("div");
         smallImage.style.width = "10vh";
         smallImage.style.height = "10vh";

@@ -61,7 +61,7 @@
 
                     <!-- Sau đó, sử dụng vòng lặp để tạo thẻ <img> cho mỗi ảnh -->
                     <?php foreach ($images as $img): ?>
-                      <img src="img/<?php echo $img; ?>" width="100%" alt="">
+                      <img src="img/<?php echo $img; ?>" width="100%">
                     <?php endforeach; ?>
 
                   </div>

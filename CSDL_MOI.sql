@@ -29,6 +29,7 @@ CREATE TABLE posts (
   FOREIGN KEY (post_by) REFERENCES user(user_id),
   content text,
   image varchar(500),
+  statuss varchar(100),
   post_time varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
