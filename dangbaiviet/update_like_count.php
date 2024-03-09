@@ -15,6 +15,9 @@ require 'posts_connect.php';
         $deleteQuery = "DELETE FROM post_function WHERE post_id = $post_id AND like_by = $like_by";
         mysqli_query($conn, $deleteQuery);
 
+        $deleteThongBao = "DELETE FROM notification WHERE noti_by=$like_by AND post_id=$post_id";
+        mysqli_query($conn, $deleteThongBao);
+
         $is_liked = false;
     } else {
         // Người dùng chưa thích bài viết => thích nó
