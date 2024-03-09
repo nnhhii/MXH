@@ -1,54 +1,52 @@
-<?php
-require 'posts_connect.php';
-while ($row = mysqli_fetch_assoc($result_buttonOpenModal)) {
-  $sql_like_count = "SELECT count(like_by) AS like_count FROM post_function WHERE post_id = " . $row["post_id"] . " " ;
-  $result_like_count = mysqli_query($conn, $sql_like_count);
-  $row_like_count = mysqli_fetch_assoc($result_like_count);
+<div class="post_TCN" style="margin:5% auto; width: 70%;">
+  <?php
+  require 'posts_connect.php';
+  while ($row = mysqli_fetch_assoc($result_buttonOpenModal)) {
+    $sql_like_count = "SELECT count(like_by) AS like_count FROM post_function WHERE post_id = " . $row["post_id"] . " " ;
+    $result_like_count = mysqli_query($conn, $sql_like_count);
+    $row_like_count = mysqli_fetch_assoc($result_like_count);
 
-  $sql_cmt_count = "SELECT count(comment_by) AS comment_count FROM post_function WHERE post_id = " . $row["post_id"] . " " ;
-  $result_cmt_count = mysqli_query($conn, $sql_cmt_count);
-  $row_cmt_count = mysqli_fetch_assoc($result_cmt_count);
-?>
+    $sql_cmt_count = "SELECT count(comment_by) AS comment_count FROM post_function WHERE post_id = " . $row["post_id"] . " " ;
+    $result_cmt_count = mysqli_query($conn, $sql_cmt_count);
+    $row_cmt_count = mysqli_fetch_assoc($result_cmt_count);
+  ?>
 
-    <div class="container" style="width:100%;margin-top:5%;padding-left:19vh">
-      <!-- Button to Open the Modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal"
-        data-target="#myModal_<?php echo $row['post_id']; ?>"
-        style="padding: 0px; border: 0px; width: 45vh;height: 45vh;float:left; margin-right:2vh">
-
-        <?php
-        // Tách thành một mảng
-        $images = explode(",", $row['image']);
-        $num_images = count($images);
-        // Lấy giá trị đầu tiên trong mảng
-        $first_image = reset($images);
-        ?>
-        <div class="gallery-item">
-          <div style="background-image:url('img/<?php echo $first_image; ?>');background-size:cover; background-position:center;width: 45vh;height: 45vh;"></div>
-          <?php if ($num_images > 1) { ?>
-            <div class="gallery-item-type">
-              <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
-            </div>
-          <?php } ?>
-
-          <div class="gallery-item-info">
-            <ul>
-              <li class="gallery-item-likes">
-                <i class="fas fa-heart"aria-hidden="true"></i>
-                <?php echo $row_like_count['like_count'] ?>
-              </li>
-              <li class="gallery-item-comments">
-                <i class="fas fa-comment" aria-hidden="true"></i>
-                <?php echo $row_cmt_count['comment_count'] ?>
-              </li>
-            </ul>
-          </div>
+  <!-- Button to Open the Modal -->
+  <button type="button" class="btn p-0" data-toggle="modal" data-target="#myModal_<?php echo $row['post_id'] ?>" style="float:left; margin:1vh">
+    <?php
+    // Tách thành một mảng
+    $images = explode(",", $row['image']);
+    $num_images = count($images);
+    // Lấy giá trị đầu tiên trong mảng
+    $first_image = reset($images);
+    ?>
+    
+    <div class="gallery-item">
+      <div style="background-image:url('img/<?php echo $first_image; ?>');background-size:cover ;background-position:center;width: 45vh;height: 45vh;"></div>
+      <?php if ($num_images > 1) { ?>
+        <div class="gallery-item-type">
+          <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
         </div>
-      </button>
-      <!-- The Modal -->
-      <?php include 'dangbaiviet/posts_modal.php'?>
+      <?php } ?>
+
+      <div class="gallery-item-info">
+        <ul>
+          <li class="gallery-item-likes">
+            <i class="fas fa-heart"aria-hidden="true"></i>
+            <?php echo $row_like_count['like_count'] ?>
+          </li>
+          <li class="gallery-item-comments">
+            <i class="fas fa-comment" aria-hidden="true"></i>
+            <?php echo $row_cmt_count['comment_count'] ?>
+          </li>
+        </ul>
+      </div>
     </div>
-        
+  </button>
+  <!-- The Modal -->
+  <?php include 'dangbaiviet/posts_modal.php'?>
+
+</div>
 <?php } ?>
 
 
@@ -258,7 +256,73 @@ while ($row = mysqli_fetch_assoc($result_buttonOpenModal)) {
 
 
 });
-  </script>
+</script>
+
+<!-- LUOT ANH -->
+<script>
+  function initSliders() {
+    const sliders = document.querySelectorAll('.slide-show');
+    sliders.forEach((slider, index) => {
+      const sliderController = new SliderController(slider, index);
+    });
+  }
+
+  function SliderController(slider, index) {
+    const listElement = slider.querySelector('.list-images');
+    const imgs = slider.querySelectorAll('.list-images img');
+    const btnLeft = slider.querySelector('.btn-left');
+    const btnRight = slider.querySelector('.btn-right');
+    const length = (imgs.length);
+    let current = 0;
+
+    const updateButtonVisibility = () => {
+      if (current === 0) {
+        btnLeft.style.display = 'none';
+      } else {
+        btnLeft.style.display = 'block';
+      }
+
+      if (current === length - 1) {
+        btnRight.style.display = 'none';
+      } else {
+        btnRight.style.display = 'block';
+      }
+    };
+
+    const updateActiveIndex = () => {
+      slider.querySelector('.index-item.active').classList.remove('active');
+      slider.querySelector('.index-item-' + current).classList.add('active');
+    };
+
+    const handleChangeSlide = (direction) => {
+      if (direction === 'right') {
+        current = (current + 1) % length;
+      } else if (direction === 'left') {
+        current = (current - 1 + length) % length;
+      }
+
+      let width = imgs[0].offsetWidth;
+      listElement.style.transform = `translateX(${-width * current}px)`;
+
+      updateButtonVisibility();
+      updateActiveIndex();
+    };
+
+    btnRight.addEventListener('click', () => {
+      handleChangeSlide('right');
+    });
+
+    btnLeft.addEventListener('click', () => {
+      handleChangeSlide('left');
+    });
+
+    // Khởi tạo hiển thị ban đầu
+    updateButtonVisibility();
+  }
+
+  // Gọi hàm khởi tạo sliders khi trang được load
+  document.addEventListener('DOMContentLoaded', initSliders);
 
 
+</script>
 

@@ -243,6 +243,7 @@ $result_story = $ketnoi->query($sql_story);
                 <div class="modal-body" style="padding:0">
                   <!-- ảnh lớn  -->
                   <div id="imagePreview" style="float:left;width:60%;height:71.5vh;overflow:hidden">
+                  
                     <div id="content1" style="margin:30% 0;width:100%;text-align:center;padding:20px">
                       <input type="hidden" name="post_by" value=<?php echo $user_id ?>>
                       <img src="https://cdn-icons-png.flaticon.com/512/13768/13768311.png" width="90px"><br> Chọn ảnh
@@ -252,10 +253,10 @@ $result_story = $ketnoi->query($sql_story);
                         onchange="handleFile(this)">
                     </div>
                   </div>
+                  
                   <div style="width:40%;height:100%;float:right; border-left:1px solid #EEEEEE">
                     <div style="padding:10px;height:60px">
-                      <div
-                        style="background-image:url('img/<?php echo $row_id["avartar"] ?>'); background-size:cover;width:35px; height:35px; border-radius: 50%;float:left">
+                      <div style="background-image:url('img/<?php echo $row_id["avartar"] ?>'); background-size:cover;width:35px; height:35px; border-radius: 50%;float:left">
                       </div>
                       <label style="float:left; margin:1% 2%">
                         <?php echo $row_id["username"] ?>
@@ -263,12 +264,6 @@ $result_story = $ketnoi->query($sql_story);
                     </div>
                     <textarea style="width:100%;border:none; height:5em;padding:0 20px;resize: none;" name="content"
                       placeholder="Nội dung..."></textarea>
-                    <div id="content2" style="width:100%;padding:20px;display:none">
-                      <img src="https://cdn-icons-png.flaticon.com/512/1042/1042339.png" width="30px">Thêm ảnh hoặc
-                      video<br>
-                      <input type="file" name="images[]" class="hinhanh" style="margin: 10px" multiple accept="image/*"
-                        onchange="handleFile(this)">
-                    </div>
                     <!-- ảnh nhỏ -->
                     <div id="imagePreview2" style="width:100%"></div>
                   </div>
@@ -282,6 +277,8 @@ $result_story = $ketnoi->query($sql_story);
     </div>
   </div>
 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -304,16 +301,19 @@ function muteAudio(modal) {
 }
 
 
-  function handleFile(input) {
+function handleFile(input) {
     checkFileSize(input);
     previewImages(input);
+
+    
+
+    
     var content1 = document.getElementById("content1");
     var content2 = document.getElementById("content2");
     // Ẩn vs hiện
     content1.style.display = "none";
-    content2.style.display = "block";
-  }
-
+    content2.style.display = "block";   
+}
   function previewImages(input) {
     var files = input.files;
     var imagePreview = document.getElementById("imagePreview");
@@ -333,8 +333,11 @@ function muteAudio(modal) {
         largeImage.style.margin = "0 auto";
         largeImage.style.backgroundImage = "url('" + imageUrl + "')";
         largeImage.style.backgroundSize = "cover";
+        largeImage.style.backgroundPosition = "center";
         imagePreview.appendChild(largeImage);
 
+
+        
         var smallImage = document.createElement("div");
         smallImage.style.width = "10vh";
         smallImage.style.height = "10vh";
@@ -377,7 +380,6 @@ function muteAudio(modal) {
       })(imageUrl);
     }
   }
-
 
   function checkFileSize(input) {
     var files = input.files;

@@ -186,48 +186,46 @@
   </style>
 
   
-    <?php
-    require 'posts_connect.php';
-    if (isset($_POST['btn_submit'])) {
-      $post_by = $_POST['post_by'];
-      $content = $_POST['content'];
-      $p_time = date("Y-m-d H:i:s");
-      // Upload ảnh 
-      $all_files = $_FILES['images'];
-      $image_name = $_FILES['images']['name'];
-      $image_tmp = $_FILES['images']['tmp_name'];
-      $location = "img/";
-      $image = implode(", ", $image_name);
+<?php
+require 'posts_connect.php';
+if (isset($_POST['btn_submit'])) {
+  $post_by = $_POST['post_by'];
+  $content = $_POST['content'];
+  $p_time = date("Y-m-d H:i:s");
+  // Upload ảnh 
+  $all_files = $_FILES['images'];
+  $image_name = $_FILES['images']['name'];
+  $image_tmp = $_FILES['images']['tmp_name'];
+  $location = "img/";
+  $image = implode(",", $image_name);
 
-      if (!empty($image_name)) {
-        foreach ($image_name as $key => $val) {
-          $targetPath = $location . $val;
-          move_uploaded_file($_FILES['images']['tmp_name'][$key], "$targetPath");
-        }
-      }
-
-      $sql = "INSERT INTO posts(post_by,content,image,post_time ) VALUES ($post_by,  '$content', '$image', '$p_time' )";
-
-      if (mysqli_query($conn, $sql)) {
-        echo '<script language="javascript">alert("Đăng bài viết thành công!");
-                   window.location.href = "index.php";
-                  exit();
-               </script>';
-      }
+  if (!empty($image_name)) {
+    foreach ($image_name as $key => $val) {
+      $targetPath = $location . $val;
+      move_uploaded_file($_FILES['images']['tmp_name'][$key], "$targetPath");
     }
+  }
 
-    $sql_p = "SELECT * FROM posts 
+  $sql = "INSERT INTO posts(post_by,content,image,post_time ) VALUES ($post_by,  '$content', '$image', '$p_time' )";
+
+  if (mysqli_query($conn, $sql)) {
+    echo '<script language="javascript">alert("Đăng bài viết thành công!");
+                window.location.href = "index.php";
+              exit();
+            </script>';
+  }
+}
+
+$sql_p = "SELECT * FROM posts 
   inner JOIN user ON posts.post_by = user.user_id
   LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_id)
   WHERE status='bạn bè' OR posts.post_by=$user_id ORDER BY post_id DESC";
-    $result_p = mysqli_query($conn, $sql_p);
-    while ($row = mysqli_fetch_array($result_p)) {
-      $sql_like_count = "SELECT count(like_by) AS like_count FROM post_function WHERE post_id = " . $row["post_id"] . " " ;
-      $result_like_count = mysqli_query($conn, $sql_like_count);
-      $row_like_count = mysqli_fetch_assoc($result_like_count);
-      
-      
-      ?>
+$result_p = mysqli_query($conn, $sql_p);
+while ($row = mysqli_fetch_array($result_p)) {
+  $sql_like_count = "SELECT count(like_by) AS like_count FROM post_function WHERE post_id = " . $row["post_id"] . " " ;
+  $result_like_count = mysqli_query($conn, $sql_like_count);
+  $row_like_count = mysqli_fetch_assoc($result_like_count);
+?>
       <div class="bai">
         <div class="user-info">
         <div class="avtbai" style="background-image:url('img/<?php echo $row["avartar"]; ?>');cursor:pointer" onclick="window.location.href='<?php echo $row['user_id'] == $user_id ? "index.php?pid=1&&user_id=".$row['user_id'] : "index.php?pid=2&&m_id=".$row['user_id']; ?>'"></div>
