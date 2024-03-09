@@ -1,5 +1,51 @@
-<!-- The Modal -->
-<div class="modal fade" id="myModal_<?php echo $row['post_id'] ?>">
+<style>
+.like-button-modal {
+    display: flex;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: grayscale(100%);
+    padding:4px 0 3px 0;
+}
+.like-button-modal.liked{
+    filter: grayscale(0);
+}
+.mess1 {
+  width: 100%;
+  height: 80px;
+  float: left;
+  color: black;
+  transition: 0.2s;
+}
+.mess1:hover {
+  background-color: rgb(247, 247, 247);
+}
+.ava {
+  background-size: cover;
+  border-radius: 50%;
+  padding: 30px;
+  margin: 10px 0 0 10px;
+  float: left;
+  cursor: pointer;
+}
+
+.username {
+  float: left;
+  font-size: 14px;
+  margin: 18px 0 0 10px;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.mini_content {
+  float: left;
+  font-size: 12px;
+  margin: -5px 0 0 10px;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+  color: gray;
+}
+</style>
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal_<?php echo $row['post_id'] ?>">
           <div class="modal-dialog modal-xl">
             <div class="modal-content" style="width: 145vh;margin:-1vh auto;height: 94vh">
               <div class="modal-body" style="padding:0">
@@ -52,7 +98,7 @@
                     <?php
                     $ketnoi = new mysqli("localhost", "root", "", "mxh");
                     $post_id = $row["post_id"];
-                    $sql_cmt = "select * from comment inner join user on comment.comment_by=user.user_id where post_id='$post_id'";
+                    $sql_cmt = "select * from post_function inner join user on post_function.comment_by=user.user_id where post_id='$post_id'";
                     $result_cmt = $ketnoi->query($sql_cmt);
                     if ($result_cmt->num_rows > 0) {
                       while ($row_cmt = $result_cmt->fetch_assoc()) { ?>
@@ -73,7 +119,7 @@
                       }
                     } else { ?>
                       <div class="chuacobinhluan" style="margin: 35% auto">
-                        <div style="font-size: 20px;font-weight: bold;">Chưa có bình luận nào.</div>
+                        <div style="font-size: 20px;font-weight: bold;text-align:center">Chưa có bình luận nào.</div>
                         <div style="font-size: 14px;text-align:center">Hãy bắt đầu bình luận!</div>
                       </div>
                       <?php
@@ -81,18 +127,17 @@
                   </div>
 
                   <!--footer  -->
-                  <div class="footer"
-                    style="width:100%; height:6vh;padding:10px; float:left; border-top: lightgray solid 1px;">
-                    <form id="likeForm" method="post" action="" style="float:left; cursor:pointer; margin-left:5px;">
-                      <input type="hidden" name="like_by" value="<?php echo $user_id ?>">
-                      <a class="like-button<?php echo $liked_class; ?>" data-postid="<?php echo $row["post_id"]?>" data-postby="<?php echo $row["post_by"]; ?>">
+                  <div class="footer"style="width:100%; height:6vh;padding:10px; float:left; border-top: lightgray solid 1px;">
+                  <!-- Like icon -->
+                    <form method="post" action="" style="float:left; cursor:pointer; margin-left:5px;">
+                      <a class="like-button-modal" data-postid="<?php echo $row["post_id"]?>" data-byid="<?php echo $user_id?>" data-postby="<?php echo $row["post_by"]; ?>">
                         <span class="like-icon">
                           <div class="heart-animation-1"></div>
                           <div class="heart-animation-2"></div>
                         </span>
                       </a>
                       <span class="like_count" style="padding-left:7px">
-                        <?php echo $row['like_count']; ?>
+                        <?php echo $row_like_count['like_count']; ?>
                       </span>
                     </form>
                     <div class="cmt" style="float:left">
@@ -100,23 +145,51 @@
                         <img src="img/bubble-chat.png" style="width: 25px; height: 25px;margin:5px">
                       </button>
                     </div>
-                    <div class="share" style="float:left">
-                      <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#send_message_modal">
-                        <i class="fa-regular fa-paper-plane"></i>
-                      </button>
+                    
+                    
+                    <!-- Share icon -->
+                    <a data-toggle="modal" href='#modal-id-share-modal_<?php echo $row["post_id"] ?>' style="color:black" class="theAOpenModal_Modal"><i class="fa-regular fa-paper-plane"></i></a>
+                    <div class="modal fade" id="modal-id-share-modal_<?php echo $row["post_id"] ?>">
+                    <div class="modal-dialog">
+                      <form action="" enctype="multipart/form-data" method="post">
+                        <div class="modal-content" style="width:480px;height:420px; border-radius:15px;margin-top:20vh">
+                          <div class="modal-header" style="border-bottom: 1px solid #DBDBDB;height:50px">
+                            <h5 class="modal-title" style="position:absolute;left:42%;text-align:center;">Chia sẻ</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="border:none;padding:30px;background:none;position:absolute;right:0">&times;</button>
+                          </div>
+                          <div class="modal-body" style="padding:0;overflow:auto">
+                            <!-- Search -->
+                            <form action="" enctype="multipart/form-data" method="post">
+                              <i style="top:12px;position: absolute;left:13px" class="fa-solid fa-magnifying-glass"></i>
+                              <input class="timkiem1" name="timkiem1" data-userid="<?php echo $user_id ?>"
+                                data-postid="<?php echo $row["post_id"] ?>"
+                                style="width:100%;height: 40px;outline: none;padding-left: 45px;border: none;border-bottom: 1px solid #DBDBDB;">
+                            </form>
+                            <div class="hienthibanbe"></div>
+                            
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary share_button"
+                              data-postid="<?php echo $row["post_id"] ?>" data-postby="<?php echo $row["post_by"]?>">Gửi</button>
+                          </div>
+                        </div>
+                      </form>
                     </div>
-                    <div class="save not_saved" data-postid="<?php echo $row["post_id"]; ?>" data-saveby="<?php echo $user_id;?>"" style="float:right">
+                  </div>
+
+
+                    <div class="save not_saved" data-postid="<?php echo $row["post_id"]; ?>" data-byid="<?php echo $user_id;?>" style="float:right">
                       <i class="fa-regular fa-bookmark" style="scale:1.5;margin: 10px"></i>
                     </div>
                     <!-- add comment -->
                     <div style="float:left; width:100%;height:50px;position: relative; padding:7px;">
-                      <form class="commentForm" method="post" enctype="multipart/form-data">
+                      <form method="post" enctype="multipart/form-data">
                         <img src="img/smile.PNG"
                           style="width: 25px; height: 25px; left:0px;top:13px;position:absolute; z-index: 1;">
-                        <textarea name="cmt_content_<?php echo $row["post_id"]; ?>" placeholder="Thêm bình luận"
+                        <textarea name="cmt_content_<?php echo $row["post_id"]?>" placeholder="Thêm bình luận"
                           style="border: none; width:90%; height:7vh; padding:5px 0 0 40px; position:absolute; left:0"></textarea>
                         <button type="button" class="comment-btn submit_cmt" data-postid="<?php echo $row["post_id"]; ?>" data-postby="<?php echo $row["post_by"]; ?>"
-                          data-cmtby="<?php echo $user_id; ?>"
+                          data-byid="<?php echo $user_id; ?>"
                           style="border: none; background: none; color: rgb(0, 162, 255); position:absolute; right:0; top:10px;">Post</button>
                       </form>
                     </div>
@@ -126,3 +199,6 @@
             </div>
           </div>
         </div>
+
+
+       

@@ -1,11 +1,13 @@
 
-.like-button {
+.like-button, .like-button-modal {
     display: flex;
     transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     filter: grayscale(100%);
     padding:4px 0 3px 0;
 }
-
+.like-button.liked, .like-button-modal.liked{
+    filter: grayscale(0);
+}
 .like-icon {
     height: 30px;
     width: 30px;
@@ -18,10 +20,7 @@
     -webkit-animation: heartUnlike 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
     animation: heartUnlike 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
-.like-button.liked{
-    color: red;
-    filter: grayscale(0);
-}
+
 
 .liked .like-icon {
     -webkit-animation: heartPulse 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;

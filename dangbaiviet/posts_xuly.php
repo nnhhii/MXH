@@ -225,6 +225,7 @@ $sql_p = "SELECT * FROM posts
         ORDER BY post_id DESC";
 
     $result_p = mysqli_query($conn, $sql_p);
+<<<<<<< HEAD
   while ($row = mysqli_fetch_assoc($result_p)) {
     $sql_like_count = "SELECT count(like_by) AS like_count FROM post_function WHERE post_id = " . $row["post_id"] . " " ;
     $result_like_count = mysqli_query($conn, $sql_like_count);
@@ -236,6 +237,128 @@ $sql_p = "SELECT * FROM posts
     if (mysqli_num_rows($result) > 0) {
       // Người dùng đã thích bài viết => thêm class 'liked' vào nút like
       $liked_class = " liked";
+=======
+    while ($row = mysqli_fetch_array($result_p)) {
+      $sql_like_count = "SELECT count(like_by) AS like_count FROM post_function WHERE post_id = " . $row["post_id"] . " " ;
+      $result_like_count = mysqli_query($conn, $sql_like_count);
+      $row_like_count = mysqli_fetch_assoc($result_like_count);
+      
+      
+      ?>
+      <div class="bai">
+        <div class="user-info">
+        <div class="avtbai" style="background-image:url('img/<?php echo $row["avartar"]; ?>');cursor:pointer" onclick="window.location.href='<?php echo $row['user_id'] == $user_id ? "index.php?pid=1&&user_id=".$row['user_id'] : "index.php?pid=2&&m_id=".$row['user_id']; ?>'"></div>
+          <div style="font-size:15px; margin:7px">
+            <?php echo $row["username"] ?>
+          </div>
+          <div class="chinhsuaa">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false" style="width:30px;height:30px;background-color:transparent;border:none;">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <button class="dropdown-item edit"><a
+                  href="dangbaiviet/posts_edit.php?id='.$row['post_id'].'">Edit</a></button>
+              <button class="dropdown-item delete"><a href="dangbaiviet/posts_delete.php?id='.$row['post_id'].'"><i
+                    class="fa-solid fa-trash" style="color: red;"></i> </a></button>
+              <button class="dropdown-item edit"><a href="index.php?pid=10&&post_id=<?php echo $row['post_id'] ?>">Go to
+                  post</a></button>
+            </ul>
+          </div>
+        </div>
+        <div class="content">
+          <?php echo $row['content'] ?>
+        </div>
+        <!-- ----------------------- -->
+        <div class="slide-show" style="width:470px; margin:10px 0;max-height:600px;border-radius:10px">
+          <div class="list-images">
+
+            <?php
+            // Tách thành một mảng
+            $images = explode(",", $row['image']);
+            $num_images = count($images);
+            ?>
+
+            <!-- Sử dụng vòng lặp để tạo thẻ <img> cho mỗi ảnh -->
+            <?php foreach ($images as $img): ?>
+              <img src="img/<?php echo $img; ?>" width="100%"height="600px"  border-radius="10px">
+            <?php endforeach; ?>
+
+          </div>
+
+          <?php if ($num_images > 1): ?>
+            <div class="btns">
+              <div class="btn-left btnsl"><i class='bx'></i></div>
+              <div class="btn-right btnsl"><i class='bx'></i></div>
+            </div>
+            <div class="index-images">
+              <?php for ($i = 0; $i < $num_images; $i++): ?>
+                <div class="index-item index-item-<?php echo $i; ?><?php echo ($i === 0) ? ' active' : ''; ?>"></div>
+              <?php endfor; ?>
+            </div>
+          <?php endif; ?>
+
+        </div>
+
+        <!-- Like Icon -->
+        <form method="post" style="float:left; cursor:pointer">
+          <a class="like-button" data-postid="<?php echo $row["post_id"]; ?>" data-byid="<?php echo $user_id?>" data-postby="<?php echo $row["post_by"]; ?>">
+            <span class="like-icon">
+              <div class="heart-animation-1"></div>
+              <div class="heart-animation-2"></div>
+            </span>
+          </a>
+          <span class="like_count">
+            <?php echo $row_like_count['like_count']; ?>
+          </span>
+        </form>
+
+        <!-- Comment Icon -->
+        <div style="float:left;">
+          <button type="button" class="btn p-0" data-toggle="modal" data-target="#myModal_<?php echo $row['post_id'] ?>">
+            <img src="img/bubble-chat.png" style="width: 25px; height: 25px;margin:5px">
+          </button>
+        </div>
+
+        <!-- The Modal -->
+        <?php include 'dangbaiviet/posts_modal.php'?>
+      </div>
+        <!-- Share icon -->
+        <a data-toggle="modal" href='#modal-id-share_<?php echo $row["post_id"] ?>' style="color:black" class="theAOpenModal"><i class="fa-regular fa-paper-plane"></i></a>
+        <div class="modal fade" id="modal-id-share_<?php echo $row["post_id"] ?>">
+          <div class="modal-dialog">
+            <form action="" enctype="multipart/form-data" method="post">
+              <div class="modal-content" style="width:480px;height:420px; border-radius:15px;margin-top:20vh">
+                <div class="modal-header" style="border-bottom: 1px solid #DBDBDB;height:50px">
+                  <h5 class="modal-title" style="position:absolute;left:42%;text-align:center;">Chia sẻ</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="border:none;padding:30px;background:none;position:absolute;right:0">&times;</button>
+                </div>
+                <div class="modal-body" style="padding:0;overflow:auto">
+                  <!-- Search -->
+                  <form action="" enctype="multipart/form-data" method="post">
+                    <i style="top:12px;position: absolute;left:13px" class="fa-solid fa-magnifying-glass"></i>
+                    <input class="timkiem1" name="timkiem1" data-userid="<?php echo $user_id ?>"
+                      data-postid="<?php echo $row["post_id"] ?>"
+                      style="width:100%;height: 40px;outline: none;padding-left: 45px;border: none;border-bottom: 1px solid #DBDBDB;">
+                  </form>
+                  <div class="hienthibanbe"></div>
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary share_button"
+                    data-postid="<?php echo $row["post_id"] ?>" data-postby="<?php echo $row["post_by"]?>">Gửi</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+                   
+        <!-- Save icon -->
+        <div class="luu" data-postid="<?php echo $row["post_id"]; ?>" data-byid="<?php echo $user_id?>" style="float:right">
+          <i class="fa-regular fa-bookmark"></i></div><br>
+      </div>
+    <?php
+>>>>>>> 882d414fe135ca3f1a91c1971240b85079bb3e03
     }
        ?>
           <div class="bai">
@@ -521,41 +644,38 @@ $sql_p = "SELECT * FROM posts
 
   <script>
   $(document).ready(function () {
-    // Kiểm tra trạng thái like của mỗi bài viết khi tải trang
-    $('.like-button .like-button-modal').each(function() {
-        var button = $(this);
-        var post_id = $(this).data('postid');
-        var like_by = $('input[name="like_by"]').val();
+          // Kiểm tra trạng thái like của mỗi bài viết khi tải trang
+          $('.like-button, .like-button-modal').each(function() {
+          var post_id = $(this).data('postid');
+          var like_by = $(this).data('byid');
 
-            $.ajax({
-                url: 'dangbaiviet/trangthailike.php',
-                type: 'POST',
-                data: {
-                    post_id: post_id,
-                    user_id: like_by
-                },
-                success: function(response) {
-                    if (response === "liked") {
-                      button.addClass(" liked");
-                    } else {
-                      button.removeClass("liked")
-                    }
-                }
-            });
-        });
+          $.ajax({
+              url: 'dangbaiviet/trangthai_like.php',
+              type: 'POST',
+              data: {
+                  post_id: post_id,
+                  user_id: like_by
+              },
+              success: function(response) {
+                  if (response === "liked") {
+                      var button = $('.like-button[data-postid="' + post_id + '"], .like-button-modal[data-postid="' + post_id + '"]');
+                      // Cập nhật trạng thái like
+                      button.toggleClass('liked', true);
+                  }
+              }
+          });
+      });
 
 
-      $('.like-button').on('click', function (e) {
-        e.preventDefault();
+
+      $('.like-button, .like-button-modal').click(function() {
         var post_id = $(this).data('postid');
         var post_by = $(this).data('postby');
-        var like_by = $('input[name="like_by"]').val();
+        var like_by = $(this).data('byid');
 
         // Thay đổi trạng thái của nút like ngay lập tức
         $(this).toggleClass('liked');
         var isLiked = $(this).hasClass('liked');
-
-        var likeButton = $(this); // Lưu trữ nút like hiện tại
 
         $.ajax({
           url: 'dangbaiviet/update_like_count.php',
@@ -567,19 +687,19 @@ $sql_p = "SELECT * FROM posts
             'isLiked': isLiked
           },
           success: function (response) {
-            // Cập nhật số lượng like trên trang web
-            likeButton.parent().find('.like_count').text(response);
+            var button = $('.like-button[data-postid="' + post_id + '"], .like-button-modal[data-postid="' + post_id + '"]');
+            // Cập nhật số lượng like 
+            button.parent().find('.like_count').text(response);
+            // Cập nhật trạng thái like 
+            button.toggleClass('liked', isLiked);
           }
         });
       });
 
-
-
-      $('.submit_cmt').on('click', function (event) {
-        event.preventDefault();
+      $('.submit_cmt').on('click', function () {
         var post_id = $(this).data('postid');
         var post_by = $(this).data('postby');
-        var comment_by = $(this).data('cmtby');
+        var comment_by = $(this).data('byid');
         var cmt_content = $('textarea[name="cmt_content_' + post_id + '"]').val()
         $.ajax({
           type: "POST",
@@ -600,10 +720,7 @@ $sql_p = "SELECT * FROM posts
         });
       });
 
-
-
-      $('.send_post_btn').on('click', function (e) {
-        e.preventDefault();
+      $('.share_button, .share_button_modal').on('click', function () {
         var post_id = $(this).data('postid');
         var post_by = $(this).data('postby');
         // Thu thập dữ liệu từ các checkbox đã chọn
@@ -612,7 +729,7 @@ $sql_p = "SELECT * FROM posts
           selectedValues.push($(this).val());
         });
         $.ajax({
-          url: 'dangbaiviet/posts_share.php',
+          url: 'dangbaiviet/share/posts_share.php',
           type: 'post',
           data: {
             share_by: $('input[name="share_by"]').val(),
@@ -626,29 +743,59 @@ $sql_p = "SELECT * FROM posts
         });
       });
 
-      $('.timkiem1').on('input', function () {
-        var timkiem = $(this).val();
-        var postId = $(this).data('postid');
-        var userId = $(this).data('userid');
-        $.ajax({
-          url: 'timkiem/timkiem.php',
-          method: 'POST',
-          data: {
-            timkiem: timkiem,
-            post_id: postId,
-            user_id: userId
-          },
-          success: function (response) {
-            $('.ketquatimkiem').html(response);
-          }
-        });
+      
+      $('.theAOpenModal, .theAOpenModal_Modal').on('click', function (e) {
+          e.preventDefault();
+          var post_id = $(this).data('postid');
+          var post_by = $(this).data('postby');
+
+          // Load tất cả bạn bè ban đầu
+          loadAllFriends(post_id);
       });
 
 
+      $('.timkiem1').on('input', function () {
+          var timkiem = $(this).val();
+          var postId = $(this).data('postid');
+          var userId = $(this).data('userid');
+
+          if (timkiem === '') {
+              loadAllFriends(postId);
+              return;
+          }
+          $.ajax({
+              url: 'dangbaiviet/share/timkiem.php',
+              method: 'POST',
+              data: {
+                  timkiem: timkiem,
+                  post_id: postId,
+                  user_id: userId
+              },
+              success: function (response) {
+                  $('.hienthibanbe').html(response); 
+              }
+          });
+      });
+
+      // Hàm tải tất cả bạn bè
+      function loadAllFriends(postId) {
+          $.ajax({
+              url: 'dangbaiviet/share/tatcabanbe.php',
+              method: 'POST',
+              data: {
+                  post_id: postId
+              },
+              success: function (response) {
+                  $('.hienthibanbe').html(response); 
+              }
+          });
+      }
+
+
     // Kiểm tra trạng thái lưu của mỗi bài viết khi tải trang
-      $('.save, .luu').each(function() {
+      $('.luu, .save').each(function() {
         var post_id = $(this).data('postid');
-        var user_id = $(this).data('saveby');
+        var user_id = $(this).data('byid');
         var icon = $(this).find('i');
 
         $.ajax({
@@ -669,9 +816,9 @@ $sql_p = "SELECT * FROM posts
     });
 
     // Cập nhật trạng thái lưu khi người dùng nhấp vào nút lưu
-    $('.save, .luu').click(function() {
+    $('.luu, .save').click(function() {
         var post_id = $(this).data('postid');
-        var user_id = $(this).data('saveby');
+        var user_id = $(this).data('byid');
         var icon = $(this).find('i');
 
         $.ajax({
