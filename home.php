@@ -260,6 +260,11 @@ $result_story = $ketnoi->query($sql_story);
                       <label style="float:left; margin:1% 2%">
                         <?php echo $row_id["username"] ?>
                       </label>
+                      <select name="statuss">
+                        <option value="public">Công khai</option>
+                        <option value="friend">Bạn bè</option>
+                        <option value="only_me">Chỉ mình tôi</option>
+                      </select>
                     </div>
                     <textarea style="width:100%;border:none; height:5em;padding:0 20px;resize: none;" name="content"
                       placeholder="Nội dung..."></textarea>
