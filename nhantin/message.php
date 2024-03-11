@@ -353,43 +353,65 @@ body{
         <img src="https://img.icons8.com/?size=256&id=Wyndx3rk1dCv&format=png">
         <div class="mess">Messages</div>
         <?php 
-        if ($result_fr!=null && $result_fr->num_rows > 0) {
-            if (isset($_GET['m_id'])){
-                $m_id = $_GET['m_id'];
-            }else{
-                $friend_default = "SELECT * FROM user 
-                left JOIN friendrequest ON (request_id = $user_id and receiver_id = user_id) or (request_id = user_id and receiver_id = $user_id)
-                WHERE status='bạn bè'";
-                $result_default = $ketnoi->query($friend_default);
-                $row_default = $result_default -> fetch_assoc();
-                $m_id = $row_default['user_id'];
-            }
-            $friend_details = "select * from user where user_id = $m_id";
-            $result_dt = $ketnoi->query($friend_details);
-            $row_dt = $result_dt ->fetch_assoc();
-            while ($row_fr = $result_fr->fetch_assoc()) 
-            {
-        ?>
-            <a href="index.php?pid=0&&m_id=<?php echo $row_fr['user_id']?>">
-                <div class="mess1 <?php echo ($row_fr['user_id'] == $m_id) ? 'active' : ''; ?>">
-                    <div class="ava" style="background-image: url('img/<?php echo $row_fr["avartar"]?>');"></div>
-                    <div class="username"><?php echo $row_fr["username"]?></div><br><br>
-                    <div class="mini_content">Active 8h ago</div>
-                </div> 
-            </a>
-        <?php
+if ($result_fr!=null && $result_fr->num_rows > 0) {
+    if (isset($_GET['m_id'])){
+        $m_id = $_GET['m_id'];
+    }else{
+        $friend_default = "SELECT * FROM user 
+        left JOIN friendrequest ON (request_id = $user_id and receiver_id = user_id) or (request_id = user_id and receiver_id = $user_id)
+        WHERE status='bạn bè'";
+        $result_default = $ketnoi->query($friend_default);
+        $row_default = $result_default -> fetch_assoc();
+        $m_id = $row_default['user_id'];
+    }
+    $friend_details = "select * from user where user_id = $m_id";
+    $result_dt = $ketnoi->query($friend_details);
+    $row_dt = $result_dt ->fetch_assoc();
+    while ($row_fr = $result_fr->fetch_assoc()) {
+        $friend_id = $row_fr['user_id'];
+
+        // lay tin nhan moi nhat
+        $sql_latest = "SELECT * FROM message WHERE (message_by=$user_id AND message_to=$friend_id) OR (message_by=$friend_id AND message_to=$user_id) ORDER BY timestamp DESC LIMIT 1";
+        $result_latest = $ketnoi->query($sql_latest);
+        if ($result_latest->num_rows > 0) {
+            $row_latest = $result_latest->fetch_assoc();
+            $latest_content = $row_latest['content'];
+        } else {
+            $latest_content = "Chưa có tin nhắn nào!";
         }
+
+        // Lấy trạng thái online/offline và thời gian offline gần nhất
+        $is_active = $row_fr['is_active'];
+        $last_activity = $row_fr['last_activity'];
+        if ($is_active == 1) {
+            $status = '0nline';
+        } else {
+            $time_offline = (time() - strtotime($last_activity)) / 60; // convert seconds to minutes
+            $status = 'Off cách đây ' . round($time_offline) . ' phút';
+        }
+
         ?>
+        <a href="index.php?pid=0&&m_id=<?php echo $friend_id?>">
+            <div class="mess1 <?php echo ($friend_id == $m_id) ? 'active' : ''; ?>">
+                <div class="ava" style="background-image: url('img/<?php echo $row_fr["avartar"]?>');"></div>
+                <div class="username"><?php echo $row_fr["username"]?> <span style="color:green;"><?php echo $status; ?></span></div><br><br>
+                <div class="mini_content" ><?php echo $latest_content; ?></div>
+            </div> 
+        </a>
+        <?php
+    }
+
+?>
+
     </div>
     <div class="col_right">
         <div class="ten">
             <div class="ava"style="background-image: url('img/<?php echo $row_dt["avartar"]?>');padding:27px"></div>
             <div class="username"><?php echo $row_dt["username"]?></div><br><br>
-            <div class="mini_content">Active 8h ago</div>
+            <div class="mini_content"></div>
+
             <div style="position: absolute; right:20px; top:17px">
                 <div class="nghe_goi" id="more_info" onclick="myFunction()"></div>
-                <div class="nghe_goi" id="call_video"></div>
-                <div class="nghe_goi" id="call"></div>
             </div>
         </div>
         <div class="content">
@@ -709,4 +731,9 @@ $(document).ready(function(){
         });
     });$(".content").scrollTop($(".content")[0].scrollHeight);
 });
+
+
+
 </script>
+
+

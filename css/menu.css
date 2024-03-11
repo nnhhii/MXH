@@ -415,7 +415,7 @@ textarea:focus{
     .col_menu_duoi{
         height: 50px;
         width: 100%;
-        border-top: lightgray 1px solid;
+        border-top: rgb(211, 211, 211) 1px solid;
         position: fixed;
         bottom: 0;
         background-color: white;

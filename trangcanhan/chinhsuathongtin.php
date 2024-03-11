@@ -89,9 +89,9 @@ a {
       <option value="Khác" <?php echo ($user['gender'] == 'Khác') ? 'selected' : ''; ?>>Khác</option>
     </select>
     <input type="date" placeholder="Ngày sinh" class="formInput" name="date_of_birth" value="<?php echo $user['date_of_birth']; ?>" required/>
-    <input type="text" placeholder="Học tại" class="formInput" name="study_at" value="<?php echo $user['study_at']; ?>" required/>
-    <input type="text" placeholder="Làm việc tại" class="formInput" name="working_at" value="<?php echo $user['working_at']; ?>" required/>
-    <select name="relationship" class="formInput" required>
+    <input type="text" placeholder="Học tại" class="formInput" name="study_at" value="<?php echo $user['study_at']; ?>"/>
+    <input type="text" placeholder="Làm việc tại" class="formInput" name="working_at" value="<?php echo $user['working_at']; ?>"/>
+    <select name="relationship" class="formInput" >
       <option value="">Chọn tình trạng quan hệ...</option>
       <option value="Độc thân" <?php echo ($user['relationship'] == 'Độc thân') ? 'selected' : ''; ?>>Độc thân</option>
       <option value="Hẹn hò" <?php echo ($user['relationship'] == 'Hẹn hò') ? 'selected' : ''; ?>>Hẹn hò</option>
