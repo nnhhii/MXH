@@ -358,7 +358,7 @@ body{
                 $m_id = $_GET['m_id'];
             }else{
                 $friend_default = "SELECT * FROM user 
-                left JOIN friendrequest ON (request_id = $user_id and receiver_id = user_id) or (request_id = user_id and receiver_id = $user_id)
+                left JOIN friendrequest ON (sender_id = $user_id and receiver_id = user_id) or (sender_id = user_id and receiver_id = $user_id)
                 WHERE status='bạn bè'";
                 $result_default = $ketnoi->query($friend_default);
                 $row_default = $result_default -> fetch_assoc();

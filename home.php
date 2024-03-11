@@ -130,6 +130,31 @@ $result_story = $ketnoi->query($sql_story);
 .layout_story::-webkit-scrollbar {
   display: none; /* Safari và Chrome */
 }
+.largeImage{
+  width:50vh;
+  height:73vh;
+  margin:0 auto;
+  background-size:cover;
+  background-position:center;
+}
+.smallImage{
+  width:10vh;
+  height:10vh;
+  margin:5px 0 0 5px;
+  filter: brightness(70%);
+  float:left;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  position: relative
+}
+.closeButton{
+  position: absolute;
+  top:0;
+  right:0;
+  cursor: pointer;
+  font-size: 15px;
+}
 </style>
   <div class="gop_2_menu">
     <div class="menu_giua">
@@ -277,7 +302,7 @@ $result_story = $ketnoi->query($sql_story);
             </div>
           </div>
         </form>
-        <?php require 'dangbaiviet/posts_xuly.php'; ?>
+        <?php require 'dangbaiviet/posts_xuly.php'?>
       </div>
     </div>
   </div>
@@ -310,70 +335,75 @@ function handleFile(input) {
     var content1 = document.getElementById("content1");
     content1.style.display = "none";
 }
-  function previewImages(input) {
-    var files = input.files;
-    var imagePreview = document.getElementById("imagePreview");
-    var imagePreview2 = document.getElementById("imagePreview2");
+function previewImages(input) {
+  var files = input.files;
+  var imagePreview = document.getElementById("imagePreview");
+  var imagePreview2 = document.getElementById("imagePreview2");
 
-    for (var i = 0; i < files.length; i++) {
-      var file = files[i];
-      if (!file.type.match('image.*')) {
-        continue;
-      }
-      var imageUrl = URL.createObjectURL(file);
-      (function (imageUrl) {
-        // Tạo largeImage và smallImage
-        var largeImage = document.createElement("div");
-        largeImage.style.width = "50vh";
-        largeImage.style.height = "73vh";
-        largeImage.style.margin = "0 auto";
-        largeImage.style.backgroundImage = "url('" + imageUrl + "')";
-        largeImage.style.backgroundSize = "cover";
-        largeImage.style.backgroundPosition = "center";
-        imagePreview.appendChild(largeImage);
+  for (var i = 0; i < files.length; i++) {
+    var file = files[i];
+    
+    var imageUrl = URL.createObjectURL(file);
+    (function (imageUrl, file) {
+      // Tạo
+      var largeImage = document.createElement("div");
+      largeImage.classList.add("largeImage");
+      largeImage.style.backgroundImage = "url('" + imageUrl + "')";
+      imagePreview.appendChild(largeImage);
 
-        var smallImage = document.createElement("div");
-        smallImage.style.width = "10vh";
-        smallImage.style.height = "10vh";
-        smallImage.style.margin = "5px 0 0 5px";
-        smallImage.style.filter = "brightness(70%)";
-        smallImage.style.float = "left";
-        smallImage.style.cursor = "pointer";
-        smallImage.style.backgroundImage = "url('" + imageUrl + "')";
-        smallImage.style.backgroundSize = "cover";
-        smallImage.style.backgroundPosition = "center";
-        smallImage.style.position = "relative";
-        imagePreview2.appendChild(smallImage);
+      var smallImage = document.createElement("div");
+      smallImage.classList.add("smallImage");
+      smallImage.style.backgroundImage = "url('" + imageUrl + "')";
+      imagePreview2.appendChild(smallImage);
 
-        var closeButton = document.createElement("div");
-        closeButton.innerHTML = "&#10006;";
-        closeButton.style.color = "white";
-        closeButton.style.position = "absolute";
-        closeButton.style.top = "0";
-        closeButton.style.right = "0";
-        closeButton.style.cursor = "pointer";
-        closeButton.style.fontSize = "15px";
-        closeButton.addEventListener("click", function () {
-          if (imagePreview.contains(largeImage)) {
-            imagePreview.removeChild(largeImage);
-            imagePreview2.removeChild(smallImage);
-          }
-        });
-        smallImage.appendChild(closeButton);
-
-        smallImage.addEventListener("click", function () {
-          largeImage.style.backgroundImage = "url('" + imageUrl + "')";
-          largeImage.scrollIntoView({ behavior: "auto", block: "center" });
-
-          var allSmallImages = imagePreview2.querySelectorAll("div");
-          allSmallImages.forEach(function (smallImg) {
-            smallImg.style.filter = "brightness(70%)";
+      var closeButton = document.createElement("div");
+      closeButton.classList.add("closeButton");
+      closeButton.innerHTML = "&#10006;";
+      closeButton.addEventListener("click", function () {
+        if (imagePreview.contains(largeImage)) {
+          imagePreview.removeChild(largeImage);
+          imagePreview2.removeChild(smallImage);
+          
+          // Tìm và xóa tên của file trong input
+          var fileName = file.name;
+          var inputElement = document.querySelector("input[name='images[]']"); // Tên của input
+          var files = Array.from(inputElement.files);
+          var newFiles = files.filter(function(f) {
+            return f.name !== fileName;
           });
-          this.style.filter = "brightness(110%)";
+
+          // Tạo một DataTransfer object mới
+          var dataTransfer = new DataTransfer();
+          newFiles.forEach(function(file) {
+            dataTransfer.items.add(file);
+          });
+
+          // Cập nhật lại files property của input
+          inputElement.files = dataTransfer.files;
+
+          // Nếu không còn tệp nào, hiển thị content1
+          if (inputElement.files.length === 0) {
+              var content1 = document.getElementById("content1");
+              content1.style.display = "block";
+          }
+        }
+      });
+
+      smallImage.appendChild(closeButton);
+      smallImage.addEventListener("click", function () {
+        largeImage.style.backgroundImage = "url('" + imageUrl + "')";
+        largeImage.scrollIntoView({ behavior: "auto", block: "center" });
+
+        var allSmallImages = imagePreview2.querySelectorAll("div");
+        allSmallImages.forEach(function (smallImg) {
+          smallImg.style.filter = "brightness(70%)";
         });
-      })(imageUrl);
-    }
+        this.style.filter = "brightness(110%)";
+      });
+    })(imageUrl, file);
   }
+}
+
 
   function checkFileSize(input) {
     var files = input.files;

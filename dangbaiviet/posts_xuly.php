@@ -210,7 +210,7 @@
       $sql = "INSERT INTO posts(post_by,content,image,statuss,post_time ) VALUES ($post_by,  '$content', '$image','$statuss', '$p_time' )";
 
       if (mysqli_query($conn, $sql)) {
-        echo '<script language="javascript">alert("Đăng bài viết thành công!");
+        echo '<script>alert("Đăng bài viết thành công!");
                    window.location.href = "index.php";
                   exit();
                </script>';
@@ -234,22 +234,23 @@ $sql_p = "SELECT * FROM posts
       ?>
       <div class="bai">
         <div class="user-info">
-        <div class="avtbai" style="background-image:url('img/<?php echo $row["avartar"]; ?>');cursor:pointer" onclick="window.location.href='<?php echo $row['user_id'] == $user_id ? "index.php?pid=1&&user_id=".$row['user_id'] : "index.php?pid=2&&m_id=".$row['user_id']; ?>'"></div>
+        <div class="avtbai" style="background-image:url('img/<?php echo $row["avartar"]?>');cursor:pointer" onclick="window.location.href='<?php echo $row['user_id'] == $user_id ? "index.php?pid=1&&user_id=".$row['user_id'] : "index.php?pid=2&&m_id=".$row['user_id']; ?>'"></div>
           <div style="font-size:15px; margin:7px">
             <?php echo $row["username"] ?>
           </div>
-          <div class="chinhsuaa">
+          <div class="chinhsuaa" style="<?php echo $row['user_id'] == $user_id ? 'display:block' : 'display:none'  ?>">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-              aria-expanded="false" style="width:30px;height:30px;background-color:transparent;border:none;">
+              aria-expanded="false" style="width:30px;height:30px;background-color:transparent;border:none;color:black">
               <i class="fa-solid fa-ellipsis-vertical"></i>
             </button>
             <ul class="dropdown-menu">
-              <button class="dropdown-item edit"><a
-                  href="dangbaiviet/posts_edit.php?id='.$row['post_id'].'">Edit</a></button>
-              <button class="dropdown-item delete"><a href="dangbaiviet/posts_delete.php?id='.$row['post_id'].'"><i
-                    class="fa-solid fa-trash" style="color: red;"></i> </a></button>
-              <button class="dropdown-item edit"><a href="index.php?pid=10&&post_id=<?php echo $row['post_id'] ?>">Go to
-                  post</a></button>
+              <button type="button" class="dropdown-item edit"><a href="index.php?pid=15&&post_id=<?php echo $row["post_id"]?>">
+                Chỉnh sửa bài viết</a>
+              </button>
+              <button class="dropdown-item delete">
+                <a href="dangbaiviet/posts_delete.php?post_id=<?php echo $row["post_id"]?>">
+                <i class="fa-solid fa-trash" style="color: red;"></i> Xóa</a>
+              </button>
             </ul>
           </div>
         </div>
@@ -562,7 +563,7 @@ $sql_p = "SELECT * FROM posts
 
     function SliderController(slider, index) {
       const listElement = slider.querySelector('.list-images');
-      const imgs = slider.querySelectorAll('.list-images div');
+      const imgs = slider.querySelectorAll('.list-images div, .list-images img');
       const btnLeft = slider.querySelector('.btn-left');
       const btnRight = slider.querySelector('.btn-right');
       const length = (imgs.length);
@@ -615,7 +616,4 @@ $sql_p = "SELECT * FROM posts
 
     // Gọi hàm khởi tạo sliders khi trang được load
     document.addEventListener('DOMContentLoaded', initSliders);
-
-    
-    
-  </script>
+</script>
