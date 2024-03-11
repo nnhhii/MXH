@@ -82,19 +82,24 @@
                 <!-- right -->
                 <div class="layout_phai">
                   <div class="layout_user_post">
-                    <a href="index.php?pid=2&&m_id=<?php echo $row["user_id"] ?>"
-                      style="color:black;text-decoration:none">
-                      <div class="ava_user_post" style="background-image:url('img/<?php echo $row["avartar"]; ?>')">
-                        <div class="name_user_post">
-                          <?php echo $row["username"] ?>
-                        </div>
+                    <a href="index.php?pid=1&&user_id=<?php echo $row["user_id"] ?>"style="color:black;text-decoration:none">
+                      <div class="ava_user_post" style="background-image:url('img/<?php echo $row["avartar"]?>')"></div>
+                      <div class="name_user_post" style="float:left"><?php echo $row["username"]?></div>
+                      <div class="time_user_post"><?php echo $time_description?></div>
                     </a>
                   </div>
 
 
                   <!-- view comment -->
-                  <div class="view_cmt" data-postid="<?php echo $row["post_id"]; ?>"
-                    style="height: 60vh;overflow-y: scroll; width:65vh">
+                  <div class="view_cmt" data-postid="<?php echo $row["post_id"]; ?>">
+                    <div class="layout_cmt">
+                      <div class="ava_user_cmt" style="background-image:url('img/<?php echo $row["avartar"] ?>')"></div>
+                      <div class="gop_cmt">
+                        <div class="name_user_cmt"><?php echo $row["username"] ?></div>
+                        <div class="cmt_content"><?php echo $row["content"] ?></div><br>
+                        <div class="cmt_time"><?php echo $time_description ?></div>
+                      </div>
+                    </div>
                     <?php
                     $ketnoi = new mysqli("localhost", "root", "", "mxh");
                     $post_id = $row["post_id"];
@@ -103,19 +108,14 @@
                     if ($result_cmt->num_rows > 0) {
                       while ($row_cmt = $result_cmt->fetch_assoc()) { ?>
                         <div class="layout_cmt">
-                          <div class="ava_user_cmt" style="background-image:url('img/<?php echo $row_cmt["avartar"] ?>')">
-                          </div>
-                          <div class="name_user_cmt">
-                            <?php echo $row_cmt["username"] ?>
-                          </div>
-                          <div class="cmt_content">
-                            <?php echo $row_cmt["cmt_content"] ?>
-                          </div><br>
-                          <div class="cmt_time">
-                            <?php echo $row_cmt["comment_time"] ?>
+                          <div class="ava_user_cmt" style="background-image:url('img/<?php echo $row_cmt["avartar"] ?>')"></div>
+                          <div class="gop_cmt">
+                            <div class="name_user_cmt"><?php echo $row_cmt["username"] ?></div>
+                            <div class="cmt_content"><?php echo $row_cmt["cmt_content"] ?></div><br>
+                            <div class="cmt_time"><?php echo $row_cmt["comment_time"] ?></div>
                           </div>
                         </div>
-                        <?php
+                      <?php
                       }
                     } else { ?>
                       <div class="chuacobinhluan" style="margin: 35% auto">

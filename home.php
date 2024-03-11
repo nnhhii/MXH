@@ -1,3 +1,4 @@
+
 <?php
 $sql_story = "SELECT * FROM story 
 left JOIN user ON story.user_id = user.user_id
@@ -8,6 +9,7 @@ $result_story = $ketnoi->query($sql_story);
 <link rel="stylesheet" href="css/menu.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/fec980010a.js" crossorigin="anonymous"></script>
 
 
 <style>
@@ -155,6 +157,16 @@ $result_story = $ketnoi->query($sql_story);
   cursor: pointer;
   font-size: 15px;
 }
+.custom-select{
+  border:none;
+  background:#EEE;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 13px;
+  padding:5px;
+  cursor: pointer;
+}
+
 </style>
   <div class="gop_2_menu">
     <div class="menu_giua">
@@ -286,11 +298,14 @@ $result_story = $ketnoi->query($sql_story);
                       <label style="float:left; margin:1% 2%">
                         <?php echo $row_id["username"] ?>
                       </label>
-                      <select name="statuss">
-                        <option value="public">Công khai</option>
-                        <option value="friend">Bạn bè</option>
-                        <option value="only_me">Chỉ mình tôi</option>
-                      </select>
+                      
+                      <select name="statuss" class="custom-select">
+                        <option value="public">&#x1F30E; Công khai</option>
+                        <option value="friend">&#x1F91D; Bạn bè</option>
+                        <option value="only_me">&#x1F512; Chỉ mình tôi</option>
+                    </select>
+
+                      
                     </div>
                     <textarea style="width:100%;border:none; height:5em;padding:0 20px;resize: none;" name="content"
                       placeholder="Nội dung..."></textarea>
@@ -422,21 +437,4 @@ function previewImages(input) {
   }
 
 
-</script>
-
-<script>
-var modal = document.getElementById("myModal");
-var btn = document.getElementById("openModalBtn");
-var close = document.getElementById("closeModalBtn");
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-close.onclick = function() {
-    modal.style.display = "none";
-}
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
 </script>

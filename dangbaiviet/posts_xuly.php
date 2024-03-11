@@ -95,43 +95,6 @@
       scale: 1.5;
       right: 0px
     }
-
-    .anh_post {
-      width: 75vh;
-      height: 95vh;
-      float: left;
-      position: relative;
-    }
-
-    .layout_phai {
-      width: 69vh;
-      height: 95vh;
-      float: left;
-      position: relative;
-    }
-
-    .layout_user_post {
-      height: 60px;
-      border-bottom: lightgray solid 1px;
-      padding: 12px;
-    }
-
-    .ava_user_post {
-      float: left;
-      background-size: cover;
-      background-position: center;
-      width: 35px;
-      border-radius: 50%;
-      height: 35px;
-    }
-
-    .name_user_post {
-      margin: 5px 50px;
-      width: 100px;
-      text-align: left;
-      font-weight: 380px;
-    }
-
     .mess1 {
       width: 100%;
       height: 80px;
@@ -219,9 +182,8 @@
 
 $sql_p = "SELECT * FROM posts 
         INNER JOIN user ON posts.post_by = user.user_id
-        WHERE (statuss = 'public') 
-            OR (statuss = 'friend' AND (posts.post_by = $user_id OR EXISTS (SELECT 1 FROM friendrequest WHERE (sender_id = posts.post_by AND receiver_id = $user_id) OR (sender_id = $user_id AND receiver_id = posts.post_by))))
-            OR (statuss = 'only_me' AND posts.post_by = $user_id)
+        left JOIN friendrequest ON ((sender_id = $user_id and receiver_id = user_id) or (sender_id = user_id and receiver_id = $user_id)) and status='bạn bè'
+        WHERE statuss != 'only_me' or post_by = $user_id
         ORDER BY post_id DESC";
 
     $result_p = mysqli_query($conn, $sql_p);
@@ -230,14 +192,39 @@ $sql_p = "SELECT * FROM posts
       $result_like_count = mysqli_query($conn, $sql_like_count);
       $row_like_count = mysqli_fetch_assoc($result_like_count);
       
-      
-      ?>
+      $current_time = time();
+      $post_time = strtotime($row["post_time"]);
+      $time_diff = $current_time - $post_time;
+      if ($time_diff < 60) {
+        $time_description = "vừa xong";
+      } elseif ($time_diff < 3600) {
+        $time_description = floor($time_diff / 60) . " phút trước";
+      } elseif ($time_diff < 86400) {
+        $time_description = floor($time_diff / 3600) . " giờ trước";
+      } else {
+        $time_description = floor($time_diff / 86400) . " ngày trước";
+      }
+
+      $status_icon = '';
+      if ($row['statuss'] == 'public') {
+        $status_icon = ' <i class="fa-solid fa-earth-americas"></i>';
+      } elseif ($row['statuss'] == 'friend') {
+        $status_icon = ' <i class="fa-solid fa-user-group"></i>';
+      } else {
+        $status_icon = ' <i class="fa-solid fa-lock"></i>';
+      }
+?>
+
       <div class="bai">
         <div class="user-info">
         <div class="avtbai" style="background-image:url('img/<?php echo $row["avartar"]?>');cursor:pointer" onclick="window.location.href='<?php echo $row['user_id'] == $user_id ? "index.php?pid=1&&user_id=".$row['user_id'] : "index.php?pid=2&&m_id=".$row['user_id']; ?>'"></div>
-          <div style="font-size:15px; margin:7px">
-            <?php echo $row["username"] ?>
+          <div style="font-size:15px;font-weight:500; margin:0 7px;height:fit-content">
+            <?php echo $row["username"]?>
           </div>
+          <div style="height:fit-content;position:absolute;left:50px;top:20px;font-size:13px;color:gray">
+            <?php echo $time_description; echo $status_icon;?>
+          </div>
+
           <div class="chinhsuaa" style="<?php echo $row['user_id'] == $user_id ? 'display:block' : 'display:none'  ?>">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
               aria-expanded="false" style="width:30px;height:30px;background-color:transparent;border:none;color:black">
@@ -310,7 +297,7 @@ $sql_p = "SELECT * FROM posts
 
         <!-- The Modal -->
         <?php include 'dangbaiviet/posts_modal.php'?>
-      </div>
+      
         <!-- Share icon -->
         <a data-toggle="modal" href='#modal-id-share_<?php echo $row["post_id"] ?>' style="color:black" class="theAOpenModal"><i class="fa-regular fa-paper-plane"></i></a>
         <div class="modal fade" id="modal-id-share_<?php echo $row["post_id"] ?>">
