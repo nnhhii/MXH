@@ -56,40 +56,6 @@
       cursor: pointer;
       padding: 2px
     }
-
-    .dropdown-menu {
-      position: absolute;
-      display: none;
-      min-width: 120px;
-      padding: 5px;
-      background-color: #ffffff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-      text-align: left;
-    }
-
-    .dropdown-menu.open {
-      display: block;
-      background-color: #EEEEEE;
-    }
-
-    .dropdown-item a {
-      display: block;
-      padding: 5px 0;
-      text-decoration: none;
-      color: #212529;
-    }
-
-    .dropdown-item:hover,
-    .dropdown-item:focus {
-      background-color: #f8f9fa;
-    }
-
-    .chinhsuaa {
-      position: absolute;
-      right: -20px
-    }
-
     .luu {
       position: absolute;
       scale: 1.5;
