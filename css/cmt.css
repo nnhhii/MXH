@@ -24,17 +24,27 @@
   height:35px;
 }
 .name_user_post{
-  margin:5px 50px; 
-  width:100px;
-  text-align:left;
-  font-weight:380px;
+  margin: 0 10px;
+  float:left;
+  font-weight:500px;
+}
+.time_user_post{
+  font-size: 13px;
+  color: gray;
+  margin: 0 10px;
+  float: left;
+}
+.view_cmt{
+  height: 60vh;
+  overflow-y: scroll;
 }
 .layout_cmt{
   padding:10px;
-  height:80px
+  width: 100%;
+  min-height: 50px;
 }
 .ava_user_cmt{
-  margin:5px;
+  margin:0 5px;
   width:35px;
   height:35px;
   border-radius:50%;
@@ -42,20 +52,28 @@
   background-position: center;
   float:left;
 }
+.gop_cmt{
+  float:left;
+  width:57vh;
+  overflow-wrap:break-word;
+  margin-left: 7px;
+}
 .name_user_cmt{
-  font-weight:400px;
+  font-weight:500px;
   font-size:13px;
-  float:left; 
-  margin:0 5px
+  float:left
 }
 .cmt_content{
   font-size:13px;
-  float:left
+  float:left;
+  overflow-wrap:break-word;
+  max-width: 57vh;
+  text-align: left;
+  margin-left: 10px;
 }
 .cmt_time{
   font-size:10px;
   color:gray;
-  margin:5px; 
   float:left
 }
 .like_count {
@@ -71,4 +89,36 @@
   scale: 1.3;
   cursor: pointer;
   padding:2px
+}
+.dropdown-menu {
+  position: absolute;
+  display: none;
+  min-width: 120px;
+  padding: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  text-align: left;
+}
+
+.dropdown-menu.open {
+  display: block;
+  background-color: #EEEEEE;
+}
+
+.dropdown-item a {
+  display: block;
+  padding: 5px 0;
+  text-decoration: none;
+  color: #212529;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: #f8f9fa;
+}
+
+.chinhsuaa {
+  position: absolute;
+  right: -20px
 }

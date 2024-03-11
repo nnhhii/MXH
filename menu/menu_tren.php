@@ -28,18 +28,32 @@
                         // Lấy giá trị đầu tiên trong mảng
                         $first_image = reset($images);
 
+                        $current_time = time();
+      $noti_time = strtotime($row_tb["noti_time"]);
+      $time_diff = $current_time - $noti_time;
+      if ($time_diff < 60) {
+        $time_description = "vừa xong";
+      } elseif ($time_diff < 3600) {
+        $time_description = floor($time_diff / 60) . " phút trước";
+      } elseif ($time_diff < 86400) {
+        $time_description = floor($time_diff / 3600) . " giờ trước";
+      } else {
+        $time_description = floor($time_diff / 86400) . " ngày trước";
+      }
             if($row_tb["post_id"] !== null){
             ?>
             <a href="index.php?pid=10&&post_id=<?php echo $row_tb['post_id']?>" style="position:relative">
                 <div class="ava_thong_bao"style="background-image: url('img/<?php echo $row_tb["avartar"]?>')"></div>
-                <div style="font-weight:500"><?php echo $row_tb["username"]?></div>
+                <div style="font-weight:500;float:left"><?php echo $row_tb["username"]?></div> 
+                <div style="float:left;margin:2px 7px;font-size:13px;color:gray"><?php echo $time_description?></div><br>
                 <div style="font-size:15px"><?php echo $row_tb["noti_content"]?></div>
                 <div style="background-image: url('img/<?php echo $first_image?>');background-size:cover;background-position:center;width:40px;height:50px;float:left;position:absolute;top:10px;right:10px"></div>
             </a>
             <?php } else{?>
             <a href="index.php?pid=4" style="position:relative">
                 <div class="ava_thong_bao"style="background-image: url('img/<?php echo $row_tb["avartar"]?>')"></div>
-                <div style="font-weight:500"><?php echo $row_tb["username"]?></div>
+                <div style="font-weight:500;float:left"><?php echo $row_tb["username"]?></div>
+                <div style="float:left;margin:2px 7px;font-size:13px;color:gray"><?php echo $time_description?></div><br>
                 <div style="font-size:15px"><?php echo $row_tb["noti_content"]?></div>
             </a>
             <?php }}

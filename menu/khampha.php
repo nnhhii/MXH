@@ -9,12 +9,12 @@
 $link= new mysqli('localhost','root','','MXH');     
 $sql_buttonOpenModal="SELECT * FROM posts 
 INNER JOIN user ON posts.post_by = user.user_id
-WHERE ( (statuss = 'public' AND NOT EXISTS (
+WHERE posts.post_by != $user_id and (statuss = 'public' AND NOT EXISTS (
        SELECT 1 FROM friendrequest 
        WHERE ((sender_id = posts.post_by AND receiver_id = $user_id) OR (sender_id = $user_id AND receiver_id = posts.post_by)) 
-       AND status = 'bạn bè'
-   )) AND posts.post_by != $user_id)
+       AND status = 'bạn bè'))    
 ORDER BY post_id DESC";
+
 
 $result_buttonOpenModal=$link -> query($sql_buttonOpenModal);
 

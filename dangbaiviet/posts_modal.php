@@ -44,6 +44,29 @@
   color: gray;
 }
 </style>
+<?php 
+$current_time = time();
+$post_time = strtotime($row["post_time"]);
+$time_diff = $current_time - $post_time;
+if ($time_diff < 60) {
+  $time_description = "vừa xong";
+} elseif ($time_diff < 3600) {
+  $time_description = floor($time_diff / 60) . " phút trước";
+} elseif ($time_diff < 86400) {
+  $time_description = floor($time_diff / 3600) . " giờ trước";
+} else {
+  $time_description = floor($time_diff / 86400) . " ngày trước";
+}
+
+$status_icon = '';
+if ($row['statuss'] == 'public') {
+  $status_icon = ' <i class="fa-solid fa-earth-americas"></i>';
+} elseif ($row['statuss'] == 'friend') {
+  $status_icon = ' <i class="fa-solid fa-user-group"></i>';
+} else {
+  $status_icon = ' <i class="fa-solid fa-lock"></i>';
+}
+?>
         <!-- The Modal -->
         <div class="modal fade" id="myModal_<?php echo $row['post_id'] ?>">
           <div class="modal-dialog modal-xl">
@@ -82,19 +105,40 @@
                 <!-- right -->
                 <div class="layout_phai">
                   <div class="layout_user_post">
-                    <a href="index.php?pid=2&&m_id=<?php echo $row["user_id"] ?>"
-                      style="color:black;text-decoration:none">
-                      <div class="ava_user_post" style="background-image:url('img/<?php echo $row["avartar"]; ?>')">
-                        <div class="name_user_post">
-                          <?php echo $row["username"] ?>
-                        </div>
+                    <a href="index.php?pid=1&&user_id=<?php echo $row["user_id"] ?>"style="color:black;text-decoration:none">
+                      <div class="ava_user_post" style="background-image:url('img/<?php echo $row["avartar"]?>')"></div>
+                      <div class="name_user_post" style="float:left"><?php echo $row["username"]?></div><br>
                     </a>
+                    <div class="time_user_post"><?php echo $time_description?></div>
+                    <div style="float:left;color:gray;font-size:13px;margin-top:5px"><?php echo $status_icon?></div>
+                    <div class="chinhsuaa" style="<?php echo $row['user_id'] == $user_id ? 'display:block' : 'display:none'?>;right:5px;top:15px">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="width:30px;height:30px;background-color:transparent;border:none;color:black">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <button type="button" class="dropdown-item edit"><a href="index.php?pid=15&&post_id=<?php echo $row["post_id"]?>">
+                          Chỉnh sửa bài viết</a>
+                        </button>
+                        <button class="dropdown-item delete">
+                          <a href="dangbaiviet/posts_delete.php?post_id=<?php echo $row["post_id"]?>">
+                          <i class="fa-solid fa-trash" style="color: red;"></i> Xóa</a>
+                        </button>
+                      </ul>
+                    </div>
                   </div>
 
 
                   <!-- view comment -->
-                  <div class="view_cmt" data-postid="<?php echo $row["post_id"]; ?>"
-                    style="height: 60vh;overflow-y: scroll; width:65vh">
+                  <div class="view_cmt" data-postid="<?php echo $row["post_id"]; ?>">
+                    <div class="layout_cmt">
+                      <div class="ava_user_cmt" style="background-image:url('img/<?php echo $row["avartar"] ?>')"></div>
+                      <div class="gop_cmt">
+                        <div class="name_user_cmt"><?php echo $row["username"] ?></div>
+                        <div class="cmt_content"><?php echo $row["content"] ?></div><br>
+                        <div class="cmt_time"><?php echo $time_description ?></div>
+                      </div>
+                    </div>
                     <?php
                     $ketnoi = new mysqli("localhost", "root", "", "mxh");
                     $post_id = $row["post_id"];
@@ -103,19 +147,14 @@
                     if ($result_cmt->num_rows > 0) {
                       while ($row_cmt = $result_cmt->fetch_assoc()) { ?>
                         <div class="layout_cmt">
-                          <div class="ava_user_cmt" style="background-image:url('img/<?php echo $row_cmt["avartar"] ?>')">
-                          </div>
-                          <div class="name_user_cmt">
-                            <?php echo $row_cmt["username"] ?>
-                          </div>
-                          <div class="cmt_content">
-                            <?php echo $row_cmt["cmt_content"] ?>
-                          </div><br>
-                          <div class="cmt_time">
-                            <?php echo $row_cmt["comment_time"] ?>
+                          <div class="ava_user_cmt" style="background-image:url('img/<?php echo $row_cmt["avartar"] ?>')"></div>
+                          <div class="gop_cmt">
+                            <div class="name_user_cmt"><?php echo $row_cmt["username"] ?></div>
+                            <div class="cmt_content"><?php echo $row_cmt["cmt_content"] ?></div><br>
+                            <div class="cmt_time"><?php echo $row_cmt["comment_time"] ?></div>
                           </div>
                         </div>
-                        <?php
+                      <?php
                       }
                     } else { ?>
                       <div class="chuacobinhluan" style="margin: 35% auto">
@@ -201,4 +240,3 @@
         </div>
 
 
-       
