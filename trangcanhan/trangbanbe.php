@@ -276,7 +276,16 @@ $row_bb = $result_bb->fetch_assoc();
 </div>
 
 <?php
-$sql_buttonOpenModal = "SELECT * FROM posts inner join user on posts.post_by=user.user_id where user_id=$m_id ORDER BY post_id DESC";
+require 'dangbaiviet/posts_connect.php';
+$sql_buttonOpenModal = "SELECT * FROM posts 
+        INNER JOIN user ON posts.post_by = user.user_id
+        WHERE  ((statuss = 'public' and posts.post_by=$user_id) or (statuss = 'public' and EXISTS (SELECT 1 FROM friendrequest WHERE ((sender_id = posts.post_by AND receiver_id = $user_id) OR (sender_id = $user_id AND receiver_id = posts.post_by)) AND status = 'bạn bè')) ) 
+            OR (statuss = 'friend' AND (posts.post_by = $user_id OR EXISTS (SELECT 1 FROM friendrequest WHERE ((sender_id = posts.post_by AND receiver_id = $user_id) OR (sender_id = $user_id AND receiver_id = posts.post_by)) AND status = 'bạn bè')))
+            OR (statuss = 'only_me' AND posts.post_by = $user_id)
+            OR (posts.post_by = $user_id)
+        ORDER BY post_id DESC";
+
+
 $result_buttonOpenModal = $link->query($sql_buttonOpenModal);
 include 'dangbaiviet/posts_buttonOpenModal.php'
 ?>
