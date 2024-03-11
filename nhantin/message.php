@@ -381,15 +381,23 @@ if ($result_fr!=null && $result_fr->num_rows > 0) {
         }
 
         // Lấy trạng thái online/offline và thời gian offline gần nhất
+        
         $is_active = $row_fr['is_active'];
         $last_activity = $row_fr['last_activity'];
+        
         if ($is_active == 1) {
-            $status = '0nline';
+            $status = 'Đang hoạt động';
         } else {
-            $time_offline = (time() - strtotime($last_activity)) / 60; // convert seconds to minutes
-            $status = 'Off cách đây ' . round($time_offline) . ' phút';
+            $time_offline = time() - strtotime($last_activity);
+            if ($time_offline < 3600) {
+                $status = 'Hoạt động ' . floor($time_offline / 60) . ' phút trước';
+            } elseif ($time_offline < 86400) {
+                $status = 'Hoạt động ' . floor($time_offline / 3600) . ' giờ trước';
+            } else {
+                $status = 'Hoạt động ' . floor($time_offline / 86400) . ' ngày trước';
+            }
         }
-
+        
         ?>
         <a href="index.php?pid=0&&m_id=<?php echo $friend_id?>">
             <div class="mess1 <?php echo ($friend_id == $m_id) ? 'active' : ''; ?>">

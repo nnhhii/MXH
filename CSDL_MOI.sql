@@ -9,7 +9,7 @@ CREATE TABLE user(
   cover_picture varchar(500) DEFAULT 'anhbia.jpg',
   bio varchar(200),
   is_active varchar(200),
-  last_activity timestamp,
+  last_activity varchar(100),
   study_at varchar(200),
   working_at varchar(200),
   relationship varchar(100)
