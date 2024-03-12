@@ -7,7 +7,15 @@
 <div class="gop_2_menu" style="top:100px; left:250px">
 <?php 
 $link= new mysqli('localhost','root','','MXH');     
-$sql_buttonOpenModal="SELECT * FROM user inner JOIN posts ON posts.post_by = user.user_id and user_id != $user_id ORDER BY post_id DESC";
+$sql_buttonOpenModal="SELECT * FROM posts 
+INNER JOIN user ON posts.post_by = user.user_id
+WHERE posts.post_by != $user_id and (statuss = 'public' AND NOT EXISTS (
+       SELECT 1 FROM friendrequest 
+       WHERE ((sender_id = posts.post_by AND receiver_id = $user_id) OR (sender_id = $user_id AND receiver_id = posts.post_by)) 
+       AND status = 'bạn bè'))    
+ORDER BY post_id DESC";
+
+
 $result_buttonOpenModal=$link -> query($sql_buttonOpenModal);
 
 include 'dangbaiviet/posts_buttonOpenModal.php'

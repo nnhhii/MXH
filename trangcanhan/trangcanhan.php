@@ -310,6 +310,11 @@
 </div>
 
 <?php 
-  $sql_buttonOpenModal = "SELECT * FROM posts inner join user on posts.post_by=user.user_id where user_id=$user_id ORDER BY post_id DESC";
+  require 'dangbaiviet/posts_connect.php';
+$sql_buttonOpenModal = "SELECT * FROM posts 
+        INNER JOIN user ON posts.post_by = user.user_id
+        WHERE  posts.post_by = $user_id
+        ORDER BY post_id DESC";
+
   $result_buttonOpenModal = $ketnoi->query($sql_buttonOpenModal);
 include 'dangbaiviet/posts_buttonOpenModal.php'?>
