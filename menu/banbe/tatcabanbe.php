@@ -44,7 +44,7 @@
 $link = new mysqli('localhost', 'root', '', 'MXH');
 $sql="SELECT * FROM user 
 LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_id)
-WHERE friendrequest.receiver_id IS NOT NULL OR friendrequest.sender_id IS NOT NULL";
+WHERE status = 'bạn bè'";
 $result=$link -> query($sql);
 if($result -> num_rows > 0){
 ?>

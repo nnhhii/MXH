@@ -5,7 +5,8 @@ $user_id = $_SESSION['user'];
 $m_id=$_POST["user_id"];
 $time = date("Y-m-d H:i:s");
 
-
+$sql="INSERT INTO friendrequest (sender_id, receiver_id) VALUES ($user_id, $m_id)";
+$result=$link ->query($sql);
 
 $sql_update="UPDATE friendrequest SET status = 'bạn bè' where sender_id = $m_id and receiver_id = $user_id";
 $result_update=$link ->query($sql_update);
