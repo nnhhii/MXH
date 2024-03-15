@@ -334,6 +334,30 @@ body{
 .content_url{
     float:left;margin:20px 7px;font-size:12px;color:black
 }
+ .layout_tim_kiem{
+    width:40%;
+    float: right;
+    margin: 30px 0 0 20%;
+    position: relative;
+}
+.layout_tim_kiem >form > input{
+    width:100%;
+    height: 40px;
+    outline: none;
+    padding-left: 45px;
+    border-radius: 20px;
+    background-color: #EEEEEE;
+    border: none;
+}
+.layout_tim_kiem{
+        left: -10%;
+    }
+.layout_tim_kiem > form > img {
+    top:12px;
+    height:1vw;
+    position: absolute;
+    right:13px
+}
 </style>
 <head>
     <meta charset="utf-8">
@@ -350,9 +374,32 @@ body{
         <a><img src="https://img.icons8.com/?size=256&id=14092&format=png"></a>
     </div>
     <div class="col_left">
-        <img src="https://img.icons8.com/?size=256&id=Wyndx3rk1dCv&format=png">
-        <div class="mess">Messages</div>
+    <div class="mess">Messages</div>
+    <div class="layout_tim_kiem">
+        <form id="timkiem_form"  enctype="multipart/form-data"method="post">
+            <input class="tim_kiem" name="timkiem">
+            <img src="https://img.icons8.com/search">
+        </form>
+    </div>
         <?php 
+function getStatus($is_active, $last_activity) {
+    if ($is_active == 1) {
+        return 'Đang hoạt động';
+    } else {
+        $time_offline = time() - strtotime($last_activity);
+        if ($time_offline < 3600) {
+            return 'Hoạt động ' . floor($time_offline / 60) . ' phút trước';
+        } elseif ($time_offline < 86400) {
+            return 'Hoạt động ' . floor($time_offline / 3600) . ' giờ trước';
+        } elseif ($time_offline > 2592000) {
+                return 'Ngưng hoạt động ' ;
+            }
+         else {
+            return 'Hoạt động ' . floor($time_offline / 86400) . ' ngày trước';
+        }
+    }
+}
+
 if ($result_fr!=null && $result_fr->num_rows > 0) {
     if (isset($_GET['m_id'])){
         $m_id = $_GET['m_id'];
@@ -360,10 +407,17 @@ if ($result_fr!=null && $result_fr->num_rows > 0) {
         $friend_default = "SELECT * FROM user 
         left JOIN friendrequest ON (request_id = $user_id and receiver_id = user_id) or (request_id = user_id and receiver_id = $user_id)
         WHERE status='bạn bè'";
+        
         $result_default = $ketnoi->query($friend_default);
         $row_default = $result_default -> fetch_assoc();
         $m_id = $row_default['user_id'];
     }
+
+    // tung nhan tin
+    $friend_default = "SELECT DISTINCT user.* FROM user 
+    JOIN message ON (message_by = $user_id AND message_to = user_id) OR (message_by = user_id AND message_to = $user_id)";
+    $result_fr = $ketnoi->query($friend_default);
+
     $friend_details = "select * from user where user_id = $m_id";
     $result_dt = $ketnoi->query($friend_details);
     $row_dt = $result_dt ->fetch_assoc();
@@ -381,42 +435,29 @@ if ($result_fr!=null && $result_fr->num_rows > 0) {
         }
 
         // Lấy trạng thái online/offline và thời gian offline gần nhất
-        
-        $is_active = $row_fr['is_active'];
-        $last_activity = $row_fr['last_activity'];
-        
-        if ($is_active == 1) {
-            $status = 'Đang hoạt động';
-        } else {
-            $time_offline = time() - strtotime($last_activity);
-            if ($time_offline < 3600) {
-                $status = 'Hoạt động ' . floor($time_offline / 60) . ' phút trước';
-            } elseif ($time_offline < 86400) {
-                $status = 'Hoạt động ' . floor($time_offline / 3600) . ' giờ trước';
-            } else {
-                $status = 'Hoạt động ' . floor($time_offline / 86400) . ' ngày trước';
-            }
-        }
+        $status = getStatus($row_fr['is_active'], $row_fr['last_activity']);
+        $status_dt = getStatus($row_dt['is_active'], $row_dt['last_activity']);
         
         ?>
         <a href="index.php?pid=0&&m_id=<?php echo $friend_id?>">
             <div class="mess1 <?php echo ($friend_id == $m_id) ? 'active' : ''; ?>">
                 <div class="ava" style="background-image: url('img/<?php echo $row_fr["avartar"]?>');"></div>
-                <div class="username"><?php echo $row_fr["username"]?> <span style="color:green;"><?php echo $status; ?></span></div><br><br>
+                <div class="username"><?php echo $row_fr["username"]?> <span style="font-weight:400;color:green;font-size: 14px; font-family:'Segoe UI', Tahoma,Verdana, sans-serif;"><?php echo $status; ?></span></div><br><br>
                 <div class="mini_content" ><?php echo $latest_content; ?></div>
             </div> 
         </a>
         <?php
-    }
-
+    
+}
 ?>
+
 
     </div>
     <div class="col_right">
         <div class="ten">
             <div class="ava"style="background-image: url('img/<?php echo $row_dt["avartar"]?>');padding:27px"></div>
             <div class="username"><?php echo $row_dt["username"]?></div><br><br>
-            <div class="mini_content"></div>
+            <div class="mini_content"><span style="color:green;"><?php echo $status_dt; ?></span></div>
 
             <div style="position: absolute; right:20px; top:17px">
                 <div class="nghe_goi" id="more_info" onclick="myFunction()"></div>
@@ -563,9 +604,7 @@ if ($result_fr!=null && $result_fr->num_rows > 0) {
                 </div>
             </a>
         </div>
-        <div style="height:150px">
-            <div class="info_2">Chặn</div>
-            
+        <div style="height:150px">        
             <a class="info_2" style="text-decoration:none;float:left"data-toggle="modal" href='#modal-id'>Xóa cuộc trò chuyện</a>
             <div class="modal fade" id="modal-id">
                 <div class="modal-dialog">
@@ -584,10 +623,6 @@ if ($result_fr!=null && $result_fr->num_rows > 0) {
                     </div>
                 </div>
             </div>
-            
-
-
-
         </div>
     </div>
 </body>
@@ -739,6 +774,22 @@ $(document).ready(function(){
         });
     });$(".content").scrollTop($(".content")[0].scrollHeight);
 });
+
+$(document).ready(function(){
+  $('#timkiem_form').on('submit', function(e){
+    e.preventDefault();
+    var searchKeyword = $('.tim_kiem').val();
+    $.ajax({
+      url: 'nhantin/timban.php',
+      type: 'POST',
+      data: { timkiem: searchKeyword },
+      success: function(data) {
+        $('.col_left').html(data);
+      }
+    });
+  });
+});
+
 
 
 

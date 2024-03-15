@@ -194,6 +194,7 @@ $row_bb = $result_bb->fetch_assoc();
     }
   }
 </style>
+
 <div class="bia">
   <div class="bia1" style="background-image: url('img/<?php echo $row_bb["cover_picture"] ?>')"></div>
   <div class="khungcanhan">
@@ -234,7 +235,6 @@ $row_bb = $result_bb->fetch_assoc();
           cancelFriendRequest1(button, userId);
         }else if (button.textContent === 'Chấp nhận') {
           acceptFriendRequest1(button, userId);
-        
         }
       }
 
