@@ -69,6 +69,8 @@
 </style>
 
 <?php
+
+
 $link = new mysqli('localhost', 'root', '', 'mxh');
 $sql = "SELECT user.username, user.avartar, posts.post_id, posts.content, posts.image 
 FROM posts 

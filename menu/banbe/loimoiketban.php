@@ -3,7 +3,7 @@
   list-style-type: none;
 }
 .khung_layout{
-  height:350px;
+  height:370px;
   width:200px;
   float: left;
   margin: 1%;
@@ -35,6 +35,14 @@
 .add:hover{
   background-color: #0095F6;
 }
+.ban_chung{
+    padding:10px 30px;
+}
+
+.count_ban_chung{
+    margin: -15px 0 0 0;
+    color:black
+}
 </style>
 <body>
 <div class="gop_2_menu">
@@ -51,12 +59,34 @@
   $result_lm=$link -> query($sql_loimoi);
   if($result_lm -> num_rows > 0){
   while($row_lm = $result_lm->fetch_assoc()){
+    $user_lm=$row_lm["user_id"];
+    $sql="SELECT * FROM user 
+  LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_lm AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_lm)
+  WHERE status = 'bạn bè'";
+  $result=$link -> query($sql);
+  $friends_lm=array();
+  while($row=$result->fetch_assoc()){
+      $friends_lm[] = $row['user_id'];
+    } 
+  $sql_m="SELECT * FROM user 
+                  LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_id)
+                  WHERE status = 'bạn bè'";
+                  $result_m=$link -> query($sql_m);
+                  $friends=array();
+                  while ($row_m = $result_m->fetch_assoc()) {
+                      $friends[] = $row_m['user_id'];
+                  }
+                  $mutual_friends = array_intersect($friends, $friends_lm);
+                  $num_mutual_friends = count($mutual_friends);
   ?>
   <div class="khung_layout">
     <a href="index.php?pid=2&&m_id=<?php echo $row_lm["user_id"]?>" style="text-decoration:none">
       <div class="anh" style="background-image:url(img/<?php echo $row_lm["avartar"]?>)"></div>
       <div class="name"><?php echo $row_lm["username"]?></div>
     </a>
+    <div class="ban_chung"> 
+       <div class="count_ban_chung"> <?php echo $num_mutual_friends;?> bạn chung</div>
+            </div>
     <div class="add" onclick="acceptFriendRequest(this,<?php echo $row_lm['user_id']?>)">Chấp nhận</div>
     <div class="add delete" onclick="cancelFriendRequest(this,<?php echo $row_lm['user_id']?>)">Hủy</div>
   </div>
