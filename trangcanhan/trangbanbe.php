@@ -181,6 +181,7 @@ while ($row_ss = $result_ss->fetch_assoc()) {
     }
   }
 </style>
+
 <div class="bia">
   <div class="bia1" style="background-image: url('img/<?php echo $row_bb["cover_picture"] ?>')"></div>
   <div class="khungcanhan">

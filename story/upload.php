@@ -1,7 +1,7 @@
 <?php
-$link= new mysqli('localhost','root','','MXH');
-    
-if($_FILES["file"]["size"] > 50000000) {
+$link = new mysqli('localhost', 'root', '', 'MXH');
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+if ($_FILES["file"]["size"] > 50000000) {
     echo "Kích thước quá lớn!";
 } else {
     $file_name = $_FILES["file"]["name"];
@@ -29,18 +29,18 @@ if($_FILES["file"]["size"] > 50000000) {
     $music_tmp = $_FILES["music"]["tmp_name"];
     $music_path = "uploads/music/" . $music_name;
     move_uploaded_file($music_tmp, $music_path);
-    
 
-    
+
+
     $user_id = $_POST["story_by"];
     $content = $_POST["content"];
     $story_time = date("Y-m-d H:i:s");
-    
+
     // Thêm dữ liệu vào cơ sở dữ liệu
     $sql = "INSERT INTO story (user_id, content, file, music, story_time)
     VALUES ($user_id, '$content', '$target_file', '$music_path', '$story_time')";
-    $result = $link -> query($sql);
-            
+    $result = $link->query($sql);
+
     header("location:../index.php");
 }
 

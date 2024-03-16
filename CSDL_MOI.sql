@@ -9,6 +9,7 @@ CREATE TABLE user(
   cover_picture varchar(500) DEFAULT 'anhbia.jpg',
   bio varchar(200),
   is_active varchar(200),
+  last_activity varchar(100),
   study_at varchar(200),
   working_at varchar(200),
   relationship varchar(100)
@@ -56,12 +57,13 @@ CREATE TABLE message(
   FOREIGN KEY (message_to) REFERENCES user(user_id), 
   content varchar(4294967295),
   timestamp varchar(100)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 INSERT INTO message(message_by,message_to,content) VALUES 
 (1,2,'hello'),
 (2,1,'hi'),
 (1,2,'how are uuuuuu'),
 (2,1,'fine');
+
 
 CREATE TABLE story (
   story_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
