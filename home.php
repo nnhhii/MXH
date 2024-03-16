@@ -305,7 +305,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
               setTimeout(function () {
                 $('#' + currentModalId).modal('hide'); // Ẩn modal hiện tại
                 var nextIndex = index + 1;
-                if (nextIndex < modalIds.length) { // Nếu còn modal tiếp theo trong danh sách
+                if (nextIndex < modalIds.length && interacted == true) { // Nếu còn modal tiếp theo trong danh sách
                   openNextModal(nextIndex); // Mở modal tiếp theo
                 }
               }, 30000);
@@ -318,6 +318,15 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                 interacted = true; // Đặt biến interacted thành true khi người dùng click
                 openNextModal(index); // Bắt đầu mở modal và chuyển đổi tự động
               });
+
+              // Bắt sự kiện click vào overlay của modal
+              $('.modal').on('click', function (e) {
+                if ($(e.target).hasClass('modal')) {
+                  console.log('click ngoai r');
+                  interacted = false; // Đặt biến interacted thành true khi người dùng click vào overlay
+                }
+              });
+
             });
 
           </script>
@@ -512,4 +521,20 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
   }
 
 
+</script>
+<script>
+  var modal = document.getElementById("myModal");
+  var btn = document.getElementById("openModalBtn");
+  var close = document.getElementById("closeModalBtn");
+  btn.onclick = function () {
+    modal.style.display = "block";
+  }
+  close.onclick = function () {
+    modal.style.display = "none";
+  }
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 </script>
