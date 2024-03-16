@@ -61,47 +61,7 @@
       scale: 1.5;
       right: 0px
     }
-    .mess1 {
-      width: 100%;
-      height: 80px;
-      float: left;
-      color: black;
-      transition: 0.2s;
-    }
-
-    .mess1:hover {
-      background-color: rgb(247, 247, 247);
-    }
-
-    .col_left>a>.mess1.active {
-      background-color: rgb(229, 228, 228)
-    }
-
-    .ava {
-      background-size: cover;
-      border-radius: 50%;
-      padding: 30px;
-      margin: 10px 0 0 10px;
-      float: left;
-      cursor: pointer;
-    }
-
-    .username {
-      float: left;
-      font-size: 14px;
-      margin: 18px 0 0 10px;
-      font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-      cursor: pointer;
-      font-weight: 500;
-    }
-
-    .mini_content {
-      float: left;
-      font-size: 12px;
-      margin: -5px 0 0 10px;
-      font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-      color: gray;
-    }
+    
     .like-button, .like-button-modal {
     display: flex;
     transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -148,8 +108,8 @@
 
 $sql_p = "SELECT * FROM posts 
         INNER JOIN user ON posts.post_by = user.user_id
-        left JOIN friendrequest ON ((sender_id = $user_id and receiver_id = user_id) or (sender_id = user_id and receiver_id = $user_id)) and status='bạn bè'
-        WHERE statuss != 'only_me' or post_by = $user_id
+        LEFT JOIN friendrequest ON ((sender_id = $user_id and receiver_id = user_id) or (sender_id = user_id and receiver_id = $user_id))
+        WHERE status='bạn bè' and statuss !='only_me' or post_by = $user_id
         ORDER BY post_id DESC";
 
     $result_p = mysqli_query($conn, $sql_p);
@@ -197,7 +157,7 @@ $sql_p = "SELECT * FROM posts
               <i class="fa-solid fa-ellipsis-vertical"></i>
             </button>
             <ul class="dropdown-menu">
-              <button type="button" class="dropdown-item edit"><a href="index.php?pid=15&&post_id=<?php echo $row["post_id"]?>">
+              <button type="button" class="dropdown-item edit"><a href="index.php?pid=15&&post_id=<?php echo $row["post_id"]?>&&statuss=<?php echo $row["statuss"]?>">
                 Chỉnh sửa bài viết</a>
               </button>
               <button class="dropdown-item delete">
@@ -420,7 +380,7 @@ $sql_p = "SELECT * FROM posts
           var userId = $(this).data('userid');
 
           if (timkiem === '') {
-              loadAllFriends(postId);
+              loadAllFriends();
               return;
           }
           $.ajax({
@@ -438,12 +398,11 @@ $sql_p = "SELECT * FROM posts
       });
 
       // Hàm tải tất cả bạn bè
-      function loadAllFriends(postId) {
+      function loadAllFriends() {
           $.ajax({
               url: 'dangbaiviet/share/tatcabanbe.php',
               method: 'POST',
               data: {
-                  post_id: postId
               },
               success: function (response) {
                   $('.hienthibanbe').html(response); 

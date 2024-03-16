@@ -105,7 +105,7 @@ if ($row['statuss'] == 'public') {
                 <!-- right -->
                 <div class="layout_phai">
                   <div class="layout_user_post">
-                    <a href="index.php?pid=1&&user_id=<?php echo $row["user_id"] ?>"style="color:black;text-decoration:none">
+                    <a href="<?php echo $row['user_id'] == $user_id ? "index.php?pid=1&&user_id=".$row['user_id'] : "index.php?pid=2&&m_id=".$row['user_id']?>"style="color:black;text-decoration:none">
                       <div class="ava_user_post" style="background-image:url('img/<?php echo $row["avartar"]?>')"></div>
                       <div class="name_user_post" style="float:left"><?php echo $row["username"]?></div><br>
                     </a>
@@ -117,7 +117,7 @@ if ($row['statuss'] == 'public') {
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                       </button>
                       <ul class="dropdown-menu">
-                        <button type="button" class="dropdown-item edit"><a href="index.php?pid=15&&post_id=<?php echo $row["post_id"]?>">
+                        <button type="button" class="dropdown-item edit"><a href="index.php?pid=15&&post_id=<?php echo $row["post_id"]?>&&statuss=<?php echo $row["statuss"]?>">
                           Chỉnh sửa bài viết</a>
                         </button>
                         <button class="dropdown-item delete">
@@ -223,10 +223,8 @@ if ($row['statuss'] == 'public') {
                     <!-- add comment -->
                     <div style="float:left; width:100%;height:50px;position: relative; padding:7px;">
                       <form method="post" enctype="multipart/form-data">
-                        <img src="img/smile.PNG"
-                          style="width: 25px; height: 25px; left:0px;top:13px;position:absolute; z-index: 1;">
                         <textarea name="cmt_content_<?php echo $row["post_id"]?>" placeholder="Thêm bình luận"
-                          style="border: none; width:90%; height:7vh; padding:5px 0 0 40px; position:absolute; left:0"></textarea>
+                          style="width:85%; height:11vh;resize: none; padding:5px 0 0 10px; position:absolute; left:4vh;top:0;border-radius:20px;border:1px solid lightgray"></textarea>
                         <button type="button" class="comment-btn submit_cmt" data-postid="<?php echo $row["post_id"]; ?>" data-postby="<?php echo $row["post_by"]; ?>"
                           data-byid="<?php echo $user_id; ?>"
                           style="border: none; background: none; color: rgb(0, 162, 255); position:absolute; right:0; top:10px;">Post</button>

@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="css/like.css">
 
 
-<div class="gop_2_menu" style="top:100px; left:250px">
+<div class="gop_2_menu" style="top:100px; left:200px">
 <?php 
 $link= new mysqli('localhost','root','','MXH');     
 $sql_buttonOpenModal="SELECT * FROM posts 

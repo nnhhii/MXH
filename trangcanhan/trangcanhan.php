@@ -7,42 +7,42 @@
   }
 
   .bia {
-    margin: 11vh 5% 0 5%;
+    margin: 11vh 10% 0 10%;
     height: 34vw;
-    width: 90%;
-    border-radius: 5px;
+    width: 80%
   }
 
   .bia>.bia1 {
     float: right;
-    width: 78%;
+    width: 72%;
     background-size: cover;
     background-position: center;
-    border-radius: 0 5px 5px 0;
-    height: 34vw;
+    border-radius: 0 10px 10px 0;
+    height: 32vw;
     position: relative;
   }
 
   .bia>.khungcanhan {
-    background: linear-gradient(to bottom, gray, white);
+    border:1px solid lightgray;
+    border-right:none;
     float: left;
-    height: 34vw;
-    width: 22%;
-    border-radius: 5px 0 0 5px;
+    height: 32vw;
+    width: 28%;
+    border-radius: 10px 0 0 10px;
     position: relative;
   }
 
   .bia>.khungcanhan>.canhan1 {
     height: 15vh;
     position: relative;
-    padding: 9vh 0 2vh 0
+    padding: 4vh 0 2vh 0
   }
 
   .bia>.khungcanhan>.canhan1>.anhdaidien {
     background-size: cover;
     background-position: center;
-    width: 15vh;
-    height: 15vh;
+    width: 17vh;
+    height: 17vh;
     border-radius: 50%;
     margin: auto;
     border: 3px solid white;
@@ -53,7 +53,7 @@
     font-family: Helvetica, Arial, sans-serif;
     font-size: 1.8vw;
     text-align: center;
-    margin-top: 10vh;
+    margin-top: 7vh;
   }
 
   .bia>.khungcanhan>.name>.banbe {
@@ -66,10 +66,8 @@
   }
 
   .bia>.khungcanhan>.congcu {
-    right: 0;
-    left: 0;
-    padding: 2vw 0.9vw 0 0.9vw;
-    position: absolute;
+    margin:0 auto;
+    width:fit-content;
     white-space: nowrap;
     display: flex
   }
@@ -80,7 +78,7 @@
     padding: 1vw 1.5vw;
     border: none;
     border-radius: 5px;
-    background-color: #cecdca;
+    background-color: #90C9D5;
   }
 
   .congcu1:hover {
@@ -107,7 +105,7 @@
   }
 
   .ccbia1 {
-    right: 10%
+    right: 15%
   }
 
   .anhdaidien>img {
@@ -269,10 +267,17 @@
       </script>
     </div>
     <div class="name">
-      <div><strong>
-          <?php echo $row_id["username"] ?>
-        </strong></div>
-      <div class="banbe"><br>2939 bạn bè </div>
+      <div><strong><?php echo $row_id["username"] ?></strong></div>
+      <div class="banbe"><br>
+        <?php 
+        $count_fr="SELECT count(status) AS count_status FROM user 
+        LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_id)
+        WHERE status = 'bạn bè'";
+        $result_count_fr=$ketnoi -> query($count_fr);
+        $row_count_fr=$result_count_fr ->fetch_assoc()
+        ?>
+        <div><?php echo $row_count_fr["count_status"]?> bạn bè</div>
+      </div>
       <div class="tieusu"><br>
         <?php echo $row_id["bio"] ?>
       </div>
@@ -308,7 +313,7 @@
     </div>
   </div>
 </div>
-
+<div style="border-bottom:1px solid lightgray; margin:5% 10vw 0 10vw; width:80%;float:center"></div>
 <?php 
   require 'dangbaiviet/posts_connect.php';
 $sql_buttonOpenModal = "SELECT * FROM posts 

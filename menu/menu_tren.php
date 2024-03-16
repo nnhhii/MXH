@@ -12,7 +12,7 @@
     </div>
     <a href="index.php?pid=0"><div class="mess"><i class="fa-brands fa-facebook-messenger"></i></div></a>
     <div class= "thong_bao" onclick="showThongBao()">
-        <div id="myThongBao" style="display: none">  
+        <div id="myThongBao" style="display: none"><h5 style="margin-left:20px">Thông báo</h5>
             <?php
             $thongBao = "SELECT * FROM user 
             inner JOIN notification ON notification.noti_by = user.user_id and notification.noti_by != $user_id and notification.noti_to = $user_id 
@@ -29,17 +29,17 @@
                         $first_image = reset($images);
 
                         $current_time = time();
-      $noti_time = strtotime($row_tb["noti_time"]);
-      $time_diff = $current_time - $noti_time;
-      if ($time_diff < 60) {
-        $time_description = "vừa xong";
-      } elseif ($time_diff < 3600) {
-        $time_description = floor($time_diff / 60) . " phút trước";
-      } elseif ($time_diff < 86400) {
-        $time_description = floor($time_diff / 3600) . " giờ trước";
-      } else {
-        $time_description = floor($time_diff / 86400) . " ngày trước";
-      }
+                        $noti_time = strtotime($row_tb["noti_time"]);
+                        $time_diff = $current_time - $noti_time;
+                        if ($time_diff < 60) {
+                            $time_description = "vừa xong";
+                        } elseif ($time_diff < 3600) {
+                            $time_description = floor($time_diff / 60) . " phút trước";
+                        } elseif ($time_diff < 86400) {
+                            $time_description = floor($time_diff / 3600) . " giờ trước";
+                        } else {
+                            $time_description = floor($time_diff / 86400) . " ngày trước";
+                        }
             if($row_tb["post_id"] !== null){
             ?>
             <a href="index.php?pid=10&&post_id=<?php echo $row_tb['post_id']?>" style="position:relative">

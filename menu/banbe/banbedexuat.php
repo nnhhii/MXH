@@ -44,39 +44,38 @@
     color:black
 }
 </style>
-<?php 
-$link= new mysqli('localhost','root','','MXH');     
-$dexuat_banbe="SELECT * FROM user 
-LEFT JOIN friendrequest ON (friendrequest.receiver_id = user.user_id AND friendrequest.sender_id = $user_id) 
-OR (friendrequest.receiver_id = $user_id AND friendrequest.sender_id = user.user_id)
-WHERE (receiver_id IS NULL OR sender_id IS NULL) and user.user_id != $user_id";
-$result_dexuat=$link -> query($dexuat_banbe);
-?>
 
 <div class="gop_2_menu">
     <div class="menu_giua" style="width:77%">Gợi ý kết bạn
         <div style="margin-left:100px">
         <?php 
+        $link= new mysqli('localhost','root','','MXH');     
+        $dexuat_banbe="SELECT * FROM user 
+        LEFT JOIN friendrequest ON (friendrequest.receiver_id = user.user_id AND friendrequest.sender_id = $user_id) 
+        OR (friendrequest.receiver_id = $user_id AND friendrequest.sender_id = user.user_id)
+        WHERE (receiver_id IS NULL OR sender_id IS NULL) and user.user_id != $user_id";
+        $result_dexuat=$link -> query($dexuat_banbe);
         while($row_dx = $result_dexuat->fetch_assoc()){
             $user_dx=$row_dx["user_id"];
             $sql_ss = "SELECT * FROM user
             LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_dx AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_dx)
-             WHERE status = 'bạn bè'";
-                $result_ss = $link->query($sql_ss);
-                $friends_dx=array();
-                while ($row_ss = $result_ss->fetch_assoc()) {
-                    $friends_dx[] = $row_ss['user_id'];
-                }
-                $sql="SELECT * FROM user 
-                LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_id)
-                WHERE status = 'bạn bè'";
-                $result=$link -> query($sql);
-                $friends=array();
-                while ($row = $result->fetch_assoc()) {
-                    $friends[] = $row['user_id'];
-                }
-                $mutual_friends = array_intersect($friends, $friends_dx);
-                $num_mutual_friends = count($mutual_friends);
+            WHERE status = 'bạn bè'";
+            $result_ss = $link->query($sql_ss);
+            $friends_dx=array();
+            while ($row_ss = $result_ss->fetch_assoc()) {
+                $friends_dx[] = $row_ss['user_id'];
+            }
+            $sql="SELECT * FROM user 
+            LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_id)
+            WHERE status = 'bạn bè'";
+            $result=$link -> query($sql);
+            $friends=array();
+            while ($row = $result->fetch_assoc()) {
+                $friends[] = $row['user_id'];
+            }
+            $mutual_friends = array_intersect($friends, $friends_dx);
+            $num_mutual_friends = count($mutual_friends);
+            if($num_mutual_friends >0){
         ?>
         <div class="khung_layout">
             <a href="index.php?pid=2&&m_id=<?php echo $row_dx["user_id"]?>" style="text-decoration:none">
@@ -84,12 +83,15 @@ $result_dexuat=$link -> query($dexuat_banbe);
             <div class="name"><?php echo $row_dx["username"]?></div>
             </a>
             <div class="ban_chung"> 
-                <div class="count_ban_chung"> <?php echo $num_mutual_friends;?> bạn chung</div>
+                <div class="count_ban_chung"> <?php echo $num_mutual_friends?> bạn chung</div>
             </div>
             <div class="add" onclick="sendFriendRequest(this,<?php echo $row_dx['user_id']?>)">Kết bạn</div>
             <div class="add delete" onclick="deleteFriendRequest(this,<?php echo $row_dx['user_id']?>)">Xóa</div>
         </div>
-        <?php }?>
+        <?php 
+            }
+        }
+        ?>
         </div>
     </div>
 

@@ -1,4 +1,4 @@
-<div class="post_TCN" style="margin:5% auto; width: 70%;">
+<div class="post_TCN" style="margin:2% auto; width: 70%;">
   <?php
   require 'posts_connect.php';
   while ($row = mysqli_fetch_assoc($result_buttonOpenModal)) {
@@ -45,9 +45,9 @@
   </button>
   <!-- The Modal -->
   <?php include 'dangbaiviet/posts_modal.php'?>
-
+  <?php } ?>
 </div>
-<?php } ?>
+
 
 
 <script>

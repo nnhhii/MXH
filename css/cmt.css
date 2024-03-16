@@ -122,3 +122,44 @@
   position: absolute;
   right: -20px
 }
+.mess1 {
+  width: 100%;
+  height: 80px;
+  float: left;
+  color: black;
+  transition: 0.2s;
+}
+
+.mess1:hover {
+  background-color: rgb(247, 247, 247);
+}
+
+.col_left>a>.mess1.active {
+  background-color: rgb(229, 228, 228)
+}
+
+.ava {
+  background-size: cover;
+  border-radius: 50%;
+  padding: 30px;
+  margin: 10px 0 0 10px;
+  float: left;
+  cursor: pointer;
+}
+
+.username {
+  float: left;
+  font-size: 14px;
+  margin: 18px 0 0 10px;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.mini_content {
+  float: left;
+  font-size: 12px;
+  margin: -5px 0 0 10px;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+  color: gray;
+}

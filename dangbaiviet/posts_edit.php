@@ -1,6 +1,7 @@
 <?php
 require_once 'posts_connect.php';
 $post_id = $_GET['post_id'];
+$statuss = $_GET['statuss'];
 $sql_show = mysqli_query($conn, "SELECT * FROM posts WHERE post_id=$post_id");
 $row_show = mysqli_fetch_assoc($sql_show);
 
@@ -129,13 +130,13 @@ if (isset($_POST['update_posts'])) {
                         <?php echo $row_id["username"] ?>
                       </label>
                       <select name="statuss">
-                        <option value="public">Công khai</option>
-                        <option value="friend">Bạn bè</option>
-                        <option value="only_me">Chỉ mình tôi</option>
-                      </select>
+                        <option value="public" <?php if($statuss == 'public') echo 'selected'; ?>>Công khai</option>
+                        <option value="friend" <?php if($statuss == 'friend') echo 'selected'; ?>>Bạn bè</option>
+                        <option value="only_me" <?php if($statuss == 'only_me') echo 'selected'; ?>>Chỉ mình tôi</option>
+                    </select>
                     </div>
                     <textarea style="width:100%;border:none; height:5em;padding:0 20px;resize: none;" name="content"
-                      placeholder="Nội dung..."></textarea>
+                      placeholder="Nội dung..."><?php echo $row_show["content"]?></textarea>
                     <div id="content2" style="width:100%;padding:20px">
                       <img src="https://cdn-icons-png.flaticon.com/512/1042/1042339.png" width="30px">Thêm ảnh hoặc
                       video<br>
