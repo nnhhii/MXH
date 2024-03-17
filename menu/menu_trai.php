@@ -8,9 +8,7 @@
         'https://img.icons8.com/?size=512&id=gE0woMnZGtua&format=png', 'trangChu', 'tenTrangChu');
         resetImage('trangBanBe', originalBanBe, 'tenBanBe');
         resetImage('trangDaLuu', originalDaLuu, 'tenDaLuu');
-        resetImage('trangKhamPha', originalKhamPha, 'tenKhamPha');
-        resetImage('trangReels', originalReels, 'tenReels');
-        resetImage('trangTaoBaiDang', originalTaoBaiDang, 'tenTaoBaiDang');">
+        resetImage('trangKhamPha', originalKhamPha, 'tenKhamPha');">
         <div class="layout_logo1" style="margin-top:25px">
             <img id="trangChu" class="logo1" src="https://img.icons8.com/?size=512&id=Gc9qmZNN9yFN&format=png">
             <div id="tenTrangChu"class="ten_logo1">Trang chủ</div>
@@ -20,9 +18,7 @@
         'https://img.icons8.com/?size=256&id=60779&format=png', 'trangBanBe', 'tenBanBe'); 
         resetImage('trangChu', originalTrangChu, 'tenTrangChu');
         resetImage('trangDaLuu', originalDaLuu, 'tenDaLuu');
-        resetImage('trangKhamPha', originalKhamPha, 'tenKhamPha');
-        resetImage('trangReels', originalReels, 'tenReels');
-        resetImage('trangTaoBaiDang', originalTaoBaiDang, 'tenTaoBaiDang');">
+        resetImage('trangKhamPha', originalKhamPha, 'tenKhamPha');">
         <div class="layout_logo1">
             <img id="trangBanBe" class="logo1" src="https://img.icons8.com/?size=256&id=61161&format=png">
             <div id="tenBanBe" class="ten_logo1">Bạn bè</div>
@@ -32,9 +28,7 @@
         'https://img.icons8.com/?size=256&id=83134&format=png', 'trangDaLuu', 'tenDaLuu'); 
         resetImage('trangBanBe', originalBanBe, 'tenBanBe');
         resetImage('trangChu', originalTrangChu, 'tenTrangChu');
-        resetImage('trangKhamPha', originalKhamPha, 'tenKhamPha');
-        resetImage('trangReels', originalReels, 'tenReels');
-        resetImage('trangTaoBaiDang', originalTaoBaiDang, 'tenTaoBaiDang');">
+        resetImage('trangKhamPha', originalKhamPha, 'tenKhamPha');">
         <div class="layout_logo1">
             <img id="trangDaLuu" class="logo1" src="https://img.icons8.com/?size=256&id=43571&format=png">
             <div id="tenDaLuu" class="ten_logo1">Đã lưu</div>
@@ -44,47 +38,33 @@
         'https://img.icons8.com/?size=256&id=9733&format=png', 'trangKhamPha', 'tenKhamPha'); 
         resetImage('trangBanBe', originalBanBe, 'tenBanBe');
         resetImage('trangChu', originalTrangChu, 'tenTrangChu');
-        resetImage('trangDaLuu', originalDaLuu, 'tenDaLuu');
-        resetImage('trangReels', originalReels, 'tenReels');
-        resetImage('trangTaoBaiDang', originalTaoBaiDang, 'tenTaoBaiDang');">
+        resetImage('trangDaLuu', originalDaLuu, 'tenDaLuu');">
         <div class="layout_logo1">
             <img id="trangKhamPha"class="logo1" src="https://img.icons8.com/?size=256&id=88004&format=png">
             <div id="tenKhamPha"class="ten_logo1">Khám phá</div>
         </div>
     </a>
-    <a href="index.php?pid=7" onclick="changeImage(
-        'https://img.icons8.com/?size=256&id=alybng0KUhxp&format=png', 'trangReels', 'tenReels'); 
-        resetImage('trangBanBe', originalBanBe, 'tenBanBe');
-        resetImage('trangChu', originalTrangChu, 'tenTrangChu');
-        resetImage('trangKhamPha', originalKhamPha, 'tenKhamPha');
-        resetImage('trangDaLuu', originalDaLuu, 'tenDaLuu');
-        resetImage('trangTaoBaiDang', originalTaoBaiDang, 'tenTaoBaiDang');">
-        <div class="layout_logo1">
-            <img id="trangReels"class="logo1" src="https://img.icons8.com/?size=256&id=ZI2N2LpZcXuZ&format=png">
-            <div id="tenReels"class="ten_logo1">Reels</div>
-        </div>
-    </a>
-    <a href="index.php?pid=9" onclick="changeImage(
-        'https://img.icons8.com/?size=256&id=db3aaXZdalCP&format=png', 'trangTaoBaiDang', 'tenTaoBaiDang'); 
-        resetImage('trangBanBe', originalBanBe, 'tenBanBe');
-        resetImage('trangChu', originalTrangChu, 'tenTrangChu');
-        resetImage('trangDaLuu', originalDaLuu, 'tenDaLuu');
-        resetImage('trangKhamPha', originalKhamPha, 'tenKhamPha');
-        resetImage('trangReels', originalReels, 'tenReels');">
+    <a data-bs-toggle="modal" data-bs-target="#exampleModal"data-bs-whatever="@mdo" style="cursor: pointer;">
         <div class="layout_logo1">
             <img id="trangTaoBaiDang"class="logo1" src="https://img.icons8.com/?size=256&id=14092&format=png">
             <div id="tenTaoBaiDang"class="ten_logo1">Tạo bài đăng</div>
         </div>
     </a>
-    
 </div>
+
+
+
+
+
+
+
+
+
 <script>
 var originalTrangChu = 'https://img.icons8.com/?size=512&id=Gc9qmZNN9yFN&format=png';
 var originalBanBe = 'https://img.icons8.com/?size=256&id=61161&format=png';
 var originalDaLuu = 'https://img.icons8.com/?size=256&id=43571&format=png';
 var originalKhamPha = 'https://img.icons8.com/?size=256&id=88004&format=png';
-var originalReels = 'https://img.icons8.com/?size=256&id=ZI2N2LpZcXuZ&format=png';
-var originalTaoBaiDang = 'https://img.icons8.com/?size=256&id=14092&format=png';
 
 function changeImage(newImageUrl, elementId, textElementId) {
     // Lưu URL hình ảnh mới vào local storage
@@ -122,17 +102,9 @@ window.onload = function() {
     if (savedImageUrl) {
         document.getElementById('trangDaLuu').src = savedImageUrl;
     }
-    var savedImageUrl = localStorage.getItem('trangReels');
-    if (savedImageUrl) {
-        document.getElementById('trangReels').src = savedImageUrl;
-    }
     var savedImageUrl = localStorage.getItem('trangKhamPha');
     if (savedImageUrl) {
         document.getElementById('trangKhamPha').src = savedImageUrl;
-    }
-    var savedImageUrl = localStorage.getItem('trangTaoBaiDang');
-    if (savedImageUrl) {
-        document.getElementById('trangTaoBaiDang').src = savedImageUrl;
     }
 
 
@@ -156,14 +128,6 @@ window.onload = function() {
     var savedTextState = localStorage.getItem('tenKhamPha');
     if (savedTextState === 'bold') {
         document.getElementById('tenKhamPha').classList.add('bold-text');
-    }
-    var savedTextState = localStorage.getItem('tenReels');
-    if (savedTextState === 'bold') {
-        document.getElementById('tenReels').classList.add('bold-text');
-    }
-    var savedTextState = localStorage.getItem('tenTaoBaiDang');
-    if (savedTextState === 'bold') {
-        document.getElementById('tenTaoBaiDang').classList.add('bold-text');
     }
 }
 

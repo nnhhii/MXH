@@ -15,11 +15,11 @@ CREATE TABLE user(
   relationship varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 INSERT INTO user(username, password, email, gender, date_of_birth, avartar, cover_picture, bio) VALUES
-('Phat Le', '12345', 'phatle@gmail.com', 'nam', '1999-02-18', 'anh2.jpg', 'anh3.jpg', 'hehe tin noi bat'),
-('Thu Thao', '12345', 'thuthao@gmail.com', 'nữ', '2000-07-08', 'user.jpeg', 'anhbia.jpg', 'hehe toi la con ga'),
-('Nhi', '12345', 'nhinhi@gmail.com', 'nữ', '2005-03-14', 'anh2.jpeg', 'anhbia.jpg', null),
-('Nam Phương', '12345', 'nam@gmail.com', 'nam', '2004-07-02', 'user.jpeg', 'anhbia.jpg', null),
-('Kiet', '12345', 'kietanh@gmail.com', 'nam', '2002-07-15', 'user.jpeg', 'anhbia.jpg', 'toi la Kiet');
+('Phat Le', '12345', 'phatle@gmail.com', 'Nam', '1999-02-18', 'anh2.jpg', 'anh3.jpg', 'hehe tin noi bat'),
+('Thu Thao', '12345', 'thuthao@gmail.com', 'Nữ', '2000-07-08', 'user.jpeg', 'anhbia.jpg', 'hehe toi la con ga'),
+('Nhi', '12345', 'nhinhi@gmail.com', 'Nữ', '2005-03-14', 'anh2.jpeg', 'anhbia.jpg', null),
+('Nam Phương', '12345', 'nam@gmail.com', 'Nam', '2004-07-02', 'user.jpeg', 'anhbia.jpg', null),
+('Kiet', '12345', 'kietanh@gmail.com', 'Nam', '2002-07-15', 'user.jpeg', 'anhbia.jpg', 'toi la Kiet');
 
 
 

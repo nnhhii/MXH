@@ -1,18 +1,10 @@
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <?php 
-session_start();
-$link= new mysqli('localhost','root','','mxh');
-$user_id = $_SESSION['user'];
-$m_id = $_POST['m_id'];
-$sql_ss = "SELECT * FROM user
-INNER JOIN friendrequest ON (friendrequest.sender_id = $m_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $m_id)
-WHERE status = 'bạn bè'";
-$result_ss = $link->query($sql_ss);
-$friends_ss=array();
-while ($row_ss = $result_ss->fetch_assoc()) {
-    $friends_ss[] = $row_ss['user_id'];
+$result = $link->query($sql);
+$friends=array();
+while ($row = $result->fetch_assoc()) {
+    $friends[] = $row['user_id'];
 }
-foreach ($friends_ss as $friend_id) {
+foreach ($friends as $friend_id) {
     $sql="SELECT * FROM user LEFT JOIN friendrequest ON (friendrequest.receiver_id =$friend_id AND friendrequest.sender_id = $user_id) OR (friendrequest.sender_id = $friend_id and friendrequest.receiver_id = $user_id)
     WHERE user_id= $friend_id";
     $result = mysqli_query($link, $sql);
@@ -45,14 +37,13 @@ foreach ($friends_ss as $friend_id) {
             </button>
             <?php }?>
         </div>
-
-<?php 
+        <?php
         }
     } else echo 'Không có bạn bè!';
 }
 ?>
 <script>
-function toggleFriendship3(button,userId) {
+function toggleFriendship2(button,userId) {
   var trangthai_ketban = button.getAttribute('data-trangthai-ketban');
   if (trangthai_ketban === 'Kết bạn') {
     sendFriendRequest1(button, userId);

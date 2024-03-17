@@ -23,7 +23,7 @@
   }
 
   .bia>.khungcanhan {
-    border:1px solid lightgray;
+    box-shadow: -10px 0px 10px 1px #EEE;
     border-right:none;
     float: left;
     height: 32vw;
@@ -56,10 +56,15 @@
     margin-top: 7vh;
   }
 
-  .bia>.khungcanhan>.name>.banbe {
+  .bia>.khungcanhan>.name>.banbe, .banchung {
     font-size: 1vw;
     color: dimgray;
+    text-decoration: none
   }
+
+.banbe,.banchung:hover{
+  text-decoration:underline;
+}
 
   .bia>.khungcanhan>.name>.tieusu {
     font-size: 1.2vw
@@ -84,16 +89,6 @@
   .congcu1:hover {
     background-color: #343a40;
     color: #f8f9fa;
-  }
-
-  .story_banbe {
-    width: 90%;
-    height: 15vh;
-    margin-top: 1%;
-    margin-left: 80px;
-    float: left;
-    display: flex;
-    overflow: auto;
   }
 
   .ccbia,
@@ -129,8 +124,9 @@
       width: 40%;
       left: 28vw;
       height: 40vh;
-      background: transparent;
       float: left;
+      box-shadow: none;
+      margin-bottom:20vh
     }
 
     .bia>.khungcanhan>.canhan1 {
@@ -225,7 +221,7 @@
   <div class="bia1" style="background-image: url('img/<?php echo $row_id["cover_picture"] ?>')">
     <button class="ccbia congcu1" onclick="showFilePicker()">Chỉnh sửa</button>
     <form action="trangcanhan/suabia.php" method="post" enctype="multipart/form-data">
-      <input type="file" id="filePicker" name="anhbia" style="display:none;" onchange="filePicked()" />
+      <input type="file" id="filePicker" accept="image/*" name="anhbia" style="display:none;" onchange="filePicked()" />
       <input type="submit" style="display:none" id="saveButton">
     </form>
     <script>
@@ -250,7 +246,7 @@
         <img src="https://cdn-icons-png.flaticon.com/512/3624/3624186.png" onclick="avartar()"></i>
       </div>
       <form action="trangcanhan/avartar.php" method="post" enctype="multipart/form-data" id="uploadForm">
-        <input type="file" id="avatarPicker" name="anhdaidien" style="display:none;" onchange="avatarPicked()" />
+        <input type="file" id="avatarPicker" accept="image/*" name="anhdaidien" style="display:none;" onchange="avatarPicked()" />
         <input type="submit" style="display:none;" id="avatarSaveButton">
       </form>
       <script>
@@ -269,14 +265,38 @@
     <div class="name">
       <div><strong><?php echo $row_id["username"] ?></strong></div>
       <div class="banbe"><br>
+        <!-- bạn bè -->
         <?php 
-        $count_fr="SELECT count(status) AS count_status FROM user 
-        LEFT JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_id)
+        $sql_ss = "SELECT * FROM user
+        INNER JOIN friendrequest ON (friendrequest.sender_id = $user_id AND friendrequest.receiver_id = user.user_id) OR (friendrequest.sender_id = user.user_id AND friendrequest.receiver_id = $user_id)
         WHERE status = 'bạn bè'";
-        $result_count_fr=$ketnoi -> query($count_fr);
-        $row_count_fr=$result_count_fr ->fetch_assoc()
+        $result_ss = $ketnoi->query($sql_ss);
+        $friends_ss=array();
+        while ($row_ss = $result_ss->fetch_assoc()) {
+          $friends_ss[] = $row_ss['user_id'];
+        }
+        $count_friends = count($friends_ss)
         ?>
-        <div><?php echo $row_count_fr["count_status"]?> bạn bè</div>
+        <a class="banchung"data-toggle="modal" href='#modal-id-banbe'><?php echo $count_friends?> bạn bè</a>
+        <div class="modal fade" id="modal-id-banbe">
+          <div class="modal-dialog">
+            <div class="modal-content" style="width:430px;height:420px; border-radius:15px;margin:20vh auto">
+              <div class="modal-header" style="border-bottom: 1px solid #DBDBDB;height:50px">
+                <h5 class="modal-title" style="position:absolute;left:38%;text-align:center;color:black">Tất cả bạn bè</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="border:none;padding:30px;background:none;position:absolute;right:0">&times;</button>
+              </div>
+              <div class="modal-body" style="padding:0;overflow:auto">
+                <!-- Search -->
+                <form enctype="multipart/form-data" method="post">
+                  <i style="top:12px;position: absolute;left:13px" class="fa-solid fa-magnifying-glass"></i>
+                  <input class="timkiem3" style="width:100%;height: 40px;outline: none;padding-left: 45px;border: none;border-bottom: 1px solid #DBDBDB;">
+                </form>
+                <div class="hienthibanbe_tcn"></div>
+              </div>
+            </div>
+          </div>
+        </div><br>
+        
       </div>
       <div class="tieusu"><br>
         <?php echo $row_id["bio"] ?>
@@ -323,3 +343,42 @@ $sql_buttonOpenModal = "SELECT * FROM posts
 
   $result_buttonOpenModal = $ketnoi->query($sql_buttonOpenModal);
 include 'dangbaiviet/posts_buttonOpenModal.php'?>
+
+
+<script>
+
+$(document).ready(function() {
+$('.timkiem3').on('input', function () {
+    var timkiem = $(this).val();
+
+    if (timkiem === '') {
+        loadAllFriends();
+        return;
+    }
+    $.ajax({
+        url: 'trangcanhan/timkiem_tcn.php',
+        method: 'POST',
+        data: {
+            timkiem: timkiem
+        },
+        success: function (response) {
+            $('.hienthibanbe_tcn').html(response); 
+        }
+    });
+});
+loadAllFriends();
+// Hàm tải tất cả bạn bè
+function loadAllFriends() {
+    $.ajax({
+        url: 'trangcanhan/tatcabanbe_tcn.php',
+        method: 'POST',
+        data: {
+        },
+        success: function (response) {
+            $('.hienthibanbe_tcn').html(response); 
+        }
+    });
+}
+});
+
+</script>

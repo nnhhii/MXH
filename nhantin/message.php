@@ -1,366 +1,6 @@
-<?php 
-    $ketnoi= new mysqli('localhost','root','','MXH');     
-    $friend = "SELECT * FROM user 
-    left JOIN friendrequest ON (sender_id = $user_id and receiver_id = user_id) or (sender_id = user_id and receiver_id = $user_id)
-    WHERE status='bạn bè'";
-    $result_fr = $ketnoi->query($friend);  
-?>
-
-<style>
-body{
-    height: 100%;
-    margin:0
-}
-.col_menu{
-    width: 70px;
-    float: left;
-    height: 100%
-}
-.col_menu > a >img{
-    float: left;
-    width: 48px;
-    height: 48px;
-    padding: 10px;
-    margin: 10% 17%;
-}
-.col_menu > a > img:hover{
-    cursor: pointer;
-    background-color: lightgray;
-    border-radius: 10px;
-    transform: scale(1.1);
-    transition: 0.3s;
-}
-.col_left{
-    width: 375px;
-    border-left:rgb(191, 190, 190) solid 1px;
-    border-right: rgb(191, 190, 190) solid 1px;
-    float: left;
-    height: 720px;
-    position: relative;
-    overflow-y:scroll ;
-}
-.col_left > .mess {
-    margin: 30px 20px;
-    float:left;
-    font-size: 20px; 
-    font-weight: bold; 
-    font-family:'Segoe UI', Tahoma,Verdana, sans-serif;
-}
-.col_left > img {
-    width: 30px; 
-    height: 30px; 
-    margin:30px 25px 15px 0;
-    float:right;
-    cursor: pointer;
-}
-.mess1{
-    width: 100%;
-    height: 80px;
-    float: left;
-    color: black;
-    transition: 0.2s;
-}
-.mess1:hover{
-    background-color: rgb(247, 247, 247);
-}
-.col_left > a >.mess1.active {
-    background-color: rgb(229, 228, 228)
-}
-.ava{
-    background-size: cover;
-    border-radius: 50%;
-    padding:30px;
-    margin: 10px 0 0 10px;
-    float: left;
-    cursor: pointer;
-}
-.username{
-    float: left;
-    font-size: 14px; 
-    margin: 18px 0 0 10px;
-    font-family:'Segoe UI', Tahoma,Verdana, sans-serif;
-    cursor: pointer;
-    font-weight: 500;
-}
-.mini_content{
-    float: left;
-    font-size: 12px; 
-    margin: -5px 0 0 10px;
-    font-family:'Segoe UI', Tahoma,Verdana, sans-serif;
-    color: gray;
-}
-.col_right{
-    position: absolute;
-    right:0;
-    left:445px
-}
-.col_right > .ten{
-    height: 80px;
-    border-bottom: lightgray solid 1px;
-}
-.col_right > .ten > div > .nghe_goi{
-    padding: 15.25px;
-    position: absolute;
-    margin-top: 10px;
-    cursor: pointer;
-    background-size: cover;
-}
-#call{
-    right: 85px;
-    background-image: url('https://img.icons8.com/?size=256&id=Iw5aeMT37fzK&format=png');
-}
-#call:hover{
-    background-image: url('https://img.icons8.com/?size=256&id=fnQivuIylSo3&format=png');
-}
-#call_video{
-    right:45px;
-    background-image: url('https://img.icons8.com/?size=256&id=OomoDjxpvJzW&format=png');
-}
-#call_video:hover{
-    background-image: url('https://img.icons8.com/?size=256&id=jHA3O0dbvOj1&format=png');
-}
-#more_info{ 
-    right:0;
-    background-image: url('https://img.icons8.com/?size=256&id=24865&format=png');
-}
-#more_info:hover{ 
-    background-image: url('https://img.icons8.com/?size=256&id=102729&format=png');
-}
-.col_right > .content{
-    height: 590px;
-    overflow-y:scroll ;
-}
-.col_right > .chat_box{
-    position: relative;
-    padding: 10px
-}
-.col_right > .chat_box > form > textarea{
-    height: 45px;
-    line-height: 2.5;
-    border: lightgray solid 1px;
-    border-radius: 30px;
-    padding-left: 55px;
-    padding-right: 130px;
-    max-height: 100px;
-    overflow: hidden;
-    overflow-wrap: break-word;
-    font-size: 17px;
-    font-family:'Segoe UI', Tahoma, Verdana, sans-serif; 
-    position: absolute;
-    right: 60px;
-    left: 20px;
-    resize: none;
-    outline:none
-}
-.col_right > .chat_box > form > .icon{
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top:8px;
-    padding: 10px;
-    cursor: pointer;
-}
-#smile_icon{
-    left: 27px; 
-}
-#microphone_icon{
-    right:120px;
-}
-#attachment_icon{
-    right: 72px;
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top:8px;
-    padding: 10px;
-    cursor: pointer;
-}
-#button_heart{
-    right: 10px;
-}
-#button_heart:hover{
-    scale: 1.1;
-    transition: 0.3s;
-}
-.col_right >.chat_box >form > div > label > .nho{
-    width:40px;
-    height:40px; 
-    margin:5px
-}
-.col_right >.chat_box >form > #myIcon{
-    width:300px;
-    height:200px; 
-    box-shadow:1px 2px 5px lightgray;
-    display: none;
-    position:absolute;
-    bottom:30px;
-    left:50px;
-    border-radius:10px;
-    overflow: auto;
-    padding: 15px 5px;
-}
-@media (max-width:900px){
-    .col_left{
-        width: 100px;
-    }
-    .col_left > .mess{
-        display: none;
-    }
-    .col_left > img{
-        right: 25px;
-    }
-    .col_left > a >div>.username, .mini_content{
-        display: none;
-    }
-    .col_right{
-        left: 172px;
-    }
-}
-@media(max-width:800px){
-    .col_menu{
-        display: none;
-    }
-    .col_left{
-        height: 670px;
-    }
-    .col_right{
-        top:0;
-        left:100px;
-    }
-    .col_right >.content{
-        height:525px;
-    }
-    .col_right > .ten >.ava{
-        margin-top: 15px;
-        padding:25px
-    }
-    .col_left > .mess1 >.ava{
-        padding:25px;
-        margin: 15px;
-    }
-    .username{
-        margin: 30px 0 0 15px;
-        font-size: 17px;
-    }
-}
-#info{
-    display:none;
-    width:20%;
-    position:absolute;
-    right:0;
-    border-left:  1px solid lightgray;
-}
-.layout_info{
-    min-width:200px;
-    height:120px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding:20px;
-    border-bottom: 1px solid lightgray;
-}
-.info_1{
-    font-size: 25px;
-    margin-bottom: 15px;
-}
-.button_mute{
-    border-radius: 50%;
-    border: none;
-    padding:9px 10px;
-    position:absolute;
-    right: 20px;
-    scale: 1.25;
-}
-.button_mute:hover{
-    background-color:lightgray;
-    transition: 0.3s;
-}
-.info_2{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 16px;
-    padding:22px;
-    color: #ED4956;
-    cursor: pointer;
-    float: left;
-    width: 100%;
-}
-.red_heart{
-    width:55px;
-    height:60px;
-    margin:2px 2% 2px 50px;
-    float:right
-}
-.other-image{
-    width:350px;
-    margin:2px 2% 2px 50px;
-    float:right;
-    border-radius: 20px 20px 2px 20px;
-}
-.text{
-    max-width:60%;
-    overflow-wrap:break-word;
-    padding:10px;
-    border-radius:18px 18px 2px 18px;
-    background: lightgray;
-    float:right;
-    margin:2px 2% 2px 50px;
-    font-size:16.5px
-}
-.message_time{
-    float:right;
-    color:gray; 
-    margin-top:15px;
-    font-size:12px
-}
-#myIcon > button{
-    width:50px;
-    background: none;
-    font-size: 28px;
-    border:none
-}
-.layout_url{
-    width:310px; float:right; background:lightgray;border-radius:20px 20px 2px 20px;margin: 10px 2% 10px 50px
-}
-.avt_url{
-    width:32px;
-    height:32px;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-    float: left;
-    margin:10px;
-}
-.user_url{
-    font-size:15px; margin:17px 7px 15px 0;color:black;font-weight:500;float:left
-}
-.content_url{
-    float:left;margin:20px 7px;font-size:12px;color:black
-}
- .layout_tim_kiem{
-    width:40%;
-    float: right;
-    margin: 30px 0 0 20%;
-    position: relative;
-}
-.layout_tim_kiem >form > input{
-    width:100%;
-    height: 40px;
-    outline: none;
-    padding-left: 45px;
-    border-radius: 20px;
-    background-color: #EEEEEE;
-    border: none;
-}
-.layout_tim_kiem{
-        left: -10%;
-    }
-.layout_tim_kiem > form > img {
-    top:12px;
-    height:1vw;
-    position: absolute;
-    right:13px
-}
-</style>
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/message.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 <body>
@@ -369,96 +9,64 @@ body{
         <a href="index.php?pid=4"><img src="https://img.icons8.com/?size=256&id=61161&format=png"></a>
         <a href="index.php?pid=5"><img src="https://img.icons8.com/?size=256&id=43571&format=png"></a>
         <a href="index.php?pid=6"><img src="https://img.icons8.com/?size=256&id=88004&format=png"></a>
-        <a href="index.php?pid=7"><img src="https://img.icons8.com/?size=256&id=ZI2N2LpZcXuZ&format=png"></a>
         <a><img src="https://img.icons8.com/?size=256&id=dJOh7yntdHD9&format=png"></a>
         <a><img src="https://img.icons8.com/?size=256&id=14092&format=png"></a>
     </div>
+    <div class="hienthi">
     <div class="col_left">
-    <div class="mess">Messages</div>
-    <div class="layout_tim_kiem">
-        <form id="timkiem_form"  enctype="multipart/form-data"method="post">
-            <input class="tim_kiem" name="timkiem">
-            <img src="https://img.icons8.com/search">
-        </form>
-    </div>
+        <div class="mess">Messages</div>
+        <div class="layout_tim_kiem">
+            <form id="timkiem_form"  enctype="multipart/form-data"method="post">
+                <input class="tim_kiem" name="timkiem">
+                <img src="https://img.icons8.com/search">
+            </form>
+        </div>
         <?php 
-function getStatus($is_active, $last_activity) {
-    if ($is_active == 1) {
-        return 'Đang hoạt động';
-    } else {
-        $time_offline = time() - strtotime($last_activity);
-        if ($time_offline < 3600) {
-            return 'Hoạt động ' . floor($time_offline / 60) . ' phút trước';
-        } elseif ($time_offline < 86400) {
-            return 'Hoạt động ' . floor($time_offline / 3600) . ' giờ trước';
-        } elseif ($time_offline > 2592000) {
-                return 'Ngưng hoạt động ' ;
+        
+        function getStatus($is_active, $last_activity) {
+            if ($is_active == 1) {
+                return 'Đang hoạt động';
+            } else {
+                $time_offline = time() - strtotime($last_activity);
+                if ($time_offline < 3600) {
+                    return 'Hoạt động ' . floor($time_offline / 60) . ' phút trước';
+                } elseif ($time_offline < 86400) {
+                    return 'Hoạt động ' . floor($time_offline / 3600) . ' giờ trước';
+                } elseif ($time_offline < 2592000) {
+                    return 'Hoạt động ' . floor($time_offline / 86400) . ' ngày trước';
+                }else{
+                    return 'Ngưng hoạt động' ;
+                }
+                
             }
-         else {
-            return 'Hoạt động ' . floor($time_offline / 86400) . ' ngày trước';
         }
-    }
-}
-
-if ($result_fr!=null && $result_fr->num_rows > 0) {
-    if (isset($_GET['m_id'])){
-        $m_id = $_GET['m_id'];
-    }else{
-        $friend_default = "SELECT * FROM user 
-        left JOIN friendrequest ON (request_id = $user_id and receiver_id = user_id) or (request_id = user_id and receiver_id = $user_id)
-        WHERE status='bạn bè'";
-        
-        $result_default = $ketnoi->query($friend_default);
-        $row_default = $result_default -> fetch_assoc();
-        $m_id = $row_default['user_id'];
-    }
-
-    // tung nhan tin
-    $friend_default = "SELECT DISTINCT user.* FROM user 
-    JOIN message ON (message_by = $user_id AND message_to = user_id) OR (message_by = user_id AND message_to = $user_id)";
-    $result_fr = $ketnoi->query($friend_default);
-
-    $friend_details = "select * from user where user_id = $m_id";
-    $result_dt = $ketnoi->query($friend_details);
-    $row_dt = $result_dt ->fetch_assoc();
-    while ($row_fr = $result_fr->fetch_assoc()) {
-        $friend_id = $row_fr['user_id'];
-
-        // lay tin nhan moi nhat
-        $sql_latest = "SELECT * FROM message WHERE (message_by=$user_id AND message_to=$friend_id) OR (message_by=$friend_id AND message_to=$user_id) ORDER BY timestamp DESC LIMIT 1";
-        $result_latest = $ketnoi->query($sql_latest);
-        if ($result_latest->num_rows > 0) {
-            $row_latest = $result_latest->fetch_assoc();
-            $latest_content = $row_latest['content'];
-        } else {
-            $latest_content = "Chưa có tin nhắn nào!";
+        $ketnoi= new mysqli('localhost','root','','MXH');
+        if (isset($_GET['m_id'])){
+            $m_id = $_GET['m_id'];
+        }else{
+            $friend_default = "SELECT * FROM user 
+            left JOIN message on (message_by=$user_id AND message_to=user_id) OR (message_by=user_id AND message_to=$user_id) ORDER BY timestamp DESC";
+            $result_default = $ketnoi->query($friend_default);
+            $row_default = $result_default -> fetch_assoc();
+            $m_id = $row_default['user_id'];
         }
+        $friend_details = "select * from user where user_id = $m_id";
+        $result_dt = $ketnoi->query($friend_details);
+        $row_dt = $result_dt ->fetch_assoc();
 
-        // Lấy trạng thái online/offline và thời gian offline gần nhất
-        $status = getStatus($row_fr['is_active'], $row_fr['last_activity']);
         $status_dt = getStatus($row_dt['is_active'], $row_dt['last_activity']);
-        
-        ?>
-        <a href="index.php?pid=0&&m_id=<?php echo $friend_id?>">
-            <div class="mess1 <?php echo ($friend_id == $m_id) ? 'active' : ''; ?>">
-                <div class="ava" style="background-image: url('img/<?php echo $row_fr["avartar"]?>');"></div>
-                <div class="username"><?php echo $row_fr["username"]?> <span style="font-weight:400;color:green;font-size: 14px; font-family:'Segoe UI', Tahoma,Verdana, sans-serif;"><?php echo $status; ?></span></div><br><br>
-                <div class="mini_content" ><?php echo $latest_content; ?></div>
-            </div> 
-        </a>
-        <?php
-    
-}
-?>
-
-
+            // tung nhan tin
+            ?><div class="message_list"></div>
+    </div>
     </div>
     <div class="col_right">
         <div class="ten">
+            <a href="index.php?pid=2&&m_id=<?php echo $row_dt["user_id"]?>" style="color:black">
             <div class="ava"style="background-image: url('img/<?php echo $row_dt["avartar"]?>');padding:27px"></div>
-            <div class="username"><?php echo $row_dt["username"]?></div><br><br>
-            <div class="mini_content"><span style="color:green;"><?php echo $status_dt; ?></span></div>
-
+            <div class="username"><?php echo $row_dt["username"]?></div>
+            </a>
+            <br><br>
+            <div class="mini_content"><span style="color:#lightgray;"><?php echo $status_dt; ?></span></div>
             <div style="position: absolute; right:20px; top:17px">
                 <div class="nghe_goi" id="more_info" onclick="myFunction()"></div>
             </div>
@@ -589,13 +197,8 @@ if ($result_fr!=null && $result_fr->num_rows > 0) {
     </div>
     
     <div id=info>
-        <div class="layout_info">
-            <div class="info_1">Chi tiết</div>
-            <div class="mute_mess">Tắt thông báo 
-                <button type="button" class="button_mute"><i class="fa-solid fa-bell"></i></button>
-            </div>
-        </div>
-        <div style="height:450px;border-bottom: 1px solid lightgray;">
+        <div class="layout_info"><div class="info_1">Chi tiết</div></div>
+        <div style="height:580px;border-bottom: 1px solid lightgray;">
             <a href="index.php?pid=2&&m_id=<?php echo $row_dt["user_id"]?>">
                 <div class="mess1">
                     <div class="ava" style="background-image: url('img/<?php echo $row_dt["avartar"]?>')"></div>
@@ -604,7 +207,7 @@ if ($result_fr!=null && $result_fr->num_rows > 0) {
                 </div>
             </a>
         </div>
-        <div style="height:150px">        
+             
             <a class="info_2" style="text-decoration:none;float:left"data-toggle="modal" href='#modal-id'>Xóa cuộc trò chuyện</a>
             <div class="modal fade" id="modal-id">
                 <div class="modal-dialog">
@@ -623,14 +226,12 @@ if ($result_fr!=null && $result_fr->num_rows > 0) {
                     </div>
                 </div>
             </div>
-        </div>
+        
     </div>
 </body>
 
 <?php 
-}else {
-    echo "<div style='width:150px;height:50px;margin:100px 100px;text-align:center; color:gray'>Không có bạn bè. <br> Hãy kết bạn thôi nào!</div>";
-}
+
 
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -770,28 +371,50 @@ $(document).ready(function(){
                 $('textarea[name="content"]').val('');
                 $(".content .no").remove();
                 $(".content").scrollTop($(".content")[0].scrollHeight);
+                loadAllFriends();
             }
         });
     });$(".content").scrollTop($(".content")[0].scrollHeight);
-});
 
-$(document).ready(function(){
-  $('#timkiem_form').on('submit', function(e){
-    e.preventDefault();
-    var searchKeyword = $('.tim_kiem').val();
-    $.ajax({
-      url: 'nhantin/timban.php',
-      type: 'POST',
-      data: { timkiem: searchKeyword },
-      success: function(data) {
-        $('.col_left').html(data);
+
+    loadAllFriends();
+
+
+          $('.tim_kiem').on('input', function () {
+          var timkiem = $(this).val();
+
+          if (timkiem === '') {
+              loadAllFriends();
+              return;
+          }
+          $.ajax({
+              url: 'nhantin/timban.php',
+              method: 'POST',
+              data: {
+                timkiem: timkiem
+              },
+              success: function (response) {
+                $('.message_list').html(response); 
+              }
+          });
+      });
+
+      // Hàm tải tất cả bạn bè
+      function loadAllFriends() {
+          $.ajax({
+              url: 'nhantin/load_messages.php',
+              method: 'GET',
+              data: {
+              },
+              success: function (response) {
+                  $('.message_list').html(response); 
+              }
+          });
       }
-    });
-  });
+        
+
+
 });
-
-
-
 
 </script>
 

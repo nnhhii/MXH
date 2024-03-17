@@ -131,6 +131,7 @@ if ($row['statuss'] == 'public') {
 
                   <!-- view comment -->
                   <div class="view_cmt" data-postid="<?php echo $row["post_id"]; ?>">
+                    <?php if($row["content"]!=null){?>
                     <div class="layout_cmt">
                       <div class="ava_user_cmt" style="background-image:url('img/<?php echo $row["avartar"] ?>')"></div>
                       <div class="gop_cmt">
@@ -139,6 +140,7 @@ if ($row['statuss'] == 'public') {
                         <div class="cmt_time"><?php echo $time_description ?></div>
                       </div>
                     </div>
+                    <?php }?>
                     <?php
                     $ketnoi = new mysqli("localhost", "root", "", "mxh");
                     $post_id = $row["post_id"];

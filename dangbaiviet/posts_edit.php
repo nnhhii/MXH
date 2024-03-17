@@ -130,9 +130,9 @@ if (isset($_POST['update_posts'])) {
                         <?php echo $row_id["username"] ?>
                       </label>
                       <select name="statuss">
-                        <option value="public" <?php if($statuss == 'public') echo 'selected'; ?>>Công khai</option>
-                        <option value="friend" <?php if($statuss == 'friend') echo 'selected'; ?>>Bạn bè</option>
-                        <option value="only_me" <?php if($statuss == 'only_me') echo 'selected'; ?>>Chỉ mình tôi</option>
+                        <option value="public" <?php if($statuss == 'public') echo 'selected'; ?>>&#x1F30E; Công khai</option>
+                        <option value="friend" <?php if($statuss == 'friend') echo 'selected'; ?>>&#x1F91D; Bạn bè</option>
+                        <option value="only_me" <?php if($statuss == 'only_me') echo 'selected'; ?>>&#x1F512; Chỉ mình tôi</option>
                     </select>
                     </div>
                     <textarea style="width:100%;border:none; height:5em;padding:0 20px;resize: none;" name="content"

@@ -1,4 +1,4 @@
-<div class="post_TCN" style="margin:2% auto; width: 70%;">
+<div class="post_TCN" style="margin:2% 15%; width: 80%;height:100%;float:left">
   <?php
   require 'posts_connect.php';
   while ($row = mysqli_fetch_assoc($result_buttonOpenModal)) {
@@ -22,7 +22,7 @@
     ?>
     
     <div class="gallery-item">
-      <div style="background-image:url('img/<?php echo $first_image; ?>');background-size:cover ;background-position:center;width: 45vh;height: 45vh;"></div>
+      <div style="background-image:url('img/<?php echo $first_image; ?>');background-size:cover ;background-position:center;width: 22vw;height: 22vw;"></div>
       <?php if ($num_images > 1) { ?>
         <div class="gallery-item-type">
           <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
@@ -116,7 +116,7 @@
         }
         $.ajax({
           type: "POST",
-          url: "dangbaiviet/get_comments.php",
+          url: "dangbaiviet/comments.php",
           data: {
             post_id: post_id,
             post_by: post_by,
@@ -212,7 +212,7 @@
         var icon = $(this).find('i');
 
         $.ajax({
-            url: 'menu/trangthailuu.php',
+            url: 'dangbaiviet/trangthailuu.php',
             type: 'POST',
             data: {
                 post_id: post_id,
@@ -235,7 +235,7 @@
         var icon = $(this).find('i');
 
         $.ajax({
-            url: 'menu/luubaiviet.php',
+            url: 'dangbaiviet/luubaiviet.php',
             type: 'POST',
             data: {
                 post_id: post_id,

@@ -67,6 +67,7 @@ if (isset ($_POST["timkiem"])){
             <div class="ten_ketqua"><?php echo $row["username"]?>
               <div class="email_ketqua"><?php echo $row["email"]?></div>
             </div>
+            
           </div>
         </a>
       <?php }}else echo"ko tìm thấy kết quả";?>

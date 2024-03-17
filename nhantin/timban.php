@@ -28,15 +28,6 @@ function getStatus($is_active, $last_activity) {
 
 ?>
 
-<div class="col_left">
-    <div class="mess">Messages</div>
-    <div class="layout_tim_kiem">
-        <form id="timkiem_form" action="#" enctype="multipart/form-data"method="post">
-            <input class="tim_kiem" name="timkiem">
-            <img src="https://img.icons8.com/search">
-        </form>
-    </div>
-
 <?php
 if ($result1->num_rows > 0) {
   while($row_ten = $result1->fetch_assoc()) {

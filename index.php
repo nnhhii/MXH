@@ -31,7 +31,7 @@ if(isset($_SESSION['user']))
             case 2:
                 $showMenuTrai = false;
                 $showMenuPhai = false;
-                include("trangcanhan/trangbanbe.php");
+                include("trangcanhan/trangbanbe/trangbanbe.php");
                 break;
             case 3:
                 $showMenuPhai = false;

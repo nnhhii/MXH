@@ -323,7 +323,7 @@ $sql_p = "SELECT * FROM posts
         var cmt_content = $('textarea[name="cmt_content_' + post_id + '"]').val()
         $.ajax({
           type: "POST",
-          url: "dangbaiviet/get_comments.php",
+          url: "dangbaiviet/comments.php",
           data: {
             post_id: post_id,
             post_by: post_by,
@@ -418,7 +418,7 @@ $sql_p = "SELECT * FROM posts
         var icon = $(this).find('i');
 
         $.ajax({
-            url: 'menu/trangthailuu.php',
+            url: 'dangbaiviet/trangthailuu.php',
             type: 'POST',
             data: {
                 post_id: post_id,
@@ -441,7 +441,7 @@ $sql_p = "SELECT * FROM posts
         var icon = $(this).find('i');
 
         $.ajax({
-            url: 'menu/luubaiviet.php',
+            url: 'dangbaiviet/luubaiviet.php',
             type: 'POST',
             data: {
                 post_id: post_id,

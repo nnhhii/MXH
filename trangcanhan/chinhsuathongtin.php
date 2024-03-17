@@ -1,24 +1,11 @@
 <?php
-
 $user_id = $_SESSION['user'];
 $conn = new mysqli("localhost", "root", "", "mxh");
-
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-}
-
 $sql = "SELECT * FROM user WHERE user_id = $user_id";
 $result = $conn->query($sql);
 
-$user = [];
+$user = $result->fetch_assoc();
 
-if ($result->num_rows > 0) {
-    $user = $result->fetch_assoc();
-} else {
-    echo "Không tìm thấy người dùng";
-}
-
-$conn->close();
 ?>
 
 <style>
