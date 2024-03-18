@@ -95,26 +95,33 @@ if ($result->num_rows > 0) {
         $num_images = count($images);
         // Lấy giá trị đầu tiên trong mảng
         $first_image = reset($images);
-              
-        echo "
-        <a href='index.php?pid=10&&post_id=" . $row['post_id'] . "'>
-        <div id='post_" . $row['post_id'] . "' class='post'>
-            <div class='post-image' style='background-image:url(img/". $first_image .   ");'></div>
-            <div class='post-content'>
-                <p class='post-text'>
-                    " . $row['content'] . "
-                </p>
-                <p class='post-user'>
-                    <span class='user-avatar' style='background-image:url(img/" . $row['avartar'] . ");'></span>
-                    " . $row['username'] . "
-                </p>
-        
+        $extension = pathinfo($first_image, PATHINFO_EXTENSION);
+        ?>
+        <a href="index.php?pid=10&&post_id=<?php echo $row["post_id"]?>">
+            <div id="post_<?php echo $row["post_id"]?>" class='post'>
             
-                <button class='congcu unsave_post' data-post-id='" . $row['post_id'] . "'>Bỏ lưu bài viết</button>
+            <?php 
+            if(in_array($extension, ['mp4', 'avi', 'mov'])) { 
+                echo "<video class='post-image' width='100%'>
+                        <source src='img/$first_image' type='video/$extension'>
+                    </video>";
+            } else {
+                echo "<div class='post-image' style='background-image:url(img/$first_image);'></div>";
+            }
+            ?>
+
+            
+            <div class='post-content'>
+                <p class='post-text'><?php echo $row["content"]?></p>
+                <p class='post-user'>
+                    <span class='user-avatar' style='background-image:url(img/<?php echo $row["avartar"]?>);'></span>
+                    <?php echo $row["username"]?>
+                </p>
+                <button class='congcu unsave_post' data-post-id=<?php echo $row["post_id"]?>>Bỏ lưu bài viết</button>
             </div>
         </div>
         </a>
-        ";
+<?php
     }
 } else {
     echo "Chưa có bài viết nào được lưu";

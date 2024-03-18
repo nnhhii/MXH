@@ -174,16 +174,24 @@ $sql_p = "SELECT * FROM posts
         <div class="slide-show" style="width:470px; margin:10px 0;max-height:600px;border-radius:10px">
           <div class="list-images" style="width:max-content">
 
-            <?php
-            // Tách thành một mảng
-            $images = explode(",", $row['image']);
-            $num_images = count($images);
-            ?>
+          <?php
+          // Tách thành một mảng
+          $images = explode(",", $row['image']);
+          $num_images = count($images);
 
-            <!-- Sử dụng vòng lặp để tạo thẻ <div> cho mỗi ảnh -->
-            <?php foreach ($images as $img): ?>
-              <div style="background-image:url('img/<?php echo $img?>');background-position: center;background-size:cover;width: 470px;height:600px;border-radius:10px"></div>
-            <?php endforeach; ?>
+          // Sử dụng vòng lặp để tạo thẻ <div> cho mỗi ảnh
+          foreach ($images as $img): 
+            $extension = pathinfo($img, PATHINFO_EXTENSION);
+            if(in_array($extension, ['mp4', 'avi', 'mov'])) {
+              echo "<video width='470' height='600' controls>
+                      <source src='img/$img' type='video/$extension'>
+                    </video>";
+            } else {
+              echo "<div style='background-image:url(\"img/$img\");background-position: center;background-size:cover;width: 470px;height:600px;border-radius:10px'></div>";
+            }
+          endforeach;
+          ?>
+
 
           </div>
 
@@ -475,7 +483,7 @@ $sql_p = "SELECT * FROM posts
 
     function SliderController(slider, index) {
       const listElement = slider.querySelector('.list-images');
-      const imgs = slider.querySelectorAll('.list-images div, .list-images img');
+      const imgs = slider.querySelectorAll('.list-images div, .list-images img,.list-images video');
       const btnLeft = slider.querySelector('.btn-left');
       const btnRight = slider.querySelector('.btn-right');
       const length = (imgs.length);

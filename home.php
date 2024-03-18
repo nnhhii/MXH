@@ -15,11 +15,11 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 <style>
   #openModalBtn {
-    padding-top: 50%;
+    padding:60% 0;
     width: 145px;
     background: none;
-    border: none;
-    color: #777777;
+    border:none;
+    color: white;
     font-size: 40px;
     cursor: pointer
   }
@@ -147,17 +147,25 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
     background-size: cover;
     background-position: center;
   }
-
-  .smallImage {
+  .largeVideo{
+    width: 50vh;
+    height: 73vh;
+    margin: 0 9.5vh;
+  }
+  .wrapper{
+    position: relative;
     width: 10vh;
     height: 10vh;
     margin: 5px 0 0 5px;
-    filter: brightness(70%);
     float: left;
+    filter: brightness(70%);
     cursor: pointer;
+  }
+  .smallImage, .smallVideo {
+    width: 10vh;
+    height: 10vh;
     background-size: cover;
     background-position: center;
-    position: relative
   }
 
   .closeButton {
@@ -183,9 +191,9 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
     <div class="layout_menu_giua">
       <div class="layout_story" style="overflow:auto">
         <div class="stories-container">
-          <div class="story">
+          <div class="story" style="background-image:url(img/<?php echo $row_id["avartar"]?>)">
 
-            <button id="openModalBtn"><i class="fa-solid fa-circle-plus" style="object-fit: cover"></i></button>
+            <button id="openModalBtn"><i class="fa-solid fa-circle-plus"></i></button>
             <div id="myModal" class="modal_post_story">
               <div class="modal-contentt">
                 <span id="closeModalBtn" class="close">&times;</span>
@@ -195,12 +203,12 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                     <label for="content">Content:</label><br>
                     <textarea id="content" name="content" rows="4" cols="50"></textarea><br><br>
 
-                    <label for="video">Select Video:</label>
+                    <label for="video">Chọn ảnh hoặc video:</label>
                     <input type="file" id="video,img" name="file"
-                      accept="video/mp4,video/x-m4v,video/*,image/png,image/jpg,image/*" required><br><br>
+                      accept="video/*,image/*" required onchange="checkFileSize(this)"><br><br>
 
-                    <label for="music">Select Music:</label>
-                    <input type="file" id="music" name="music" accept="audio/mp3,audio/*,audio/m4a"><br><br>
+                    <label for="music">Chọn nhạc nền:</label>
+                    <input type="file" id="music" name="music" accept="audio/*"><br><br>
 
                     <input type="submit" value="Submit" name="submit">
                   </form>
@@ -215,13 +223,23 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
           while ($row_story = $result_story->fetch_assoc()) {
             $story_id = $row_story["story_id"];
             $modal_ids[] = $story_id; // Thêm ID của modal vào mảng
-            //ktra tgian post story
-            $postTime = strtotime($row_story["story_time"]);
-            $currentTime = time();
-            $timeDifference = $currentTime - $postTime;
-            if ($timeDifference < 24 * 60 * 60) { //tính theo giấy
+
+            $current_time = time();
+      $post_time = strtotime($row_story["story_time"]);
+      $time_diff = $current_time - $post_time;
+      if ($time_diff < 60) {
+        $time_description = "vừa xong";
+      } elseif ($time_diff < 3600) {
+        $time_description = floor($time_diff / 60) . " phút trước";
+      } elseif ($time_diff < 86400) {
+        $time_description = floor($time_diff / 3600) . " giờ trước";
+      } else {
+        $time_description = floor($time_diff / 86400) . " ngày trước";
+      }
+            
+            if ($time_diff < 24 * 60 * 60) { //tính theo giây
               $file = $row_story["file"];
-              echo '<a href="#modal_story_' . $row_story["story_id"] . '"  class="story" style="border:none;padding:0;margin:0 2px">';
+              echo '<a href="#modal_story_' . $story_id . '"  class="story" style="border:none;padding:0;margin:0 2px">';
               if (strpos($file, '.png') || strpos($file, '.jpg') || strpos($file, '.jpeg')) {
                 echo '<div class="story modal-trigger" style="background-image:url(story/' . $file . ')"></div>';
               } else {
@@ -238,18 +256,19 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
               </a>
               <!-- Modal story -->
               <div class="modal fade" id="modal_story_<?php echo $row_story["story_id"] ?>" data-toggle="modal"
-                data-storyid="<?php echo $row_story["story_id"] ?>" onclick="muteAudio(this)">
+                data-storyid="<?php echo $row_story["story_id"] ?>" onclick="stopAudio(this)">
                 <div class="modal-dialog">
                   <div class="modal-content"
                     style="z-index:2;width:450px;height:650px;border-radius:20px;background:none;padding:0">
                     <div class="modal-body" style="padding:0;position:relative;background:black;border-radius:20px;">
-                      <div class="vien_ava_story">
+                      <div class="vien_ava_story" style="margin: 20px 7px;">
                         <div class="ava_story" style="background-image: url('img/<?php echo $row_story["avartar"] ?>');">
                         </div>
                       </div>
-                      <div class="ten_story" style="top:10px;left:60px;z-index:1">
+                      <div class="ten_story" style="top:20px;left:60px;z-index:1;font-size:14px;font-weight:500">
                         <?php echo $row_story["username"] ?>
                       </div>
+                      <div style="color:white;font-size:12px;position:absolute;top:45px;left:60px"><?php echo $time_description?></div>
                       <?php if ($user_id == $row_story["user_id"]) { ?>
                         <div class="chinhsuaa">
                           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -269,11 +288,15 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                       if (strpos($file, '.png') || strpos($file, '.jpg') || strpos($file, '.jpeg')) {
                         echo '<div class="image" style="background-image:url(story/' . $file . ');width:100%;height:650px;border-radius:20px;background-size:cover"></div>';
                       } else {
-                        echo '<video class="video"  muted loop autoplay style="width:450px;height:650px;border-radius:20px;">
+                        echo '<video class="video"  muted autoplay style="width:450px;height:650px;border-radius:20px;">
                                 <source src="story/' . $file . '" type="video/mp4">    
                               </video>';
                       }
                       ?>
+                      <!-- Thêm thanh tiến trình vào modal -->
+                      <div class="progress" style="background:gray;--bs-progress-bar-bg:white;height:5px;position:absolute;top:10px;width:90%;left:5%">
+                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
 
                       <audio id="audio_<?php echo $row_story["story_id"] ?>" loop>
                         <source src="story/<?php echo $row_story["music"] ?>" type="audio/mpeg">
@@ -282,9 +305,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                       <div style="position:absolute;left:50px;bottom:20px;color:white">
                         <?php echo $row_story["content"] ?>
                       </div>
-                      <button
-                        style="position:absolute;right:50px;bottom:20px;border:none;background:none;scale:2;color:white"><i
-                          class="fa fa-heart" aria-hidden="true"></i></button>
+                      
 
                     </div>
                   </div>
@@ -293,43 +314,93 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
             <?php }
           } ?>
-          <script>
-            var modalIds = <?php echo json_encode($modal_ids); ?>; // Mảng ID của các modal
-            var interacted = false; // Biến kiểm tra xem người dùng đã tương tác với trang hay chưa
+<script>
+var modalIds = <?php echo json_encode($modal_ids); ?>; // Mảng ID của các modal
+var interacted = false;
 
-            // Hàm mở modal tiếp theo
-            function openNextModal(index) {
-              var currentModalId = 'modal_story_' + modalIds[index];
-              $('#' + currentModalId).modal('show'); // Hiển thị modal hiện tại
-              // Đặt hẹn giờ sau 30 giây để tự đóng modal và mở modal tiếp theo
-              setTimeout(function () {
-                $('#' + currentModalId).modal('hide'); // Ẩn modal hiện tại
-                var nextIndex = index + 1;
-                if (nextIndex < modalIds.length && interacted == true) { // Nếu còn modal tiếp theo trong danh sách
-                  openNextModal(nextIndex); // Mở modal tiếp theo
-                }
-              }, 30000);
-            }
+// Hàm mở modal tiếp theo
+function openNextModal(index) {
+  // Reset thanh tiến trình của modal trước
+  if (index > 0) {
+    var previousModalId = 'modal_story_' + modalIds[index - 1];
+    var $previousModal = $('#' + previousModalId);
+    var $previousProgressBar = $previousModal.find('.progress-bar');
+    $previousProgressBar.css('width', '0%').attr('aria-valuenow', 0);
+  }
 
-            // Bắt sự kiện click vào phần tử mong muốn
-            $(document).ready(function () {
-              $('.modal-trigger').click(function () {
-                var index = $(this).index('.modal-trigger'); // Lấy chỉ số của modal được click
-                interacted = true; // Đặt biến interacted thành true khi người dùng click
-                openNextModal(index); // Bắt đầu mở modal và chuyển đổi tự động
-              });
+  var currentModalId = 'modal_story_' + modalIds[index];
+  var $currentModal = $('#' + currentModalId);
+  $currentModal.modal('show'); // Hiển thị modal hiện tại
 
-              // Bắt sự kiện click vào overlay của modal
-              $('.modal').on('click', function (e) {
-                if ($(e.target).hasClass('modal')) {
-                  console.log('click ngoai r');
-                  interacted = false; // Đặt biến interacted thành true khi người dùng click vào overlay
-                }
-              });
+  var $image = $currentModal.find('.image');
+  var $video = $currentModal.find('.video');
+  var $progressBar = $currentModal.find('.progress-bar');
 
-            });
+  if ($image.length > 0) {
+    var imageDuration = 5; // Thời lượng hiển thị ảnh là 5 giây
+    var imageInterval = setInterval(function() {
+      var valueNow = parseInt($progressBar.attr('aria-valuenow'));
+      valueNow++;
+      $progressBar.css('width', valueNow + '%').attr('aria-valuenow', valueNow);
+      if (valueNow >= 100) {
+        clearInterval(imageInterval);
+      }
+    }, imageDuration * 1000 / 100); // Cập nhật thanh tiến trình mỗi 1% thời lượng
 
-          </script>
+    setTimeout(function() {
+      $currentModal.modal('hide'); // Ẩn modal hiện tại
+      if (interacted) {
+        openNextModal(index + 1); // Mở modal tiếp theo
+      }
+    }, imageDuration * 1000);
+  } else if ($video.length > 0) {
+    var video = $video[0];
+    var videoDuration = video.duration; // Lấy thời lượng video
+
+    // Cập nhật thanh tiến trình mỗi 0.1 giây
+    var videoInterval = setInterval(function() {
+      var currentTime = video.currentTime;
+      var progress = (currentTime / videoDuration) * 100;
+      $progressBar.css('width', progress + '%').attr('aria-valuenow', progress);
+
+      if (currentTime >= videoDuration) {
+        clearInterval(videoInterval);
+      }
+    }, 100);
+
+    
+    $video.on('ended', function() {
+      $currentModal.modal('hide'); // Ẩn modal hiện tại
+      if (interacted) {
+        openNextModal(index + 1); // Mở modal tiếp theo
+      }
+    });
+  }
+}
+
+$(document).ready(function () {
+  $('.modal-trigger').click(function () {
+    var index = $(this).index('.modal-trigger'); // Lấy chỉ số của modal được click
+    interacted = true;
+    openNextModal(index); // mở modal kế tiếp
+  });
+
+  $('.modal').on('click', function (e) {
+  if ($(e.target).hasClass('modal')) {
+    interacted = false; 
+    var $progressBar = $(this).find('.progress-bar');
+    $progressBar.css('width', '0%').attr('aria-valuenow', 0);
+  }
+});
+
+
+  
+});
+
+</script>
+
+
+
         </div>
 
       </div>
@@ -370,7 +441,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                     hoặc video
                     <br>
                     <input type="file" name="images[]" class="hinhanh" style="margin: 20px 30%" multiple
-                      accept="image/*" required onchange="handleFile(this)">
+                      accept="image/*, video/*" required onchange="handleFile(this)">
                   </div>
                 </div>
 
@@ -407,7 +478,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 </div>
 
 <script>
-  $(document).ready(function () {
+$(document).ready(function () {
     $('.modal').on('shown.bs.modal', function () {
       $(this).find('audio')[0].play();
     });
@@ -420,10 +491,10 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 
   });
-  function muteAudio(modal) {
+  function stopAudio(modal) {
     var audioId = modal.getAttribute("data-storyid");
     var audio = document.getElementById("audio_" + audioId);
-    audio.stop = true; // Mute audio khi modal được đóng
+    audio.stop = true; // stop audio khi modal được đóng
   }
 
 
@@ -444,24 +515,47 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
       var imageUrl = URL.createObjectURL(file);
       (function (imageUrl, file) {
+        if (file.type.match('image.*')) {
         // Tạo
         var largeImage = document.createElement("div");
         largeImage.classList.add("largeImage");
         largeImage.style.backgroundImage = "url('" + imageUrl + "')";
         imagePreview.appendChild(largeImage);
 
+        var wrapper = document.createElement("div");
+        wrapper.classList.add("wrapper");
+
         var smallImage = document.createElement("div");
         smallImage.classList.add("smallImage");
         smallImage.style.backgroundImage = "url('" + imageUrl + "')";
-        imagePreview2.appendChild(smallImage);
+        
+        wrapper.appendChild(smallImage);
+        imagePreview2.appendChild(wrapper);
 
+      } else if (file.type.match('video.*')) {
+        // Tạo và hiển thị video
+        var largeImage = document.createElement("video");
+        largeImage.classList.add("largeVideo");
+        largeImage.src = imageUrl;
+        imagePreview.appendChild(largeImage);
+
+        var wrapper = document.createElement("div");
+        wrapper.classList.add("wrapper");
+
+        var smallImage = document.createElement("video");
+        smallImage.classList.add("smallVideo");
+        smallImage.src = imageUrl;
+
+        wrapper.appendChild(smallImage);
+        imagePreview2.appendChild(wrapper);
+      }
         var closeButton = document.createElement("div");
         closeButton.classList.add("closeButton");
         closeButton.innerHTML = "&#10006;";
         closeButton.addEventListener("click", function () {
           if (imagePreview.contains(largeImage)) {
             imagePreview.removeChild(largeImage);
-            imagePreview2.removeChild(smallImage);
+            imagePreview2.removeChild(wrapper);
 
             // Tìm và xóa tên của file trong input
             var fileName = file.name;
@@ -488,37 +582,63 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
           }
         });
 
-        smallImage.appendChild(closeButton);
-        smallImage.addEventListener("click", function () {
-          largeImage.style.backgroundImage = "url('" + imageUrl + "')";
-          largeImage.scrollIntoView({ behavior: "auto", block: "center" });
+        wrapper.appendChild(closeButton);
+        
+        smallImage.dataset.type = file.type;
+        largeImage.dataset.type = file.type;
 
-          var allSmallImages = imagePreview2.querySelectorAll("div");
-          allSmallImages.forEach(function (smallImg) {
-            smallImg.style.filter = "brightness(70%)";
+        wrapper.addEventListener("click", function () {
+          var allWrappers = imagePreview2.querySelectorAll(".wrapper");
+          allWrappers.forEach(function (wrapper) {
+            wrapper.style.filter = "brightness(70%)";
+            var allLargeVideos = imagePreview.querySelectorAll("video");
+            allLargeVideos.forEach(function (largeVideo) {
+              largeVideo.pause();
+            });
           });
+          
+
+          var clickedSmallImage = this.querySelector('.smallVideo') || this.querySelector('.smallImage');
+          if (clickedSmallImage.dataset.type.match('video.*')) {
+            largeImage.autoplay = true;
+            largeImage.play();
+          }
+
+          largeImage.scrollIntoView({ behavior: "auto", block: "center" });
           this.style.filter = "brightness(110%)";
         });
+
+
+      
       })(imageUrl, file);
     }
   }
 
 
   function checkFileSize(input) {
-    var files = input.files;
+  var files = input.files;
 
-    for (var i = 0; i < files.length; i++) {
-      var fileSize = files[i].size;
-      var minSize = 50 * 1024;
+  for (var i = 0; i < files.length; i++) {
+    var fileSize = files[i].size;
+    var minSize = 50 * 1024;
+    var maxSize = 100000 * 1024; 
 
-      if (fileSize < minSize) {
-        alert('Kích thước của ảnh phải lớn hơn 50kB.');
-        input[typefile].value = '';
-        return false;
-      }
+    if (fileSize < minSize) {
+      alert('Kích thước của ảnh phải lớn hơn 50kB.');
+      input[typefile].value = '';
+      return false;
     }
-    return true;
+
+    // Kiểm tra nếu file là video và kích thước lớn hơn maxSize
+    if (files[i].type.match('video.*') && fileSize > maxSize) {
+      alert('Kích thước của video quá lớn!');
+      input[typefile].value = '';
+      return false;
+    }
   }
+  return true;
+}
+
 
 
 </script>

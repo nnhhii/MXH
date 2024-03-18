@@ -80,27 +80,36 @@ if (isset($_POST['update_posts'])) {
 
 
 <style>
-.largeImage{
-  width:50vh;
-  height:73vh;
-  margin:0 9.5vh;
-  background-size:cover;
-  background-position:center;
-  float: left;
-}
-.smallImage{
-  width:10vh;
-  height:10vh;
-  margin:5px 0 0 5px;
-  filter: brightness(70%);
-  float:left;
-  cursor: pointer;
+.largeImage {
+  width: 50vh;
+  height: 73vh;
+  margin: 0 auto;
   background-size: cover;
   background-position: center;
-  position: relative
+}
+.largeVideo{
+  width: 50vh;
+  height: 73vh;
+  margin: 0 9.5vh;
+}
+.wrapper{
+  position: relative;
+  width: 10vh;
+  height: 10vh;
+  margin: 5px 0 0 5px;
+  float: left;
+  filter: brightness(70%);
+  cursor: pointer;
+}
+.smallImage, .smallVideo {
+  width: 10vh;
+  height: 10vh;
+  background-size: cover;
+  background-position: center;
 }
 .closeButton{
   position: absolute;
+  top:0;
   right:0;
   cursor: pointer
 }
@@ -140,7 +149,7 @@ if (isset($_POST['update_posts'])) {
                     <div id="content2" style="width:100%;padding:20px">
                       <img src="https://cdn-icons-png.flaticon.com/512/1042/1042339.png" width="30px">Thêm ảnh hoặc
                       video<br>
-                      <input type="file" name="images[]"class="hinhanh" style="margin: 10px" multiple accept="image/*"
+                      <input type="file" name="images[]"class="hinhanh" style="margin: 10px" multiple accept="image/*, video/*"
                         onchange="handleFile(this)">
                     </div>
                     <!-- ảnh nhỏ -->
@@ -161,7 +170,8 @@ function initImages() {
 
   for (var i = 0; i < images.length; i++) {
     var imageUrl = 'img/' + images[i];
-    createImage(imageUrl, null, imagePreview, imagePreview2, true);
+    var file = images[i];
+    createImage(imageUrl, file, imagePreview, imagePreview2, true);
   }
 }
 
@@ -185,27 +195,61 @@ function previewImages(input) {
 }
 
 function createImage(imageUrl, file, imagePreview, imagePreview2, fromDatabase) {
-    var largeImage = document.createElement("div");
-    largeImage.classList.add("largeImage");
-    largeImage.style.backgroundImage = "url('" + imageUrl + "')";
-    imagePreview.appendChild(largeImage);
+  var fileType;
+  if (file instanceof File) {
+    fileType = file.type.split('/')[1].toLowerCase();
+  } else {
+    fileType = file.split('.').pop().toLowerCase();
+  }
+  
+  var isImage = ['jpg', 'jpeg', 'png', 'gif'].includes(fileType);
+  var isVideo = ['mp4', 'webm', 'ogg'].includes(fileType);
 
-    var smallImage = document.createElement("div");
-    smallImage.classList.add("smallImage");
-    smallImage.style.backgroundImage = "url('" + imageUrl + "')";
-    imagePreview2.appendChild(smallImage);
+    if (isImage) {
+      // Tạo
+      var largeImage = document.createElement("div");
+      largeImage.classList.add("largeImage");
+      largeImage.style.backgroundImage = "url('" + imageUrl + "')";
+      imagePreview.appendChild(largeImage);
 
+      var wrapper = document.createElement("div");
+      wrapper.classList.add("wrapper");
+
+      var smallImage = document.createElement("div");
+      smallImage.classList.add("smallImage");
+      smallImage.style.backgroundImage = "url('" + imageUrl + "')";
+      
+      wrapper.appendChild(smallImage);
+      imagePreview2.appendChild(wrapper);
+
+    } else if (isVideo) {
+      // Tạo và hiển thị video
+      var largeImage = document.createElement("video");
+      largeImage.classList.add("largeVideo");
+      largeImage.src = imageUrl;
+      imagePreview.appendChild(largeImage);
+
+      var wrapper = document.createElement("div");
+      wrapper.classList.add("wrapper");
+
+      var smallImage = document.createElement("video");
+      smallImage.classList.add("smallVideo");
+      smallImage.src = imageUrl;
+
+      wrapper.appendChild(smallImage);
+      imagePreview2.appendChild(wrapper);
+    }
     var closeButton = document.createElement("div");
     closeButton.classList.add("closeButton");
     closeButton.innerHTML = "✖";
     closeButton.addEventListener("click", function () {
       if (imagePreview.contains(largeImage)) {
         imagePreview.removeChild(largeImage);
-        imagePreview2.removeChild(smallImage);
+        imagePreview2.removeChild(wrapper);
         
-        // Lấy tên ảnh từ URL của smallImage
-        var backgroundImageUrl = smallImage.style.backgroundImage;
-        var img = backgroundImageUrl.replace('url("', '').replace('")', '').split('/').pop();
+        // Lấy tên ảnh 
+        var fileName = imageUrl.split('/').pop();
+
 
         // Thêm tên ảnh vào input deleted_images nếu ảnh từ cơ sở dữ liệu
         if (fromDatabase) {
@@ -213,7 +257,8 @@ function createImage(imageUrl, file, imagePreview, imagePreview2, fromDatabase) 
           if (deletedImagesInput.value !== '') {
             deletedImagesInput.value += ',';
           }
-          deletedImagesInput.value += img;
+          deletedImagesInput.value += fileName;
+          console.log(imageUrl)
         } else if (file) {
           // Xóa file từ input nếu ảnh không phải từ cơ sở dữ liệu
           var inputElement = document.querySelector("input[name='images[]']");
@@ -232,17 +277,31 @@ function createImage(imageUrl, file, imagePreview, imagePreview2, fromDatabase) 
       }
     });
 
-    smallImage.appendChild(closeButton);
-    smallImage.addEventListener("click", function () {
-      largeImage.style.backgroundImage = "url('" + imageUrl + "')";
-      largeImage.scrollIntoView({ behavior: "auto", block: "center" });
+    wrapper.appendChild(closeButton);
+        
+        smallImage.dataset.type = file.type;
+        largeImage.dataset.type = file.type;
 
-      var allSmallImages = imagePreview2.querySelectorAll("div");
-      allSmallImages.forEach(function (smallImg) {
-          smallImg.style.filter = "brightness(70%)";
-      });
-      this.style.filter = "brightness(110%)";
-    });
+        wrapper.addEventListener("click", function () {
+          var allWrappers = imagePreview2.querySelectorAll(".wrapper");
+          allWrappers.forEach(function (wrapper) {
+            wrapper.style.filter = "brightness(70%)";
+            var allLargeVideos = imagePreview.querySelectorAll("video");
+            allLargeVideos.forEach(function (largeVideo) {
+              largeVideo.pause();
+            });
+          });
+          
+
+          var clickedSmallImage = this.querySelector('.smallVideo') || this.querySelector('.smallImage');
+          if (clickedSmallImage.dataset.type.match('video.*')) {
+            largeImage.autoplay = true;
+            largeImage.play();
+          }
+
+          largeImage.scrollIntoView({ behavior: "auto", block: "center" });
+          this.style.filter = "brightness(110%)";
+        });
 }
 
 function checkFileSize(input) {

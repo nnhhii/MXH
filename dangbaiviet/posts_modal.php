@@ -80,12 +80,19 @@ if ($row['statuss'] == 'public') {
                     // Tách thành một mảng
                     $images = explode(",", $row['image']);
                     $num_images = count($images);
-                    ?>
 
-                    <!-- Sau đó, sử dụng vòng lặp để tạo thẻ <img> cho mỗi ảnh -->
-                    <?php foreach ($images as $img): ?>
-                      <img src="img/<?php echo $img; ?>" width="100%">
-                    <?php endforeach; ?>
+                    // Sử dụng vòng lặp để tạo thẻ div, video
+                    foreach ($images as $img):
+                      $extension = pathinfo($img, PATHINFO_EXTENSION);
+                      if(in_array($extension, ['mp4', 'avi', 'mov'])) {
+                        echo "<video width='100%' controls>
+                                <source src='img/$img' type='video/$extension'>
+                              </video>";
+                      } else {
+                        echo "<img src='img/$img' width='100%'>";
+                      }
+                    endforeach
+                    ?>
 
                   </div>
 

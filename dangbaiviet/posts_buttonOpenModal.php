@@ -13,16 +13,23 @@
 
   <!-- Button to Open the Modal -->
   <button type="button" class="btn p-0" data-toggle="modal" data-target="#myModal_<?php echo $row['post_id'] ?>" style="float:left; margin:1vh">
+    <div class='gallery-item' style='width:22vw;height:22vw;overflow:hidden'>
     <?php
-    // Tách thành một mảng
-    $images = explode(",", $row['image']);
-    $num_images = count($images);
-    // Lấy giá trị đầu tiên trong mảng
-    $first_image = reset($images);
-    ?>
-    
-    <div class="gallery-item">
-      <div style="background-image:url('img/<?php echo $first_image; ?>');background-size:cover ;background-position:center;width: 22vw;height: 22vw;"></div>
+      // Tách thành một mảng
+      $images = explode(",", $row['image']);
+      $num_images = count($images);
+      // Lấy giá trị đầu tiên trong mảng
+      $first_image = reset($images);
+
+      $extension = pathinfo($first_image, PATHINFO_EXTENSION);
+      if(in_array($extension, ['mp4', 'avi', 'mov'])) { 
+          echo "<video width='100%'>
+                  <source src='img/$first_image' type='video/$extension'>
+                </video>";
+      } else {
+          echo "<div style='background-image:url(\"img/$first_image\");background-size:cover;background-position:center;width: 22vw;height: 22vw;'></div>";
+      }
+      ?>
       <?php if ($num_images > 1) { ?>
         <div class="gallery-item-type">
           <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i>
@@ -269,7 +276,7 @@
 
   function SliderController(slider, index) {
     const listElement = slider.querySelector('.list-images');
-    const imgs = slider.querySelectorAll('.list-images img');
+    const imgs = slider.querySelectorAll('.list-images img, .list-images video');
     const btnLeft = slider.querySelector('.btn-left');
     const btnRight = slider.querySelector('.btn-right');
     const length = (imgs.length);
