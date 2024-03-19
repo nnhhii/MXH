@@ -339,6 +339,11 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                 openNextModal(index);
               });
 
+              $('.modal').on('hidden.bs.modal', function (e) {
+                // $(this).remove(); // Loại bỏ modal khỏi DOM sau khi đóng lại
+                closeModal(index);
+              });
+
               // Hàm mở modal tiếp theo
               function openNextModal(index) {
                 // Reset thanh tiến trình của modal trước
@@ -356,7 +361,6 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                 var $image = $currentModal.find('.image');
                 var $video = $currentModal.find('.video');
                 var $progressBar = $currentModal.find('.progress-bar');
-
                 if ($image.length > 0) {
                   var imageDuration = 5; // Thời lượng hiển thị ảnh là 5 giây
                   var imageInterval = setInterval(function () {
@@ -370,8 +374,9 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
                   setTimeout(function () {
                     $currentModal.modal('hide'); // Ẩn modal hiện tại
-                    if (interacted) {
+                    if (interacted == true && $('.modal.show').length === 0) {
                       openNextModal(index + 1); // Mở modal tiếp theo
+                      console.log($image.length);
                     }
                   }, imageDuration * 1000);
                 } else if ($video.length > 0) {
@@ -392,7 +397,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
                   $video.on('ended', function () {
                     $currentModal.modal('hide'); // Ẩn modal hiện tại
-                    if (interacted) {
+                    if (interacted == true) {
                       openNextModal(index + 1); // Mở modal tiếp theo
                     }
                   });
@@ -424,12 +429,18 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                 $('#' + currentModalId).modal('hide'); // Đóng modal hiện tại
               }
 
-            });
+              $('.modal').on('click', function (e) {
+                if ($(e.target).hasClass('modal')) {
+                  console.log("click ngoai modal roi");
+                  interacted = false;
+                  var $progressBar = $(this).find('.progress-bar');
+                  $progressBar.css('width', '0%').attr('aria-valuenow', 0);
+                }
+              });
 
+
+            })
           </script>
-
-
-
         </div>
 
       </div>
@@ -667,8 +678,6 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
     }
     return true;
   }
-
-
 
 </script>
 <script>
