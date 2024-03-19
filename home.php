@@ -374,7 +374,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
                   setTimeout(function () {
                     $currentModal.modal('hide'); // Ẩn modal hiện tại
-                    if (interacted == true && $('.modal.show').length === 0) {
+                    if (interacted == true && $('.modal.show').length == 0) {
                       openNextModal(index + 1); // Mở modal tiếp theo
                       console.log($image.length);
                     }
@@ -397,7 +397,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
                   $video.on('ended', function () {
                     $currentModal.modal('hide'); // Ẩn modal hiện tại
-                    if (interacted == true) {
+                    if (interacted == true && $('.modal.show').length == 0) {
                       openNextModal(index + 1); // Mở modal tiếp theo
                     }
                   });
