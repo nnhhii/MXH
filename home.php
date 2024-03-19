@@ -15,10 +15,10 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 <style>
   #openModalBtn {
-    padding:60% 0;
+    padding: 60% 0;
     width: 145px;
     background: none;
-    border:none;
+    border: none;
     color: white;
     font-size: 40px;
     cursor: pointer
@@ -147,12 +147,14 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
     background-size: cover;
     background-position: center;
   }
-  .largeVideo{
+
+  .largeVideo {
     width: 50vh;
     height: 73vh;
     margin: 0 9.5vh;
   }
-  .wrapper{
+
+  .wrapper {
     position: relative;
     width: 10vh;
     height: 10vh;
@@ -161,7 +163,9 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
     filter: brightness(70%);
     cursor: pointer;
   }
-  .smallImage, .smallVideo {
+
+  .smallImage,
+  .smallVideo {
     width: 10vh;
     height: 10vh;
     background-size: cover;
@@ -191,7 +195,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
     <div class="layout_menu_giua">
       <div class="layout_story" style="overflow:auto">
         <div class="stories-container">
-          <div class="story" style="background-image:url(img/<?php echo $row_id["avartar"]?>)">
+          <div class="story" style="background-image:url(img/<?php echo $row_id["avartar"] ?>)">
 
             <button id="openModalBtn"><i class="fa-solid fa-circle-plus"></i></button>
             <div id="myModal" class="modal_post_story">
@@ -204,8 +208,8 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                     <textarea id="content" name="content" rows="4" cols="50"></textarea><br><br>
 
                     <label for="video">Chọn ảnh hoặc video:</label>
-                    <input type="file" id="video,img" name="file"
-                      accept="video/*,image/*" required onchange="checkFileSize(this)"><br><br>
+                    <input type="file" id="video,img" name="file" accept="video/*,image/*" required
+                      onchange="checkFileSize(this)"><br><br>
 
                     <label for="music">Chọn nhạc nền:</label>
                     <input type="file" id="music" name="music" accept="audio/*"><br><br>
@@ -221,23 +225,23 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
           // Khởi tạo mảng để lưu trữ ID của các modal
           $modal_ids = array();
           while ($row_story = $result_story->fetch_assoc()) {
-            $story_id = $row_story["story_id"];
-            $modal_ids[] = $story_id; // Thêm ID của modal vào mảng
 
             $current_time = time();
-      $post_time = strtotime($row_story["story_time"]);
-      $time_diff = $current_time - $post_time;
-      if ($time_diff < 60) {
-        $time_description = "vừa xong";
-      } elseif ($time_diff < 3600) {
-        $time_description = floor($time_diff / 60) . " phút trước";
-      } elseif ($time_diff < 86400) {
-        $time_description = floor($time_diff / 3600) . " giờ trước";
-      } else {
-        $time_description = floor($time_diff / 86400) . " ngày trước";
-      }
-            
+            $post_time = strtotime($row_story["story_time"]);
+            $time_diff = $current_time - $post_time;
+            if ($time_diff < 60) {
+              $time_description = "vừa xong";
+            } elseif ($time_diff < 3600) {
+              $time_description = floor($time_diff / 60) . " phút trước";
+            } elseif ($time_diff < 86400) {
+              $time_description = floor($time_diff / 3600) . " giờ trước";
+            } else {
+              $time_description = floor($time_diff / 86400) . " ngày trước";
+            }
+
             if ($time_diff < 24 * 60 * 60) { //tính theo giây
+              $story_id = $row_story["story_id"];
+              $modal_ids[] = $story_id; // Thêm ID của modal vào mảng
               $file = $row_story["file"];
               echo '<a href="#modal_story_' . $story_id . '"  class="story" style="border:none;padding:0;margin:0 2px">';
               if (strpos($file, '.png') || strpos($file, '.jpg') || strpos($file, '.jpeg')) {
@@ -268,7 +272,9 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                       <div class="ten_story" style="top:20px;left:60px;z-index:1;font-size:14px;font-weight:500">
                         <?php echo $row_story["username"] ?>
                       </div>
-                      <div style="color:white;font-size:12px;position:absolute;top:45px;left:60px"><?php echo $time_description?></div>
+                      <div style="color:white;font-size:12px;position:absolute;top:45px;left:60px">
+                        <?php echo $time_description ?>
+                      </div>
                       <?php if ($user_id == $row_story["user_id"]) { ?>
                         <div class="chinhsuaa">
                           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -294,8 +300,10 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                       }
                       ?>
                       <!-- Thêm thanh tiến trình vào modal -->
-                      <div class="progress" style="background:gray;--bs-progress-bar-bg:white;height:5px;position:absolute;top:10px;width:90%;left:5%">
-                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress"
+                        style="background:gray;--bs-progress-bar-bg:white;height:5px;position:absolute;top:10px;width:90%;left:5%">
+                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+                          aria-valuemax="100"></div>
                       </div>
 
                       <audio id="audio_<?php echo $row_story["story_id"] ?>" loop>
@@ -305,8 +313,12 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
                       <div style="position:absolute;left:50px;bottom:20px;color:white">
                         <?php echo $row_story["content"] ?>
                       </div>
-                      
 
+
+                    </div>
+                    <div class="btns">
+                      <div class="btn-right btnsl" style="right= -30 !important ;"><i class='bx'></i></div>
+                      <div class="btn-left btnsl"><i class='bx'></i></div>
                     </div>
                   </div>
                 </div>
@@ -314,90 +326,107 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
             <?php }
           } ?>
-<script>
-var modalIds = <?php echo json_encode($modal_ids); ?>; // Mảng ID của các modal
-var interacted = false;
+          <script>
+            var interacted = false;
 
-// Hàm mở modal tiếp theo
-function openNextModal(index) {
-  // Reset thanh tiến trình của modal trước
-  if (index > 0) {
-    var previousModalId = 'modal_story_' + modalIds[index - 1];
-    var $previousModal = $('#' + previousModalId);
-    var $previousProgressBar = $previousModal.find('.progress-bar');
-    $previousProgressBar.css('width', '0%').attr('aria-valuenow', 0);
-  }
+            $(document).ready(function () {
+              var modalIds = <?php echo json_encode($modal_ids); ?>;
+              var index = 0; // Khai báo biến index ở mức độ toàn cục
 
-  var currentModalId = 'modal_story_' + modalIds[index];
-  var $currentModal = $('#' + currentModalId);
-  $currentModal.modal('show'); // Hiển thị modal hiện tại
+              $('.modal-trigger').click(function () {
+                index = $(this).index('.modal-trigger'); // Gán lại giá trị cho biến index khi nhấn vào trigger
+                interacted = true;
+                openNextModal(index);
+              });
 
-  var $image = $currentModal.find('.image');
-  var $video = $currentModal.find('.video');
-  var $progressBar = $currentModal.find('.progress-bar');
+              // Hàm mở modal tiếp theo
+              function openNextModal(index) {
+                // Reset thanh tiến trình của modal trước
+                if (index > 0) {
+                  var previousModalId = 'modal_story_' + modalIds[index - 1];
+                  var $previousModal = $('#' + previousModalId);
+                  var $previousProgressBar = $previousModal.find('.progress-bar');
+                  $previousProgressBar.css('width', '0%').attr('aria-valuenow', 0);
+                }
 
-  if ($image.length > 0) {
-    var imageDuration = 5; // Thời lượng hiển thị ảnh là 5 giây
-    var imageInterval = setInterval(function() {
-      var valueNow = parseInt($progressBar.attr('aria-valuenow'));
-      valueNow++;
-      $progressBar.css('width', valueNow + '%').attr('aria-valuenow', valueNow);
-      if (valueNow >= 100) {
-        clearInterval(imageInterval);
-      }
-    }, imageDuration * 1000 / 100); // Cập nhật thanh tiến trình mỗi 1% thời lượng
+                var currentModalId = 'modal_story_' + modalIds[index];
+                var $currentModal = $('#' + currentModalId);
+                $currentModal.modal('show'); // Hiển thị modal hiện tại
 
-    setTimeout(function() {
-      $currentModal.modal('hide'); // Ẩn modal hiện tại
-      if (interacted) {
-        openNextModal(index + 1); // Mở modal tiếp theo
-      }
-    }, imageDuration * 1000);
-  } else if ($video.length > 0) {
-    var video = $video[0];
-    var videoDuration = video.duration; // Lấy thời lượng video
+                var $image = $currentModal.find('.image');
+                var $video = $currentModal.find('.video');
+                var $progressBar = $currentModal.find('.progress-bar');
 
-    // Cập nhật thanh tiến trình mỗi 0.1 giây
-    var videoInterval = setInterval(function() {
-      var currentTime = video.currentTime;
-      var progress = (currentTime / videoDuration) * 100;
-      $progressBar.css('width', progress + '%').attr('aria-valuenow', progress);
+                if ($image.length > 0) {
+                  var imageDuration = 5; // Thời lượng hiển thị ảnh là 5 giây
+                  var imageInterval = setInterval(function () {
+                    var valueNow = parseInt($progressBar.attr('aria-valuenow'));
+                    valueNow++;
+                    $progressBar.css('width', valueNow + '%').attr('aria-valuenow', valueNow);
+                    if (valueNow >= 100) {
+                      clearInterval(imageInterval);
+                    }
+                  }, imageDuration * 1000 / 100); // Cập nhật thanh tiến trình mỗi 1% thời lượng
 
-      if (currentTime >= videoDuration) {
-        clearInterval(videoInterval);
-      }
-    }, 100);
+                  setTimeout(function () {
+                    $currentModal.modal('hide'); // Ẩn modal hiện tại
+                    if (interacted) {
+                      openNextModal(index + 1); // Mở modal tiếp theo
+                    }
+                  }, imageDuration * 1000);
+                } else if ($video.length > 0) {
+                  var video = $video[0];
+                  var videoDuration = video.duration; // Lấy thời lượng video
 
-    
-    $video.on('ended', function() {
-      $currentModal.modal('hide'); // Ẩn modal hiện tại
-      if (interacted) {
-        openNextModal(index + 1); // Mở modal tiếp theo
-      }
-    });
-  }
-}
+                  // Cập nhật thanh tiến trình mỗi 0.1 giây
+                  var videoInterval = setInterval(function () {
+                    var currentTime = video.currentTime;
+                    var progress = (currentTime / videoDuration) * 100;
+                    $progressBar.css('width', progress + '%').attr('aria-valuenow', progress);
 
-$(document).ready(function () {
-  $('.modal-trigger').click(function () {
-    var index = $(this).index('.modal-trigger'); // Lấy chỉ số của modal được click
-    interacted = true;
-    openNextModal(index); // mở modal kế tiếp
-  });
-
-  $('.modal').on('click', function (e) {
-  if ($(e.target).hasClass('modal')) {
-    interacted = false; 
-    var $progressBar = $(this).find('.progress-bar');
-    $progressBar.css('width', '0%').attr('aria-valuenow', 0);
-  }
-});
+                    if (currentTime >= videoDuration) {
+                      clearInterval(videoInterval);
+                    }
+                  }, 100);
 
 
-  
-});
+                  $video.on('ended', function () {
+                    $currentModal.modal('hide'); // Ẩn modal hiện tại
+                    if (interacted) {
+                      openNextModal(index + 1); // Mở modal tiếp theo
+                    }
+                  });
+                }
+              }
 
-</script>
+              $('.btn-right').click(function () {
+                closeModal(index);
+                console.log("nut RIGHT " + index);
+                index++;
+                if (index >= modalIds.length) {
+                  interacted = false;
+                }
+                openNextModal(index);
+              });
+
+              $('.btn-left').click(function () {
+                if (index > 0) {
+                  closeModal(index);
+                  console.log("nut LEFT " + index);
+                  index--;
+                  openNextModal(index);
+                }
+              });
+
+              // Hàm đóng modal
+              function closeModal(index) {
+                var currentModalId = 'modal_story_' + modalIds[index];
+                $('#' + currentModalId).modal('hide'); // Đóng modal hiện tại
+              }
+
+            });
+
+          </script>
 
 
 
@@ -478,7 +507,7 @@ $(document).ready(function () {
 </div>
 
 <script>
-$(document).ready(function () {
+  $(document).ready(function () {
     $('.modal').on('shown.bs.modal', function () {
       $(this).find('audio')[0].play();
     });
@@ -516,39 +545,39 @@ $(document).ready(function () {
       var imageUrl = URL.createObjectURL(file);
       (function (imageUrl, file) {
         if (file.type.match('image.*')) {
-        // Tạo
-        var largeImage = document.createElement("div");
-        largeImage.classList.add("largeImage");
-        largeImage.style.backgroundImage = "url('" + imageUrl + "')";
-        imagePreview.appendChild(largeImage);
+          // Tạo
+          var largeImage = document.createElement("div");
+          largeImage.classList.add("largeImage");
+          largeImage.style.backgroundImage = "url('" + imageUrl + "')";
+          imagePreview.appendChild(largeImage);
 
-        var wrapper = document.createElement("div");
-        wrapper.classList.add("wrapper");
+          var wrapper = document.createElement("div");
+          wrapper.classList.add("wrapper");
 
-        var smallImage = document.createElement("div");
-        smallImage.classList.add("smallImage");
-        smallImage.style.backgroundImage = "url('" + imageUrl + "')";
-        
-        wrapper.appendChild(smallImage);
-        imagePreview2.appendChild(wrapper);
+          var smallImage = document.createElement("div");
+          smallImage.classList.add("smallImage");
+          smallImage.style.backgroundImage = "url('" + imageUrl + "')";
 
-      } else if (file.type.match('video.*')) {
-        // Tạo và hiển thị video
-        var largeImage = document.createElement("video");
-        largeImage.classList.add("largeVideo");
-        largeImage.src = imageUrl;
-        imagePreview.appendChild(largeImage);
+          wrapper.appendChild(smallImage);
+          imagePreview2.appendChild(wrapper);
 
-        var wrapper = document.createElement("div");
-        wrapper.classList.add("wrapper");
+        } else if (file.type.match('video.*')) {
+          // Tạo và hiển thị video
+          var largeImage = document.createElement("video");
+          largeImage.classList.add("largeVideo");
+          largeImage.src = imageUrl;
+          imagePreview.appendChild(largeImage);
 
-        var smallImage = document.createElement("video");
-        smallImage.classList.add("smallVideo");
-        smallImage.src = imageUrl;
+          var wrapper = document.createElement("div");
+          wrapper.classList.add("wrapper");
 
-        wrapper.appendChild(smallImage);
-        imagePreview2.appendChild(wrapper);
-      }
+          var smallImage = document.createElement("video");
+          smallImage.classList.add("smallVideo");
+          smallImage.src = imageUrl;
+
+          wrapper.appendChild(smallImage);
+          imagePreview2.appendChild(wrapper);
+        }
         var closeButton = document.createElement("div");
         closeButton.classList.add("closeButton");
         closeButton.innerHTML = "&#10006;";
@@ -583,7 +612,7 @@ $(document).ready(function () {
         });
 
         wrapper.appendChild(closeButton);
-        
+
         smallImage.dataset.type = file.type;
         largeImage.dataset.type = file.type;
 
@@ -596,7 +625,7 @@ $(document).ready(function () {
               largeVideo.pause();
             });
           });
-          
+
 
           var clickedSmallImage = this.querySelector('.smallVideo') || this.querySelector('.smallImage');
           if (clickedSmallImage.dataset.type.match('video.*')) {
@@ -609,35 +638,35 @@ $(document).ready(function () {
         });
 
 
-      
+
       })(imageUrl, file);
     }
   }
 
 
   function checkFileSize(input) {
-  var files = input.files;
+    var files = input.files;
 
-  for (var i = 0; i < files.length; i++) {
-    var fileSize = files[i].size;
-    var minSize = 50 * 1024;
-    var maxSize = 100000 * 1024; 
+    for (var i = 0; i < files.length; i++) {
+      var fileSize = files[i].size;
+      var minSize = 50 * 1024;
+      var maxSize = 100000 * 1024;
 
-    if (fileSize < minSize) {
-      alert('Kích thước của ảnh phải lớn hơn 50kB.');
-      input[typefile].value = '';
-      return false;
+      if (fileSize < minSize) {
+        alert('Kích thước của ảnh phải lớn hơn 50kB.');
+        input[typefile].value = '';
+        return false;
+      }
+
+      // Kiểm tra nếu file là video và kích thước lớn hơn maxSize
+      if (files[i].type.match('video.*') && fileSize > maxSize) {
+        alert('Kích thước của video quá lớn!');
+        input[typefile].value = '';
+        return false;
+      }
     }
-
-    // Kiểm tra nếu file là video và kích thước lớn hơn maxSize
-    if (files[i].type.match('video.*') && fileSize > maxSize) {
-      alert('Kích thước của video quá lớn!');
-      input[typefile].value = '';
-      return false;
-    }
+    return true;
   }
-  return true;
-}
 
 
 
