@@ -57,7 +57,7 @@
                 <div style="font-size:15px"><?php echo $row_tb["noti_content"]?></div>
             </a>
             <?php }}
-        }else echo "ko có thông báo"?>
+        }else echo "Không có thông báo"?>
         </div>
     </div>
     <div class="trang_ca_nhan" style="background-image: url('img/<?php echo $row_id["avartar"]?>')" onclick="showSelect()">

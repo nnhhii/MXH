@@ -50,8 +50,9 @@
             <div id="tenTaoBaiDang"class="ten_logo1">Tạo bài đăng</div>
         </div>
     </a>
+    
 </div>
-
+<?php require_once 'menu/dangbaiviet.php' ?>
 
 
 

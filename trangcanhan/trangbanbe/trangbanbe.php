@@ -405,7 +405,7 @@ function toggleFriendship1(button,userId) {
   } else if (trangthai_ketban === 'Chấp nhận') {
     acceptFriendRequest1(button, userId);
   }else if (trangthai_ketban === 'Bạn bè') {
-    if (confirm('HỦY KẾT BẠN????')) {
+    if (confirm('XÓA BẠN BÈ????')) {
       cancelFriendRequest1(button, userId);
     } else {}
   }

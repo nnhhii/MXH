@@ -2,7 +2,7 @@
 $ketnoi = new mysqli('localhost', 'root', '', 'MXH');
 $message_by = $_POST['message_by'];
 $message_to = $_POST['message_to'];
-$message_time = date("d/m/y H:i:s ");
+$message_time = date("Y-m-d H:i:s");
 
 if (isset($_FILES['file'])) {
     $thu_muc="../img/";

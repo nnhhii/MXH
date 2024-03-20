@@ -236,7 +236,7 @@ if ($row['statuss'] == 'public') {
                           style="width:85%; height:11vh;resize: none; padding:5px 0 0 10px; position:absolute; left:4vh;top:0;border-radius:20px;border:1px solid lightgray"></textarea>
                         <button type="button" class="comment-btn submit_cmt" data-postid="<?php echo $row["post_id"]; ?>" data-postby="<?php echo $row["post_by"]; ?>"
                           data-byid="<?php echo $user_id; ?>"
-                          style="border: none; background: none; color: rgb(0, 162, 255); position:absolute; right:0; top:10px;">Post</button>
+                          style="border: none; background: none; color: rgb(0, 162, 255); position:absolute; right:0; top:10px;">Gửi</button>
                       </form>
                     </div>
                   </div>

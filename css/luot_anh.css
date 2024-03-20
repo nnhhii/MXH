@@ -28,12 +28,12 @@
   }
   
   
-  .btn-left {
+  .btn-left, .btn-leftt {
     left: 0;
     background-image: url('https://www.svgrepo.com/show/376823/chevron-left-circle.svg');
   }
   
-  .btn-right {
+  .btn-right,.btn-rightt {
     right: 0;
     background-image: url('https://www.svgrepo.com/show/432428/chevron-right-circle.svg');
   }

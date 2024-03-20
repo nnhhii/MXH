@@ -69,11 +69,6 @@ if (isset($_POST['update_posts'])) {
       window.location.href = "index.php";
     </script>';
       
-  } else {
-    echo '
-    <script>alert("Chỉnh sửa bài viết thất bại !");
-      window.location.href = "index.php";
-    </script>';
   }
 }
 ?>

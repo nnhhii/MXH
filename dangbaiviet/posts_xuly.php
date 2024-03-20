@@ -76,36 +76,6 @@
 
   
   <?php
-    require 'posts_connect.php';
-    if (isset($_POST['btn_submit'])) {
-      $post_by = $_POST['post_by'];
-      $content = $_POST['content'];
-      $statuss = $_POST['statuss'];
-      $p_time = date("Y-m-d H:i:s");
-      // Upload ảnh 
-      $all_files = $_FILES['images'];
-      $image_name = $_FILES['images']['name'];
-      $image_tmp = $_FILES['images']['tmp_name'];
-      $location = "img/";
-      $image = implode(",", $image_name);
-
-      if (!empty($image_name)) {
-        foreach ($image_name as $key => $val) {
-          $targetPath = $location . $val;
-          move_uploaded_file($_FILES['images']['tmp_name'][$key], "$targetPath");
-        }
-      }
-
-      $sql = "INSERT INTO posts(post_by,content,image,statuss,post_time ) VALUES ($post_by,  '$content', '$image','$statuss', '$p_time' )";
-
-      if (mysqli_query($conn, $sql)) {
-        echo '<script>alert("Đăng bài viết thành công!");
-                   window.location.href = "index.php";
-                  exit();
-               </script>';
-      }
-    }
-
 $sql_p = "SELECT * FROM posts 
         INNER JOIN user ON posts.post_by = user.user_id
         LEFT JOIN friendrequest ON ((sender_id = $user_id and receiver_id = user_id) or (sender_id = user_id and receiver_id = $user_id))
@@ -161,7 +131,7 @@ $sql_p = "SELECT * FROM posts
                 Chỉnh sửa bài viết</a>
               </button>
               <button class="dropdown-item delete">
-                <a href="dangbaiviet/posts_delete.php?post_id=<?php echo $row["post_id"]?>">
+                <a onclick="return confirm('Bạn có chắc chắn muốn xóa?')" href="dangbaiviet/posts_delete.php?post_id=<?php echo $row["post_id"]?>">
                 <i class="fa-solid fa-trash" style="color: red;"></i> Xóa</a>
               </button>
             </ul>

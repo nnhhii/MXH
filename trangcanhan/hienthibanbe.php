@@ -1,10 +1,12 @@
 <?php 
 $result = $link->query($sql);
-$friends=array();
-while ($row = $result->fetch_assoc()) {
-    $friends[] = $row['user_id'];
-}
-foreach ($friends as $friend_id) {
+if (mysqli_num_rows($result) > 0) {
+  $friends=array();
+  while ($row = $result->fetch_assoc()) {
+      $friends[] = $row['user_id'];
+  }
+
+  foreach ($friends as $friend_id) {
     $sql="SELECT * FROM user LEFT JOIN friendrequest ON (friendrequest.receiver_id =$friend_id AND friendrequest.sender_id = $user_id) OR (friendrequest.sender_id = $friend_id and friendrequest.receiver_id = $user_id)
     WHERE user_id= $friend_id";
     $result = mysqli_query($link, $sql);
@@ -40,7 +42,8 @@ foreach ($friends as $friend_id) {
         <?php
         }
     } else echo 'Không có bạn bè!';
-}
+  }
+}else echo 'Không tìm thấy!';
 ?>
 <script>
 function toggleFriendship2(button,userId) {
@@ -52,7 +55,7 @@ function toggleFriendship2(button,userId) {
   } else if (trangthai_ketban === 'Chấp nhận') {
     acceptFriendRequest1(button, userId);
   }else if (trangthai_ketban === 'Bạn bè') {
-    if (confirm('HỦY KẾT BẠN????')) {
+    if (confirm('XÓA BẠN BÈ????')) {
       cancelFriendRequest1(button, userId);
     } else {}
   }
