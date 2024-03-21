@@ -2,6 +2,8 @@
 <link rel="icon" href="img/logo1.png" type = "image/x-icon" >
 <?php
 session_start();
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 if(isset($_SESSION['user']))
 {
     $user_id = $_SESSION['user'];
