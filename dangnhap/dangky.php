@@ -95,9 +95,9 @@ a {
       </select>
     </div>
     <select name="gioitinh" class="formInput">
-      <option value="nam">Nam</option>
-      <option value="nu">Nữ</option>
-      <option value="khac">Khác</option>
+      <option value="Nam">Nam</option>
+      <option value="Nữ">Nữ</option>
+      <option value="Khác">Khác</option>
     </select>
     <button>Đăng ký</button>
     <p style="margin: 15px 0 0;color: #b3b3b3;font-size: 12px;"><a href="dangnhap.php">Bạn đã có tài khoản ư?</a></p>

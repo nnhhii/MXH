@@ -1,4 +1,4 @@
-<div class="post_TCN" style="margin:2% 15%; width: 80%;float:left">
+<div class="post_TCN" style="margin:2% 15%; width: 90%;float:left">
   <?php
   require 'posts_connect.php';
   while ($row = mysqli_fetch_assoc($result_buttonOpenModal)) {
