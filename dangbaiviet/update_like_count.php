@@ -1,5 +1,6 @@
 <?php
 require 'posts_connect.php';
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 
     $post_id = $_POST["post_id"];
     $post_by = $_POST["post_by"];

@@ -1,5 +1,7 @@
 <?php
 $ketnoi = new mysqli('localhost', 'root', '', 'MXH');
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+
 $share_by = $_POST['share_by'];
 $share_to = $_POST['share_to']; // mảng
 $post_id = $_POST['post_id'];
