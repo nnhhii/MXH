@@ -12,7 +12,8 @@ CREATE TABLE user(
   last_activity varchar(100),
   study_at varchar(200),
   working_at varchar(200),
-  relationship varchar(100)
+  relationship varchar(100),
+  reset_token varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 INSERT INTO user(username, password, email, gender, date_of_birth, avartar, cover_picture, bio) VALUES
 ('Phat Le', '12345', 'phatle@gmail.com', 'Nam', '1999-02-18', 'anh2.jpg', 'anh3.jpg', 'hehe tin noi bat'),
