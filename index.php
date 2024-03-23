@@ -53,7 +53,7 @@ if(isset($_SESSION['user']))
                 break;
             case 7:
                 $showMenuPhai = false;
-                include("menu/reels.php");
+                include("trangcanhan/luutrustory.php");
                 break;
             case 8:
                 $showMenuPhai = false;

@@ -196,6 +196,7 @@ body{
     display: flex;
     flex-direction: column;
     position: relative;
+    overflow: hidden;
 }
 .vien_ava_story{
     background: linear-gradient(to left, #5a29b4, #9d2872);
@@ -204,6 +205,10 @@ body{
     height: 43px;
     margin: 7px;
     float: left;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 1;
 }
 .ava_story{
     border-radius: 50%;
@@ -223,6 +228,9 @@ body{
     margin: 10px 0;
     font-size: 12px;
     color: white; 
+}
+video::-webkit-media-controls-enclosure {
+    display: none !important;
 }
 .menu_phai > .de_xuat{
     margin: 50px 0 0 5%;
