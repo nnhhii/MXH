@@ -156,7 +156,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
               </div>
             </div>
           </div>
-          <?php include 'dangbaiviet/hienthistory.php'?>
+          <?php include 'story/hienthistory.php'?>
           
         </div>
       </div>

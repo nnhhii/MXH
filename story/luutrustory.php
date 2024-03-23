@@ -14,5 +14,5 @@ WHERE story.user_id= $user_id";
 <div class="gop_2_menu">
     <div style="width:80%;margin:5% auto">
     <h4 style="margin-left:-5%">Lưu trữ story</h4>
-<?php include 'dangbaiviet/hienthistory.php'?>
+<?php include 'story/hienthistory.php'?>
 </div></div>
