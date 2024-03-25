@@ -11,6 +11,7 @@ $ngaysinh = $_POST['ngaysinh'];
 $thangsinh = $_POST['thangsinh'];
 $namsinh = $_POST['namsinh'];
 $gioitinh = $_POST['gioitinh'];
+$passMaHoa= md5($pass);
 
 $username = $ho . ' ' . $ten;
 $ngaysinh = date('Y-m-d', strtotime($namsinh . '-' . $thangsinh . '-' . $ngaysinh));
@@ -25,7 +26,7 @@ if ($link->query($sql_check)->num_rows > 0) {
       </script>";
 } else{
   $sql="INSERT INTO user(username,email,password,date_of_birth,gender) 
-  VALUES ('$username','$email','$pass','$ngaysinh','$gioitinh')";
+  VALUES ('$username','$email','$passMaHoa','$ngaysinh','$gioitinh')";
   if ($link->query($sql) === TRUE) {
     header("location:dangnhap.php?message=Tạo tài khoản thành công!");
 } else {

@@ -1,5 +1,6 @@
 <?php 
 session_start();
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 $link=new mysqli("localhost","root","","mxh");
 
 if(isset($_SESSION['user'])){

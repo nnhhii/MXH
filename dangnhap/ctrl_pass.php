@@ -1,8 +1,8 @@
-<?php 
+<?php
 session_start();
-$old_pass = $_POST["old_pass"];
-$new_pass = $_POST["new_pass"];
-$confirm_new_pass = $_POST["confirm_new_pass"];
+$old_pass = md5($_POST["old_pass"]);
+$new_pass = md5($_POST["new_pass"]);
+$confirm_new_pass = md5($_POST["confirm_new_pass"]);
 
 $link = new mysqli("localhost", "root", "", "mxh");
 $user_id = $_SESSION['user'];
